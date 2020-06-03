@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script defer src="../public/javascripts/dish.js"></script>
+        <script defer src="../public/javascripts/dishFuncions.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
+
+</head>
+
+<body>
+    <%- include ("partials/navigation.ejs"); %>
+    <div class="container">
+        <div class="infoPage">
+            <i class="fas fa-list-alt fa-2x"></i>
+            <span> <%= items.myObject.infoPage.platos %> </span>
+        </div>
+
+        <hr>
+        <br>
+        <form method="POST">
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" name="title" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
+                    <a id="submit-form-link" href="#"></a>
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br><br>
+
+
+ 
+        <% const  nombres_sz=  items.myObject.tablaPlatos.nombres.length %>
+        <% const  nombres=  items.myObject.tablaPlatos.nombres %>
+        <% const  docs_sz =   items.myDocs.length %>
+        <% const  docs =   items.myDocs %>
+
+     
+
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <% for (var i=0; i< nombres_sz; i++) { %>
+                    <th scope="col"><%= nombres[i] %></th>
+                    <% } %>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <% for (var i=0; i < docs_sz; i++) { %>
+                    <td> <%= docs[i].title %> </td>
+                    <td> <%= items.myKcal[i] %> </td>
+                    <td> <button type="button" class="btn btn-danger"><a title="Eliminar" href="/dish/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button> 
+                        <button type="button" class="btn btn-info"><a title="Ver detalles"  href="/dish/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button> 
+                        <button type="button" class="btn btn-warning"><a title="Editar" href="#"><i class="fas fa-edit"></i></a></button></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+
+    </div>
+    <%- include ("partials/footer.ejs"); %>
+</body>
+
+
+</html>

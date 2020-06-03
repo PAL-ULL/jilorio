@@ -1,0 +1,387 @@
+{
+    "navegacion": {
+        "menu": [
+            {
+                "name": "Inicio",
+                "href": "home"
+            },
+            {
+                "name": "Alimentos",
+                "href": "food"
+            },
+            {
+                "name": "Platos",
+                "href": "dish"
+            },
+            {
+                "name": "Menus",
+                "href": "menu"
+            },
+            {
+                "name": "Planificaciones",
+                "href": "planification"
+            },
+            {
+                "name": "Recomendaciones",
+                "href": "recomendation"
+            },
+            {
+                "name": "Evaluaciones",
+                "href": "evaluation"
+            }
+        ],
+        "usuario": [
+            {
+                "name": "Iniciar Sesión",
+                "href": "login"
+            },
+            {
+                "name": "Cerrar Sesión",
+                "href": "logout"
+            },
+            {
+                "name": "Registrarse",
+                "href": "register"
+            }
+        ]
+    },
+    "homeIndex": [
+        {
+            "name": "Alimentos",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-apple-alt"
+        },
+        {
+            "name": "Platos",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-utensils"
+        },
+        {
+            "name": "Menús",
+            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "icon": "fas fa-concierge-bell"
+        },
+        {
+            "name": "Planificación",
+            "description": "Eget dolor morbi non arcu risus. Vitae justo eget magna fermentum iaculis eu non diam. Nunc sed augue lacus viverra vitae congue. Dignissim convallis aenean et tortor at risus viverra adipiscing. Tempor commodo ullamcorper a lacus.",
+            "icon": "fas fa-calendar-alt"
+        },
+        {
+            "name": "Recomendación",
+            "description": "At urna condimentum mattis pellentesque. Justo nec ultrices dui sapien eget mi proin sed libero. Nisi est sit amet facilisis magna etiam tempor orci eu. Id nibh tortor id aliquet lectus proin. Quam quisque id diam vel quam.",
+            "icon": "fas fa-book"
+        },
+        {
+            "name": "Evaluación",
+            "description": "Purus sit amet volutpat consequat mauris nunc congue. Viverra maecenas accumsan lacus vel facilisis volutpat est. Sit amet dictum sit amet justo donec enim. Semper feugiat nibh sed pulvinar.",
+            "icon": "fas fa-balance-scale"
+        }
+    ],
+    "infoPage": {
+        "alimentos": "Listado de alimentos",
+        "platos": "Listado de platos",
+        "menus": "Listado de menús",
+        "recomendaciones": "Listado de recomendaciones",
+        "evaluaciones": "Listado de evaluaciones"
+    },
+    "tablaAlimentos": {
+        "nombres": [
+            "Identificador",
+            "Nombre",
+            "Energía (Kcal)",
+            "Agua",
+            "Proteínas",
+            "Lípidos",
+            "Carbohidratos",
+            "Fibra",
+            "Azúcar",
+            "Sal",
+            "Colesterol"
+        ],
+        "valores": [
+            "ndb_no",
+            "shrt_desc",
+            "energ_kcal",
+            "water_(g)",
+            "protein_(g)",
+            "lipid_tot_(g)",
+            "carbohydrt_(g)",
+            "fiber_td_(g)",
+            "sugar_tot_(g)",
+            "sodium_(mg)",
+            "cholestrl_(mg)"
+        ]
+    },
+    "busqueda": "¿Qué estás buscando?",
+    "tablaPlatos": {
+        "nombres": [
+            "Nombre",
+            "Calorías",
+            "Acciones"
+        ],
+        "valores": [
+            "title",
+            "description",
+            "ingredients",
+            "date"
+        ],
+        "model": [
+            "name",
+            "amount",
+            "unitMeasure",
+            "ndbno"
+        ],
+        "opciones": [
+            "Ver detalles",
+            "Eliminar",
+            "Actualizar"
+        ],
+        "nutrientes": [
+            "Agua",
+            "Energía (Kcal)",
+            "Proteínas",
+            "Lípidos",
+            "Carbohidratos",
+            "Fibra",
+            "Azúcar",
+            "Sal",
+            "Colesterol"
+        ],
+        "nutrientesValue": [
+            "water",
+            "energKcal",
+            "protein",
+            "lipidTotal",
+            "carbohydrt",
+            "fiber",
+            "sodium",
+            "cholestrl",
+            "sugar"
+        ]
+    },
+    "register": {
+        "title": "Registro de usuarios",
+        "form": [
+            {
+                "label": "Introduzca su nombre",
+                "icon": "fas fa-user",
+                "type": "text",
+                "placeholder": "Nombre",
+                "ariaLabel": "name",
+                "name": "name"
+            },
+            {
+                "label": "Introduzca su nombre de usuario",
+                "icon": "@",
+                "type": "text",
+                "placeholder": "Nombre de usuario",
+                "ariaLabel": "username",
+                "name": "username"
+            },
+            {
+                "label": "Introduzca su correo electónico",
+                "icon": "fas fa-envelope",
+                "type": "text",
+                "placeholder": "Correo electrónico",
+                "ariaLabel": "email",
+                "name": "email"
+            },
+            {
+                "label": "Introduzca el rol de usuario",
+                "icon": "fas fa-id-card",
+                "type": "text",
+                "placeholder": "Rol de usuario",
+                "ariaLabel": "rol",
+                "name": "rol"
+            },
+            {
+                "label": "Introduzca su contraseña",
+                "icon": "fas fa-lock",
+                "type": "password",
+                "placeholder": "Contraseña",
+                "ariaLabel": "password",
+                "name": "password"
+            },
+            {
+                "label": "Confirme su contraseña",
+                "icon": "fas fa-lock",
+                "type": "password",
+                "placeholder": "Contraseña",
+                "ariaLabel": "password2",
+                "name": "password2"
+            }
+        ],
+        "button": "Regístrate"
+    },
+    "login": {
+        "title": "Inicio de sesión",
+        "form": [
+            {
+                "label": "Introduzca su nombre de usuario",
+                "icon": "@",
+                "type": "text",
+                "placeholder": "Nombre de usuario",
+                "ariaLabel": "username",
+                "name": "username"
+            },
+            {
+                "label": "Introduzca su contraseña",
+                "icon": "fas fa-lock",
+                "type": "password",
+                "placeholder": "Contraseña",
+                "ariaLabel": "password",
+                "name": "password"
+            }
+        ],
+        "button": "Inicia sesión"
+    },
+    "dishIndex": [
+        {
+            "name": "Añadir plato",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-edit"
+        },
+        {
+            "name": "Añadir plato desde un archivo json",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-file-alt"
+        },
+        {
+            "name": "Ver platos",
+            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "icon": "fas fa-search"
+        }
+    ],
+    "dishDetails": [
+        "Ingrediente",
+        "Cantidad",
+        "Calorias en 100 gr"
+    ],
+    "nutrients": "Datos nutricionales del plato",
+    "ingredientesDish": "Ingredientes del plato",
+    "recipeDish": "Ir a la receta",
+    "menuIndex": [
+        {
+            "name": "Añadir menú",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-edit"
+        },
+        {
+            "name": "Añadir menú desde un archivo json",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-file-alt"
+        },
+        {
+            "name": "Ver menús",
+            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "icon": "fas fa-search"
+        }
+    ],
+    "planificationIndex": [
+        {
+            "name": "Añadir planificación",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-edit"
+        },
+        {
+            "name": "Añadir planificación desde un archivo json",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-file-alt"
+        },
+        {
+            "name": "Ver planificaciones",
+            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "icon": "fas fa-search"
+        }
+    ],
+    "recomendationIndex": [
+        {
+            "name": "Añadir recomendación",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-edit"
+        },
+        {
+            "name": "Añadir recomendación desde un archivo json",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-file-alt"
+        },
+        {
+            "name": "Ver recomendaciones",
+            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "icon": "fas fa-search"
+        }
+    ],
+    "evaluationIndex": [
+        {
+            "name": "Añadir evaluación",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-edit"
+        },
+        {
+            "name": "Añadir evaluación desde un archivo json",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-file-alt"
+        },
+        {
+            "name": "Ver evaluaciones",
+            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "icon": "fas fa-search"
+        }
+    ],
+    "foodIndex": [
+        {
+            "name": "Ver alimentos",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "icon": "fas fa-edit"
+        },
+        {
+            "name": "Ver nutrientes de alimentos",
+            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "icon": "fas fa-file-alt"
+        }
+    ],
+    "jilorioInfo": [
+        {
+            "home": {
+                "title": "Jilorio",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        },
+        {
+            "dish": {
+                "title": "Platos",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        },
+        {
+            "menu": {
+                "title": "Menú",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        },
+        {
+            "planification": {
+                "title": "Planificación",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        },
+        {
+            "recomendation": {
+                "title": "Recomendación",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        },
+        {
+            "evaluation": {
+                "title": "Evaluación",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        },
+        {
+            "food": {
+                "title": "Alimentos",
+                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+            }
+        }
+    ]
+}

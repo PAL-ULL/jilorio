@@ -1,0 +1,225 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.container {
+    margin-bottom: 120px;
+}
+
+.jilorioInfo{
+    height: 50%;
+    width: 50%;
+    color: rgba(255, 255, 255, 0.897);
+
+    padding: 10px 40px 15px 40px;
+    color: rgba(255, 255, 255, 0.897);
+    background-color: rgba(31, 37, 36, 0.92);
+    /* background-color:  rgba(172, 189, 186, 0.70);  */
+}
+
+.footer {    
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px; 
+    background-color: rgb(31, 37, 36); 
+    border-top: 2px solid  rgba(172, 189, 186, 0.20);
+}
+
+.display-4{
+    font-size: 4.5em ;
+    font-weight: bold;
+}
+
+.jumbotron{
+
+    /* background-color: rgba(172, 189, 186, 0.20); */
+    background-image:url("../images/carousel.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.infoPage{
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
+  
+}
+
+
+
+.row{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.features-icons-icon{
+    margin-bottom: 15px;
+}
+
+.features-icons-icon:hover{
+    transform: scale(1.18)
+}
+
+.infoPage span{
+    font-weight: bold;
+    font-size: 35px;
+}
+
+  
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+  
+.izq{
+    display: block;
+    float: left;
+    font-weight: initial;
+    color:rgba(255, 255, 255, 0.699);
+}
+
+.der{
+    display: block;
+    float: right;    
+    font-weight: initial;
+    color:rgba(255, 255, 255, 0.699);
+}
+
+nav{
+    background-color: #1f2524;
+}
+
+
+
+.table{
+    text-align: center;
+    margin-bottom: 40px;
+    border: 2px solid rgb(46, 115, 124);
+    border-collapse: collapse;
+    box-shadow: 10px 10px 5px 0px rgba(170, 167, 167, 0.6);
+}
+
+
+.jumbotronPlatos{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(252, 247, 0, 0.25); */
+    background-image:url("../images/platos.jpg");  
+}
+
+.platos{
+    width: 30%;
+    min-height: 300px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+.jumbotronMenus{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 255, 213, 0.25);
+     */
+     background-image:url("../images/menu.jpg");  
+
+}
+
+.menus{
+    width: 30%;
+    min-height: 300px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+.jumbotronPlanificacion{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 153, 255, 0.25); */
+        background-image:url("../images/planificacion.jpg"); 
+}
+
+.planificacion{
+    min-width: 420px;
+    min-height: 250px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+.jumbotronRecomendation{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 153, 255, 0.25); */
+        background-image:url("../images/carne.jpg"); 
+}
+
+.recomendation{
+    min-width: 420px;
+    min-height: 250px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+
+.jumbotronRecomendation{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 153, 255, 0.25); */
+        background-image:url("../images/recomendacion.jpg"); 
+}
+
+.recomendation{
+    min-width: 420px;
+    min-height: 250px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+
+.jumbotronEvaluation{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 153, 255, 0.25); */
+        background-image:url("../images/evaluacion.jpg"); 
+}
+
+.evaluation{
+    min-width: 420px;
+    min-height: 250px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+.jumbotronFood{
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgba(0, 153, 255, 0.25); */
+        background-image:url("../images/alimentos.png"); 
+}
+
+.food{
+    min-width: 420px;
+    min-height: 250px;
+    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
+
+a{
+    color: white;
+}

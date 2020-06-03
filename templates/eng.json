@@ -1,0 +1,73 @@
+{
+    "navegacion": {
+        "menu": [
+            {
+                "name": "Home",
+                "href": "../index.ejs"
+            },
+            {
+                "name": "Food",
+                "href": "../food.ejs"
+            },
+            {
+                "name": "Dishes",
+                "href": "../dish.ejs"
+            },
+            {
+                "name": "Planning",
+                "href": "../planificacion.ejs"
+            },
+            {
+                "name": "Recomendations",
+                "href": "../recomendation.ejs"
+            },
+            {
+                "name": "Evaluations",
+                "href": "../evaluacion.ejs"
+            }
+        ],
+        "usuario": [
+            {
+                "name": "Log in",
+                "href": "../iniciarSesion.ejs"
+            },
+            {
+                "name": "Log out",
+                "href": "../cerrarSesion.ejs"
+            },
+            {
+                "name": "Sign in",
+                "href": "../registro.ejs"
+            }
+        ]
+    },
+    "tablaAlimentos": {
+        "nombres": [
+            "Identifier",
+            "Name",
+            "Energy (Kcal)",
+            "Water",
+            "Proteins",
+            "Lipids",
+            "Carbohydrates",
+            "Fiber",
+            "Sugar",
+            "Salt",
+            "Cholesterol"
+        ],
+        "valores": [
+            "ndb_no",
+            "shrt_desc",
+            "energ_kcal",
+            "water_(g)",
+            "protein_(g)",
+            "lipid_tot_(g)",
+            "carbohydrt_(g)",
+            "fiber_td_(g)",
+            "sugar_tot_(g)",
+            "sodium_(mg)",
+            "cholestrl_(mg)"
+        ]
+    },
+    "busqueda": "What are you searching?"
+}

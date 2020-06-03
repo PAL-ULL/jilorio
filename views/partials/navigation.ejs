@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">𝐉𝐈𝐋𝐎𝐑𝐈𝐎</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <% for (var i=0; i< items.myObject.navegacion.menu.length; i++) { %>
+      <li class="nav-item">
+        <a class="nav-link"
+          href="<%- items.myObject.navegacion.menu[i].href %>"><%- items.myObject.navegacion.menu[i].name %></a>
+      </li>
+      <% } %>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+     
+        <% for (var i=0; i< items.myObject.navegacion.usuario.length; i++) { %>
+          <li class="nav-item">
+          <% if (items.myObject.navegacion.usuario[2]) {%>
+            <a class="nav-link logout" href="<%- items.myObject.navegacion.usuario[i].href %>"><%- items.myObject.navegacion.usuario[i].name %></a>
+          </li>
+            <% } else {%>
+            <a class="nav-link" href="<%- items.myObject.navegacion.usuario[i].href %>"><%- items.myObject.navegacion.usuario[i].name %></a>
+          </li>
+        <% } %>
+        <% } %>
+    
+    </ul>
+  </div>
+</nav>
