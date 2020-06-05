@@ -1,6 +1,6 @@
 <% if (items.errors != null) {%>
 <% for (var i=0; i < items.errors.length; i++) { %>
-<p class="alert alert-danger"><%= items.errors[i] %></span>
+<p class="alert alert-danger"><%= items.errors[i].msg %></span>
     <% } %>
     <% } %>
 

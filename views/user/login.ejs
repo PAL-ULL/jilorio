@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script defer src="/javascripts/index.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
@@ -16,13 +15,11 @@
 </head>
 
 <body>
-    <%- include ("partials/navigation.ejs"); %>
-    <div class="container">
-        
-       
+    <%- include ("../partials/navigation.ejs"); %>
+    <div class="container">     
 
         <h1><%= items.myObject.login.title %></h1>
-        <%- include ("partials/message.ejs"); %>
+        <%- include ("../partials/message.ejs"); %>
 
         <form method="POST">
             <br> <br> <br>
@@ -48,7 +45,7 @@
 
         </form>
     </div>
-    <%- include ("partials/footer.ejs"); %>
+    <%- include ("../partials/footer.ejs"); %>
 </body>
 
 

@@ -7,41 +7,41 @@
             },
             {
                 "name": "Alimentos",
-                "href": "food"
+                "href": "/food"
             },
             {
                 "name": "Platos",
-                "href": "dish"
+                "href": "/dish"
             },
             {
                 "name": "Menus",
-                "href": "menu"
+                "href": "/menu"
             },
             {
                 "name": "Planificaciones",
-                "href": "planification"
+                "href": "/planification"
             },
             {
                 "name": "Recomendaciones",
-                "href": "recomendation"
+                "href": "/recomendation"
             },
             {
                 "name": "Evaluaciones",
-                "href": "evaluation"
+                "href": "/evaluation"
             }
         ],
         "usuario": [
             {
                 "name": "Iniciar Sesión",
-                "href": "login"
+                "href": "/login"
             },
             {
                 "name": "Cerrar Sesión",
-                "href": "logout"
+                "href": "/logout"
             },
             {
                 "name": "Registrarse",
-                "href": "register"
+                "href": "/register"
             }
         ]
     },
@@ -185,14 +185,6 @@
                 "placeholder": "Correo electrónico",
                 "ariaLabel": "email",
                 "name": "email"
-            },
-            {
-                "label": "Introduzca el rol de usuario",
-                "icon": "fas fa-id-card",
-                "type": "text",
-                "placeholder": "Rol de usuario",
-                "ariaLabel": "rol",
-                "name": "rol"
             },
             {
                 "label": "Introduzca su contraseña",

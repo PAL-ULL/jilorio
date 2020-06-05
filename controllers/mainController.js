@@ -37,7 +37,7 @@ let controller = {
     },
 
     food: function (req, res) {
-        return res.status(200).render('food.ejs', {
+        return res.status(200).render('food/food.ejs', {
             items: {
                 myObject: espTemplate
             }
@@ -53,7 +53,7 @@ let controller = {
             const collection = db.collection("food");
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-                res.render('getFood', {
+                res.render('food/getFood', {
                     items: {
                         myObject: espTemplate,
                         myDocs: resultArray
@@ -80,7 +80,7 @@ let controller = {
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
                 console.log(data);
-                res.render('getFood', {
+                res.render('food/getFood', {
                     items: {
                         myObject: espTemplate,
                         myDocs: resultArray
@@ -93,7 +93,7 @@ let controller = {
     },
 
     dish: function (req, res) {
-        return res.status(200).render('dish.ejs', {
+        return res.status(200).render('dish/dish.ejs', {
             items: {
                 myObject: espTemplate
             }
@@ -108,7 +108,7 @@ let controller = {
                 // console.log(docs);
                 const suma = await calculateKcal(docs);
 
-                res.render('getDish', {
+                res.render('dish/getDish', {
                     items: {
                         myObject: espTemplate,
                         myDocs: docs,
@@ -131,7 +131,7 @@ let controller = {
                 
                 const nutrientes = await calculateNutrients(doc);
                 console.log("-------------------------------------------> \n" + util.inspect(nutrientes[0]));
-                res.render('dishDetails', {
+                res.render('dish/dishDetails', {
                     items: {
                         myObject: espTemplate,
                         myDocs: doc[0],
@@ -160,7 +160,7 @@ let controller = {
                 const suma = await calculateKcal(docs);
                 console.log(suma);
                 console.log(docs);
-                res.render('getDish', {
+                res.render('dish/getDish', {
                     items: {
                         myObject: espTemplate,
                         myDocs: docs,
@@ -176,7 +176,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                res.render('addDish.ejs', {
+                res.render('dish/addDish.ejs', {
                     items: {
                         myObject: espTemplate,
 
@@ -205,7 +205,7 @@ let controller = {
                     // console.log(docs);
                     const suma = await calculateKcal(docs);
     
-                    res.render('getDish', {
+                    res.render('dish/getDish', {
                         items: {
                             myObject: espTemplate,
                             myDocs: docs,
@@ -242,7 +242,7 @@ let controller = {
     },
 
     menu: function (req, res) {
-        return res.status(200).render('menu.ejs', {
+        return res.status(200).render('menu/menu.ejs', {
             items: {
                 myObject: espTemplate
             }
@@ -250,7 +250,7 @@ let controller = {
     },
 
     planification: function (req, res) {
-        return res.status(200).render('planification.ejs', {
+        return res.status(200).render('planification/planification.ejs', {
             items: {
                 myObject: espTemplate
             }
@@ -258,7 +258,7 @@ let controller = {
     },
 
     recomendation: function (req, res) {
-        return res.status(200).render('recomendation.ejs', {
+        return res.status(200).render('recomendation/recomendation.ejs', {
             items: {
                 myObject: espTemplate
             }
@@ -266,7 +266,7 @@ let controller = {
     },
 
     evaluation: function (req, res) {
-        return res.status(200).render('evaluation.ejs', {
+        return res.status(200).render('evaluation/evaluation.ejs', {
             items: {
                 myObject: espTemplate
             }
@@ -276,7 +276,7 @@ let controller = {
 
     register: function (req, res) {
 
-        res.render('register', {
+        res.render('user/register', {
             items: {
                 myObject: espTemplate
             }
@@ -291,8 +291,6 @@ let controller = {
         console.log("email: " + email);
         const username = req.body.username;
         console.log("username: " + username);
-        const rol = req.body.rol;
-        console.log("rol: " + rol);
         const password = req.body.password;
         console.log("password: " + password);
         const password2 = req.body.password2;
@@ -306,12 +304,13 @@ let controller = {
         req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
         let errors = req.validationErrors();
-
+  
         if (errors) {
-            res.render('index', {
+
+            res.render('user/register', {
                 items: {
                     myObject: espTemplate,
-                    errors: errors
+                    errors
                 }
             });
         } else {
@@ -319,7 +318,6 @@ let controller = {
                 name: name,
                 email: email,
                 username: username,
-                rol: rol,
                 password: password
             });
 
@@ -336,7 +334,7 @@ let controller = {
                             return;
                         } else {
                             req.flash('success', 'You are now registered and can log in');
-                            res.render('login.ejs', {
+                            res.render('user/login', {
                                 items: {
                                     myObject: espTemplate,
                                     msg: "You are now registered and can log in"
@@ -352,7 +350,7 @@ let controller = {
 
     login: function (req, res) {
         const errors = req.flash().error || [];
-        res.render('login', {
+        res.render('user/login', {
             items: {
                 myObject: espTemplate,
                 errors
@@ -368,16 +366,10 @@ let controller = {
 
         })(req, res);
 
-        exit
-
     },
-
-
 };
 
 async function findAllDocuments(db, query, collection, callback) {
-
-    console.log("En la función");
 
     collection
         .find(query)
