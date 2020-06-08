@@ -382,15 +382,10 @@ let controller = {
                     console.log(err);
                 } else {
                     console.log(docs);
-
-
-
-                    res.render('dish/getDish', {
+                    res.render('menu/getMenu', {
                         items: {
                             myObject: espTemplate,
                             myDocs: docs
-
-
                         }
                     });
                 }
