@@ -87,6 +87,7 @@
         "alimentos": "Listado de alimentos",
         "platos": "Listado de platos",
         "menus": "Listado de menús",
+        "planificacion": "Listado de planificaciones",
         "recomendaciones": "Listado de recomendaciones",
         "evaluaciones": "Listado de evaluaciones"
     },
@@ -168,7 +169,16 @@
     "tablaMenu": {
         "nombres": [
             "Nombre",
-            "Plato",
+            "Platos",
+            "Calorías del menú",
+            "Acciones"
+        ]
+    },
+    "tablaPlanificacion": {
+        "nombres": [
+            "Nombre",
+            "Tipo",
+            "Menús",
             "Acciones"
         ]
     },

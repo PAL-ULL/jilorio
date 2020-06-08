@@ -23,6 +23,7 @@ const dish = require("../public/javascripts/dish.js");
 // Bring mondels
 const Dish = require("../models/dish");
 const Menu = require("../models/menu");
+const planification = require("../models/planification");
 const User = require("../models/user");
 
 var util = require('util');
@@ -111,7 +112,7 @@ let controller = {
                 for (let i = 0; i < docs.length; i++) {
                     console.log(docs[i].ingredients);
                 }
-               
+
                 const suma = await calculateKcal(docs);
 
                 res.render('dish/getDish', {
@@ -189,7 +190,7 @@ let controller = {
                 });
 
             });
-    
+
         });
     },
 
@@ -253,7 +254,7 @@ let controller = {
                 if (err) {
                     console.log(err);
                 } else {
-                  
+
                     const suma = await calculateKcal(docs);
 
                     res.render('dish/getDish', {
@@ -299,10 +300,16 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
+                let valores = [];
+                for (let i = 0; i < docs.length; i++) {
+                    const value = await calculateNutrientsMenu(docs[i])
+                    valores.push(value);
+                }
                 res.render('menu/getMenu', {
                     items: {
                         myObject: espTemplate,
-                        myDocs: docs
+                        myDocs: docs,
+                        myNutrientsMenu: valores,
 
                     }
                 });
@@ -321,7 +328,7 @@ let controller = {
         const query = { _id: { $regex: `${searchData}` } };
 
 
-        Menu.find(query, function (err, docs) {
+        Menu.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
@@ -344,7 +351,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-               
+
                 let valores = [];
                 valores = await calculateNutrientsMenu(doc[0]);
                 let kcalPlatos = [];
@@ -364,6 +371,8 @@ let controller = {
             }
         }).sort({ _id: 1 })
     },
+
+
     removeMenu: function (req, res) {
 
         let menuId = req.params._id;
@@ -402,6 +411,30 @@ let controller = {
                 myObject: espTemplate
             }
         });
+    },
+
+    planificationView: async function (req, res) {
+        planification.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                // for (var i = 0; i < docs[4].menus[4].length; i++) {
+                    for (var k = 0; k < docs[4].menus[4][5].length; k++) {
+                        console.log(docs[4].menus[19][20][k]._id);
+                    }
+                    // console.log(docs[4].menus[4][5][k]._id);
+                // }
+                console.log(docs[4].menus[3][4].length);
+                console.log(docs[4].menus[3][4].length);
+                res.render('planification/getPlanification', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: docs
+
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
     },
 
     recomendation: function (req, res) {

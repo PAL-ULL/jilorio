@@ -19,9 +19,7 @@ router.post("/dish/view:_id?", controller.getDish);
 // router.get("/dish/add", controller.addDish);
 router.get("/dish/delete/:_id", controller.removeDish);
 router.get("/dish/insert", controller.insertDish);
-
 router.post("/dish/insert", controller.insertDish);
-
 router.get("/dish/:_id", controller.dishDetails);
 
 
@@ -32,6 +30,7 @@ router.get("/menu/:_id", controller.menuDetails);
 router.get("/menu/delete/:_id", controller.removeMenu);
 
 router.get("/planification", controller.planification);
+router.get("/planification/view", controller.planificationView);
 
 router.get("/recomendation", controller.recomendation);
 
