@@ -7,7 +7,7 @@ const food = require("./food");
 
 
 let dishSchema = new Schema({
-    title: { type: String, required: true },
+    _id: { type: String, required: true },
     description: { type: String, required: true },
     ingredients: {type: Array, required: false},
     date: { type: Date, default: Date.now },

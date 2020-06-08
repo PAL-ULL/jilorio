@@ -24,7 +24,7 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
- 
+
     <div class="container">
         <div class="infoPage">
             <i class="fas fa-list-alt fa-2x"></i>
@@ -34,44 +34,35 @@
         <div class="row justify-content-between">
             <div class="col-8">
                 <p class="descriptionDish"> <%= items.myDocs.description %> </p>
-                <button type="button" class="btn btn-info"><a title="Ver receta"
-                        href="<%= items.myDocs.recipe %>"><%= items.myObject.recipeDish %></a></button>
             </div>
-            <div class="col-3.5 divImg">
-                <img class="imageDish" src="<%= items.myDocs.imageURL %>" alt="<%= items.myObject.title %> ">
-            </div>
-        
         </div>
         <div class="tabTitle">
-            <span><%= items.myObject.ingredientesDish %></span>
+            <span><%= items.myObject.platosMenu %></span>
         </div>
 
         <table class="table table-striped table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
-                    <% for (let i=0; i < items.myObject.dishDetails.length; i++) {%>
-                    <th scope="col"><%= items.myObject.dishDetails[i] %> </th>
+                    <% for (let i=0; i < items.myObject.menuDetails.length; i++) {%>
+                    <th scope="col"><%= items.myObject.menuDetails[i] %> </th>
                     <% } %>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                
-                    <% for (let i=0; i < items.myDocs.ingredients.length; i++) { %>
+                    <% for (let i=0; i < items.myDocs.dishes.length; i++) { %>
                 </tr>
 
-                <td><%= items.myDocs.ingredients[i].name %> </td>
-                <td><%= items.myDocs.ingredients[i].amount %> <%= items.myDocs.ingredients[i].unitMeasure %> </td>
-                <td><%= items.myNutIngredients[i][0]["energ_kcal"] %> </td>
+                <td><%= items.myDocs.dishes[i]._id %> </td>
+                <td><%= items.myKcalDishes[i] %> </td>
                 <% } %>
 
             </tbody>
         </table>
+
         <div class="tabTitle">
-            <span><%= items.myObject.nutrients %></span>
+            <span><%= items.myObject.nutrientsMenu %></span>
         </div>
-        
-                   
         <table class="table table-striped table-hover table-sm nutrientsTab">
 
             <thead class="thead-dark">
@@ -83,13 +74,13 @@
             </thead>
             <tbody>
                 <tr>
-
                     <% for (var i=0; i < items.myObject.tablaPlatos.nutrientes.length; i++) {%>
-                    <td><%= items.myNutrients[items.myObject.tablaPlatos.nutrientesValue[i]] %> </td>
+                    <td><%= items.myNutrientsMenu[i] %> </td>
                     <% } %>
                 </tr>
             </tbody>
         </table>
+
     </div>
     <%- include ("../partials/footer.ejs"); %>
 </body>

@@ -49,32 +49,38 @@
         {
             "name": "Alimentos",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
-            "icon": "fas fa-apple-alt"
+            "icon": "fas fa-apple-alt",
+            "href": "/food"
         },
         {
             "name": "Platos",
             "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
-            "icon": "fas fa-utensils"
+            "icon": "fas fa-utensils",
+            "href": "/dish"
         },
         {
             "name": "Menús",
             "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
-            "icon": "fas fa-concierge-bell"
+            "icon": "fas fa-concierge-bell",
+            "href": "/menu"
         },
         {
             "name": "Planificación",
             "description": "Eget dolor morbi non arcu risus. Vitae justo eget magna fermentum iaculis eu non diam. Nunc sed augue lacus viverra vitae congue. Dignissim convallis aenean et tortor at risus viverra adipiscing. Tempor commodo ullamcorper a lacus.",
-            "icon": "fas fa-calendar-alt"
+            "icon": "fas fa-calendar-alt",
+            "href": "/planification"
         },
         {
             "name": "Recomendación",
             "description": "At urna condimentum mattis pellentesque. Justo nec ultrices dui sapien eget mi proin sed libero. Nisi est sit amet facilisis magna etiam tempor orci eu. Id nibh tortor id aliquet lectus proin. Quam quisque id diam vel quam.",
-            "icon": "fas fa-book"
+            "icon": "fas fa-book",
+            "href": "/recomendation"
         },
         {
             "name": "Evaluación",
             "description": "Purus sit amet volutpat consequat mauris nunc congue. Viverra maecenas accumsan lacus vel facilisis volutpat est. Sit amet dictum sit amet justo donec enim. Semper feugiat nibh sed pulvinar.",
-            "icon": "fas fa-balance-scale"
+            "icon": "fas fa-balance-scale",
+            "href": "/evaluation"
         }
     ],
     "infoPage": {
@@ -159,6 +165,13 @@
             "sugar"
         ]
     },
+    "tablaMenu": {
+        "nombres": [
+            "Nombre",
+            "Plato",
+            "Acciones"
+        ]
+    },
     "register": {
         "title": "Registro de usuarios",
         "form": [
@@ -205,6 +218,60 @@
         ],
         "button": "Regístrate"
     },
+    "dish": {
+        "title": "Inserción de platos",
+        "form": [
+            {
+                "label": "Introduzca el nombre del plato",
+                "icon": "fas fa-utensils",
+                "type": "text",
+                "placeholder": "Nombre del plato",
+                "ariaLabel": "title",
+                "name": "title"
+            },
+            {
+                "label": "Introduzca una descripción para el plato",
+                "icon": "fas fa-edit",
+                "type": "text",
+                "placeholder": "Descripción del plato",
+                "ariaLabel": "description",
+                "name": "description"
+            },
+            {
+                "label": "Introduzca un enlace a la receta",
+                "icon": "fas fa-utensil-spoon",
+                "type": "url",
+                "placeholder": "Receta del plato",
+                "ariaLabel": "recipe",
+                "name": "recipe"
+            },
+            {
+                "label": "Introduzca una imagen al plato",
+                "icon": "fas fa-image",
+                "type": "url",
+                "placeholder": "Imagen del plato",
+                "ariaLabel": "imageURL",
+                "name": "imageURL"
+            },
+            {
+                "label": "Introduzca los ingredientes",
+                "icon": "fas fa-apple-alt",
+                "type": "text",
+                "placeholder": "Ingredientes del plato",
+                "ariaLabel": "ingredients",
+                "name": "ingredients"
+            },
+            {
+                "label": "Introduzca platos relacionados",
+                "icon": "fas fa-utensils",
+                "type": "text",
+                "placeholder": "Platos relacionados",
+                "ariaLabel": "relationatedDishes",
+                "name": "relationatedDishes"
+            }
+        ],
+        "button": "Confirmar"
+    },
     "login": {
         "title": "Inicio de sesión",
         "form": [
@@ -231,17 +298,20 @@
         {
             "name": "Añadir plato",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
-            "icon": "fas fa-edit"
+            "icon": "fas fa-edit",
+            "href": "/dish/insert"
         },
         {
             "name": "Añadir plato desde un archivo json",
             "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
-            "icon": "fas fa-file-alt"
+            "icon": "fas fa-file-alt",
+            "href": "/dish/insertDishJson"
         },
         {
             "name": "Ver platos",
             "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
-            "icon": "fas fa-search"
+            "icon": "fas fa-search",
+            "href": "/dish/view"
         }
     ],
     "dishDetails": [
@@ -249,6 +319,13 @@
         "Cantidad",
         "Calorias en 100 gr"
     ],
+    "menuDetails": [
+        "Plato",
+        "Calorias del plato"
+    ],
+    "platosMenu": "Platos del menú",
+    "nutrientsMenu": "Datos nutricionales del menú",
+    
     "nutrients": "Datos nutricionales del plato",
     "ingredientesDish": "Ingredientes del plato",
     "recipeDish": "Ir a la receta",
@@ -324,7 +401,8 @@
         {
             "name": "Ver alimentos",
             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
-            "icon": "fas fa-edit"
+            "icon": "fas fa-edit",
+            "href": "/food/view"
         },
         {
             "name": "Ver nutrientes de alimentos",

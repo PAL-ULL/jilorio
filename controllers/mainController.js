@@ -19,13 +19,15 @@ const passport = require('passport')
 const espTemplate = require("../templates/esp.json");
 const dish = require("../public/javascripts/dish.js");
 
+
 // Bring mondels
 const Dish = require("../models/dish");
+const Menu = require("../models/menu");
 const User = require("../models/user");
 
 var util = require('util');
 
-
+let ingredientes = [];
 // Routes
 let controller = {
     home: function (req, res) {
@@ -79,7 +81,7 @@ let controller = {
             const collection = db.collection("food");
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-                console.log(data);
+
                 res.render('food/getFood', {
                     items: {
                         myObject: espTemplate,
@@ -105,7 +107,11 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(docs);
+
+                for (let i = 0; i < docs.length; i++) {
+                    console.log(docs[i].ingredients);
+                }
+               
                 const suma = await calculateKcal(docs);
 
                 res.render('dish/getDish', {
@@ -117,7 +123,7 @@ let controller = {
                     }
                 });
             }
-        })
+        }).sort({ _id: 1 })
     },
     dishDetails: async function (req, res) {
         let dishId = req.params._id;
@@ -128,9 +134,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                
                 const nutrientes = await calculateNutrients(doc);
-                console.log("-------------------------------------------> \n" + util.inspect(nutrientes[0]));
                 res.render('dish/dishDetails', {
                     items: {
                         myObject: espTemplate,
@@ -140,23 +144,70 @@ let controller = {
                     }
                 });
             }
-        })
+        }).sort({ _id: 1 })
+    },
+
+    insertDish: function (req, res) {
+        const title = req.body.title;
+        console.log("title: " + title);
+        const description = req.body.description;
+        console.log("description: " + description);
+        const recipe = req.body.recipe;
+        console.log("receta: " + recipe);
+        const imageURL = req.body.imageURL;
+        console.log("imageURL: " + imageURL);
+
+
+        req.checkBody('title', 'title is required').notEmpty();
+        req.checkBody('description', 'description is required').notEmpty();
+        let errors = req.validationErrors();
+        if (typeof req.body.group !== "undefined") {
+            console.log("\n\n\n" + util.inspect(req.body));
+        }
+
+        let query = {};
+
+        const searchData = req.body.shrt_desc;
+        console.log(searchData)
+        if (typeof searchData !== "undefined") {
+            query = { shrt_desc: { $regex: searchData } };
+        }
+
+        client.connect(function (err, client) {
+            assert.equal(null, err);
+            console.log("\nConnected successfully to server");
+            const db = client.db(name);
+            const collection = db.collection("food");
+            findAllDocuments(db, query, collection, function (data) {
+                let resultArray = data;
+                console.log(resultArray.length)
+                res.render('dish/insertDish', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: resultArray
+                    }
+                });
+
+            });
+    
+        });
     },
 
 
     getDish: async function (req, res) {
-        const searchData = req.body.title;
+
+        const searchData = req.body._id;
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "Objeto no existente");
         }
         console.log(searchData);
-        const query = { title: { $regex: `${searchData}` } };
+        const query = { _id: { $regex: `${searchData}` } };
 
         Dish.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(docs);
+
                 const suma = await calculateKcal(docs);
                 console.log(suma);
                 console.log(docs);
@@ -168,7 +219,7 @@ let controller = {
                     }
                 });
             }
-        })
+        }).sort({ _id: 1 })
     },
 
     addDish: function (req, res) {
@@ -176,20 +227,20 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                res.render('dish/addDish.ejs', {
+                res.render('dish/addDish', {
                     items: {
                         myObject: espTemplate,
 
                     }
                 });
             }
-        })
+        }).sort({ _id: 1 })
     },
 
     removeDish: function (req, res) {
 
         let dishId = req.params._id;
-        console.log("LLama a REMOVE");
+
         Dish.findByIdAndRemove(dishId, (err, dishRemoved) => {
             if (err) {
                 return req.flash('danger', "Error, no se ha podido eliminar el plato");
@@ -202,26 +253,20 @@ let controller = {
                 if (err) {
                     console.log(err);
                 } else {
-                    // console.log(docs);
+                  
                     const suma = await calculateKcal(docs);
-    
+
                     res.render('dish/getDish', {
                         items: {
                             myObject: espTemplate,
                             myDocs: docs,
                             myKcal: suma
-    
+
                         }
                     });
                 }
-            })
-            // return res.status(200).render('getDish', {
-            //     items: {
-            //         myObject: espTemplate,
-            //         myDocs: docs,
-            //         myKcal: suma
-            //     }
-            // });
+            }).sort({ _id: 1 })
+
         })
     },
 
@@ -248,6 +293,113 @@ let controller = {
             }
         });
     },
+
+    menuView: async function (req, res) {
+        Menu.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('menu/getMenu', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: docs
+
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+    },
+
+    getMenu: async function (req, res) {
+        const searchData = req.body["_id"];
+
+        if ((searchData == null) || (searchData == "")) {
+            req.flash('success', "Objeto no existente");
+            console.log(searchData);
+        }
+
+        const query = { _id: { $regex: `${searchData}` } };
+
+
+        Menu.find(query, function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                res.render('menu/getMenu', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+    },
+
+    menuDetails: async function (req, res) {
+        let menuId = req.params._id;
+        const query = { _id: menuId };
+
+        Menu.find(query, async function (err, doc) {
+            if (err) {
+                console.log(err);
+            } else {
+               
+                let valores = [];
+                valores = await calculateNutrientsMenu(doc[0]);
+                let kcalPlatos = [];
+                const kcal = await calculateKcal(doc[0].dishes);
+                kcalPlatos.push(kcal);
+
+
+
+                res.render('menu/menuDetails', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: doc[0],
+                        myNutrientsMenu: valores,
+                        myKcalDishes: kcalPlatos[0]
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+    },
+    removeMenu: function (req, res) {
+
+        let menuId = req.params._id;
+
+        Menu.findByIdAndRemove(menuId, (err, menuRemoved) => {
+            if (err) {
+                console.log(err);
+                return req.flash('danger', "Error, no se ha podido eliminar el plato");
+            }
+            if (!menuRemoved) {
+                return req.flash('danger', "No se puede eliminar el proyecto.");
+            }
+
+            Menu.find({}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(docs);
+
+
+
+                    res.render('dish/getDish', {
+                        items: {
+                            myObject: espTemplate,
+                            myDocs: docs
+
+
+                        }
+                    });
+                }
+            }).sort({ _id: 1 })
+
+        })
+    },
+
+
 
     planification: function (req, res) {
         return res.status(200).render('planification/planification.ejs', {
@@ -304,7 +456,7 @@ let controller = {
         req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
         let errors = req.validationErrors();
-  
+
         if (errors) {
 
             res.render('user/register', {
@@ -374,6 +526,7 @@ async function findAllDocuments(db, query, collection, callback) {
     collection
         .find(query)
         .limit(10)
+        .sort({ ndb_no: 1 })
         .toArray(function (err, docs) {
             assert.equal(err, null);
             console.log("\nFound the following records");
@@ -384,29 +537,88 @@ async function findAllDocuments(db, query, collection, callback) {
 }
 
 async function calculateKcal(docs) {
-    let arrayNutrientes = [];
+
     let sumasKcal = [];
     for (let i = 0; i < docs.length; i++) {
-        const nutrients = await dish.storeNutrients(docs[i].ingredients);
+        let nut_vector = [];
+        for (const ingrediente in docs[i].ingredients) {
+            const nutrients = await dish.storeNutrients(docs[i].ingredients[ingrediente]);
+            nut_vector.push(nutrients);
+        }
         let suma = 0;
-        const valores = dish.computeNutrients(docs[i].ingredients, nutrients);
+        const valores = dish.computeNutrients(docs[i].ingredients, nut_vector);
         sumasKcal.push(valores.energKcal);
     }
     return sumasKcal;
 }
 
 async function calculateNutrients(doc) {
-    let arrayNutrientes = [];
-    let sumasKcal = [];
-    console.log("Calculando nutrientes:"+ doc[0].ingredients);
-    const nutrients = await dish.storeNutrients(doc[0].ingredients);
-    console.log(nutrients);
-    const valores = dish.computeNutrients(doc[0].ingredients, nutrients);
-    let vector = [valores, nutrients];
+    let nut_vector = [];
+    for (let i = 0; i < doc[0].ingredients.length; i++) {
+        const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);
+        nut_vector.push(nutrients);
+    }
+
+    const valores = dish.computeNutrients(doc[0].ingredients, nut_vector);
+    let vector = [valores, nut_vector];
     return vector;
+}
+
+
+async function calculateNutrientsMenu(doc) {
+
+    let vector = [];
+    let nut_vector = [];
+    for (let i = 0; i < doc.dishes.length; i++) {
+        for (let j = 0; j < doc.dishes[i].ingredients.length; j++) {
+            const nutrients = await dish.storeNutrients(doc.dishes[i].ingredients[j]);
+            nut_vector.push(nutrients);
+        }
+        const valores = dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
+
+        vector.push(valores);
+    }
+
+    let water = 0;
+    let energKcal = 0;
+    let protein = 0;
+    let lipidTotal = 0;
+    let carbohydrt = 0;
+    let fiber = 0;
+    let sodium = 0;
+    let cholestrl = 0;
+    let sugar = 0;
+
+    for (let i = 0; i < vector.length; i++) {
+        water += vector[i]["water"];
+        energKcal += vector[i]["energKcal"];
+        protein += vector[i]["protein"];
+        lipidTotal += vector[i]["lipidTotal"];
+        carbohydrt += vector[i]["carbohydrt"];
+        fiber += vector[i]["fiber"];
+        sodium += vector[i]["sodium"];
+        cholestrl += vector[i]["cholestrl"];
+        sugar += vector[i]["sugar"];
+    }
+
+    const total = [
+        water.toFixed(2),
+        energKcal.toFixed(2),
+        protein.toFixed(2),
+        lipidTotal.toFixed(2),
+        carbohydrt.toFixed(2),
+        fiber.toFixed(2),
+        sodium.toFixed(2),
+        cholestrl.toFixed(2),
+        sugar.toFixed(2)
+    ]
+
+
+    return total;
 }
 
 
 
 
 module.exports = controller;
+

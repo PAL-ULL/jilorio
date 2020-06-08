@@ -35,7 +35,7 @@
                         </div>
                         <h2> <%= items.myObject.homeIndex[i].name %></h2>
                         <p class= "text-justify"><%= items.myObject.homeIndex[i].description %> </p>
-                        <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                        <p><a class="btn btn-info" href="<%= items.myObject.homeIndex[i].href %>" role="button">Ver más &raquo;</a></p>
                     </div>
                 </div>
                 <% } %>
@@ -44,6 +44,7 @@
             <hr>
 
             <div class="row">
+         
                 <% for (var i= items.myObject.homeIndex.length/2; i< items.myObject.homeIndex.length; i++) { %>
                 <div class="col-md-4">
                     <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3">
@@ -52,7 +53,7 @@
                         </div>
                         <h2 class="features-icons-icon"> <%= items.myObject.homeIndex[i].name %></h2>
                         <p class= "text-justify"><%= items.myObject.homeIndex[i].description %> </p>
-                        <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                        <p><a class="btn btn-info" href="<%= items.myObject.homeIndex[i].href %>" role="button">Ver más &raquo;</a></p>
                     </div>
                 </div>
                 <% } %>
