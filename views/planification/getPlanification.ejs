@@ -80,15 +80,13 @@
 
                         <% } %>
                     <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                href="/menu/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button>
+                                href="/planification/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button>
                         <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
+                                href="/planification/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
                         <button type="button" class="btn btn-warning"><a title="Editar" href="#"><i
                                     class="fas fa-edit"></i></a></button></td>
                     </td>
                     <% } %>
-
-
 
                     <% if (items.myDocs[i].tipo === "semanal" || items.myDocs[i].tipo === "mensual") {  %>
                     <% let  index =   1 %>
@@ -104,9 +102,9 @@
                     <% } %>
 
                     <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                href="/menu/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button>
+                                href="/planification/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button>
                         <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
+                                href="/planification/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
                         <button type="button" class="btn btn-warning"><a title="Editar" href="#"><i
                                     class="fas fa-edit"></i></a></button></td>
                     </td>

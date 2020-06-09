@@ -436,6 +436,36 @@ let controller = {
             }
         }).sort({ _id: 1 })
     },
+    removePlanification: function (req, res) {
+
+        let menuId = req.params._id;
+
+        planification.findByIdAndRemove(menuId, (err, menuRemoved) => {
+            if (err) {
+                console.log(err);
+                return req.flash('danger', "Error, no se ha podido eliminar la planificación");
+            }
+            if (!menuRemoved) {
+                return req.flash('danger', "No se puede eliminar el proyecto.");
+            }
+
+            planification.find({}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(docs);
+                    res.render('planification/getPlanification', {
+                        items: {
+                            myObject: espTemplate,
+                            myDocs: docs
+                        }
+                    });
+                }
+            }).sort({ _id: 1 })
+
+        })
+    },
+    
 
     recomendation: function (req, res) {
         return res.status(200).render('recomendation/recomendation.ejs', {
