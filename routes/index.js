@@ -31,7 +31,9 @@ router.get("/menu/delete/:_id", controller.removeMenu);
 
 router.get("/planification", controller.planification);
 router.get("/planification/view", controller.planificationView);
+router.post("/planification/view:_id?", controller.getPlanification);
 router.get("/planification/delete/:_id", controller.removePlanification);
+router.get("/planification/:_id?", controller.planificationDetails);
 
 router.get("/recomendation", controller.recomendation);
 

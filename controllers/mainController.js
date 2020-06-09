@@ -23,7 +23,7 @@ const dish = require("../public/javascripts/dish.js");
 // Bring mondels
 const Dish = require("../models/dish");
 const Menu = require("../models/menu");
-const planification = require("../models/planification");
+const Planification = require("../models/planification");
 const User = require("../models/user");
 
 var util = require('util');
@@ -414,15 +414,15 @@ let controller = {
     },
 
     planificationView: async function (req, res) {
-        planification.find({}, async function (err, docs) {
+        Planification.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
                 // for (var i = 0; i < docs[4].menus[4].length; i++) {
-                    for (var k = 0; k < docs[4].menus[4][5].length; k++) {
-                        console.log(docs[4].menus[19][20][k]._id);
-                    }
-                    // console.log(docs[4].menus[4][5][k]._id);
+                for (var k = 0; k < docs[4].menus[4][5].length; k++) {
+                    console.log(docs[4].menus[19][20][k]._id);
+                }
+                // console.log(docs[4].menus[4][5][k]._id);
                 // }
                 console.log(docs[4].menus[3][4].length);
                 console.log(docs[4].menus[3][4].length);
@@ -436,11 +436,108 @@ let controller = {
             }
         }).sort({ _id: 1 })
     },
+
+
+    getPlanification: async function (req, res) {
+        const searchData = req.body["_id"];
+
+        if ((searchData == null) || (searchData == "")) {
+            req.flash('success', "Objeto no existente");
+            console.log(searchData);
+        }
+
+        const query = { _id: { $regex: `${searchData}` } };
+
+
+        Planification.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('planification/getPlanification', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: docs
+
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+    },
+
+    planificationDetails: async function (req, res) {
+        let planificationId = req.params._id;
+        const query = { _id: planificationId };
+
+        Planification.find(query, async function (err, doc) {
+            if (err) {
+                console.log(err);
+            } else {
+                let valores = [];
+                console.log("\n\n\n" + doc[0] + "\n\n\n" );
+                // console.log(doc[0]);
+                for (let i = 0; i < doc[0].menus.length; i++) {
+                    for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
+                        const value = await calculateNutrientsMenu(doc[0].menus[i][i + 1][k])
+                        valores.push(value);
+                    }
+                }
+
+                let newVector = [];
+                let water = 0;
+                let energKcal = 0;
+                let protein = 0;
+                let lipidTotal = 0;
+                let carbohydrt = 0;
+                let fiber = 0;
+                let sodium = 0;
+                let cholestrl = 0;
+                let sugar = 0;
+               
+                for (let i = 0; i < valores.length; i++) {
+                    water += (parseFloat(valores[i][0]))
+                    energKcal += (parseFloat(valores[i][1]))
+                    protein += (parseFloat(valores[i][2]))
+                    lipidTotal += (parseFloat(valores[i][3]))
+                    carbohydrt += (parseFloat(valores[i][4]))
+                    fiber += (parseFloat(valores[i][5]))
+                    sodium += (parseFloat(valores[i][6]))
+                    cholestrl += (parseFloat(valores[i][7]))
+                    sugar += (parseFloat(valores[i][8]))
+
+                }
+
+                newVector.push(water.toFixed(2));
+                newVector.push(energKcal.toFixed(2));
+                newVector.push(protein.toFixed(2));
+                newVector.push(lipidTotal.toFixed(2));
+                newVector.push(carbohydrt.toFixed(2));
+                newVector.push(fiber.toFixed(2));
+                newVector.push(sodium.toFixed(2));
+                newVector.push(cholestrl.toFixed(2));
+                newVector.push(sugar.toFixed(2));
+
+                // console.log(util.inspect(newVector));
+     
+
+                res.render('planification/planificationDetails', {
+                    items: {
+                        myObject: espTemplate,
+                        myDocs: doc[0],
+                        myNutrients: newVector
+
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+    },
+
+
     removePlanification: function (req, res) {
 
         let menuId = req.params._id;
 
-        planification.findByIdAndRemove(menuId, (err, menuRemoved) => {
+        Planification.findByIdAndRemove(menuId, (err, menuRemoved) => {
             if (err) {
                 console.log(err);
                 return req.flash('danger', "Error, no se ha podido eliminar la planificación");
@@ -449,7 +546,7 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            planification.find({}, async function (err, docs) {
+            Planification.find({}, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -465,7 +562,7 @@ let controller = {
 
         })
     },
-    
+
 
     recomendation: function (req, res) {
         return res.status(200).render('recomendation/recomendation.ejs', {

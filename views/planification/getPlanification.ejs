@@ -72,7 +72,7 @@
                         <% if (items.myDocs[i].tipo === "diaria") {  %>
                         <% for (var j=0; j < items.myDocs[i].menus.length; j++) { %>
                         <% for (var k=0; k < items.myDocs[i].menus[0][j+1].length; k++) { %>
-                        <%=items.myDocs[i].menus[0][j+1][k]._id%>
+                        <%= items.myDocs[i].menus[j][j+1][k]._id  %>
                         <% if( (k+1) < items.myDocs[i].menus[0][1].length) {  %>
                         <br>
                         <% } %>

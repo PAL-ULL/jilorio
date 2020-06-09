@@ -180,7 +180,10 @@
             "Tipo",
             "Menús",
             "Acciones"
-        ]
+        ],
+        "titleTabla": "Menús de la planificación",
+        "titleTablaNut": "Datos nutricionales de la planificación",
+        "tablaDetalles": [ "Día", "Menú", "Platos"]
     },
     "register": {
         "title": "Registro de usuarios",
