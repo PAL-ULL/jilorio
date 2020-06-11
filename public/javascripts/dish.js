@@ -96,28 +96,78 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
     for (const ingrediente in ingredientes) {
         amount = ingredientes[ingrediente].amount;
 
-
-        water = water + ((parseFloat(nutrientes[ingrediente][0]["water_(g)"]) * amount) / 100);
-
-
-        energKcal = energKcal + ((parseFloat(nutrientes[ingrediente][0]["energ_kcal"]) * amount) / 100);
-        protein = protein + ((parseFloat(nutrientes[ingrediente][0]["protein_(g)"]) * amount) / 100);
-        lipidTotal = lipidTotal + ((parseFloat(nutrientes[ingrediente][0]["lipid_tot_(g)"]) * amount) / 100);
-        carbohydrt = carbohydrt + ((parseFloat(nutrientes[ingrediente][0]["carbohydrt_(g)"]) * amount) / 100);
-        if (isNaN(parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]))){
-            console.log("ENTRA " + fiber);
-            fiber = fiber + 0;
-        }else{
-            fiber = fiber + ((parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]) * amount) / 100);
-            
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["water_(g)"]))) {
+            water = water + 0;
+        } else {
+            water = water + ((parseFloat(nutrientes[ingrediente][0]["water_(g)"]) * amount) / 100);
         }
 
-        sodium = sodium + (((parseFloat(nutrientes[ingrediente][0]["sodium_(mg)"]) * amount) / 100) / 1000);
-        fatSat = fatSat + ((parseFloat(nutrientes[ingrediente][0]["fa_sat_(g)"]) * amount) / 100);
-        fatMonoSat = fatMonoSat + ((parseFloat(nutrientes[ingrediente][0]["fa_mono_(g)"]) * amount) / 100);
-        fatPolySat = fatPolySat + ((parseFloat(nutrientes[ingrediente][0]["fa_poly_(g)"]) * amount) / 100);
-        cholestrl = cholestrl + (((parseFloat(nutrientes[ingrediente][0]["cholestrl_(mg)"]) * amount) / 100) / 1000);
-        sugar = sugar + ((parseFloat(Number(nutrientes[ingrediente][0]["sugar_tot_(g)"]) * amount)) / 100);
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["energ_kcal"]))) {
+            energKcal = energKcal + 0;
+        } else {
+            energKcal = energKcal + ((parseFloat(nutrientes[ingrediente][0]["energ_kcal"]) * amount) / 100);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["protein_(g)"]))) {
+            protein = protein + 0;
+        } else {
+            protein = protein + ((parseFloat(nutrientes[ingrediente][0]["protein_(g)"]) * amount) / 100);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["lipid_tot_(g)"]))) {
+            lipidTotal = lipidTotal + 0;
+        } else {
+            lipidTotal = lipidTotal + ((parseFloat(nutrientes[ingrediente][0]["lipid_tot_(g)"]) * amount) / 100);
+        }
+      
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["carbohydrt_(g)"]))) {
+            carbohydrt = carbohydrt + 0;
+        } else {
+            carbohydrt = carbohydrt + ((parseFloat(nutrientes[ingrediente][0]["carbohydrt_(g)"]) * amount) / 100);
+        }
+       
+        
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]))) {
+            fiber = fiber + 0;
+        } else {
+            fiber = fiber + ((parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]) * amount) / 100);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["sodium_(mg)"]))) {
+            sodium = sodium + 0;
+        } else {
+            sodium = sodium + (((parseFloat(nutrientes[ingrediente][0]["sodium_(mg)"]) * amount) / 100) / 1000);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["fa_sat_(g)"]))) {
+            fatSat = fatSat + 0;
+        } else {
+            fatSat = fatSat + ((parseFloat(nutrientes[ingrediente][0]["fa_sat_(g)"]) * amount) / 100);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["fa_mono_(g)"]))) {
+            fatMonoSat = fatMonoSat + 0;
+        } else {
+            fatMonoSat = fatMonoSat + ((parseFloat(nutrientes[ingrediente][0]["fa_mono_(g)"]) * amount) / 100);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["fa_poly_(g)"]))) {
+            fatPolySat = fatPolySat + 0;
+        } else {
+            fatPolySat = fatPolySat + ((parseFloat(nutrientes[ingrediente][0]["fa_poly_(g)"]) * amount) / 100);
+        }
+
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["cholestrl_(mg)"]))) {
+            cholestrl = cholestrl + 0;
+        } else {
+            cholestrl = cholestrl + (((parseFloat(nutrientes[ingrediente][0]["cholestrl_(mg)"]) * amount) / 100) / 1000);
+        }
+       
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["sugar_tot_(g)"]))) {
+            sugar = sugar + 0;
+        } else {
+            sugar = sugar + ((parseFloat(Number(nutrientes[ingrediente][0]["sugar_tot_(g)"]) * amount)) / 100);
+        }      
     }
 
 
