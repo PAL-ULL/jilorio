@@ -2,11 +2,11 @@
 'use strict'
 
 var mongoose = require("mongoose");
-const user = "myFirstUser";
-const password = "myFirstPassword";
+const user = "admin";
+const password = "password123";
 const host = "193.145.96.30";
 const port = "8081";
-const name = "usda-db";
+const name = "entullo";
 
 
 module.exports = {

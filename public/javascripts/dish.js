@@ -3,11 +3,11 @@ const assert = require("assert");
 
 var util = require('util');
 var mongoose = require("mongoose");
-const user = "myFirstUser";
-const password = "myFirstPassword";
+const user = "admin";
+const password = "password123";
 const host = "193.145.96.30";
 const port = "8081";
-const name = "usda-db";
+const name = "entullo";
 const fs = require("fs");
 const Dish = require('../../models/dish');
 
@@ -19,7 +19,7 @@ dish.storeDishes = async (query) => {
     return new Promise(function (resolve, reject) {
         MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}/${name}`, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("usda-db");
+            var dbo = db.db("entullo");
 
             dbo.collection(`${DishCollection}`).find(query)
                 .sort({ ndb_no: 1 })
@@ -39,7 +39,7 @@ dish.storeNutrients = async (ingredients) => {
 
         MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}/${name}`, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("usda-db");
+            var dbo = db.db("entullo");
             const resultados = [];
 
             const query = { ndb_no: ingredients.ndbno };
@@ -104,7 +104,14 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         protein = protein + ((parseFloat(nutrientes[ingrediente][0]["protein_(g)"]) * amount) / 100);
         lipidTotal = lipidTotal + ((parseFloat(nutrientes[ingrediente][0]["lipid_tot_(g)"]) * amount) / 100);
         carbohydrt = carbohydrt + ((parseFloat(nutrientes[ingrediente][0]["carbohydrt_(g)"]) * amount) / 100);
-        fiber = fiber + ((parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]) * amount) / 100);
+        if (isNaN(parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]))){
+            console.log("ENTRA " + fiber);
+            fiber = fiber + 0;
+        }else{
+            fiber = fiber + ((parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]) * amount) / 100);
+            
+        }
+
         sodium = sodium + (((parseFloat(nutrientes[ingrediente][0]["sodium_(mg)"]) * amount) / 100) / 1000);
         fatSat = fatSat + ((parseFloat(nutrientes[ingrediente][0]["fa_sat_(g)"]) * amount) / 100);
         fatMonoSat = fatMonoSat + ((parseFloat(nutrientes[ingrediente][0]["fa_mono_(g)"]) * amount) / 100);

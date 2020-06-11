@@ -4,11 +4,11 @@
 let mongo = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
 let assert = require("assert");
-const user = "myFirstUser";
-const password = "myFirstPassword";
+const user = "admin";
+const password = "password123";
 const host = "193.145.96.30";
 const port = "8081";
-const name = "usda-db";
+const name = "entullo";
 const url = `mongodb://${user}:${password}@${host}:${port}/${name}`;
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
