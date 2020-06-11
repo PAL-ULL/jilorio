@@ -84,7 +84,7 @@ app.use(expressValidator({
 // rutas
 app.use("/", rutas);
 
-
+app.get('/', (req, res) => res.redirect('/home'));
 
 // Start Server
 app.listen(8080, () => {
