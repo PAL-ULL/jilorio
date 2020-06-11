@@ -3,7 +3,7 @@
         "menu": [
             {
                 "name": "Inicio",
-                "href": "home"
+                "href": "/"
             },
             {
                 "name": "Alimentos",

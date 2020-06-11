@@ -667,7 +667,7 @@ let controller = {
 
     logUser: function (req, res) {
         passport.authenticate('local', {
-            successRedirect: '/home',
+            successRedirect: '/',
             failureRedirect: '/login',
             failureFlash: true
 

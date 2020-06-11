@@ -5,7 +5,7 @@ const controller = require("../controllers/mainController");
 
 const router = express.Router();
 
-router.get("/home", controller.home);
+router.get("/", controller.home);
 
 router.get("/food", controller.food);
 router.get("/food/view", controller.foodView);
