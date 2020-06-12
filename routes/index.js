@@ -36,13 +36,14 @@ router.get("/planification/delete/:_id", controller.removePlanification);
 router.get("/planification/:_id?", controller.planificationDetails);
 
 router.get("/recomendation", controller.recomendation);
-
 router.get("/evaluation", controller.evaluation);
 
 router.get("/register", controller.register);
-router.post("/register", controller.newUser);
 router.get("/login", controller.login);
+router.post("/register", controller.newUser);
 router.post("/login", controller.logUser);
+router.get("/dashboard", controller.dashboard);
+router.get("/logout", controller.logout);
 
 
 module.exports = router;

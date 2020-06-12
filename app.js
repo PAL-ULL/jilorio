@@ -6,6 +6,7 @@ const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const { ensureAuthenticated } = require('./config/auth');
 
 
 
@@ -16,13 +17,13 @@ mongoose.connect(config.database);
 let db = mongoose.connection;
 
 // Check connection
-db.once('open', function(){
-  console.log('Connected to MongoDB');
+db.once('open', function () {
+    console.log('Connected to MongoDB');
 });
 
 // Check for DB errors
-db.on('error', function(err){
-  console.log(err);
+db.on('error', function (err) {
+    console.log(err);
 });
 
 const app = express();
@@ -37,6 +38,7 @@ app.set("view engine", 'ejs');
 const rutas = require("./routes/index");
 
 // middlewares
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('short')); // Veo las peticiones que se hacen
@@ -47,7 +49,7 @@ app.use(session({
     secret: 'test secret',
     resave: true,
     saveUninitialized: true
-}))
+}));
 
 // Express passport
 app.use(passport.initialize());
@@ -60,7 +62,14 @@ app.use(flash());
 app.use(function (req, res, next) {
     res.locals.messages = require('express-messages')(req, res);
     next();
-  });
+});
+
+app.use(function (req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+});
 
 // Express Validator Middleware
 app.use(expressValidator({

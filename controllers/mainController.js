@@ -474,7 +474,7 @@ let controller = {
                 console.log(err);
             } else {
                 let valores = [];
-                console.log("\n\n\n" + doc[0] + "\n\n\n" );
+                console.log("\n\n\n" + doc[0] + "\n\n\n");
                 // console.log(doc[0]);
                 for (let i = 0; i < doc[0].menus.length; i++) {
                     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
@@ -493,7 +493,7 @@ let controller = {
                 let sodium = 0;
                 let cholestrl = 0;
                 let sugar = 0;
-               
+
                 for (let i = 0; i < valores.length; i++) {
                     water += (parseFloat(valores[i][0]))
                     energKcal += (parseFloat(valores[i][1]))
@@ -518,7 +518,7 @@ let controller = {
                 newVector.push(sugar.toFixed(2));
 
                 // console.log(util.inspect(newVector));
-     
+
 
                 res.render('planification/planificationDetails', {
                     items: {
@@ -582,7 +582,6 @@ let controller = {
 
 
     register: function (req, res) {
-
         res.render('user/register', {
             items: {
                 myObject: espTemplate
@@ -590,90 +589,172 @@ let controller = {
         });
     },
 
+    // newUser: function (req, res) {
+    //     console.log("------------------> Todo bien");
+    //     const name = req.body.name;
+    //     console.log("NOMBRE: " + name);
+    //     const email = req.body.email;
+    //     console.log("email: " + email);
+    //     const username = req.body.username;
+    //     console.log("username: " + username);
+    //     const password = req.body.password;
+    //     console.log("password: " + password);
+    //     const password2 = req.body.password2;
+    //     console.log("password2: " + password2);
+
+    //     req.checkBody('name', 'Name is required').notEmpty();
+    //     req.checkBody('email', 'Email is required').notEmpty();
+    //     req.checkBody('email', 'Email is not valid').isEmail();
+    //     req.checkBody('username', 'Username is required').notEmpty();
+    //     req.checkBody('password', 'Password is required').notEmpty();
+    //     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+
+    //     let errors = req.validationErrors();
+
+    //     if (errors) {
+    //         res.render('user/register', {
+    //             items: {
+    //                 myObject: espTemplate,
+    //                 errors: errors
+    //             }
+    //         });
+    //     } else {
+    //         let newUser = new User({
+    //             name: name,
+    //             email: email,
+    //             username: username,
+    //             password: password
+    //         });
+
+    //         bcrypt.genSalt(10, function (err, salt) {
+    //             bcrypt.hash(newUser.password, salt, function (err, hash) {
+    //                 if (err) {
+    //                     req.flash('danger', 'Error en la contraseña');
+    //                     console.log(err);
+    //                 }
+    //                 newUser.password = hash;
+    //                 newUser.save(function (err) {
+    //                     if (err) {
+    //                         console.log(err);
+    //                         return;
+    //                     } else {
+    //                         req.flash('success', 'You are now registered and can log in');
+    //                         res.redirect('login');
+    //                     }
+    //                 });
+    //             });
+    //         });
+    //     }
+    // },
+
     newUser: function (req, res) {
-        console.log("------------------> Todo bien");
-        const name = req.body.name;
-        console.log("NOMBRE: " + name);
-        const email = req.body.email;
-        console.log("email: " + email);
-        const username = req.body.username;
-        console.log("username: " + username);
-        const password = req.body.password;
-        console.log("password: " + password);
-        const password2 = req.body.password2;
-        console.log("password2: " + password2);
+        const { name, email, username, password, password2 } = req.body;
+        let errors = [];
 
-        req.checkBody('name', 'Name is required').notEmpty();
-        req.checkBody('email', 'Email is required').notEmpty();
-        req.checkBody('email', 'Email is not valid').isEmail();
-        req.checkBody('username', 'Username is required').notEmpty();
-        req.checkBody('password', 'Password is required').notEmpty();
-        req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+        if (!name || !email || !username || !password || !password2) {
+            errors.push({ msg: 'Please enter all fields' });
+        }
 
-        let errors = req.validationErrors();
+        // req.checkBody('req.body.email', 'Email is invalid').notEmpty();
 
-        if (errors) {
+        if (password != password2) {
+            errors.push({ msg: 'Passwords do not match' });
+        }
 
-            res.render('user/register', {
-                items: {
-                    myObject: espTemplate,
-                    errors
-                }
+        if (password.length < 6) {
+            errors.push({ msg: 'Password must be at least 6 characters' });
+        }
+
+        if (errors.length > 0) {
+            res.render('user/register',{items:  {
+                myObject: espTemplate,
+                errors,
+                name,
+                email,
+                username,
+                password,
+                password2}
             });
         } else {
-            let newUser = new User({
-                name: name,
-                email: email,
-                username: username,
-                password: password
-            });
-
-            bcrypt.genSalt(10, function (err, salt) {
-                bcrypt.hash(newUser.password, salt, function (err, hash) {
-                    if (err) {
-                        req.flash('danger', 'Error en la contraseña');
-                        console.log(err);
-                    }
-                    newUser.password = hash;
-                    newUser.save(function (err) {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        } else {
-                            req.flash('success', 'You are now registered and can log in');
-                            res.render('user/login', {
-                                items: {
-                                    myObject: espTemplate,
-                                    msg: "You are now registered and can log in"
-                                }
-                            });
-                        }
+            User.findOne({ email: email }).then(user => {
+                if (user) {
+                    errors.push({ msg: 'Email already exists' });
+                    res.render('user/register', {
+                                    items: {
+                        myObject: espTemplate,
+                        errors,
+                        name,
+                        email,
+                        username,
+                        password,
+                        password2}
                     });
-                });
+                } else {
+                    const newUser = new User({
+                        name,
+                        email,
+                        username,
+                        password
+                    });
+
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newUser.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            newUser.password = hash;
+                            newUser
+                                .save()
+                                .then(user => {
+                                    req.flash(
+                                        'success_msg',
+                                        'You are now registered and can log in'
+                                    );
+                                    res.redirect('/login');
+                                })
+                                .catch(err => console.log(err));
+                        });
+                    });
+                }
             });
         }
     },
-
 
     login: function (req, res) {
         const errors = req.flash().error || [];
         res.render('user/login', {
             items: {
                 myObject: espTemplate,
-                errors
+                errors: errors
             }
         });
     },
 
-    logUser: function (req, res) {
+    logUser: function (req, res, next) {
         passport.authenticate('local', {
-            successRedirect: '/',
+            successRedirect: '/dashboard',
             failureRedirect: '/login',
             failureFlash: true
-
-        })(req, res);
+          })(req, res, next);
 
     },
+
+    dashboard: function (req, res) {
+        res.render('user/dashboard', {
+            items: {
+                name: req.user.name,
+                myObject: espTemplate
+            }
+        });
+    },
+
+    logout: function (req, res) {
+        req.logout();
+        req.flash('success_msg', 'You are logged out');
+        res.render('user/login', {
+            items: {
+                myObject: espTemplate
+            }
+        });
+    }
 };
 
 async function findAllDocuments(db, query, collection, callback) {
