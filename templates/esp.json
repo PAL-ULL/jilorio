@@ -30,20 +30,24 @@
                 "href": "/evaluation"
             }
         ],
-        "usuario": [
-            {
-                "name": "Iniciar Sesión",
-                "href": "/login"
-            },
+        "usuarioLog": [
             {
                 "name": "Cerrar Sesión",
                 "href": "/logout"
+            }
+        ],
+        "usuarioNoLog": [
+
+            {
+                "name": "Iniciar Sesión",
+                "href": "/login"
             },
             {
                 "name": "Registrarse",
                 "href": "/register"
             }
         ]
+
     },
     "homeIndex": [
         {

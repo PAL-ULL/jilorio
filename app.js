@@ -93,7 +93,10 @@ app.use(expressValidator({
 // rutas
 app.use("/", rutas);
 
-
+app.get('*', function(req, res, next){
+    res.locals.user = req.user || null;
+    next();
+});
 
 // Start Server
 app.listen(8080, () => {

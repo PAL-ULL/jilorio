@@ -13,18 +13,24 @@
       <% } %>
     </ul>
     <ul class="navbar-nav ml-auto">
-     
-        <% for (var i=0; i< items.myObject.navegacion.usuario.length; i++) { %>
-          <li class="nav-item">
-          <% if (items.myObject.navegacion.usuario[2]) {%>
-            <a class="nav-link logout" href="<%- items.myObject.navegacion.usuario[i].href %>"><%- items.myObject.navegacion.usuario[i].name %></a>
-          </li>
-            <% } else {%>
-            <a class="nav-link" href="<%- items.myObject.navegacion.usuario[i].href %>"><%- items.myObject.navegacion.usuario[i].name %></a>
-          </li>
-        <% } %>
-        <% } %>
-    
+
+      <% if (!items.req.user) { %>
+      <% for (let i=0; i< items.myObject.navegacion.usuarioNoLog.length; i++) { %>
+      <a class="nav-link"
+        href="<%- items.myObject.navegacion.usuarioNoLog[i].href %>"><%- items.myObject.navegacion.usuarioNoLog[i].name %></a>
+      </li>
+      <% } %>
+      <% }  else { %>
+
+      <% for (let i=0; i< items.myObject.navegacion.usuarioLog.length; i++) { %>
+      <li class="nav-item">
+        <a class="nav-link logout"
+          href="<%- items.myObject.navegacion.usuarioLog[i].href %>"><%- items.myObject.navegacion.usuarioLog[i].name %></a>
+      </li>
+
+      <% } %>
+      <% } %>
+
     </ul>
   </div>
 </nav>

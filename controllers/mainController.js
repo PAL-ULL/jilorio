@@ -34,6 +34,7 @@ let controller = {
     home: function (req, res) {
         return res.status(200).render('index.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -42,6 +43,7 @@ let controller = {
     food: function (req, res) {
         return res.status(200).render('food/food.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -58,6 +60,7 @@ let controller = {
                 let resultArray = data;
                 res.render('food/getFood', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: resultArray
                     }
@@ -98,6 +101,7 @@ let controller = {
     dish: function (req, res) {
         return res.status(200).render('dish/dish.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -117,6 +121,7 @@ let controller = {
 
                 res.render('dish/getDish', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: docs,
                         myKcal: suma
@@ -138,6 +143,7 @@ let controller = {
                 const nutrientes = await calculateNutrients(doc);
                 res.render('dish/dishDetails', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: doc[0],
                         myNutrients: nutrientes[0],
@@ -184,6 +190,7 @@ let controller = {
                 console.log(resultArray.length)
                 res.render('dish/insertDish', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: resultArray
                     }
@@ -214,6 +221,7 @@ let controller = {
                 console.log(docs);
                 res.render('dish/getDish', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: docs,
                         myKcal: suma
@@ -230,6 +238,7 @@ let controller = {
             } else {
                 res.render('dish/addDish', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
 
                     }
@@ -259,6 +268,7 @@ let controller = {
 
                     res.render('dish/getDish', {
                         items: {
+                            req: req,
                             myObject: espTemplate,
                             myDocs: docs,
                             myKcal: suma
@@ -290,6 +300,7 @@ let controller = {
     menu: function (req, res) {
         return res.status(200).render('menu/menu.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -307,6 +318,7 @@ let controller = {
                 }
                 res.render('menu/getMenu', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: docs,
                         myNutrientsMenu: valores,
@@ -335,6 +347,7 @@ let controller = {
 
                 res.render('menu/getMenu', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: docs
                     }
@@ -362,6 +375,7 @@ let controller = {
 
                 res.render('menu/menuDetails', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: doc[0],
                         myNutrientsMenu: valores,
@@ -393,6 +407,7 @@ let controller = {
                     console.log(docs);
                     res.render('menu/getMenu', {
                         items: {
+                            req: req,
                             myObject: espTemplate,
                             myDocs: docs
                         }
@@ -408,6 +423,7 @@ let controller = {
     planification: function (req, res) {
         return res.status(200).render('planification/planification.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -428,6 +444,7 @@ let controller = {
                 console.log(docs[4].menus[3][4].length);
                 res.render('planification/getPlanification', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: docs
 
@@ -456,6 +473,7 @@ let controller = {
                 console.log(docs);
                 res.render('planification/getPlanification', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: docs
 
@@ -522,6 +540,7 @@ let controller = {
 
                 res.render('planification/planificationDetails', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: doc[0],
                         myNutrients: newVector
@@ -553,6 +572,7 @@ let controller = {
                     console.log(docs);
                     res.render('planification/getPlanification', {
                         items: {
+                            req: req,
                             myObject: espTemplate,
                             myDocs: docs
                         }
@@ -567,6 +587,7 @@ let controller = {
     recomendation: function (req, res) {
         return res.status(200).render('recomendation/recomendation.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -575,6 +596,7 @@ let controller = {
     evaluation: function (req, res) {
         return res.status(200).render('evaluation/evaluation.ejs', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -584,6 +606,7 @@ let controller = {
     register: function (req, res) {
         res.render('user/register', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });
@@ -666,7 +689,9 @@ let controller = {
         }
 
         if (errors.length > 0) {
-            res.render('user/register',{items:  {
+            res.render('user/register', {
+                items:  {
+                req: req,
                 myObject: espTemplate,
                 errors,
                 name,
@@ -681,6 +706,7 @@ let controller = {
                     errors.push({ msg: 'Email already exists' });
                     res.render('user/register', {
                                     items: {
+                                        req: req,
                         myObject: espTemplate,
                         errors,
                         name,
@@ -722,6 +748,7 @@ let controller = {
         const errors = req.flash().error || [];
         res.render('user/login', {
             items: {
+                req: req,
                 myObject: espTemplate,
                 errors: errors
             }
@@ -736,6 +763,10 @@ let controller = {
           })(req, res, next);
 
     },
+    all: function(req, res, next){
+        res.locals.user = req.user || null;
+        next();
+      },
 
     dashboard: function (req, res) {
         res.render('user/dashboard', {
@@ -751,6 +782,7 @@ let controller = {
         req.flash('success_msg', 'You are logged out');
         res.render('user/login', {
             items: {
+                req: req,
                 myObject: espTemplate
             }
         });

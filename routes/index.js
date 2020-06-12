@@ -2,7 +2,7 @@
 
 const express = require('express');
 const controller = require("../controllers/mainController");
-
+// const {ensureAuthenticated} = require('../config/auth')
 const router = express.Router();
 
 router.get("/", controller.home);
@@ -45,5 +45,5 @@ router.post("/login", controller.logUser);
 router.get("/dashboard", controller.dashboard);
 router.get("/logout", controller.logout);
 
-
+router.get("*", controller.all);
 module.exports = router;
