@@ -10,40 +10,66 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
 </head>
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">     
+    <div class="container">
 
-        <h1><%= items.myObject.login.title %></h1>
         <%- include ("../partials/message.ejs"); %>
 
-        <form method="POST">
-            <br> <br> <br>
-            <% for (var i=0; i< items.myObject.login.form.length; i++) { %>
-            <label><%= items.myObject.login.form[i].label %></label>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <% if (items.myObject.login.form[i].name === "username")  {%>
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                    <% } else {%>
-                    <span class="input-group-text" id="basic-addon1"><i
-                            class="<%= items.myObject.login.form[i].icon %>"></i></span>
-                    <% } %>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="card beauty_login">
+                <div class="card-header">
+                    <div class="logo"><img src="https://lh3.googleusercontent.com/proxy/_YAbqqAHnx__fw8oMzNig4JLyougl8g9Tba-n28vRD7LAOzMMl4kKxmHJ1Vj92pbtaPZSDONnoL8D82_30ABQwNhEv1keocQKRkZ" alt=""></div>
+                    <div class="login_text d-flex flex-row justify-content-center align-items-center">
+                        <span></span>
+                        <span class="text px-1">LOGIN</span>
+                        <span></span>
+                    </div>
+                    <div class="login_with_text">
+                        Login with your username and password or using your social media
+                    </div>
                 </div>
-                <input type="<%= items.myObject.login.form[i].type %>" class="form-control"
-                    placeholder="<%= items.myObject.login.form[i].placeholder %>"
-                    aria-label="<%= items.myObject.login.form[i].ariaLabel %>" aria-describedby="basic-addon1"
-                    name="<%= items.myObject.login.form[i].name %>" #<%= items.myObject.login.form[i].name %> required>
-            </div>
-            <% } %>
-            <br>
-            <button type="submit"><%= items.myObject.login.button %></button>
+                <div class="card-body">
+                    <div class="login_container d-flex flex-column">
+                        <form method="POST">
+                            <br> <br> <br>
+                            <% for (var i=0; i< items.myObject.login.form.length; i++) { %>
+                            <label><%= items.myObject.login.form[i].label %></label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <% if (items.myObject.login.form[i].name === "username")  {%>
+                                    <span class="input-group-text" id="basic-addon1">@</span>
+                                    <% } else {%>
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="<%= items.myObject.login.form[i].icon %>"></i></span>
+                                    <% } %>
+                                </div>
+                                <input type="<%= items.myObject.login.form[i].type %>" class="form-control"
+                                    placeholder="<%= items.myObject.login.form[i].placeholder %>"
+                                    aria-label="<%= items.myObject.login.form[i].ariaLabel %>"
+                                    aria-describedby="basic-addon1" name="<%= items.myObject.login.form[i].name %>"
+                                    #<%= items.myObject.login.form[i].name %> required>
+                            </div>
+                            <% } %>
+                            <br>
+                            <button class="btn btn-info" type="submit"><%= items.myObject.login.button %></button>
 
-        </form>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer d-flex flex-column">
+                    <div class="d-flex justify-content-center align-items-center p-3">
+                        Dont have an account? <a href="#" class="ml-2">Click here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
     </div>
     <%- include ("../partials/footer.ejs"); %>
 </body>
