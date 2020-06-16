@@ -5,8 +5,8 @@ var util = require('util');
 var mongoose = require("mongoose");
 const user = "admin";
 const password = "password123";
-const host = "193.145.96.30";
-const port = "8081";
+const host = "127.0.0.1";
+const port = "27017";
 const name = "entullo";
 const fs = require("fs");
 const Dish = require('../../models/dish');
@@ -17,7 +17,7 @@ const dish = {};
 
 dish.storeDishes = async (query) => {
     return new Promise(function (resolve, reject) {
-        MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}/${name}`, function (err, db) {
+        MongoClient.connect(`mongodb://${host}:${port}/${name}`, function (err, db) {
             if (err) throw err;
             var dbo = db.db("entullo");
 
@@ -37,7 +37,7 @@ dish.storeNutrients = async (ingredients) => {
     return new Promise(function (resolve, reject) {
         const MongoClient = require("mongodb").MongoClient;
 
-        MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}/${name}`, function (err, db) {
+        MongoClient.connect(`mongodb://${host}:${port}/${name}`, function (err, db) {
             if (err) throw err;
             var dbo = db.db("entullo");
             const resultados = [];

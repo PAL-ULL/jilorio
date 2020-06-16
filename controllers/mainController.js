@@ -6,10 +6,10 @@ const MongoClient = require("mongodb").MongoClient;
 let assert = require("assert");
 const user = "admin";
 const password = "password123";
-const host = "193.145.96.30";
-const port = "8081";
+const host = "127.0.0.1";
+const port = "27017";
 const name = "entullo";
-const url = `mongodb://${user}:${password}@${host}:${port}/${name}`;
+const url = `mongodb://${host}:${port}/${name}`;
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const bcrypt = require('bcryptjs')
@@ -18,6 +18,7 @@ const passport = require('passport')
 // Lang template
 const espTemplate = require("../templates/esp.json");
 const dish = require("../public/javascripts/dish.js");
+// console.log("DISHHHHHHHHHHH: " + dish);
 
 
 // Bring mondels
@@ -88,6 +89,7 @@ let controller = {
 
                 res.render('food/getFood', {
                     items: {
+                        req: req,
                         myObject: espTemplate,
                         myDocs: resultArray
                     }
@@ -108,14 +110,17 @@ let controller = {
     },
 
     dishView: async function (req, res) {
+    
+        console.log(Dish)
         Dish.find({}, async function (err, docs) {
             if (err) {
+           
                 console.log(err);
             } else {
-
-                for (let i = 0; i < docs.length; i++) {
-                    console.log(docs[i].ingredients);
-                }
+                console.log("si" + docs)
+                // for (let i = 0; i < docs.length; i++) {
+                //     console.log(docs[i].ingredients);
+                // }
 
                 const suma = await calculateKcal(docs);
 
@@ -344,12 +349,18 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
+                let valores = [];
+                for (let i = 0; i < docs.length; i++) {
+                    const value = await calculateNutrientsMenu(docs[i])
+                    valores.push(value);
+                }
 
                 res.render('menu/getMenu', {
                     items: {
                         req: req,
                         myObject: espTemplate,
-                        myDocs: docs
+                        myDocs: docs,
+                        myNutrientsMenu: valores,
                     }
                 });
             }
@@ -370,8 +381,6 @@ let controller = {
                 let kcalPlatos = [];
                 const kcal = await calculateKcal(doc[0].dishes);
                 kcalPlatos.push(kcal);
-
-
 
                 res.render('menu/menuDetails', {
                     items: {
@@ -405,17 +414,65 @@ let controller = {
                     console.log(err);
                 } else {
                     console.log(docs);
+                    let valores = [];
+                    for (let i = 0; i < docs.length; i++) {
+                        const value = await calculateNutrientsMenu(docs[i])
+                        valores.push(value);
+                    }
                     res.render('menu/getMenu', {
                         items: {
                             req: req,
                             myObject: espTemplate,
-                            myDocs: docs
+                            myDocs: docs,
+                            myNutrientsMenu: valores,
                         }
                     });
                 }
             }).sort({ _id: 1 })
 
         })
+    },
+
+    insertMenu: function (req, res) {
+        // const title = req.body.title;
+        // console.log("title: " + title);
+        // const description = req.body.description;
+        // console.log("description: " + description);
+       
+        // req.checkBody('title', 'title is required').notEmpty();
+        // req.checkBody('description', 'description is required').notEmpty();
+        // let errors = req.validationErrors();
+        // if (typeof req.body.group !== "undefined") {
+        //     console.log("\n\n\n" + util.inspect(req.body));
+        // }
+
+        // let query = {};
+
+        // const searchData = req.body.shrt_desc;
+        // console.log(searchData)
+        // if (typeof searchData !== "undefined") {
+        //     query = { shrt_desc: { $regex: searchData } };
+        // }
+
+        // client.connect(function (err, client) {
+        //     assert.equal(null, err);
+        //     console.log("\nConnected successfully to server");
+        //     const db = client.db(name);
+        //     const collection = db.collection("dish");
+        //     findAllDocuments(db, query, collection, function (data) {
+        //         let resultArray = data;
+        //         console.log(resultArray.length)
+                res.render('insertDish', {
+                    items: {
+    
+                        myObject: espTemplate,
+              
+                    }
+                });
+
+            // });
+
+        // });
     },
 
 
@@ -434,14 +491,15 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
+                console.log(docs);
                 // for (var i = 0; i < docs[4].menus[4].length; i++) {
-                for (var k = 0; k < docs[4].menus[4][5].length; k++) {
-                    console.log(docs[4].menus[19][20][k]._id);
-                }
-                // console.log(docs[4].menus[4][5][k]._id);
+                // for (var k = 0; k < docs[4].menus[4][5].length; k++) {
+                //     console.log(docs[4].menus[19][20][k]._id);
                 // }
-                console.log(docs[4].menus[3][4].length);
-                console.log(docs[4].menus[3][4].length);
+                // // console.log(docs[4].menus[4][5][k]._id);
+                // // }
+                // console.log(docs[4].menus[3][4].length);
+                // console.log(docs[4].menus[3][4].length);
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -786,19 +844,48 @@ let controller = {
                 myObject: espTemplate
             }
         });
+    },
+
+    autocomplete:  function (req, res) {
+
+        const query = { shrt_desc: { $regex: req.query["term"] } };
+
+        client.connect(function (err, client) {
+            assert.equal(null, err);
+            console.log("\nConnected successfully to server");
+            const db = client.db(name);
+            const collection = db.collection("food");
+            findAllDocuments(db, query, collection, function (data) {
+              
+                let vector=[];
+                console.log(data)
+             
+                    data.forEach(element => {
+                        let obj ={
+                            id: element._id,
+                            label: element.shrt_desc,
+                        };
+                        vector.push(obj);
+                    });
+               
+                // console.log("vector " + util.inspect(vector));
+                res.jsonp(vector);
+
+            });
+        });
     }
+
 };
 
 async function findAllDocuments(db, query, collection, callback) {
-
+    // console.log(query)
     collection
         .find(query)
-        .limit(10)
+        .limit(200)
         .sort({ ndb_no: 1 })
         .toArray(function (err, docs) {
             assert.equal(err, null);
-            console.log("\nFound the following records");
-
+            // console.log("\nFound the following records");
             callback(docs);
         });
 
@@ -821,6 +908,7 @@ async function calculateKcal(docs) {
 }
 
 async function calculateNutrients(doc) {
+    console.log("\n\n\n\n\n" + doc)
     let nut_vector = [];
     for (let i = 0; i < doc[0].ingredients.length; i++) {
         const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);

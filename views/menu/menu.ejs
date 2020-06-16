@@ -35,12 +35,12 @@
                             </div>
                             <h2> <%= items.myObject.menuIndex[i].name %></h2>
                             <p class="text-justify"><%= items.myObject.menuIndex[i].description %> </p>
-                            <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                            <p><a class="btn btn-info" href="<%= items.myObject.menuIndex[i].href %>"  role="button">Ver más &raquo;</a></p>
                         </div>
                     </div>
                     <% } %>
                 </div>
-                <hr>
+                <hr style="border-color: rgb(46, 115, 124);">
         </div>
     </main>
     <%- include ("../partials/footer.ejs"); %>
