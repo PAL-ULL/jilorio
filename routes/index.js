@@ -21,6 +21,7 @@ router.post("/dish/view:_id?", controller.getDish);
 router.get("/dish/delete/:_id", controller.removeDish);
 router.get("/dish/insert", controller.insertDish);
 router.get("/dish/insert/autocomplete/", controller.autocomplete);
+
 router.post("/dish/insert", controller.insertDish);
 router.get("/dish/:_id", controller.dishDetails);
 

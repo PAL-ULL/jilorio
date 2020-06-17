@@ -37,7 +37,6 @@
             }
         ],
         "usuarioNoLog": [
-
             {
                 "name": "Iniciar Sesión",
                 "href": "/login"
@@ -47,7 +46,6 @@
                 "href": "/register"
             }
         ]
-
     },
     "homeIndex": [
         {
@@ -187,7 +185,11 @@
         ],
         "titleTabla": "Menús de la planificación",
         "titleTablaNut": "Datos nutricionales de la planificación",
-        "tablaDetalles": [ "Día", "Menú", "Platos"]
+        "tablaDetalles": [
+            "Día",
+            "Menú",
+            "Platos"
+        ]
     },
     "register": {
         "title": "Registro de usuarios",
@@ -271,24 +273,45 @@
                 "name": "imageURL"
             }
         ],
-        "formIngredientes": [{
-            "label": "Ingredientes del plato",
-            "icon": "fas fa-apple-alt",
-            "type": "text",
-            "placeholder": "Ingrediente del plato",
-            "ariaLabel": "ingredients",
-            "name": "ingredients"
-        }
+        "formIngredientes": [
+            {
+                "label": "Ingredientes del plato",
+                "icon": "fas fa-apple-alt",
+                "type": "text",
+                "placeholder": "Ingrediente del plato",
+                "ariaLabel": "ingredients",
+                "name": "ingredients[]"
+            },
+            {
+                "label": "Cantidad",
+                "icon": "fas fa-apple-alt",
+                "type": "number",
+                "placeholder": "Cantidad del ingrediente",
+                "ariaLabel": "cantidad",
+                "name": "cantidades[]"
+            }
         ],
-        "formRealacionados": [{
-            "label": "Introduzca platos relacionados",
-            "icon": "fas fa-utensils",
-            "type": "text",
-            "placeholder": "Platos relacionados",
-            "ariaLabel": "relationatedDishes",
-            "name": "relationatedDishes"
-        }],
-
+        "formIngredientesSel": [
+            {
+                "label": "Unidad de medida",
+                "icon": "fas fa-apple-alt",
+                "options": [
+                    "g",
+                    "ml"
+                ],
+                "name": "Unidades[]"
+            }
+        ],
+        "formRealacionados": [
+            {
+                "label": "Introduzca platos relacionados",
+                "icon": "fas fa-utensils",
+                "type": "text",
+                "placeholder": "Platos relacionados",
+                "ariaLabel": "relationatedDishes",
+                "name": "relationatedDishes"
+            }
+        ],
         "button": "Confirmar"
     },
     "menu": {
@@ -374,7 +397,6 @@
     ],
     "platosMenu": "Platos del menú",
     "nutrientsMenu": "Datos nutricionales del menú",
-    
     "nutrients": "Datos nutricionales del plato",
     "ingredientesDish": "Ingredientes del plato",
     "recipeDish": "Ir a la receta",

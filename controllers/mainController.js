@@ -28,6 +28,7 @@ const Planification = require("../models/planification");
 const User = require("../models/user");
 
 var util = require('util');
+const { Console } = require("console");
 
 let ingredientes = [];
 // Routes
@@ -111,7 +112,7 @@ let controller = {
 
     dishView: async function (req, res) {
     
-        console.log(Dish)
+        // console.log(Dish)
         Dish.find({}, async function (err, docs) {
             if (err) {
            
@@ -138,7 +139,7 @@ let controller = {
     },
     dishDetails: async function (req, res) {
         let dishId = req.params._id;
-        console.log(dishId);
+        // console.log(dishId);
         const query = { _id: dishId };
 
         Dish.find(query, async function (err, doc) {
@@ -160,27 +161,30 @@ let controller = {
     },
 
     insertDish: function (req, res) {
-        const title = req.body.title;
-        console.log("title: " + title);
-        const description = req.body.description;
-        console.log("description: " + description);
-        const recipe = req.body.recipe;
-        console.log("receta: " + recipe);
-        const imageURL = req.body.imageURL;
-        console.log("imageURL: " + imageURL);
+        // const title = req.body.title;
+        // console.log("title: " + title);
+        // const description = req.body.description;
+        // console.log("description: " + description);
+        // const recipe = req.body.recipe;
+        // console.log("receta: " + recipe);
+        // const imageURL = req.body.imageURL;
+        // console.log("imageURL: " + imageURL);
 
+        console.log(req.body);
 
-        req.checkBody('title', 'title is required').notEmpty();
-        req.checkBody('description', 'description is required').notEmpty();
-        let errors = req.validationErrors();
-        if (typeof req.body.group !== "undefined") {
-            console.log("\n\n\n" + util.inspect(req.body));
-        }
+        // console.log(util.inspect(req.body.cantidades));
+
+        // req.checkBody('title', 'title is required').notEmpty();
+        // req.checkBody('description', 'description is required').notEmpty();
+        // let errors = req.validationErrors();
+        // if (typeof req.body.group !== "undefined") {
+        //     console.log("\n\n\n" + util.inspect(req.body));
+        // }
 
         let query = {};
 
         const searchData = req.body.shrt_desc;
-        console.log(searchData)
+        // console.log(searchData)
         if (typeof searchData !== "undefined") {
             query = { shrt_desc: { $regex: searchData } };
         }
@@ -223,7 +227,7 @@ let controller = {
 
                 const suma = await calculateKcal(docs);
                 console.log(suma);
-                console.log(docs);
+                // console.log(docs);
                 res.render('dish/getDish', {
                     items: {
                         req: req,
@@ -413,7 +417,7 @@ let controller = {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(docs);
+                    // console.log(docs);
                     let valores = [];
                     for (let i = 0; i < docs.length; i++) {
                         const value = await calculateNutrientsMenu(docs[i])
@@ -462,6 +466,10 @@ let controller = {
         //     findAllDocuments(db, query, collection, function (data) {
         //         let resultArray = data;
         //         console.log(resultArray.length)
+
+
+
+        
                 res.render('insertDish', {
                     items: {
     
@@ -491,7 +499,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
+                // console.log(docs);
                 // for (var i = 0; i < docs[4].menus[4].length; i++) {
                 // for (var k = 0; k < docs[4].menus[4][5].length; k++) {
                 //     console.log(docs[4].menus[19][20][k]._id);
@@ -528,7 +536,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
+                // console.log(docs);
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -627,7 +635,7 @@ let controller = {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(docs);
+                    // console.log(docs);
                     res.render('planification/getPlanification', {
                         items: {
                             req: req,
@@ -855,10 +863,10 @@ let controller = {
             console.log("\nConnected successfully to server");
             const db = client.db(name);
             const collection = db.collection("food");
-            findAllDocuments(db, query, collection, function (data) {
+            findLimit(db, query, collection, function (data) {
               
                 let vector=[];
-                console.log(data)
+                // console.log(data)
              
                     data.forEach(element => {
                         let obj ={
@@ -873,7 +881,8 @@ let controller = {
 
             });
         });
-    }
+    },
+   
 
 };
 
@@ -882,6 +891,20 @@ async function findAllDocuments(db, query, collection, callback) {
     collection
         .find(query)
         .limit(200)
+        .sort({ ndb_no: 1 })
+        .toArray(function (err, docs) {
+            assert.equal(err, null);
+            // console.log("\nFound the following records");
+            callback(docs);
+        });
+
+}
+
+async function findLimit(db, query, collection, callback) {
+    // console.log(query)
+    collection
+        .find(query)
+        .limit(15)
         .sort({ ndb_no: 1 })
         .toArray(function (err, docs) {
             assert.equal(err, null);

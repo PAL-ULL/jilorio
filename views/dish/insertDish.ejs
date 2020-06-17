@@ -36,18 +36,16 @@
         <%- include ("../partials/message.ejs"); %>
 
         <div class="card">
-            <form method="POST" , action='./insert'>
+            <form method="POST" , id="aux" action='./insert'>
                 <br>
                 <% for (var i=0; i< items.myObject.dish.form.length; i++) { %>
                 <label><%= items.myObject.dish.form[i].label %></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <% if (items.myObject.dish.form[i].name === "username")  {%>
-                        <span class="spanColor input-group-text" id="basic-addon1">@</span>
-                        <% } else {%>
+
                         <span class=" spanColor input-group-text" id="basic-addon1"><i
                                 class="  <%= items.myObject.dish.form[i].icon %>"></i></span>
-                        <% } %>
+
                     </div>
                     <input type="<%= items.myObject.dish.form[i].type %>" class="form-control"
                         placeholder="<%= items.myObject.dish.form[i].placeholder %>"
@@ -55,107 +53,154 @@
                         name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>>
                 </div>
                 <% } %>
-
-        </div>
-
-        <br>
-        <div class="card">
-            <form method="POST" , action='./insert'>
                 <br>
-                <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
-                <label><%= items.myObject.dish.formIngredientes[i].label %></label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class=" spanColor input-group-text" id="basic-addon1"><i
-                                class="  <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
+                <div class="cardInside">
+      
+                    <div class="ref">
+
+                        <div class="row">
+
+                            <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
+                            <div class="col-sm">
+                                <label ><%= items.myObject.dish.formIngredientes[i].label %></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class=" spanColor input-group-text" id="basic-addon1"><i
+                                                class="  <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
+                                    </div>
+
+                                    <input class="MyInputs" id="searchIngredient"
+                                        type="<%= items.myObject.dish.formIngredientes[i].type %>" class="form-control"
+                                        placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
+                                        aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
+                                        aria-describedby="basic-addon1"
+                                        name="<%= items.myObject.dish.formIngredientes[i].name %>">   
+                                </div>
+                            </div>
+                            <% } %>
+                            <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
+                                <div class="col-sm">
+                                    <label ><%= items.myObject.dish.formIngredientesSel[i].label %></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class=" spanColor input-group-text" id="basic-addon1"><i
+                                                    class="  <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                        </div>
+                                        <select class="mySelects form-control" id="selectUnit" name="<%= items.myObject.dish.formIngredientesSel[i].name %>">  
+                                            <% for (var j=0; j< items.myObject.dish.formIngredientesSel[i].options.length; j++) { %>
+                                                <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>" > <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
+                                                <% } %>
+                                        </select>
+ 
+                                       
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
 
                     </div>
-                    <input id="searchIngredient" type="<%= items.myObject.dish.formIngredientes[i].type %>"
-                        class="form-control" placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
-                        aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
-                        aria-describedby="basic-addon1" name="<%= items.myObject.dish.formIngredientes[i].name %>"
-                        #<%= items.myObject.dish.formIngredientes[i].name %>>
+                    <input type="button" value="Añadir ingrediente" id="bSubmit">
                 </div>
-                <% } %>
-        </div>
-        <form method="POST" id="search" , action='./insert'>
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="shrt_desc" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
- 
 
-            <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
-            <table id="alimentos" class="table table-bordered table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
+                <script>
+                    const bSubmit = document.querySelector('#bSubmit');
+                    bSubmit.addEventListener('click', () => {
+                        const ing = document.querySelector('#searchIngredient');
+                        const inputs = document.querySelectorAll(".MyInputs");
+                  
+                        createNewInputs(inputs);
+                 
+                    });
 
-                        <% for (var i=0; i< items.myObject.tablaAlimentos.nombres.length; i++) { %>
-                        <th> <%- items.myObject.tablaAlimentos.nombres[i] %> </th>
-                        <% } %>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <% for (var i=0; i< items.myDocs.length; i++) { %>
-
-                    <tr>
-                        <% for (var j=0; j< items.myObject.tablaAlimentos.valores.length; j++) { %>
-                        <% if ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]]) === "") { %>
-                        <td> - </td>
-                        <% } else { %>
-                        <td> <%= items.myDocs[i][items.myObject.tablaAlimentos.valores[j]] %> </td>
-                        <% } %>
-                        <% } %>
-                    </tr>
-                    <% } %>
-                </tbody>
-
-            </table>
-            <% } %>
-            <br><br>
-            <input type="submit" name="submit" class="btn btn-info" value="Submit" />
-        </form>
-        </form>
-
-        <script>
-            $(function () {
-                $("#searchIngredient").autocomplete({
-                    source: function (req, res) {
-                        $.ajax({
-                            url: "insert/autocomplete/",
-                            dataType: "jsonp",
-                            type: "GET",
-                            data: req,
-                            success: function (data) {
-                                // console.log(data);
-                                res(data);
-                            },
-                            error: function (err) {
-                                console.log(err);
-                            }
+                    function createNewInputs(inputs) {
+                        const padre = document.querySelector(".ref");
+                        const divRow = document.createElement("DIV");
+                        inputs.forEach(function (input) { //posible solucion no permitir guardar cualquier valor sino que sea un select
+                            const col = document.createElement("DIV");
+                            const newI = document.createElement("INPUT");
+                            newI.setAttribute("id", input.id);
+                            newI.setAttribute("type", input.type);
+                            newI.setAttribute("placeholder", input.placeholder);
+                            newI.setAttribute("name", input.name);
+                            newI.classList.add("form-control");
+                            // newI.classList.add("MyInputs");
+                            col.appendChild(newI);
+                            col.classList.add("col-sm");
+                            divRow.appendChild(col);
                         });
-                    },
-                    minLength: 1,
-                    select: function (event, ui) {
-                        if (ui.item) {
-                            $('#searchIngredient').text(ui.item.label);
+                                          const selects = document.querySelectorAll(".mySelects")
+                        selects.forEach(function (sel) { //posible solucion no permitir guardar cualquier valor sino que sea un select
+                            console.log(sel);
+                            const col = document.createElement("DIV");
+                            const newS = document.createElement("SELECT");
+                            
+                            newS.setAttribute("id", sel.id);
+                            newS.setAttribute("name", sel.name);
+                            const optS = document.createElement("OPTION");
+                            optS.value = sel.options[0].value;
+                            optS.innerHTML =  sel.options[0].value;
+                            newS.appendChild(optS);
+                            const optS2 = document.createElement("OPTION");
+                            optS2.value = sel.options[1].value;
+                            optS2.innerHTML =  sel.options[1].value;
+                            newS.appendChild(optS2);
+                            newS.classList.add("form-control");
 
-                        }
+                            col.appendChild(newS);
+                            col.classList.add("col-sm");
+                            divRow.appendChild(col);
+                        });
+
+
+                        divRow.classList.add("row");
+                        padre.appendChild(divRow);
+      
+                 
+
                     }
-                })
-            });
-        </script>
 
+                  
+                </script>
+
+
+
+                <br><br>
+                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
+
+                <script>
+                    $(function () {
+                        $("#searchIngredient").autocomplete({
+                            source: function (req, res) {
+                                $.ajax({
+                                    url: "insert/autocomplete/",
+                                    dataType: "jsonp",
+                                    type: "GET",
+                                    data: req,
+                                    success: function (data) {
+                                        res(data);
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            },
+                            minLength: 1,
+                            select: function (event, ui) {
+                                if (ui.item) {
+                                    $('#searchIngredient').text(ui.item.label);
+
+                                }
+                            }
+                        })
+                    });
+                </script>
+
+
+            </form>
+        </div>
     </div>
     <%- include ("../partials/footer.ejs"); %>
+
 
 
 </body>
@@ -170,8 +215,7 @@
 
     });
 </script>
-<!-- BOOTSTRAP TABLE -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 

@@ -8,7 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const { ensureAuthenticated } = require('./config/auth');
 
-
+require('events').EventEmitter.defaultMaxListeners = 30;
 
 const config = require('./config/database');
 require('./config/passport')(passport);
