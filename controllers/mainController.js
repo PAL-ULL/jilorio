@@ -18,7 +18,7 @@ const passport = require('passport')
 // Lang template
 const espTemplate = require("../templates/esp.json");
 const dish = require("../public/javascripts/dish.js");
-// console.log("DISHHHHHHHHHHH: " + dish);
+const usdaJson = require("../public/food.json");
 var util = require('util');
 
 // Bring mondels
@@ -187,6 +187,7 @@ let controller = {
         //     console.log("\n\n\n" + util.inspect(req.body));
         // }
 
+
         let query = {};
 
         const searchData = req.body.shrt_desc;
@@ -203,19 +204,13 @@ let controller = {
 
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-                let strings = [];
 
-                data.forEach(element => {
-                    strings.push(element.shrt_desc)
-
-                });
-                console.log(strings);
+    
                 res.render('dish/insertDish', {
                     items: {
                         req: req,
                         myObject: espTemplate,
-                        myDocs: resultArray,
-                        myStrings: strings
+                        myDocs: resultArray
 
                     }
                 });
@@ -938,7 +933,7 @@ let controller = {
         if (errors.length > 0) {
             console.log("|||||||||||||||| ERRORES ||||||||||||||")
 
-            Users.find({_id: req.params._id}, async function (err, docs) {
+            Users.find({ _id: req.params._id }, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -962,11 +957,11 @@ let controller = {
                 }
             }).sort({ _id: 1 })
         } else {
-             const query = { _id: req.params._id };
-             const id= req.params._id;
-             console.log(id);
+            const query = { _id: req.params._id };
+            const id = req.params._id;
+            console.log(id);
 
-               var newvalues = { name: name, username: username, rol: rol, email: email, password: password };
+            var newvalues = { name: name, username: username, rol: rol, email: email, password: password };
             User.findById(query).then(user => {
                 if (user) {
                     console.log("Usuario encontrado" + user);
@@ -983,12 +978,12 @@ let controller = {
                             if (err) throw err;
                             console.log("BUSCANDO A ESTE ID:  " + id);
                             newUser.password = hash;
-                            const set = {$set: newvalues};
+                            const set = { $set: newvalues };
                             console.log(set);
                             Users.updateOne(query, set, (err, updateUser) => {
-                                if (err){
+                                if (err) {
                                     console.log(err);
-                                }else{
+                                } else {
                                     console.log("\n\n\nUSUARIO ACTUALIZADO: " + updateUser)
                                     req.flash(
                                         'success_msg',
@@ -997,13 +992,13 @@ let controller = {
                                     res.redirect('/users');
                                 }
                             })
-                        
+
                         });
                     });
                 }
-            
+
             });
-            
+
         }
 
     },
@@ -1043,7 +1038,6 @@ let controller = {
     },
 
     autocomplete: function (req, res) {
-
         const query = { shrt_desc: { $regex: req.query["term"] } };
 
         client.connect(function (err, client) {
@@ -1107,15 +1101,61 @@ let controller = {
         console.log("imageURL: " + imageURL);
         const vectorIngredientes = [];
         console.log(req.body.ingredients)
-        console.log(req.body.cantidades)
-        console.log(req.body.Unidades)
-        console.log(req.body)
+        // console.log(req.body.cantidades)
+        // console.log(req.body.Unidades)
+        // console.log(req.body)
+        let errors = [];
 
         const cantidades = req.body.cantidades;
         const Unidades = req.body.Unidades;
         const ingredients = req.body.ingredients;
+        let resultados = [];
+        let noEncontrados = [];
+        console.log("\n\n");
 
-        const ingObj = await createIngObj(ingredients, cantidades, Unidades);
+        for (let i = 0; i < ingredients.length; i++) {
+            const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
+            
+            if (result.length === 0) {
+                noEncontrados.push(ingredients[i]);
+               
+            } else {
+                resultados.push(result);
+            }
+        }
+        if (noEncontrados.length > 0){
+
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados)  );
+            for (let i=0; i < noEncontrados.length; i++){
+                errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+            }
+          
+            client.connect(function (err, client) {
+                assert.equal(null, err);
+                console.log("\nConnected successfully to server");
+                const db = client.db(name);
+                const collection = db.collection("food");
+                const query = {};
+                findAllDocuments(db, query, collection, function (data) {
+                    let resultArray = data;
+   
+                    res.render('dish/insertDish', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myDocs: resultArray,
+                            errors
+                        }
+                    });
+                });
+            });
+        }
+
+
+        console.log("VECTORES: " + util.inspect(resultados[0]));
+
+
+        // const ingObj = await createIngObj(ingredients, cantidades, Unidades);
 
         // const query = { shrt_desc: req.body.ingredients[0] };
         // console.log(query);

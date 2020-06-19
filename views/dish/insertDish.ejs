@@ -32,10 +32,6 @@
 <body>
     <%- include ("../partials/navigation.ejs"); %>
 
-    <!-- <script>  
-
-        // console.log(ejsVal);
-    </script> -->
 
     <div class="container">
         <h1><%= items.myObject.dish.title %></h1>
@@ -106,19 +102,19 @@
                 </div>
 
                 <script>
-                    var ejsVal = `<%- JSON.stringify(items.myStrings) %>`;
+                
                     const bSubmit = document.querySelector('#bSubmit');
                     bSubmit.addEventListener('click', () => {
                         const ing = document.querySelector('#searchIngredient');
                         const inputs = document.querySelectorAll(".MyInputs");
-                        // console.log(ejsVal)
+                     
                         createNewInputs(inputs);
                     });
 
                     function createNewInputs(inputs) {
                         const padre = document.querySelector(".ref");
                         const divRow = document.createElement("DIV");
-                        inputs.forEach(function (input) { //posible solucion no permitir guardar cualquier valor sino que sea un select
+                        inputs.forEach(function (input) { 
                             const col = document.createElement("DIV");
                             const newI = document.createElement("INPUT");
                             newI.setAttribute("id", input.id);
@@ -132,9 +128,9 @@
                             divRow.appendChild(col);
                         });
                         const selects = document.querySelectorAll(".mySelects")
-                        // const myDocuments = document.getElementById("myDocuments").value;
+                    
 
-                        selects.forEach(function (sel) { //posible solucion no permitir guardar cualquier valor sino que sea un select
+                        selects.forEach(function (sel) {
 
                             const col = document.createElement("DIV");
                             const newS = document.createElement("SELECT");
@@ -150,34 +146,6 @@
                             optS2.innerHTML = sel.options[1].value;
                             newS.appendChild(optS2);
                             newS.classList.add("form-control");
-
-                            const newSelect = document.createElement("SELECT");
-
-                            // ejsVal.forEach(element => console.log(element));
-                            // Array.from(ejsVal).forEach(child => {
-                            //     console.log(child);
-                            // });
-
-                            // console.log((ejsVal));
-                            // var ar = ejsVal.split('","'); // split string on comma space
-                            // console.log(ar[0]);
-                            // for (var i = 0; i <ejsVal.length; i++) {
-                            //     console.log(ejsVal[i]);
-                            // }
-                            var array = JSON.parse("[" + ejsVal + "]");
-                             
-                            // for (let i = 0; i < array.lenght; i++) {
-                                // console.log("VALORES: \n\n" + typeof(ejsVal));
-                            console.log("VALORES: \n\n" + typeof(array));
-                            for (let i in array){
-                                console.log(array[i][0]);
-                            }
-                            console.log(array[280][0]);
-                            //     const opt = document.createElement("OPTION");
-                            //     opt.value = ejsVal[i];
-                            //     opt.innerHTML = ejsVal[i];
-                            //     newSelect.appendChild(opt);
-                            // }
 
                             col.appendChild(newS);
                             // col.appendChild(newSelect);
