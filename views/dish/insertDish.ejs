@@ -31,6 +31,12 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
+
+    <!-- <script>  
+
+        // console.log(ejsVal);
+    </script> -->
+
     <div class="container">
         <h1><%= items.myObject.dish.title %></h1>
         <%- include ("../partials/message.ejs"); %>
@@ -55,14 +61,11 @@
                 <% } %>
                 <br>
                 <div class="cardInside">
-      
                     <div class="ref">
-
                         <div class="row">
-
                             <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
                             <div class="col-sm">
-                                <label ><%= items.myObject.dish.formIngredientes[i].label %></label>
+                                <label><%= items.myObject.dish.formIngredientes[i].label %></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class=" spanColor input-group-text" id="basic-addon1"><i
@@ -74,42 +77,42 @@
                                         placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
                                         aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
                                         aria-describedby="basic-addon1"
-                                        name="<%= items.myObject.dish.formIngredientes[i].name %>">   
+                                        name="<%= items.myObject.dish.formIngredientes[i].name %>">
                                 </div>
                             </div>
                             <% } %>
                             <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
-                                <div class="col-sm">
-                                    <label ><%= items.myObject.dish.formIngredientesSel[i].label %></label>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class=" spanColor input-group-text" id="basic-addon1"><i
-                                                    class="  <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
-                                        </div>
-                                        <select class="mySelects form-control" id="selectUnit" name="<%= items.myObject.dish.formIngredientesSel[i].name %>">  
-                                            <% for (var j=0; j< items.myObject.dish.formIngredientesSel[i].options.length; j++) { %>
-                                                <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>" > <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
-                                                <% } %>
-                                        </select>
- 
-                                       
+                            <div class="col-sm">
+                                <label><%= items.myObject.dish.formIngredientesSel[i].label %></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class=" spanColor input-group-text" id="basic-addon1"><i
+                                                class="  <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
                                     </div>
+                                    <select class="mySelects form-control" id="selectUnit"
+                                        name="<%= items.myObject.dish.formIngredientesSel[i].name %>">
+                                        <% for (var j=0; j< items.myObject.dish.formIngredientesSel[i].options.length; j++) { %>
+                                        <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>">
+                                            <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
+                                        <% } %>
+                                    </select>
                                 </div>
-                                <% } %>
+                            </div>
+                            <% } %>
                         </div>
-
                     </div>
+
                     <input type="button" value="Añadir ingrediente" id="bSubmit">
                 </div>
 
                 <script>
+                    var ejsVal = `<%- JSON.stringify(items.myStrings) %>`;
                     const bSubmit = document.querySelector('#bSubmit');
                     bSubmit.addEventListener('click', () => {
                         const ing = document.querySelector('#searchIngredient');
                         const inputs = document.querySelectorAll(".MyInputs");
-                  
+                        // console.log(ejsVal)
                         createNewInputs(inputs);
-                 
                     });
 
                     function createNewInputs(inputs) {
@@ -128,25 +131,56 @@
                             col.classList.add("col-sm");
                             divRow.appendChild(col);
                         });
-                                          const selects = document.querySelectorAll(".mySelects")
+                        const selects = document.querySelectorAll(".mySelects")
+                        // const myDocuments = document.getElementById("myDocuments").value;
+
                         selects.forEach(function (sel) { //posible solucion no permitir guardar cualquier valor sino que sea un select
-                            console.log(sel);
+
                             const col = document.createElement("DIV");
                             const newS = document.createElement("SELECT");
-                            
+
                             newS.setAttribute("id", sel.id);
                             newS.setAttribute("name", sel.name);
                             const optS = document.createElement("OPTION");
                             optS.value = sel.options[0].value;
-                            optS.innerHTML =  sel.options[0].value;
+                            optS.innerHTML = sel.options[0].value;
                             newS.appendChild(optS);
                             const optS2 = document.createElement("OPTION");
                             optS2.value = sel.options[1].value;
-                            optS2.innerHTML =  sel.options[1].value;
+                            optS2.innerHTML = sel.options[1].value;
                             newS.appendChild(optS2);
                             newS.classList.add("form-control");
 
+                            const newSelect = document.createElement("SELECT");
+
+                            // ejsVal.forEach(element => console.log(element));
+                            // Array.from(ejsVal).forEach(child => {
+                            //     console.log(child);
+                            // });
+
+                            // console.log((ejsVal));
+                            // var ar = ejsVal.split('","'); // split string on comma space
+                            // console.log(ar[0]);
+                            // for (var i = 0; i <ejsVal.length; i++) {
+                            //     console.log(ejsVal[i]);
+                            // }
+                            var array = JSON.parse("[" + ejsVal + "]");
+                             
+                            // for (let i = 0; i < array.lenght; i++) {
+                                // console.log("VALORES: \n\n" + typeof(ejsVal));
+                            console.log("VALORES: \n\n" + typeof(array));
+                            for (let i in array){
+                                console.log(array[i][0]);
+                            }
+                            console.log(array[280][0]);
+                            //     const opt = document.createElement("OPTION");
+                            //     opt.value = ejsVal[i];
+                            //     opt.innerHTML = ejsVal[i];
+                            //     newSelect.appendChild(opt);
+                            // }
+
                             col.appendChild(newS);
+                            // col.appendChild(newSelect);
                             col.classList.add("col-sm");
                             divRow.appendChild(col);
                         });
@@ -154,12 +188,11 @@
 
                         divRow.classList.add("row");
                         padre.appendChild(divRow);
-      
-                 
+                    };
 
-                    }
 
-                  
+
+
                 </script>
 
 
@@ -186,9 +219,11 @@
                             },
                             minLength: 1,
                             select: function (event, ui) {
+                                console.log(event);
+                                console.log(ui);
                                 if (ui.item) {
                                     $('#searchIngredient').text(ui.item.label);
-
+                                    // $('#searchIngredient').text(ui.item.ndbno);
                                 }
                             }
                         })
@@ -198,6 +233,46 @@
 
             </form>
         </div>
+
+        <form method="POST" id="search" , action='./insert'>
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" name="shrt_desc" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
+                    <a id="submit-form-link" href="#"></a>
+                    <button type="submit" class="spanColor searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
+        <table id="alimentos" class="table table-bordered table-hover table-sm">
+            <thead class="thead-dark">
+                <tr>
+
+                    <% for (var i=0; i< items.myObject.tablaAlimentos.nombres.length; i++) { %>
+                    <th> <%- items.myObject.tablaAlimentos.nombres[i] %> </th>
+                    <% } %>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i< items.myDocs.length; i++) { %>
+                <tr>
+                    <% for (var j=0; j< items.myObject.tablaAlimentos.valores.length; j++) { %>
+                    <% if ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]]) === "") { %>
+                    <td> - </td>
+                    <% } else { %>
+                    <td> <%= items.myDocs[i][items.myObject.tablaAlimentos.valores[j]] %> </td>
+                    <% } %>
+                    <% } %>
+                </tr>
+                <% } %>
+            </tbody>
+
+        </table>
+        <% } %>
     </div>
     <%- include ("../partials/footer.ejs"); %>
 

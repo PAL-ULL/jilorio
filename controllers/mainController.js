@@ -19,16 +19,21 @@ const passport = require('passport')
 const espTemplate = require("../templates/esp.json");
 const dish = require("../public/javascripts/dish.js");
 // console.log("DISHHHHHHHHHHH: " + dish);
-
+var util = require('util');
 
 // Bring mondels
 const Dish = require("../models/dish");
+const Users = require("../models/user");
 const Menu = require("../models/menu");
 const Planification = require("../models/planification");
 const User = require("../models/user");
+const Food = require("../models/food");
 
-var util = require('util');
+
+
 const { Console } = require("console");
+const { db } = require("../models/dish");
+const { query } = require("express");
 
 let ingredientes = [];
 // Routes
@@ -111,11 +116,11 @@ let controller = {
     },
 
     dishView: async function (req, res) {
-    
+
         // console.log(Dish)
         Dish.find({}, async function (err, docs) {
             if (err) {
-           
+
                 console.log(err);
             } else {
                 console.log("si" + docs)
@@ -137,6 +142,7 @@ let controller = {
             }
         }).sort({ _id: 1 })
     },
+
     dishDetails: async function (req, res) {
         let dishId = req.params._id;
         // console.log(dishId);
@@ -184,7 +190,7 @@ let controller = {
         let query = {};
 
         const searchData = req.body.shrt_desc;
-        // console.log(searchData)
+
         if (typeof searchData !== "undefined") {
             query = { shrt_desc: { $regex: searchData } };
         }
@@ -194,21 +200,30 @@ let controller = {
             console.log("\nConnected successfully to server");
             const db = client.db(name);
             const collection = db.collection("food");
+
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-                console.log(resultArray.length)
+                let strings = [];
+
+                data.forEach(element => {
+                    strings.push(element.shrt_desc)
+
+                });
+                console.log(strings);
                 res.render('dish/insertDish', {
                     items: {
                         req: req,
                         myObject: espTemplate,
-                        myDocs: resultArray
+                        myDocs: resultArray,
+                        myStrings: strings
+
                     }
                 });
-
             });
-
         });
     },
+
+
 
 
     getDish: async function (req, res) {
@@ -442,7 +457,7 @@ let controller = {
         // console.log("title: " + title);
         // const description = req.body.description;
         // console.log("description: " + description);
-       
+
         // req.checkBody('title', 'title is required').notEmpty();
         // req.checkBody('description', 'description is required').notEmpty();
         // let errors = req.validationErrors();
@@ -469,16 +484,16 @@ let controller = {
 
 
 
-        
-                res.render('insertDish', {
-                    items: {
-    
-                        myObject: espTemplate,
-              
-                    }
-                });
 
-            // });
+        res.render('insertDish', {
+            items: {
+
+                myObject: espTemplate,
+
+            }
+        });
+
+        // });
 
         // });
     },
@@ -756,30 +771,32 @@ let controller = {
 
         if (errors.length > 0) {
             res.render('user/register', {
-                items:  {
-                req: req,
-                myObject: espTemplate,
-                errors,
-                name,
-                email,
-                username,
-                password,
-                password2}
+                items: {
+                    req: req,
+                    myObject: espTemplate,
+                    errors,
+                    name,
+                    email,
+                    username,
+                    password,
+                    password2
+                }
             });
         } else {
             User.findOne({ email: email }).then(user => {
                 if (user) {
                     errors.push({ msg: 'Email already exists' });
                     res.render('user/register', {
-                                    items: {
-                                        req: req,
-                        myObject: espTemplate,
-                        errors,
-                        name,
-                        email,
-                        username,
-                        password,
-                        password2}
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            errors,
+                            name,
+                            email,
+                            username,
+                            password,
+                            password2
+                        }
                     });
                 } else {
                     const newUser = new User({
@@ -821,18 +838,189 @@ let controller = {
         });
     },
 
+    viewUsers: function (req, res) {
+        console.log("\n\n MUESTRA USUARIOS")
+        Users.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('user/users', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myUsers: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+
+    },
+
+    removeUser: function (req, res) {
+        let userId = req.params._id;
+
+        Users.findByIdAndRemove(userId, (err, userId) => {
+            if (err) {
+                return req.flash('danger', "Error, no se ha podido eliminar el plato");
+            }
+            if (!userId) {
+                return req.flash('danger', "No se puede eliminar el proyecto.");
+            }
+            console.log(userId);
+            Users.find({}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(docs);
+                    res.render('user/users', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myUsers: docs
+
+                        }
+                    });
+                }
+            }).sort({ _id: 1 })
+
+        })
+    },
+
+    updateUser: function (req, res) {
+        let userId = req.params._id;
+        // console.log(util.inspect (req.params));
+
+        // console.log(dishId);
+        const query = { _id: userId };
+        Users.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('user/updateUser', {
+                    items: {
+                        id: userId,
+                        req: req,
+                        myObject: espTemplate,
+                        myUsers: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+
+    },
+
+    updateUserPost: function (req, res) {
+        console.log("\n\nPOST BODY: ");
+        console.log(util.inspect(req.body));
+        console.log("\n\nPOST PARAMS: ");
+        console.log(util.inspect(req.params._id));
+
+
+        const { name, email, username, password, password2, rol } = req.body;
+        let errors = [];
+
+        if (!name || !email || !username || !password || !password2 || !rol) {
+            errors.push({ msg: 'Please enter all fields' });
+        }
+
+        req.checkBody('req.body.email', 'Email is invalid').notEmpty();
+
+        if (password != password2) {
+            errors.push({ msg: 'Passwords do not match' });
+        }
+
+        if (password.length < 6) {
+            errors.push({ msg: 'Password must be at least 6 characters' });
+        }
+
+        if (errors.length > 0) {
+            console.log("|||||||||||||||| ERRORES ||||||||||||||")
+
+            Users.find({_id: req.params._id}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("BUSQUEDA")
+                    console.log(docs);
+                    res.render('user/updateUser', {
+                        items: {
+                            id: req.params._id,
+                            req: req,
+                            myObject: espTemplate,
+                            errors,
+                            name,
+                            email,
+                            username,
+                            password,
+                            password2,
+                            rol,
+                            myUsers: docs
+                        }
+                    });
+                }
+            }).sort({ _id: 1 })
+        } else {
+             const query = { _id: req.params._id };
+             const id= req.params._id;
+             console.log(id);
+
+               var newvalues = { name: name, username: username, rol: rol, email: email, password: password };
+            User.findById(query).then(user => {
+                if (user) {
+                    console.log("Usuario encontrado" + user);
+                    const newUser = {
+                        name,
+                        email,
+                        username,
+                        password,
+                        rol
+                    };
+
+                    bcrypt.genSalt(10, (err, salt) => {
+                        bcrypt.hash(newvalues.password, salt, (err, hash) => {
+                            if (err) throw err;
+                            console.log("BUSCANDO A ESTE ID:  " + id);
+                            newUser.password = hash;
+                            const set = {$set: newvalues};
+                            console.log(set);
+                            Users.updateOne(query, set, (err, updateUser) => {
+                                if (err){
+                                    console.log(err);
+                                }else{
+                                    console.log("\n\n\nUSUARIO ACTUALIZADO: " + updateUser)
+                                    req.flash(
+                                        'success_msg',
+                                        'User has been updated'
+                                    );
+                                    res.redirect('/users');
+                                }
+                            })
+                        
+                        });
+                    });
+                }
+            
+            });
+            
+        }
+
+    },
+
+
     logUser: function (req, res, next) {
         passport.authenticate('local', {
             successRedirect: '/dashboard',
             failureRedirect: '/login',
             failureFlash: true
-          })(req, res, next);
+        })(req, res, next);
 
     },
-    all: function(req, res, next){
+    all: function (req, res, next) {
         res.locals.user = req.user || null;
         next();
-      },
+    },
 
     dashboard: function (req, res) {
         res.render('user/dashboard', {
@@ -854,7 +1042,7 @@ let controller = {
         });
     },
 
-    autocomplete:  function (req, res) {
+    autocomplete: function (req, res) {
 
         const query = { shrt_desc: { $regex: req.query["term"] } };
 
@@ -864,27 +1052,134 @@ let controller = {
             const db = client.db(name);
             const collection = db.collection("food");
             findLimit(db, query, collection, function (data) {
-              
-                let vector=[];
+
+                let vector = [];
                 // console.log(data)
-             
-                    data.forEach(element => {
-                        let obj ={
-                            id: element._id,
-                            label: element.shrt_desc,
-                        };
-                        vector.push(obj);
-                    });
-               
-                // console.log("vector " + util.inspect(vector));
+
+                data.forEach(element => {
+                    let obj = {
+                        id: element._id,
+                        label: element.shrt_desc,
+                        ndbno: element.ndb_no
+                    };
+                    vector.push(obj);
+                });
+
+                console.log("vector " + util.inspect(vector));
                 res.jsonp(vector);
 
             });
         });
     },
-   
+
+    check: function (req, res) {
+
+        const query = { shrt_desc: req.query["term"] };
+
+        client.connect(function (err, client) {
+            assert.equal(null, err);
+            console.log("\nConnected successfully to server");
+            const db = client.db(name);
+            const collection = db.collection("food");
+            findLimit(db, query, collection, function (data) {
+                let vector = [];
+                data.forEach(element => {
+                    let obj = {
+                        id: element._id,
+                        label: element.shrt_desc,
+                    };
+                    vector.push(obj);
+                });
+                res.jsonp(vector);
+            });
+        });
+    },
+
+    insertDishPost: async function (req, res) {
+
+        const title = req.body.title;
+        console.log("title: " + title);
+        const description = req.body.description;
+        console.log("description: " + description);
+        const recipe = req.body.recipe;
+        console.log("receta: " + recipe);
+        const imageURL = req.body.imageURL;
+        console.log("imageURL: " + imageURL);
+        const vectorIngredientes = [];
+        console.log(req.body.ingredients)
+        console.log(req.body.cantidades)
+        console.log(req.body.Unidades)
+        console.log(req.body)
+
+        const cantidades = req.body.cantidades;
+        const Unidades = req.body.Unidades;
+        const ingredients = req.body.ingredients;
+
+        const ingObj = await createIngObj(ingredients, cantidades, Unidades);
+
+        // const query = { shrt_desc: req.body.ingredients[0] };
+        // console.log(query);
+
+        // for (let i = 0; i < req.body.ingredients.length; i++) {
+        //     console.log(i);
+        //     const value = await searchFood(req.body.ingredients[i], function (dato) {
+        //         console.log("DATO: " + dato);
+        //         vectorIngredientes.push(value);
+        //     });
+        // }
+        // // console.log("llega");
+        // const reqbody = req.body;
+        // const endObject = await anotherFunction(vectorIngredientes, reqbody)
+        // console.log("\n\n\n---------------------------------------------> " + util.inspect(endObject));
+    },
+
 
 };
+
+async function createIngObj(ingredients, cantidades, unidades) {
+    let ndbnos = [];
+
+    // console.log(ingredients.size)
+    for (let i = 0; i < ingredientes.length; i++) {
+
+        client.connect(function (err, client) {
+            assert.equal(null, err);
+            console.log("\nConnected successfully to server");
+            const db = client.db(name);
+            const collection = db.collection("food");
+            const nombre = ingredientes[i];
+            const query = { shrt_desc: nombre }
+            console.log(query);
+            const dato = findDoc(db, query, collection, function (data) {
+                resolve(data);
+            });
+            console.log(data);
+
+        });
+    }
+}
+
+async function anotherFunction(vectorIngredientes, reqbody) {
+    console.log("FUNCION:::: ");
+    const obj = {
+        _id: reqbody.title,
+        description: reqbody.description,
+        recipe: reqbody.recipe,
+        imageURL: reqbody.imageURL
+
+    }
+    for (let i = 0; i < vectorIngredientes.length; i++) {
+        const ingObj = {
+            name: reqbody.ingredients[i],
+            amount: reqbody.amount,
+            unitMeasure: reqbody.Unidades[i],
+            ndbno: vectorIngredientes[i]
+        }
+    }
+    obj.ingredients = ingObj;
+    return obj;
+
+}
 
 async function findAllDocuments(db, query, collection, callback) {
     // console.log(query)
@@ -897,8 +1192,10 @@ async function findAllDocuments(db, query, collection, callback) {
             // console.log("\nFound the following records");
             callback(docs);
         });
-
 }
+
+
+
 
 async function findLimit(db, query, collection, callback) {
     // console.log(query)
@@ -994,6 +1291,43 @@ async function calculateNutrientsMenu(doc) {
 
 
     return total;
+}
+
+async function searchFood(ing, callback2) {
+    // for (let i = 0; i < req.body.ingredients.length; i++){
+    client.connect(function (err, client) {
+        assert.equal(null, err);
+        console.log("\nConnected successfully to server");
+        const db = client.db(name);
+        const collection = db.collection("food");
+        const query = { shrt_desc: ing }
+        console.log(query);
+        findDoc(db, query, collection, function (data) {
+            console.log("MUESTRA AQUI: " + util.inspect(data[0].ndb_no));
+            if (data) {
+                callback2(data[0].ndb_no);
+            }
+
+        });
+
+    });
+    // }
+    // console.log("\nEL VECTOR CONTIENE:\n" + util.inspect(vectorIngredientes));
+}
+
+
+async function findDoc(db, query, collection, callback) {
+    // console.log(query)
+    collection
+        .find(query)
+        .limit(200)
+        .sort({ ndb_no: 1 })
+        .toArray(function (err, docs) {
+            assert.equal(err, null);
+            console.log("\nFound the following records");
+            callback(docs);
+        });
+
 }
 
 

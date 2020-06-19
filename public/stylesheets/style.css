@@ -23,6 +23,10 @@ body {
   /* background-color:  rgba(172, 189, 186, 0.70);  */
 }
 
+.a{
+  color: white;
+
+}
 .footer {
   position: absolute;
   bottom: 0;
@@ -62,8 +66,10 @@ body {
   margin-bottom: 15px;
 }
 
+
 .features-icons-icon:hover {
   transform: scale(1.18);
+
 }
 
 .infoPage span {

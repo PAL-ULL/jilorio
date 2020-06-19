@@ -91,7 +91,8 @@
         "menus": "Listado de menús",
         "planificacion": "Listado de planificaciones",
         "recomendaciones": "Listado de recomendaciones",
-        "evaluaciones": "Listado de evaluaciones"
+        "evaluaciones": "Listado de evaluaciones",
+        "users": "Listado de usuarios"
     },
     "tablaAlimentos": {
         "nombres": [
@@ -189,6 +190,21 @@
             "Día",
             "Menú",
             "Platos"
+        ]
+    },
+    "tablaUsers": {
+        "nombres": [
+            "Nombre",
+            "Nombre de usuario",
+            "Correo electrónico",
+            "Rol",
+            "Acciones"
+        ],
+        "valores": [
+            "name",
+            "username",
+            "email",
+            "rol"
         ]
     },
     "register": {
@@ -343,6 +359,59 @@
             }
         ],
         "button": "Confirmar"
+    },
+    "userEdit":{
+        "form": [
+            {
+                "label": "Actualice el nombre",
+                "icon": "fas fa-user",
+                "type": "text",
+                "placeholder": "Nombre",
+                "ariaLabel": "name",
+                "name": "name"
+            },
+            {
+                "label": "Actualice el nombre de usuario",
+                "icon": "@",
+                "type": "text",
+                "placeholder": "Nombre de usuario",
+                "ariaLabel": "username",
+                "name": "username"
+            },
+            {
+                "label": "Actualice el correo electónico",
+                "icon": "fas fa-envelope",
+                "type": "text",
+                "placeholder": "Correo electrónico",
+                "ariaLabel": "email",
+                "name": "email"
+            },
+            {
+                "label": "Actualice la contraseña",
+                "icon": "fas fa-lock",
+                "type": "text",
+                "placeholder": "Contraseña",
+                "ariaLabel": "password",
+                "name": "password"
+            },
+            {
+                "label": "Confirme la contraseña",
+                "icon": "fas fa-lock",
+                "type": "text",
+                "placeholder": "Contraseña",
+                "ariaLabel": "password2",
+                "name": "password2"
+            },
+            {
+                "label": "Actualice el rol",
+                "icon": "fas fa-lock",
+                "type": "text",
+                "placeholder": "Rol de usuario",
+                "ariaLabel": "rol",
+                "name": "rol"
+            }
+        ],
+        "button": "Guardar"
     },
     "login": {
         "title": "Inicio de sesión",
