@@ -12,7 +12,7 @@ router.get("/food", controller.food);
 router.get("/food/view", controller.foodView);
 router.post("/food/view", controller.getFood);
 router.post("/food/:shrt_desc?", controller.getFood);
-router.post("/saveDish", controller.saveDish);
+// router.post("/saveDish", controller.saveDish);
 
 router.get("/dish", controller.dish);
 router.get("/dish/view", controller.dishView);
@@ -22,9 +22,12 @@ router.post("/dish/view:_id?", controller.getDish);
 router.get("/dish/delete/:_id", controller.removeDish);
 router.get("/dish/insert", controller.insertDish);
 router.get("/dish/insert/autocomplete/", controller.autocomplete);
-router.get("/dish/insert/check/", controller.check);
+router.get("/dish/update/:_id/autocomplete/", controller.autocomplete2);
+// router.get("/dish/insert/check/", controller.check);
 router.post("/dish/insert", controller.insertDishPost);
 router.get("/dish/:_id", controller.dishDetails);
+router.get("/dish/update/:_id", controller.updateDish);
+router.post("/dish/update/:_id", controller.updateDishPost);
 
 
 router.get("/menu", controller.menu);

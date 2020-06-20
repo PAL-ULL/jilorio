@@ -167,26 +167,7 @@ let controller = {
     },
 
     insertDish: function (req, res) {
-        // const title = req.body.title;
-        // console.log("title: " + title);
-        // const description = req.body.description;
-        // console.log("description: " + description);
-        // const recipe = req.body.recipe;
-        // console.log("receta: " + recipe);
-        // const imageURL = req.body.imageURL;
-        // console.log("imageURL: " + imageURL);
-
         console.log(req.body);
-
-        // console.log(util.inspect(req.body.cantidades));
-
-        // req.checkBody('title', 'title is required').notEmpty();
-        // req.checkBody('description', 'description is required').notEmpty();
-        // let errors = req.validationErrors();
-        // if (typeof req.body.group !== "undefined") {
-        //     console.log("\n\n\n" + util.inspect(req.body));
-        // }
-
 
         let query = {};
 
@@ -250,21 +231,6 @@ let controller = {
         }).sort({ _id: 1 })
     },
 
-    addDish: function (req, res) {
-        Dish.find({}, function (err, docs) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.render('dish/addDish', {
-                    items: {
-                        req: req,
-                        myObject: espTemplate,
-
-                    }
-                });
-            }
-        }).sort({ _id: 1 })
-    },
 
     removeDish: function (req, res) {
 
@@ -300,21 +266,296 @@ let controller = {
         })
     },
 
+    insertDishPost: async function (req, res) {
 
-    saveDish: function (req, res) {
-        let dish = new Dish();
+        const title = req.body.title;
+        console.log("title: " + title);
+        const description = req.body.description;
+        console.log("description: " + description);
+        const recipe = req.body.recipe;
+        console.log("receta: " + recipe);
+        const imageURL = req.body.imageURL;
+        console.log("imageURL: " + imageURL);
+        const vectorIngredientes = [];
+        console.log(req.body.ingredients)
 
-        let params = req.body;
-        dish.title = params.title;
-        dish.description = params.description;
-        dish.ingredients = params.ingredients;
+        let errors = [];
 
-        dish.save((err, dishStored) => {
-            if (err) return res.status(500).send({ message: "Error al guardar documento" });
-            if (!dishStored) return res.status(400).send({ message: "No se ha podido guardar" });
-            return res.status(200).send({ message: "Se ha podido guardar" })
-        })
+        const cantidades = req.body.cantidades;
+        const Unidades = req.body.Unidades;
+        const ingredients = req.body.ingredients;
+        let resultados = [];
+        let noEncontrados = [];
+        console.log("\n\n");
+
+        for (let i = 0; i < ingredients.length; i++) {
+            const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
+
+            if (result.length === 0) {
+                noEncontrados.push(ingredients[i]);
+
+            } else {
+                let obj = {
+                    name: result[0].shrt_desc,
+                    amount: cantidades[i],
+                    unitMeasure: Unidades[i],
+                    ndbno: result[0].ndb_no
+                }
+                resultados.push(obj);
+            }
+        }
+        if (noEncontrados.length > 0) {
+
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+            for (let i = 0; i < noEncontrados.length; i++) {
+                errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+            }
+
+            client.connect(function (err, client) {
+                assert.equal(null, err);
+                console.log("\nConnected successfully to server");
+                const db = client.db(name);
+                const collection = db.collection("food");
+                const query = {};
+                findAllDocuments(db, query, collection, function (data) {
+                    let resultArray = data;
+
+                    res.render('dish/insertDish', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myDocs: resultArray,
+                            errors
+                        }
+                    });
+                });
+            });
+        } else {
+
+            console.log("VECTORES: " + util.inspect(resultados));
+            const plato = new Dish({
+                _id: title,
+                description: description,
+                ingredients: resultados,
+                recipe: recipe,
+                imageURL: imageURL
+            });
+
+            plato.save(async function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    Dish.find({}, async function (err, docs) {
+                        if (err) {
+
+                            console.log(err);
+                        } else {
+                            const suma = await calculateKcal(docs);
+                            req.flash('success', 'Dish was inserted');
+                            res.render('dish/getDish', {
+                                items: {
+                                    req: req,
+                                    myObject: espTemplate,
+                                    myDocs: docs,
+                                    myKcal: suma
+
+                                }
+                            })
+                        }
+                    });
+
+                }
+            })
+        }
     },
+
+    updateDish: function (req, res) {
+        const searchData = req.params._id;
+
+        const query = { _id: searchData };
+        // console.log(query);
+        Dish.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                let aux = docs[0];
+                console.log(docs[0]);
+
+                client.connect(function (err, client) {
+                    assert.equal(null, err);
+                    console.log("\nConnected successfully to server");
+                    const db = client.db(name);
+                    const collection = db.collection("food");
+                    let newQuery = {};
+                    findAllDocuments(db, newQuery, collection, function (data) {
+                        let resultArray = data;
+
+
+                        res.render('dish/updateDish', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: aux,
+                                myFood: resultArray
+
+                            }
+                        });
+                    });
+                });
+
+            }
+        }).sort({ _id: 1 })
+    },
+
+
+    updateDishPost: function (req, res) {
+        let dishId = req.params._id;
+        console.log(req.params);
+        console.log(req.body);
+        console.log("Funcion deseada")
+        const title = req.body.title;
+        console.log("title: " + title);
+        const description = req.body.description;
+        console.log("description: " + description);
+        const recipe = req.body.recipe;
+        console.log("receta: " + recipe);
+        const imageURL = req.body.imageURL;
+        console.log("imageURL: " + imageURL);
+        const vectorIngredientes = [];
+        console.log(req.body.ingredients)
+
+
+        let errors = [];
+
+        const cantidades = req.body.cantidades;
+        const Unidades = req.body.Unidades;
+        const ingredients = req.body.ingredients;
+        let resultados = [];
+        let noEncontrados = [];
+        console.log("\n\n");
+
+        for (let i = 0; i < ingredients.length; i++) {
+            const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
+
+            if (result.length === 0) {
+                noEncontrados.push(ingredients[i]);
+
+            } else {
+                let obj = {
+                    name: result[0].shrt_desc,
+                    amount: cantidades[i],
+                    unitMeasure: Unidades[i],
+                    ndbno: result[0].ndb_no
+                }
+                resultados.push(obj);
+            }
+        }
+        if (noEncontrados.length > 0) {
+
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+            for (let i = 0; i < noEncontrados.length; i++) {
+                errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+            }
+         
+            const query = {_id: dishId}
+               console.log(query);
+            Dish.find(query, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    let aux = docs[0];
+                    // console.log(docs[0])
+                    client.connect(function (err, client) {
+                        assert.equal(null, err);
+                        console.log("\nConnected successfully to server");
+                        const db = client.db(name);
+                        const collection = db.collection("food");
+                        const query = {};
+                        findAllDocuments(db, query, collection, function (data) {
+                            let resultArray = data;
+
+                            res.render('dish/updateDish', {
+                                items: {
+                                    errors,
+                                    id: req.params._id,
+                                    req: req,
+                                    myObject: espTemplate,
+                                    myDocs: aux,
+                                    myFood: resultArray
+                                }
+                            });
+                        });
+                    });
+                }
+            })
+        } else {
+
+            console.log("VECTORES: " + util.inspect(resultados));
+
+            const query = { _id: req.params._id };
+            const id = req.params._id;
+            console.log(id);
+
+            var newvalues = { description: description, ingredients: resultados, recipe: recipe, imageURL: imageURL };
+            Dish.findById(query).then(plato => {
+                if (plato) {
+                    console.log("Plato encontrado" + plato);
+                    const newPlato = {
+                        description,
+                        ingredients,
+                        recipe,
+                        imageURL
+                    };
+                    const set = { $set: newvalues };
+                    console.log(set)
+                    Dish.updateOne(query, set, (err, updateDish) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("\n\n\nUSUARIO ACTUALIZADO: " + updateDish)
+                            req.flash(
+                                'success_msg',
+                                'Dish has been updated'
+                            );
+                            res.redirect('/dish/view');
+                        }
+                    })
+
+                }
+
+            });
+
+            // plato.save(async function (err) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         Dish.find({}, async function (err, docs) {
+            //             if (err) {
+
+            //                 console.log(err);
+            //             } else {
+            //                 const suma = await calculateKcal(docs);
+            //                 req.flash('success', 'Dish was inserted');
+            //                 res.render('dish/getDish', {
+            //                     items: {
+            //                         req: req,
+            //                         myObject: espTemplate,
+            //                         myDocs: docs,
+            //                         myKcal: suma
+
+            //                     }
+            //                 })
+            //             }
+            //         });
+
+            //     }
+            // })
+        }
+
+
+    },
+
+
 
     menu: function (req, res) {
         return res.status(200).render('menu/menu.ejs', {
@@ -448,37 +689,6 @@ let controller = {
     },
 
     insertMenu: function (req, res) {
-        // const title = req.body.title;
-        // console.log("title: " + title);
-        // const description = req.body.description;
-        // console.log("description: " + description);
-
-        // req.checkBody('title', 'title is required').notEmpty();
-        // req.checkBody('description', 'description is required').notEmpty();
-        // let errors = req.validationErrors();
-        // if (typeof req.body.group !== "undefined") {
-        //     console.log("\n\n\n" + util.inspect(req.body));
-        // }
-
-        // let query = {};
-
-        // const searchData = req.body.shrt_desc;
-        // console.log(searchData)
-        // if (typeof searchData !== "undefined") {
-        //     query = { shrt_desc: { $regex: searchData } };
-        // }
-
-        // client.connect(function (err, client) {
-        //     assert.equal(null, err);
-        //     console.log("\nConnected successfully to server");
-        //     const db = client.db(name);
-        //     const collection = db.collection("dish");
-        //     findAllDocuments(db, query, collection, function (data) {
-        //         let resultArray = data;
-        //         console.log(resultArray.length)
-
-
-
 
         res.render('insertDish', {
             items: {
@@ -488,9 +698,6 @@ let controller = {
             }
         });
 
-        // });
-
-        // });
     },
 
 
@@ -509,15 +716,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(docs);
-                // for (var i = 0; i < docs[4].menus[4].length; i++) {
-                // for (var k = 0; k < docs[4].menus[4][5].length; k++) {
-                //     console.log(docs[4].menus[19][20][k]._id);
-                // }
-                // // console.log(docs[4].menus[4][5][k]._id);
-                // // }
-                // console.log(docs[4].menus[3][4].length);
-                // console.log(docs[4].menus[3][4].length);
+
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -688,64 +887,6 @@ let controller = {
         });
     },
 
-    // newUser: function (req, res) {
-    //     console.log("------------------> Todo bien");
-    //     const name = req.body.name;
-    //     console.log("NOMBRE: " + name);
-    //     const email = req.body.email;
-    //     console.log("email: " + email);
-    //     const username = req.body.username;
-    //     console.log("username: " + username);
-    //     const password = req.body.password;
-    //     console.log("password: " + password);
-    //     const password2 = req.body.password2;
-    //     console.log("password2: " + password2);
-
-    //     req.checkBody('name', 'Name is required').notEmpty();
-    //     req.checkBody('email', 'Email is required').notEmpty();
-    //     req.checkBody('email', 'Email is not valid').isEmail();
-    //     req.checkBody('username', 'Username is required').notEmpty();
-    //     req.checkBody('password', 'Password is required').notEmpty();
-    //     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
-
-    //     let errors = req.validationErrors();
-
-    //     if (errors) {
-    //         res.render('user/register', {
-    //             items: {
-    //                 myObject: espTemplate,
-    //                 errors: errors
-    //             }
-    //         });
-    //     } else {
-    //         let newUser = new User({
-    //             name: name,
-    //             email: email,
-    //             username: username,
-    //             password: password
-    //         });
-
-    //         bcrypt.genSalt(10, function (err, salt) {
-    //             bcrypt.hash(newUser.password, salt, function (err, hash) {
-    //                 if (err) {
-    //                     req.flash('danger', 'Error en la contraseña');
-    //                     console.log(err);
-    //                 }
-    //                 newUser.password = hash;
-    //                 newUser.save(function (err) {
-    //                     if (err) {
-    //                         console.log(err);
-    //                         return;
-    //                     } else {
-    //                         req.flash('success', 'You are now registered and can log in');
-    //                         res.redirect('login');
-    //                     }
-    //                 });
-    //             });
-    //         });
-    //     }
-    // },
-
     newUser: function (req, res) {
         const { name, email, username, password, password2 } = req.body;
         let errors = [];
@@ -884,9 +1025,7 @@ let controller = {
 
     updateUser: function (req, res) {
         let userId = req.params._id;
-        // console.log(util.inspect (req.params));
-
-        // console.log(dishId);
+      
         const query = { _id: userId };
         Users.find(query, async function (err, docs) {
             if (err) {
@@ -1038,6 +1177,7 @@ let controller = {
     },
 
     autocomplete: function (req, res) {
+        console.log("EN AUTOCOMPLETAR")
         const query = { shrt_desc: { $regex: req.query["term"] } };
 
         client.connect(function (err, client) {
@@ -1046,10 +1186,35 @@ let controller = {
             const db = client.db(name);
             const collection = db.collection("food");
             findLimit(db, query, collection, function (data) {
-
+                console.log(data)
                 let vector = [];
-                // console.log(data)
+                data.forEach(element => {
+                    let obj = {
+                        id: element._id,
+                        label: element.shrt_desc,
+                        ndbno: element.ndb_no
+                    };
+                    vector.push(obj);
+                });
 
+                console.log("vector " + util.inspect(vector));
+                res.jsonp(vector);
+
+            });
+        });
+    },
+    autocomplete2: function (req, res) {
+        console.log("EN AUTOCOMPLETAR")
+        const query = { shrt_desc: { $regex: req.query["term"] } };
+
+        client.connect(function (err, client) {
+            assert.equal(null, err);
+            console.log("\nConnected successfully to server");
+            const db = client.db(name);
+            const collection = db.collection("food");
+            findLimit(db, query, collection, function (data) {
+                console.log(data)
+                let vector = [];
                 data.forEach(element => {
                     let obj = {
                         id: element._id,
@@ -1066,132 +1231,6 @@ let controller = {
         });
     },
 
-    check: function (req, res) {
-
-        const query = { shrt_desc: req.query["term"] };
-
-        client.connect(function (err, client) {
-            assert.equal(null, err);
-            console.log("\nConnected successfully to server");
-            const db = client.db(name);
-            const collection = db.collection("food");
-            findLimit(db, query, collection, function (data) {
-                let vector = [];
-                data.forEach(element => {
-                    let obj = {
-                        id: element._id,
-                        label: element.shrt_desc,
-                    };
-                    vector.push(obj);
-                });
-                res.jsonp(vector);
-            });
-        });
-    },
-
-    insertDishPost: async function (req, res) {
-
-        const title = req.body.title;
-        console.log("title: " + title);
-        const description = req.body.description;
-        console.log("description: " + description);
-        const recipe = req.body.recipe;
-        console.log("receta: " + recipe);
-        const imageURL = req.body.imageURL;
-        console.log("imageURL: " + imageURL);
-        const vectorIngredientes = [];
-        console.log(req.body.ingredients)
-        // console.log(req.body.cantidades)
-        // console.log(req.body.Unidades)
-        // console.log(req.body)
-        let errors = [];
-
-        const cantidades = req.body.cantidades;
-        const Unidades = req.body.Unidades;
-        const ingredients = req.body.ingredients;
-        let resultados = [];
-        let noEncontrados = [];
-        console.log("\n\n");
-
-        for (let i = 0; i < ingredients.length; i++) {
-            const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
-
-            if (result.length === 0) {
-                noEncontrados.push(ingredients[i]);
-
-            } else {
-                let obj = {
-                    name: result[0].shrt_desc,
-                    amount: cantidades[i],
-                    unitMeasure: Unidades[i],
-                    ndbno: result[0].ndb_no
-                }
-                resultados.push(obj);
-            }
-        }
-        if (noEncontrados.length > 0) {
-
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
-            for (let i = 0; i < noEncontrados.length; i++) {
-                errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
-            }
-
-            client.connect(function (err, client) {
-                assert.equal(null, err);
-                console.log("\nConnected successfully to server");
-                const db = client.db(name);
-                const collection = db.collection("food");
-                const query = {};
-                findAllDocuments(db, query, collection, function (data) {
-                    let resultArray = data;
-
-                    res.render('dish/insertDish', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: resultArray,
-                            errors
-                        }
-                    });
-                });
-            });
-        } else
-
-            console.log("VECTORES: " + util.inspect(resultados));
-        const plato = new Dish({
-            _id: title,
-            description: description,
-            ingredients: resultados,
-            recipe: recipe,
-            imageURL: imageURL
-        });
-
-        plato.save(async function (err) {
-            if (err) {
-                console.log(err);
-            } else {
-                Dish.find({}, async function (err, docs) {
-                    if (err) {
-
-                        console.log(err);
-                    } else {
-                        const suma = await calculateKcal(docs);
-                        req.flash('success', 'Dish was inserted');
-                        res.render('dish/getDish', {
-                            items: {
-                                req: req,
-                                myObject: espTemplate,
-                                myDocs: docs,
-                                myKcal: suma
-
-                            }
-                        })
-                    }
-                });
-
-            }
-        })
-    }
 
 };
 
@@ -1303,11 +1342,8 @@ async function calculateNutrientsMenu(doc) {
         sugar.toFixed(2)
     ]
 
-
     return total;
 }
-
-
 
 
 module.exports = controller;

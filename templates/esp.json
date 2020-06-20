@@ -329,7 +329,10 @@
                 "name": "relationatedDishes"
             }
         ],
-        "button": "Confirmar"
+        "updateFormFirst": ["_id", "description", "recipe", "imageURL" ],
+        "updateFormSecond": ["name", "amount", "unitMeasure" ],
+        "button": "Confirmar",
+        "update": "Actualización de plato"
     },
     "menu": {
         "title": "Inserción de menus",
