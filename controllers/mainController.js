@@ -600,7 +600,7 @@ let controller = {
     },
 
     menuDetails: async function (req, res) {
-   
+
         let menuId = req.params._id;
         const query = { _id: menuId };
 
@@ -669,7 +669,7 @@ let controller = {
     },
 
     insertMenu: function (req, res) {
-   
+
         Dish.find({}, async function (err, docs) {
             if (err) {
 
@@ -691,7 +691,7 @@ let controller = {
     },
 
     insertMenuPost: async function (req, res) {
-    
+
         console.log(req.body);
         const _id = req.body.title;
         const description = req.body.description;
@@ -703,8 +703,10 @@ let controller = {
             description: description,
 
         });
+        console.log("platos: " + req.body.platos)
         for (let i = 0; i < platos.length; i++) {
             const query = { _id: platos[i] }
+            console.log(query)
             var data = await myFunction(query);
             console.log("tam: " + data.length);
 
@@ -728,7 +730,7 @@ let controller = {
 
                     console.log(err);
                 } else {
-                    console.log("si" + docs)
+                    // console.log("si" + docs)
                     const suma = await calculateKcal(docs);
                     // console.log("SUMA: " + suma)
                     res.render('menu/insertMenu', {
@@ -747,7 +749,7 @@ let controller = {
 
         } else {
             // console.log("Bien: -> " + correcto[0])
-          
+
             // for (let i = 0; i < correcto.length; i++) {
             //     menu.dishes[i] = (correcto[i]);
             // }
@@ -790,6 +792,39 @@ let controller = {
         // }
     },
 
+    updateMenu: function (req, res) {
+        const query ={ _id: req.params._id};
+        console.log(query);
+
+        Menu.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                const menu = docs;
+                Dish.find({}, async function (err, docs) {
+                    if (err) {
+
+                        console.log(err);
+                    } else {
+                        const suma = await calculateKcal(docs);
+                        console.log(menu)
+
+                        res.render('menu/updateMenu', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: docs,
+                                myKcal: suma,
+                                myMenu: menu[0]
+
+                            }
+                        });
+                    }
+                })
+            }
+        }).sort({ _id: 1 })
+
+    },
 
 
     planification: function (req, res) {
@@ -1160,13 +1195,13 @@ let controller = {
         }
 
         if (errors.length > 0) {
-   
+
 
             Users.find({ _id: req.params._id }, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
-            
+
                     console.log(docs);
                     res.render('user/updateUser', {
                         items: {
@@ -1205,7 +1240,7 @@ let controller = {
                     bcrypt.genSalt(10, (err, salt) => {
                         bcrypt.hash(newvalues.password, salt, (err, hash) => {
                             if (err) throw err;
-                         
+
                             newUser.password = hash;
                             const set = { $set: newvalues };
                             console.log(set);
@@ -1213,7 +1248,7 @@ let controller = {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    
+
                                     req.flash(
                                         'success_msg',
                                         'User has been updated'
@@ -1301,7 +1336,7 @@ let controller = {
             const db = client.db(name);
             const collection = db.collection("food");
             findLimit(db, query, collection, function (data) {
-               
+
                 let vector = [];
                 data.forEach(element => {
                     let obj = {
@@ -1312,7 +1347,7 @@ let controller = {
                     vector.push(obj);
                 });
 
-      
+
                 res.jsonp(vector);
 
             });
@@ -1327,7 +1362,7 @@ let controller = {
 
                 console.log(err);
             } else {
-         
+
                 let vector = [];
                 docs.forEach(element => {
                     let obj = {
@@ -1372,7 +1407,7 @@ async function findLimit(db, query, collection, callback) {
         .sort({ ndb_no: 1 })
         .toArray(function (err, docs) {
             assert.equal(err, null);
-           
+
             callback(docs);
         });
 
@@ -1388,11 +1423,11 @@ async function calculateKcal(docs) {
             nut_vector.push(nutrients);
         }
         let suma = 0;
-   
+
         const valores = dish.computeNutrients(docs[i].ingredients, nut_vector);
-  
+
         sumasKcal.push(valores.energKcal);
-   
+
     }
 
     return sumasKcal;
@@ -1417,19 +1452,19 @@ async function calculateNutrientsMenu(doc) {
     let vector = [];
     // let nut_vector = [];
     for (let i = 0; i < doc.dishes.length; i++) {
-        let nut_vector=[]
+        let nut_vector = []
         for (let j = 0; j < doc.dishes[i].ingredients.length; j++) {
             const nutrients = await dish.storeNutrients(doc.dishes[i].ingredients[j]);
 
             nut_vector.push(nutrients);
         }
-        
-    
+
+
         const valores = dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
 
         vector.push(valores);
     }
-   
+
 
     let water = 0;
     let energKcal = 0;
@@ -1444,7 +1479,7 @@ async function calculateNutrientsMenu(doc) {
     for (let i = 0; i < vector.length; i++) {
         water += vector[i]["water"];
         energKcal += vector[i]["energKcal"];
-  
+
         protein += vector[i]["protein"];
         lipidTotal += vector[i]["lipidTotal"];
         carbohydrt += vector[i]["carbohydrt"];

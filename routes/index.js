@@ -38,6 +38,8 @@ router.get("/menu/insert", controller.insertMenu);
 router.get("/menu/:_id?", controller.menuDetails);
 router.get("/menu/insert/autocomplete/", controller.autocompleteMenu);
 router.post("/menu/insert", controller.insertMenuPost);
+router.get("/menu/update/:_id", controller.updateMenu);
+// router.post("/dish/update/:_id", controller.updateDishPost);
 
 router.get("/planification", controller.planification);
 router.get("/planification/view", controller.planificationView);

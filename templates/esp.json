@@ -368,9 +368,10 @@
                 "type": "text",
                 "placeholder": "Platos del menú",
                 "ariaLabel": "platos",
-                "name": "platos"
+                "name": "platos[]"
             }
         ],
+        "update": "Actualización de menú",
         "button": "Confirmar"
     },
     "userEdit":{
