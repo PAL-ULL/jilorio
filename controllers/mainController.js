@@ -34,6 +34,7 @@ const Food = require("../models/food");
 const { Console } = require("console");
 const { db } = require("../models/dish");
 const { query } = require("express");
+const { resolve } = require("path");
 
 let ingredientes = [];
 // Routes
@@ -456,9 +457,9 @@ let controller = {
             for (let i = 0; i < noEncontrados.length; i++) {
                 errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
             }
-         
-            const query = {_id: dishId}
-               console.log(query);
+
+            const query = { _id: dishId }
+            console.log(query);
             Dish.find(query, async function (err, docs) {
                 if (err) {
                     console.log(err);
@@ -525,31 +526,7 @@ let controller = {
 
             });
 
-            // plato.save(async function (err) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
-            //         Dish.find({}, async function (err, docs) {
-            //             if (err) {
 
-            //                 console.log(err);
-            //             } else {
-            //                 const suma = await calculateKcal(docs);
-            //                 req.flash('success', 'Dish was inserted');
-            //                 res.render('dish/getDish', {
-            //                     items: {
-            //                         req: req,
-            //                         myObject: espTemplate,
-            //                         myDocs: docs,
-            //                         myKcal: suma
-
-            //                     }
-            //                 })
-            //             }
-            //         });
-
-            //     }
-            // })
         }
 
 
@@ -623,6 +600,7 @@ let controller = {
     },
 
     menuDetails: async function (req, res) {
+        console.log("EN ESTA FUNCION")
         let menuId = req.params._id;
         const query = { _id: menuId };
 
@@ -689,15 +667,125 @@ let controller = {
     },
 
     insertMenu: function (req, res) {
+        console.log("En esta")
+        Dish.find({}, async function (err, docs) {
+            if (err) {
 
-        res.render('insertDish', {
-            items: {
+                console.log(err);
+            } else {
+                console.log("si" + docs)
+                const suma = await calculateKcal(docs);
+                res.render('menu/insertMenu', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs,
+                        myKcal: suma
 
-                myObject: espTemplate,
-
+                    }
+                });
             }
-        });
+        })
+    },
 
+    insertMenuPost: async function (req, res) {
+        console.log("En esta")
+        console.log(req.body);
+        const _id = req.body.title;
+        const description = req.body.description;
+        const platos = req.body.platos;
+        let incorrecto = [];
+        let correcto = [];
+        const menu = new Menu({
+            _id: _id,
+            description: description,
+
+        });
+        for (let i = 0; i < platos.length; i++) {
+            const query = { _id: platos[i] }
+            var data = await myFunction(query);
+            console.log("tam: " + data.length);
+
+            if (data.length === 0) {
+                incorrecto.push(platos[i]);
+            } else {
+                menu.dishes.push(data[0]);
+            }
+        }
+        // console.log("Despues")
+        // console.log(incorrecto)
+        if (incorrecto.length > 0) {
+            console.log("Algún plato está mal");
+            console.log(util.inspect(incorrecto));
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(incorrecto));
+            let errors = [];
+            for (let i = 0; i < incorrecto.length; i++) {
+                errors.push({ msg: "El plato " + incorrecto[i] + " no ha sido encontrado." });
+            }
+            Dish.find({}, async function (err, docs) {
+                if (err) {
+
+                    console.log(err);
+                } else {
+                    console.log("si" + docs)
+                    const suma = await calculateKcal(docs);
+                    res.render('menu/insertMenu', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myDocs: docs,
+                            myKcal: suma,
+                            errors
+
+                        }
+                    });
+                }
+            })
+
+
+        } else {
+            // console.log("Bien: -> " + correcto[0])
+          
+            // for (let i = 0; i < correcto.length; i++) {
+            //     menu.dishes[i] = (correcto[i]);
+            // }
+            console.log("AHORAAAAAAAAAAA" + util.inspect(menu))
+
+            menu.save(async function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    Menu.find({}, async function (err, docs) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(docs)
+                            let valores = [];
+                            for (let i = 0; i < docs.length; i++) {
+                                const value = await calculateNutrientsMenu(docs[i])
+                                valores.push(value);
+                            }
+
+                            res.render('menu/getMenu', {
+                                items: {
+                                    req: req,
+                                    myObject: espTemplate,
+                                    myDocs: docs,
+                                    myNutrientsMenu: valores,
+                                }
+                            });
+                        }
+                    }).sort({ _id: 1 })
+                }
+            })
+        }
+        // console.log("FINAL")
+        // // console.log(incorrecto.length)
+        // if (incorrecto.lenght > 0){
+        //     console.log("Hay alguno mal");
+        // }else {
+        //     console.log("Todo correcto");
+        // }
     },
 
 
@@ -1025,7 +1113,7 @@ let controller = {
 
     updateUser: function (req, res) {
         let userId = req.params._id;
-      
+
         const query = { _id: userId };
         Users.find(query, async function (err, docs) {
             if (err) {
@@ -1231,6 +1319,32 @@ let controller = {
         });
     },
 
+    autocompleteMenu: function (req, res) {
+        console.log("EN AUTOCOMPLETAR de MENU")
+        const query = { _id: { $regex: req.query["term"] } };
+
+        Dish.find(query, async function (err, docs) {
+            if (err) {
+
+                console.log(err);
+            } else {
+                console.log(docs)
+                let vector = [];
+                docs.forEach(element => {
+                    let obj = {
+                        id: element._id,
+                        label: element._id,
+                        ndbno: element.ndb_no
+                    };
+                    vector.push(obj);
+                });
+
+                console.log("vector " + util.inspect(vector));
+                res.jsonp(vector);
+            }
+        }).sort({ _id: 1 })
+
+    },
 
 };
 
@@ -1246,6 +1360,7 @@ async function findAllDocuments(db, query, collection, callback) {
             callback(docs);
         });
 }
+
 
 
 
@@ -1345,6 +1460,28 @@ async function calculateNutrientsMenu(doc) {
     return total;
 }
 
+// async function asyncMenu(query) {
+
+//     let booleano = true;
+//     const result = Dish.find(query, async function (err, docs) {
+//         console.log("Asincronia")
+//         console.log(docs.length);
+//         if (docs.length === 0) {
+//             booleano = false;
+//         } else {
+//             booleano = true;
+//             // resolve(docs.toArray());
+//         }
+//     });
+//     console.log(result);
+
+//     console.log(booleano);
+
+// }
+
+async function myFunction(query) {
+    return Dish.find(query).exec()
+}
 
 module.exports = controller;
 

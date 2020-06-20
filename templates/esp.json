@@ -169,6 +169,13 @@
             "sugar"
         ]
     },
+    "tablaPlatosReducida": {
+        "nombres": [
+            "Nombre",
+            "Calorías"
+        ]
+
+    },
     "tablaMenu": {
         "nombres": [
             "Nombre",
@@ -352,9 +359,11 @@
                 "placeholder": "Descripción del menú",
                 "ariaLabel": "description",
                 "name": "description"
-            },
+            }
+        ],
+        "formPlatos": [
             {
-                "label": "Introduzca los platos que forman parte del menú",
+                "label": "Introduzca un plato",
                 "icon": "fas fa-apple-alt",
                 "type": "text",
                 "placeholder": "Platos del menú",
