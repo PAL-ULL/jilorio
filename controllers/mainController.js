@@ -600,7 +600,7 @@ let controller = {
     },
 
     menuDetails: async function (req, res) {
-        console.log("EN ESTA FUNCION")
+   
         let menuId = req.params._id;
         const query = { _id: menuId };
 
@@ -613,7 +613,9 @@ let controller = {
                 valores = await calculateNutrientsMenu(doc[0]);
                 let kcalPlatos = [];
                 const kcal = await calculateKcal(doc[0].dishes);
+                // console.log("valores --------: " + valores)
                 kcalPlatos.push(kcal);
+                // console.log("kcalPlatos: " + util.inspect(kcalPlatos[0]))
 
                 res.render('menu/menuDetails', {
                     items: {
@@ -667,7 +669,7 @@ let controller = {
     },
 
     insertMenu: function (req, res) {
-        console.log("En esta")
+   
         Dish.find({}, async function (err, docs) {
             if (err) {
 
@@ -689,7 +691,7 @@ let controller = {
     },
 
     insertMenuPost: async function (req, res) {
-        console.log("En esta")
+    
         console.log(req.body);
         const _id = req.body.title;
         const description = req.body.description;
@@ -712,8 +714,7 @@ let controller = {
                 menu.dishes.push(data[0]);
             }
         }
-        // console.log("Despues")
-        // console.log(incorrecto)
+
         if (incorrecto.length > 0) {
             console.log("Algún plato está mal");
             console.log(util.inspect(incorrecto));
@@ -729,6 +730,7 @@ let controller = {
                 } else {
                     console.log("si" + docs)
                     const suma = await calculateKcal(docs);
+                    // console.log("SUMA: " + suma)
                     res.render('menu/insertMenu', {
                         items: {
                             req: req,
@@ -749,7 +751,7 @@ let controller = {
             // for (let i = 0; i < correcto.length; i++) {
             //     menu.dishes[i] = (correcto[i]);
             // }
-            console.log("AHORAAAAAAAAAAA" + util.inspect(menu))
+            // console.log("AHORAAAAAAAAAAA" + util.inspect(menu))
 
             menu.save(async function (err) {
                 if (err) {
@@ -1158,13 +1160,13 @@ let controller = {
         }
 
         if (errors.length > 0) {
-            console.log("|||||||||||||||| ERRORES ||||||||||||||")
+   
 
             Users.find({ _id: req.params._id }, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log("BUSQUEDA")
+            
                     console.log(docs);
                     res.render('user/updateUser', {
                         items: {
@@ -1203,7 +1205,7 @@ let controller = {
                     bcrypt.genSalt(10, (err, salt) => {
                         bcrypt.hash(newvalues.password, salt, (err, hash) => {
                             if (err) throw err;
-                            console.log("BUSCANDO A ESTE ID:  " + id);
+                         
                             newUser.password = hash;
                             const set = { $set: newvalues };
                             console.log(set);
@@ -1211,7 +1213,7 @@ let controller = {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log("\n\n\nUSUARIO ACTUALIZADO: " + updateUser)
+                                    
                                     req.flash(
                                         'success_msg',
                                         'User has been updated'
@@ -1265,7 +1267,6 @@ let controller = {
     },
 
     autocomplete: function (req, res) {
-        console.log("EN AUTOCOMPLETAR")
         const query = { shrt_desc: { $regex: req.query["term"] } };
 
         client.connect(function (err, client) {
@@ -1285,14 +1286,13 @@ let controller = {
                     vector.push(obj);
                 });
 
-                console.log("vector " + util.inspect(vector));
+
                 res.jsonp(vector);
 
             });
         });
     },
     autocomplete2: function (req, res) {
-        console.log("EN AUTOCOMPLETAR")
         const query = { shrt_desc: { $regex: req.query["term"] } };
 
         client.connect(function (err, client) {
@@ -1301,7 +1301,7 @@ let controller = {
             const db = client.db(name);
             const collection = db.collection("food");
             findLimit(db, query, collection, function (data) {
-                console.log(data)
+               
                 let vector = [];
                 data.forEach(element => {
                     let obj = {
@@ -1312,7 +1312,7 @@ let controller = {
                     vector.push(obj);
                 });
 
-                console.log("vector " + util.inspect(vector));
+      
                 res.jsonp(vector);
 
             });
@@ -1320,7 +1320,6 @@ let controller = {
     },
 
     autocompleteMenu: function (req, res) {
-        console.log("EN AUTOCOMPLETAR de MENU")
         const query = { _id: { $regex: req.query["term"] } };
 
         Dish.find(query, async function (err, docs) {
@@ -1328,7 +1327,7 @@ let controller = {
 
                 console.log(err);
             } else {
-                console.log(docs)
+         
                 let vector = [];
                 docs.forEach(element => {
                     let obj = {
@@ -1339,7 +1338,7 @@ let controller = {
                     vector.push(obj);
                 });
 
-                console.log("vector " + util.inspect(vector));
+
                 res.jsonp(vector);
             }
         }).sort({ _id: 1 })
@@ -1366,14 +1365,14 @@ async function findAllDocuments(db, query, collection, callback) {
 
 
 async function findLimit(db, query, collection, callback) {
-    // console.log(query)
+
     collection
         .find(query)
         .limit(15)
         .sort({ ndb_no: 1 })
         .toArray(function (err, docs) {
             assert.equal(err, null);
-            // console.log("\nFound the following records");
+           
             callback(docs);
         });
 
@@ -1389,14 +1388,18 @@ async function calculateKcal(docs) {
             nut_vector.push(nutrients);
         }
         let suma = 0;
+   
         const valores = dish.computeNutrients(docs[i].ingredients, nut_vector);
+  
         sumasKcal.push(valores.energKcal);
+   
     }
+
     return sumasKcal;
 }
 
 async function calculateNutrients(doc) {
-    console.log("\n\n\n\n\n" + doc)
+
     let nut_vector = [];
     for (let i = 0; i < doc[0].ingredients.length; i++) {
         const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);
@@ -1412,16 +1415,21 @@ async function calculateNutrients(doc) {
 async function calculateNutrientsMenu(doc) {
 
     let vector = [];
-    let nut_vector = [];
+    // let nut_vector = [];
     for (let i = 0; i < doc.dishes.length; i++) {
+        let nut_vector=[]
         for (let j = 0; j < doc.dishes[i].ingredients.length; j++) {
             const nutrients = await dish.storeNutrients(doc.dishes[i].ingredients[j]);
+
             nut_vector.push(nutrients);
         }
+        
+    
         const valores = dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
 
         vector.push(valores);
     }
+   
 
     let water = 0;
     let energKcal = 0;
@@ -1436,6 +1444,7 @@ async function calculateNutrientsMenu(doc) {
     for (let i = 0; i < vector.length; i++) {
         water += vector[i]["water"];
         energKcal += vector[i]["energKcal"];
+  
         protein += vector[i]["protein"];
         lipidTotal += vector[i]["lipidTotal"];
         carbohydrt += vector[i]["carbohydrt"];
@@ -1460,24 +1469,7 @@ async function calculateNutrientsMenu(doc) {
     return total;
 }
 
-// async function asyncMenu(query) {
 
-//     let booleano = true;
-//     const result = Dish.find(query, async function (err, docs) {
-//         console.log("Asincronia")
-//         console.log(docs.length);
-//         if (docs.length === 0) {
-//             booleano = false;
-//         } else {
-//             booleano = true;
-//             // resolve(docs.toArray());
-//         }
-//     });
-//     console.log(result);
-
-//     console.log(booleano);
-
-// }
 
 async function myFunction(query) {
     return Dish.find(query).exec()

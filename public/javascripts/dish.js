@@ -92,7 +92,6 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
     let cholestrl = 0;
     let sugar = 0;
     let amount = 0;
-
     for (const ingrediente in ingredientes) {
         amount = ingredientes[ingrediente].amount;
 
@@ -105,8 +104,12 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["energ_kcal"]))) {
             energKcal = energKcal + 0;
         } else {
+           
             energKcal = energKcal + ((parseFloat(nutrientes[ingrediente][0]["energ_kcal"]) * amount) / 100);
+             
         }
+       
+
 
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["protein_(g)"]))) {
             protein = protein + 0;
@@ -170,7 +173,7 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         }      
     }
 
-
+    
     const totalNutrients = {
         water: Number(water.toFixed(2)),
         energKcal: Number(energKcal.toFixed(2)),
