@@ -205,7 +205,7 @@ let controller = {
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
 
-    
+
                 res.render('dish/insertDish', {
                     items: {
                         req: req,
@@ -1115,21 +1115,27 @@ let controller = {
 
         for (let i = 0; i < ingredients.length; i++) {
             const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
-            
+
             if (result.length === 0) {
                 noEncontrados.push(ingredients[i]);
-               
+
             } else {
-                resultados.push(result);
+                let obj = {
+                    name: result[0].shrt_desc,
+                    amount: cantidades[i],
+                    unitMeasure: Unidades[i],
+                    ndbno: result[0].ndb_no
+                }
+                resultados.push(obj);
             }
         }
-        if (noEncontrados.length > 0){
+        if (noEncontrados.length > 0) {
 
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados)  );
-            for (let i=0; i < noEncontrados.length; i++){
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+            for (let i = 0; i < noEncontrados.length; i++) {
                 errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
             }
-          
+
             client.connect(function (err, client) {
                 assert.equal(null, err);
                 console.log("\nConnected successfully to server");
@@ -1138,7 +1144,7 @@ let controller = {
                 const query = {};
                 findAllDocuments(db, query, collection, function (data) {
                     let resultArray = data;
-   
+
                     res.render('dish/insertDish', {
                         items: {
                             req: req,
@@ -1149,77 +1155,45 @@ let controller = {
                     });
                 });
             });
-        }
+        } else
 
+            console.log("VECTORES: " + util.inspect(resultados));
+        const plato = new Dish({
+            _id: title,
+            description: description,
+            ingredients: resultados,
+            recipe: recipe,
+            imageURL: imageURL
+        });
 
-        console.log("VECTORES: " + util.inspect(resultados[0]));
+        plato.save(async function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                Dish.find({}, async function (err, docs) {
+                    if (err) {
 
+                        console.log(err);
+                    } else {
+                        const suma = await calculateKcal(docs);
+                        req.flash('success', 'Dish was inserted');
+                        res.render('dish/getDish', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: docs,
+                                myKcal: suma
 
-        // const ingObj = await createIngObj(ingredients, cantidades, Unidades);
+                            }
+                        })
+                    }
+                });
 
-        // const query = { shrt_desc: req.body.ingredients[0] };
-        // console.log(query);
-
-        // for (let i = 0; i < req.body.ingredients.length; i++) {
-        //     console.log(i);
-        //     const value = await searchFood(req.body.ingredients[i], function (dato) {
-        //         console.log("DATO: " + dato);
-        //         vectorIngredientes.push(value);
-        //     });
-        // }
-        // // console.log("llega");
-        // const reqbody = req.body;
-        // const endObject = await anotherFunction(vectorIngredientes, reqbody)
-        // console.log("\n\n\n---------------------------------------------> " + util.inspect(endObject));
-    },
-
+            }
+        })
+    }
 
 };
-
-async function createIngObj(ingredients, cantidades, unidades) {
-    let ndbnos = [];
-
-    // console.log(ingredients.size)
-    for (let i = 0; i < ingredientes.length; i++) {
-
-        client.connect(function (err, client) {
-            assert.equal(null, err);
-            console.log("\nConnected successfully to server");
-            const db = client.db(name);
-            const collection = db.collection("food");
-            const nombre = ingredientes[i];
-            const query = { shrt_desc: nombre }
-            console.log(query);
-            const dato = findDoc(db, query, collection, function (data) {
-                resolve(data);
-            });
-            console.log(data);
-
-        });
-    }
-}
-
-async function anotherFunction(vectorIngredientes, reqbody) {
-    console.log("FUNCION:::: ");
-    const obj = {
-        _id: reqbody.title,
-        description: reqbody.description,
-        recipe: reqbody.recipe,
-        imageURL: reqbody.imageURL
-
-    }
-    for (let i = 0; i < vectorIngredientes.length; i++) {
-        const ingObj = {
-            name: reqbody.ingredients[i],
-            amount: reqbody.amount,
-            unitMeasure: reqbody.Unidades[i],
-            ndbno: vectorIngredientes[i]
-        }
-    }
-    obj.ingredients = ingObj;
-    return obj;
-
-}
 
 async function findAllDocuments(db, query, collection, callback) {
     // console.log(query)
@@ -1331,43 +1305,6 @@ async function calculateNutrientsMenu(doc) {
 
 
     return total;
-}
-
-async function searchFood(ing, callback2) {
-    // for (let i = 0; i < req.body.ingredients.length; i++){
-    client.connect(function (err, client) {
-        assert.equal(null, err);
-        console.log("\nConnected successfully to server");
-        const db = client.db(name);
-        const collection = db.collection("food");
-        const query = { shrt_desc: ing }
-        console.log(query);
-        findDoc(db, query, collection, function (data) {
-            console.log("MUESTRA AQUI: " + util.inspect(data[0].ndb_no));
-            if (data) {
-                callback2(data[0].ndb_no);
-            }
-
-        });
-
-    });
-    // }
-    // console.log("\nEL VECTOR CONTIENE:\n" + util.inspect(vectorIngredientes));
-}
-
-
-async function findDoc(db, query, collection, callback) {
-    // console.log(query)
-    collection
-        .find(query)
-        .limit(200)
-        .sort({ ndb_no: 1 })
-        .toArray(function (err, docs) {
-            assert.equal(err, null);
-            console.log("\nFound the following records");
-            callback(docs);
-        });
-
 }
 
 

@@ -291,7 +291,7 @@
         ],
         "formIngredientes": [
             {
-                "label": "Ingredientes del plato",
+                "label": "Ingrediente del plato",
                 "icon": "fas fa-apple-alt",
                 "type": "text",
                 "placeholder": "Ingrediente del plato",
@@ -304,7 +304,8 @@
                 "type": "number",
                 "placeholder": "Cantidad del ingrediente",
                 "ariaLabel": "cantidad",
-                "name": "cantidades[]"
+                "name": "cantidades[]",
+                "min": "1"
             }
         ],
         "formIngredientesSel": [

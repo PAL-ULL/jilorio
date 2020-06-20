@@ -45,14 +45,15 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
-                        <span class=" spanColor input-group-text" id="basic-addon1"><i
-                                class="  <%= items.myObject.dish.form[i].icon %>"></i></span>
+                        <span class=" spanColor input-group-text"><i
+                                class=" <%= items.myObject.dish.form[i].icon %>"></i></span>
 
                     </div>
                     <input type="<%= items.myObject.dish.form[i].type %>" class="form-control"
                         placeholder="<%= items.myObject.dish.form[i].placeholder %>"
                         aria-label="<%= items.myObject.dish.form[i].ariaLabel %>" aria-describedby="basic-addon1"
-                        name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>>
+                        name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>
+                        required>
                 </div>
                 <% } %>
                 <br>
@@ -61,31 +62,41 @@
                         <div class="row">
                             <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
                             <div class="col-sm">
-                                <label><%= items.myObject.dish.formIngredientes[i].label %></label>
+                                <label class="myLabels"><%= items.myObject.dish.formIngredientes[i].label %></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class=" spanColor input-group-text" id="basic-addon1"><i
-                                                class="  <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
+                                        <span class=" spanColor input-group-text"><i
+                                                class=" myIcons <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
                                     </div>
-
-                                    <input class="MyInputs" id="searchIngredient"
+                                    <% if (items.myObject.dish.formIngredientes[i].label === "Cantidad") { %>
+                                    <input class="MyInputs"
                                         type="<%= items.myObject.dish.formIngredientes[i].type %>" class="form-control"
                                         placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
                                         aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
                                         aria-describedby="basic-addon1"
-                                        name="<%= items.myObject.dish.formIngredientes[i].name %>">
+                                        name="<%= items.myObject.dish.formIngredientes[i].name %>"
+                                        min=<%= items.myObject.dish.formIngredientes[i].min %> required>
+                                    <%  } else { %>
+                                    <input class="MyInputs searchIngredient"
+                                        type="<%= items.myObject.dish.formIngredientes[i].type %>" class="form-control"
+                                        placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
+                                        aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
+                                        aria-describedby="basic-addon1"
+                                        name="<%= items.myObject.dish.formIngredientes[i].name %>" required>
+                                    <% } %>
                                 </div>
                             </div>
                             <% } %>
                             <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
                             <div class="col-sm">
-                                <label><%= items.myObject.dish.formIngredientesSel[i].label %></label>
+                                <label class="myLabels"><%= items.myObject.dish.formIngredientesSel[i].label %></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class=" spanColor input-group-text" id="basic-addon1"><i
-                                                class="  <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                        <span class=" spanColor input-group-text"><i
+                                                class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
                                     </div>
-                                    <select class="mySelects form-control" id="selectUnit"
+
+                                    <select class="mySelects form-control"
                                         name="<%= items.myObject.dish.formIngredientesSel[i].name %>">
                                         <% for (var j=0; j< items.myObject.dish.formIngredientesSel[i].options.length; j++) { %>
                                         <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>">
@@ -102,58 +113,97 @@
                 </div>
 
                 <script>
-                
+
                     const bSubmit = document.querySelector('#bSubmit');
                     bSubmit.addEventListener('click', () => {
-                        const ing = document.querySelector('#searchIngredient');
+                        const ing = document.querySelector('.searchIngredient');
                         const inputs = document.querySelectorAll(".MyInputs");
-                     
-                        createNewInputs(inputs);
+                        const myLabels = document.querySelectorAll(".myLabels");
+                        const myIcons = document.querySelectorAll(".myIcons");
+                        const selects = document.querySelectorAll(".mySelects")
+            
+                        createNewInputs(inputs, myLabels, myIcons, selects);
                     });
 
-                    function createNewInputs(inputs) {
+                    function createNewInputs(inputs, myLabels, myIcons, selects) {
                         const padre = document.querySelector(".ref");
                         const divRow = document.createElement("DIV");
-                        inputs.forEach(function (input) { 
+                        let k = 0;
+                        for (let i = 0; i < myLabels.length; i++) {
                             const col = document.createElement("DIV");
-                            const newI = document.createElement("INPUT");
-                            newI.setAttribute("id", input.id);
-                            newI.setAttribute("type", input.type);
-                            newI.setAttribute("placeholder", input.placeholder);
-                            newI.setAttribute("name", input.name);
-                            newI.classList.add("form-control");
-                            // newI.classList.add("MyInputs");
-                            col.appendChild(newI);
-                            col.classList.add("col-sm");
-                            divRow.appendChild(col);
-                        });
-                        const selects = document.querySelectorAll(".mySelects")
-                    
+                            const aLabel = document.createElement("LABEL");
+                            console.log(myLabels[i].innerHTML)
+                            aLabel.innerHTML = myLabels[i].innerHTML;
+                            
+                            
+                            col.appendChild(aLabel);
 
-                        selects.forEach(function (sel) {
+                            const divInputGroup = document.createElement("DIV");
+                            divInputGroup.classList.add("input-group");
+                            divInputGroup.classList.add("mb-3")
+                            const divInputGroupPrepend = document.createElement("DIV");
+                            divInputGroupPrepend.classList.add("input-group-prepend");
 
-                            const col = document.createElement("DIV");
-                            const newS = document.createElement("SELECT");
+                            const spanIcon = document.createElement("SPAN");
+                            spanIcon.classList.add("spanColor");
+                            spanIcon.classList.add("input-group-text");
 
-                            newS.setAttribute("id", sel.id);
-                            newS.setAttribute("name", sel.name);
-                            const optS = document.createElement("OPTION");
-                            optS.value = sel.options[0].value;
-                            optS.innerHTML = sel.options[0].value;
-                            newS.appendChild(optS);
-                            const optS2 = document.createElement("OPTION");
-                            optS2.value = sel.options[1].value;
-                            optS2.innerHTML = sel.options[1].value;
-                            newS.appendChild(optS2);
-                            newS.classList.add("form-control");
+                            let icon = document.createElement("ICON");
 
-                            col.appendChild(newS);
-                            // col.appendChild(newSelect);
-                            col.classList.add("col-sm");
-                            divRow.appendChild(col);
-                        });
+                      
+                            for (let j = 0; j < myIcons[i].classList.length; j++) {
+                                icon.classList.value += myIcons[i].classList[j] + " ";                 
+                            }
+                        
+                            spanIcon.appendChild(icon);
+                            divInputGroupPrepend.appendChild(spanIcon);
+                            divInputGroup.appendChild(divInputGroupPrepend);
 
-
+                            if (i <= 1) {
+                                const newI = document.createElement("INPUT");
+                             
+                                newI.setAttribute("type", inputs[i].type);
+                                newI.setAttribute("placeholder", inputs[i].placeholder);
+                                newI.setAttribute("name", inputs[i].name);
+                                if (inputs[i].name === "ingredients[]"){
+                                    newI.classList.add("searchIngredient");
+                                }
+                                if (inputs[i].name === "cantidades[]"){
+                                    newI.setAttribute("min", inputs[i].min);
+                                }
+                                
+                                newI.classList.add("form-control");
+                                newI.classList.add("ui-autocomplete-input");
+                                divInputGroup.appendChild(newI);
+                                col.appendChild(divInputGroup);
+                                col.classList.add("col-sm");
+                                divRow.appendChild(col);
+                                
+                        
+                            } else {
+                                
+                                const newS = document.createElement("SELECT");
+                                newS.setAttribute("name", selects[k].name);
+                                console.log(selects[k].name)
+                                const optS = document.createElement("OPTION");
+                                optS.value =  selects[k].options[0].value;
+                                optS.innerHTML =  selects[k].options[0].value;
+                               
+                                newS.appendChild(optS);
+                                const optS2 = document.createElement("OPTION");
+                                optS2.value =  selects[k].options[1].value;
+                                optS2.innerHTML =  selects[k].options[1].value;
+                                newS.appendChild(optS2);
+                                newS.classList.add("form-control");
+                                divInputGroup.appendChild(newS);
+                                col.appendChild(divInputGroup);
+                                col.classList.add("col-sm");
+                                divRow.appendChild(col);
+                              
+                                k++;
+                            }
+                        }
+                      
                         divRow.classList.add("row");
                         padre.appendChild(divRow);
                     };
@@ -170,7 +220,7 @@
 
                 <script>
                     $(function () {
-                        $("#searchIngredient").autocomplete({
+                        $(".searchIngredient").autocomplete({
                             source: function (req, res) {
                                 $.ajax({
                                     url: "insert/autocomplete/",
@@ -190,8 +240,37 @@
                                 console.log(event);
                                 console.log(ui);
                                 if (ui.item) {
-                                    $('#searchIngredient').text(ui.item.label);
-                                    // $('#searchIngredient').text(ui.item.ndbno);
+                                    $('.searchIngredient').text(ui.item.label);
+
+                                }
+                            }
+                        })
+                    });
+                </script>
+                 <script>
+                    $("#bSubmit").on("click", () => {
+                        $(".searchIngredient").autocomplete({
+                            source: function (req, res) {
+                                $.ajax({
+                                    url: "insert/autocomplete/",
+                                    dataType: "jsonp",
+                                    type: "GET",
+                                    data: req,
+                                    success: function (data) {
+                                        res(data);
+                                    },
+                                    error: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            },
+                            minLength: 1,
+                            select: function (event, ui) {
+                                console.log(event);
+                                console.log(ui);
+                                if (ui.item) {
+                                    $('.searchIngredient').text(ui.item.label);
+
                                 }
                             }
                         })
