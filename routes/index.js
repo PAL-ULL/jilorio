@@ -37,9 +37,10 @@ router.get("/menu/delete/:_id", controller.removeMenu);
 router.get("/menu/insert", controller.insertMenu);
 router.get("/menu/:_id?", controller.menuDetails);
 router.get("/menu/insert/autocomplete/", controller.autocompleteMenu);
+router.get("/menu/update/:_id/autocomplete/", controller.autocompleteMenu2);
 router.post("/menu/insert", controller.insertMenuPost);
 router.get("/menu/update/:_id", controller.updateMenu);
-// router.post("/dish/update/:_id", controller.updateDishPost);
+router.post("/menu/update/:_id", controller.updateMenuPost);
 
 router.get("/planification", controller.planification);
 router.get("/planification/view", controller.planificationView);

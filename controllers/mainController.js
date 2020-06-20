@@ -825,6 +825,154 @@ let controller = {
         }).sort({ _id: 1 })
 
     },
+    updateMenuPost: async function (req, res) {
+        const query ={ _id: req.params._id};
+        console.log(query);
+        console.log(req.body.title);
+        const _id = req.body.title;
+        const description = req.body.description;
+        const dishes = req.body.platos;
+        
+        let errors = [];
+
+        let resultados = [];
+        let noEncontrados = [];
+        console.log("\n\n" + dishes);
+
+        const menu = {
+            _id: _id,
+            description: description,
+
+        };
+
+        for (let i = 0; i < dishes.length; i++) {
+            const query = { _id: dishes[i] }
+            console.log(query)
+            var data = await myFunction(query);
+            console.log("tam: " + data.length);
+
+            if (data.length === 0) {
+                noEncontrados.push(dishes[i]);
+            } else {
+                // console.log(menu);
+                resultados.push(data[0])
+                // menu.dishes.push(data[0]);
+            }
+ 
+        }
+        if (noEncontrados.length > 0) {
+
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+            for (let i = 0; i < noEncontrados.length; i++) {
+                errors.push({ msg: "El plato " + noEncontrados[i] + " no ha sido encontrado." });
+            }
+
+            // const query = { _id: dishId }
+            console.log(query);
+            Menu.find(query, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    const menu = docs;
+                    Dish.find({}, async function (err, docs) {
+                        if (err) {
+    
+                            console.log(err);
+                        } else {
+                            const suma = await calculateKcal(docs);
+                            console.log(menu)
+    
+                            res.render('menu/updateMenu', {
+                                items: {
+                                    errors,
+                                    req: req,
+                                    myObject: espTemplate,
+                                    myDocs: docs,
+                                    myKcal: suma,
+                                    myMenu: menu[0]
+    
+                                }
+                            });
+                        }
+                    })
+                }
+            }).sort({ _id: 1 })
+        } else {
+
+            console.log("VECTORES: " + util.inspect(resultados));
+
+            var newvalues = { description: description, dishes: resultados };
+            Menu.findById(query).then(menuEncontrado => {
+                if (menuEncontrado) {
+                    console.log("Plato encontrado" + menuEncontrado);
+                    const newMenu = {
+                        description,
+                        dishes
+                    };
+                    const set = { $set: newvalues };
+                    console.log(set)
+                    Menu.updateOne(query, set, (err, updatedMenu) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("\n\n\ Menu ACTUALIZADO: " + updatedMenu)
+                            req.flash(
+                                'success_msg',
+                                'Menu has been updated'
+                            );
+                            res.redirect('/menu/view');
+                        }
+                    })
+
+                }
+
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Menu.find(query, async function (err, docs) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         const menu = docs;
+        //         Dish.find({}, async function (err, docs) {
+        //             if (err) {
+
+        //                 console.log(err);
+        //             } else {
+        //                 const suma = await calculateKcal(docs);
+        //                 console.log(menu)
+
+        //                 res.render('menu/updateMenu', {
+        //                     items: {
+        //                         req: req,
+        //                         myObject: espTemplate,
+        //                         myDocs: docs,
+        //                         myKcal: suma,
+        //                         myMenu: menu[0]
+
+        //                     }
+        //                 });
+        //             }
+        //         })
+        //     }
+        // }).sort({ _id: 1 })
+
+    },
 
 
     planification: function (req, res) {
@@ -1355,6 +1503,32 @@ let controller = {
     },
 
     autocompleteMenu: function (req, res) {
+        const query = { _id: { $regex: req.query["term"] } };
+
+        Dish.find(query, async function (err, docs) {
+            if (err) {
+
+                console.log(err);
+            } else {
+
+                let vector = [];
+                docs.forEach(element => {
+                    let obj = {
+                        id: element._id,
+                        label: element._id,
+                        ndbno: element.ndb_no
+                    };
+                    vector.push(obj);
+                });
+
+
+                res.jsonp(vector);
+            }
+        }).sort({ _id: 1 })
+
+    },
+    
+    autocompleteMenu2: function (req, res) {
         const query = { _id: { $regex: req.query["term"] } };
 
         Dish.find(query, async function (err, docs) {

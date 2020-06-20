@@ -372,6 +372,7 @@
             }
         ],
         "update": "Actualización de menú",
+        "updateFormFirst": ["_id", "description" ],
         "button": "Confirmar"
     },
     "userEdit":{
