@@ -49,37 +49,45 @@
                                 class=" <%= items.myObject.planificacion.form[i].icon %>"></i></span>
 
                     </div>
-                    <input type="<%= items.myObject.planificacion.form[i].type %>" class="form-control"
+                    <input type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
                         placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
                         aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
                         aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.form[i].name %>"
                         #<%= items.myObject.planificacion.form[i].name %> required>
                 </div>
                 <% } %>
-                <% for (var i=0; i< items.myObject.planificacion.formTipoSel.length; i++) { %>
-                <label><%= items.myObject.planificacion.formTipoSel[i].label %></label>
+                <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
+                <label><%= items.myObject.planificacion.formNumber[i].label %></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
                         <span class=" spanColor input-group-text"><i
-                                class=" <%= items.myObject.planificacion.formTipoSel[i].icon %>"></i></span>
+                                class=" <%= items.myObject.planificacion.formNumber[i].icon %>"></i></span>
 
                     </div>
-
-                    <select class="mySelects form-control" required
-                        name="<%= items.myObject.planificacion.formTipoSel[i].name %>">
-                        <% for (var j=0; j< items.myObject.planificacion.formTipoSel[i].options.length; j++) { %>
-                        <option value="<%= items.myObject.planificacion.formTipoSel[i].options[j] %>">
-                            <%= items.myObject.planificacion.formTipoSel[i].options[j] %> </option>
-                        <% } %>
-                    </select>
+                    <input type="<%= items.myObject.planificacion.formNumber[i].type %>"
+                        class=" myInputs days form-control"
+                        placeholder="<%= items.myObject.planificacion.formNumber[i].placeholder %>"
+                        aria-label="<%= items.myObject.planificacion.formNumber[i].ariaLabel %>"
+                        aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.formNumber[i].name %>"
+                        #<%= items.myObject.planificacion.formNumber[i].name %>
+                        min="<%= items.myObject.planificacion.formNumber[i].min %>" required>
                 </div>
                 <% } %>
-                <br>
-                <div class="cardInside">
 
-                    <div class="ref">
-                        <div class="row">
+                <br>
+                <input type="button" class="btn btn-dark confirmar" value="Confirmar">
+
+                <br><br>
+                <div class="padre">
+                    <div class="cardInside" style="display: none;">
+
+
+                        <div class="ref">
+
+
+                        </div>
+                        <div class="row menuAdd"  style="display: none">
                             <% for (var i=0; i< items.myObject.planificacion.formMenu.length; i++) { %>
                             <div class="col-sm">
                                 <label class="myLabels"><%= items.myObject.planificacion.formMenu[i].label %></label>
@@ -88,133 +96,255 @@
                                         <span class=" spanColor input-group-text"><i
                                                 class=" myIcons <%= items.myObject.planificacion.formMenu[i].icon %>"></i></span>
                                     </div>
-
+                
                                     <input class="MyInputs searchMenu"
                                         type="<%= items.myObject.planificacion.formMenu[i].type %>" class="form-control"
                                         placeholder="<%= items.myObject.planificacion.formMenu[i].placeholder %>"
                                         aria-label="<%= items.myObject.planificacion.formMenu[i].ariaLabel %>"
                                         aria-describedby="basic-addon1"
                                         name="<%= items.myObject.planificacion.formMenu[i].name %>" required>
-
+                
                                 </div>
                             </div>
                             <% } %>
-
+                
                         </div>
+
+                        <input type="button" class="btn btn-dark" value="Añadir menú" id="bSubmit">
+                        <br><br>
+
                     </div>
-
-
-                    <input type="button" class="btn btn-dark" value="Añadir menú" id="bSubmit">
                 </div>
                 <br><br>
-                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
-        
+                <input type="submit" disabled id="mySubmit" class="btn btn-info" value="Submit" />
+                <!-- Aqui -->
+
+
         </div>
-        
-    <script>
 
-        const bSubmit = document.querySelector('#bSubmit');
-        bSubmit.addEventListener('click', () => {
-            const ing = document.querySelector('.searchMenu');
-            const inputs = document.querySelectorAll(".MyInputs");
-            const myLabels = document.querySelectorAll(".myLabels");
-            const myIcons = document.querySelectorAll(".myIcons");
-            console.log(myIcons)
-            console.log(inputs)
-            console.log(myLabels)
-            createNewInputs(inputs, myLabels, myIcons);
-        });
+        <script>
 
-        function createNewInputs(inputs, myLabels, myIcons) {
-            const padre = document.querySelector(".ref");
-            const divRow = document.createElement("DIV");
-            let k = 0;
-            for (let i = 0; i < myLabels.length; i++) {
-                const col = document.createElement("DIV");
-                const aLabel = document.createElement("LABEL");
-                console.log(myLabels[i].innerHTML)
-                aLabel.innerHTML = myLabels[i].innerHTML;
-                col.appendChild(aLabel);
+            // const bSubmit = document.querySelector('#bSubmit');
+            // bSubmit.addEventListener('click', () => {
+            //     const days = document.querySelector('.days').value;
+            //     const ing = document.querySelector('.searchMenu');
+            //     const inputs = document.querySelectorAll(".MyInputs");
+            //     const myLabels = document.querySelectorAll(".myLabels");
+            //     const myIcons = document.querySelectorAll(".myIcons");
+            //     console.log(myIcons)
+            //     console.log(inputs)
+            //     console.log(myLabels)
+            //     createNewInputs(inputs, myLabels, myIcons, days);
+            // });
 
-                const divInputGroup = document.createElement("DIV");
-                divInputGroup.classList.add("input-group");
-                divInputGroup.classList.add("mb-3")
-                const divInputGroupPrepend = document.createElement("DIV");
-                divInputGroupPrepend.classList.add("input-group-prepend");
+            // function createNewInputs(inputs, myLabels, myIcons, days) {
+            //     console.log("Funcion")
+            //     const padre = document.querySelector(".ref");
+            //     const divRow = document.createElement("DIV");
+            //     let k = 0;
+            //     for (let i = 0; i < myLabels.length; i++) {
+            //         const col = document.createElement("DIV");
+            //         const aLabel = document.createElement("LABEL");
+            //         console.log(myLabels[i].innerHTML)
+            //         aLabel.innerHTML = myLabels[i].innerHTML;
+            //         col.appendChild(aLabel);
 
-                const spanIcon = document.createElement("SPAN");
-                spanIcon.classList.add("spanColor");
-                spanIcon.classList.add("input-group-text");
+                    // const divInputGroup = document.createElement("DIV");
+                    // divInputGroup.classList.add("input-group");
+                    // divInputGroup.classList.add("mb-3")
+                    // const divInputGroupPrepend = document.createElement("DIV");
+                    // divInputGroupPrepend.classList.add("input-group-prepend");
 
-                let icon = document.createElement("ICON");
+                    // const spanIcon = document.createElement("SPAN");
+                    // spanIcon.classList.add("spanColor");
+                    // spanIcon.classList.add("input-group-text");
+
+                    // let icon = document.createElement("ICON");
 
 
-                for (let j = 0; j < myIcons[i].classList.length; j++) {
-                    icon.classList.value += myIcons[i].classList[j] + " ";
+                    // for (let j = 0; j < myIcons[i].classList.length; j++) {
+                    //     icon.classList.value += myIcons[i].classList[j] + " ";
+                    // }
+
+                    // spanIcon.appendChild(icon);
+                    // divInputGroupPrepend.appendChild(spanIcon);
+                    // divInputGroup.appendChild(divInputGroupPrepend);
+
+
+                    // const newI = document.createElement("INPUT");
+
+                    // newI.setAttribute("type", inputs[i].type);
+                    // newI.setAttribute("placeholder", inputs[i].placeholder);
+                    // newI.setAttribute("name", inputs[i].name);
+                    // newI.classList.add("searchMenu");
+
+
+                    // newI.classList.add("form-control");
+                    // newI.classList.add("ui-autocomplete-input");
+                    // divInputGroup.appendChild(newI);
+                    // col.appendChild(divInputGroup);
+                    // col.classList.add("col-sm");
+                    // divRow.appendChild(col);
+
+            //     }
+
+            //     divRow.classList.add("row");
+            //     padre.appendChild(divRow);
+            // };
+
+
+
+        </script>
+
+        <script>
+
+            const confirmar = document.querySelector('.confirmar');
+            const cardInside = document.querySelector('.ref');
+            const padre = document.querySelector('.padre');
+            console.log(confirmar)
+            confirmar.addEventListener('click', () => {
+                confirmar.setAttribute("disabled", true)
+
+                const inputs = document.querySelectorAll(".myInputs");
+                for (let i = 0; i < inputs.length; i++) {
+
+                    inputs[i].setAttribute("disabled", true)
+                    console.log(inputs[i])
                 }
 
-                spanIcon.appendChild(icon);
-                divInputGroupPrepend.appendChild(spanIcon);
-                divInputGroup.appendChild(divInputGroupPrepend);
+                cardInside.style.display = "block";
+                const days = document.querySelector('.days');
+                console.log(days.value);
+
+                if (!days.value) {
+                    console.log("Caso")
+                    days.value = 1;
+                }
+
+                for (let i = 0; i < days.value; i++) {
+                    const myDiv = document.createElement("DIV");
+                    const mySpan = document.createElement("SPAN");
+                    mySpan.innerHTML = "Menús para día: " + (i + 1);
+                    myDiv.appendChild(mySpan);
+                    cardInside.appendChild(myDiv);
+
+                    padre.appendChild(myDiv)
+
+                    const aLavel = document.createElement("LABEL");
+                    const div1 = document.createElement("DIV");
+                    div1.classList.add("input-group");
+                    div1.classList.add("mb-3");
+                    const div2 = document.createElement("DIV");
+                    div2.classList.add("input-group-prepend");
+
+                    padre.appendChild(aLavel);
+
+                    const span1 = document.createElement("SPAN");
+                    span1.classList.add("spanColor");
+                    span1.classList.add("input-group-text");
+                    const icon1 = document.createElement("ICON");
+                    icon1.classList.add("spanColor");
+                    icon1.classList.add("fas");
+                    icon1.classList.add("fa-edit");
+                    span1.appendChild(icon1);
+                    div2.appendChild(span1);
 
 
-                const newI = document.createElement("INPUT");
+                    const input1 = document.createElement("INPUT");
+                    input1.setAttribute("type", "number");
+                    input1.setAttribute("placeholder", "# Menús para el día " + (i + 1));
+                    input1.setAttribute("name", "menuDays[]");
+                    input1.setAttribute("min", 1);
+                    input1.classList.add("menuDays"+i)
 
-                newI.setAttribute("type", inputs[i].type);
-                newI.setAttribute("placeholder", inputs[i].placeholder);
-                newI.setAttribute("name", inputs[i].name);
-                newI.classList.add("searchMenu");
-         
-
-                newI.classList.add("form-control");
-                newI.classList.add("ui-autocomplete-input");
-                divInputGroup.appendChild(newI);
-                col.appendChild(divInputGroup);
-                col.classList.add("col-sm");
-                divRow.appendChild(col);
-
-            }
-
-            divRow.classList.add("row");
-            padre.appendChild(divRow);
-        };
+                    console.log(typeof parseInt(days.value))
+                    console.log(typeof (i + 1))
+                    console.log((i + 1) == days.value)
 
 
+                    div1.appendChild(div2);
+                    div1.appendChild(input1);
 
-    </script>
-
-
-       
-        <script>
-            $(function () {
-                $(".searchMenu").autocomplete({
-                    source: function (req, res) {
-                        $.ajax({
-                            url: "insert/autocomplete/",
-                            dataType: "jsonp",
-                            type: "GET",
-                            data: req,
-                            success: function (data) {
-                                res(data);
-                            },
-                            error: function (err) {
-                                console.log(err);
-                            }
-                        });
-                    },
-                    minLength: 1,
-                    select: function (event, ui) {
-                        console.log(event);
-                        console.log(ui);
-                        if (ui.item) {
-                            $('.searchMenu').text(ui.item.label);
-
-                        }
+                    padre.appendChild(div1);
+                    if ((i + 1) === parseInt(days.value)) {
+                        const boton = document.createElement("INPUT");
+                        boton.classList.add("btn");
+                        boton.classList.add("btn-dark");
+                        boton.setAttribute("type", "button");
+                        boton.setAttribute("id", "confirmMenu");
+                        boton.value = "Confirmar menús";
+                        boton.innerHTML = "Confirmar menús"
+                        padre.appendChild(boton);
                     }
-                })
+
+                   
+                    const confirmarMenus = document.querySelector('#confirmMenu');
+                    confirmarMenus.addEventListener('click', () => {
+                    console.log("CLICK")
+                    const days = document.querySelector('.days');
+                    let menus=[];
+                    for (let i = 0; i < days.value; i++){
+                        const menu = document.querySelector('.menuDays'+i);
+                        console.log(menu)
+                        menus.push(menu);
+                    }
+                    const menuAdd = document.querySelector('.menuAdd');
+                    const ref = document.querySelector('.ref');
+                    menuAdd.style.display = "block";
+                    ref.appendChild(menuAdd)
+                    console.log(menuAdd)
+                    console.log(ref)
+                    // for (let i=0; i < menus.length; i++){
+                    //     console.log("---------------" + menus[i]);
+                    //     const menuA = menuAdd;
+                    //     ref.appendChild(menuA);
+
+
+                    // }
+                }
+                    
+                );
+
+                }
             });
+                
+
+                
         </script>
         <script>
+           
+        </script>
+
+        <script>
+                $(function () {
+                    $(".searchMenu").autocomplete({
+                        source: function (req, res) {
+                            $.ajax({
+                                url: "insert/autocomplete/",
+                                dataType: "jsonp",
+                                type: "GET",
+                                data: req,
+                                success: function (data) {
+                                    res(data);
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        },
+                        minLength: 1,
+                        select: function (event, ui) {
+                            console.log(event);
+                            console.log(ui);
+                            if (ui.item) {
+                                $('.searchMenu').text(ui.item.label);
+
+                            }
+                        }
+                    })
+                });
+        </script>
+        <!-- <script>
             $("#bSubmit").on("click", () => {
                 $(".searchMenu").autocomplete({
                     source: function (req, res) {
@@ -242,7 +372,7 @@
                     }
                 })
             });
-        </script>
+        </script> -->
 
 
         </form>
@@ -289,7 +419,7 @@
 
                         <% } %>
                     <td><%= items.myNutrientsMenu[i][1] %> </td>
-                    
+
                 </tr>
                 <% } %>
             </tbody>
@@ -303,14 +433,14 @@
 </body>
 
 <script>
-    $(document).ready(function () {
-        $('#alimentos').DataTable({
-            "language": {
-                "emptyTable": " "
-            }
-        });
+                $(document).ready(function () {
+                    $('#alimentos').DataTable({
+                        "language": {
+                            "emptyTable": " "
+                        }
+                    });
 
-    });
+                });
 </script>
 
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>

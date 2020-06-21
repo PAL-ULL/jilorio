@@ -1490,7 +1490,6 @@ let controller = {
                         name,
                         email,
                         username,
-                        password,
                         rol
                     };
 
@@ -1499,7 +1498,7 @@ let controller = {
                             if (err) throw err;
 
                             newUser.password = hash;
-                            const set = { $set: newvalues };
+                            const set = { $set: newUser };
                             console.log(set);
                             Users.updateOne(query, set, (err, updateUser) => {
                                 if (err) {
@@ -1541,7 +1540,7 @@ let controller = {
     dashboard: function (req, res) {
         res.render('user/dashboard', {
             items: {
-                name: req.user.name,
+                rol: req.user.rol,
                 myObject: espTemplate
             }
         });

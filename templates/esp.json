@@ -403,16 +403,24 @@
                 "name": "description"
             }
         ],
-        "formTipoSel": [
+        "formNumber": [
             {
-                "label": "Tipo de planificación",
-                "icon": "fas fa-apple-alt",
-                "options": [
-                    "diaria",
-                    "semanal",
-                    "mensual"
-                ],
-                "name": "tipo"
+                "label": "Días para la planificación",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Días de la planificación",
+                "ariaLabel": "dias",
+                "name": "dias",
+                "min": 1
+            }
+        ],
+        "formMenuDays": [
+            {
+                "label": "Número de menús",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Número de menús",
+                "min": 1
             }
         ],
         "formMenu": [
