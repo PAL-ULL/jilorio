@@ -488,6 +488,112 @@
         
         "button": "Confirmar"
     },
+    "recomendacion": {
+        "title": "Inserción de una recomendación",
+        "form": [
+            {
+                "label": "Introduzca el nombre de la recomendación",
+                "icon": "fas fa-utensils",
+                "type": "text",
+                "placeholder": "Nombre de la recomendación",
+                "ariaLabel": "title",
+                "name": "title"
+            },
+            {
+                "label": "Introduzca una descripción para la recomendación",
+                "icon": "fas fa-edit",
+                "type": "text",
+                "placeholder": "Descripción de la recomendación",
+                "ariaLabel": "description",
+                "name": "description"
+            },
+            {
+                "label": "Introduzca la edad destinada para la recomendación",
+                "icon": "fas fa-edit",
+                "type": "text",
+                "placeholder": "Edad destinada para la recomendación",
+                "ariaLabel": "edad",
+                "name": "edad"
+            }
+        ],
+        "formNumber": [
+            {
+                "label": "Introduzca las kilocalorías mínimas",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Kilocalorías mínimas de la recomendación",
+                "ariaLabel": "energyMin",
+                "name": "energyMin",
+                "min": 1
+            },
+            {
+                "label": "Introduzca las kilocalorías máximas",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Kilocalorías máximas de la recomendación",
+                "ariaLabel": "energyMax",
+                "name": "energyMax",
+                "min": 1
+            },
+            {
+                "label": "Introduzca los lípidos mínimos",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Lípidos mínimos de la recomendación",
+                "ariaLabel": "lipidsMin",
+                "name": "lipidsMin",
+                "min": 1
+            },
+            {
+                "label": "Introduzca los lípidos máximos",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Lípidos máximos de la recomendación",
+                "ariaLabel": "lipidsMax",
+                "name": "lipidsMax",
+                "min": 1
+            },
+            {
+                "label": "Introduzca las proteínas mínimas",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Proteínas mínimas de la recomendación",
+                "ariaLabel": "proteinMin",
+                "name": "proteinMin",
+                "min": 1
+            },
+            {
+                "label": "Introduzca las proteínas máximas",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Proteínas máximas de la recomendación",
+                "ariaLabel": "proteinMax",
+                "name": "proteinMax",
+                "min": 1
+            },
+            {
+                "label": "Introduzca los carbohidratos mínimos",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Carbohidratos mínimos de la recomendación",
+                "ariaLabel": "carbohydrtMin",
+                "name": "carbohydrtMin",
+                "min": 1
+            },
+            {
+                "label": "Introduzca los carbohidratos máximos",
+                "icon": "fas fa-edit",
+                "type": "number",
+                "placeholder": "Carbohidratos máximos de la recomendación",
+                "ariaLabel": "carbohydrtMax",
+                "name": "carbohydrtMax",
+                "min": 1
+            }
+                ],
+        "button": "Guardar",
+        "nutrientes": "Nutrientes recomendados:",
+        "infor": "Información básica:"
+    },
     "userEdit":{
         "form": [
             {

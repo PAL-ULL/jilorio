@@ -990,7 +990,7 @@ let controller = {
             } else {
                 correcto.push(data[0]);
             }
-          
+
         }
         if (incorrecto.length > 0) {
             console.log("Algún plato está mal");
@@ -1022,7 +1022,7 @@ let controller = {
                     });
                 }
             }).sort({ _id: 1 });
-        }else{
+        } else {
 
             console.log("Bueno");
             // let vector = [];
@@ -1063,7 +1063,7 @@ let controller = {
             //     }
             // }
 
-           
+
         }
 
 
@@ -1085,7 +1085,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-       
+
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -1144,7 +1144,7 @@ let controller = {
                     for (let j = 0; j < doc[0].menus[i].length; j++) {
                         console.log(util.inspect(doc[0]._id));
                         console.log(util.inspect(doc[0].menus[i][j]));
-                //     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
+                        //     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
                         const value = await calculateNutrientsMenu(doc[0].menus[i][j])
                         valores.push(value);
                     }
@@ -1160,13 +1160,13 @@ let controller = {
                 let sodium = 0;
                 let cholestrl = 0;
                 let sugar = 0;
-      
+
 
                 // valores[0][0] + valores[1][0] + valores[2][0]
-               // valores[0][1] + valores[1][1] + valores[2][1]
-                
+                // valores[0][1] + valores[1][1] + valores[2][1]
+
                 for (let i = 0; i < valores.length; i++) {
-     
+
                     water += (parseFloat(valores[i][0]));
                     energKcal += (parseFloat(valores[i][1]));
                     protein += (parseFloat(valores[i][2]));
@@ -1176,10 +1176,10 @@ let controller = {
                     sodium += (parseFloat(valores[i][6]));
                     cholestrl += (parseFloat(valores[i][7]));
                     sugar += (parseFloat(valores[i][8]));
-           
+
                 }
 
-               
+
 
 
                 newVector.push(water.toFixed(2));
@@ -1266,7 +1266,7 @@ let controller = {
                 });
             }
         }).sort({ _id: 1 })
-     
+
     },
 
     recomendationDetails: function (req, res) {
@@ -1274,7 +1274,7 @@ let controller = {
         // console.log(dishId);
         const query = { _id: dishId };
 
-  
+
         Recomendation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
@@ -1289,8 +1289,107 @@ let controller = {
                 });
             }
         }).sort({ _id: 1 })
-     
+
     },
+
+    removeRecomendation: function (req, res) {
+
+        let recId = req.params._id;
+
+        Recomendation.findByIdAndRemove(recId, (err, recRemoved) => {
+            if (err) {
+                return req.flash('danger', "Error, no se ha podido eliminar la recomendación.");
+            }
+            if (!recRemoved) {
+                return req.flash('danger', "No se puede eliminar la recomendación.");
+            }
+
+            Recomendation.find({}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+
+                    res.render('recomendation/recomendationView', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myDocs: docs,
+
+                        }
+                    });
+                }
+            }).sort({ _id: 1 })
+
+        })
+    },
+
+    insertRecomendation: function (req, res) {
+
+        res.render('recomendation/recomendationInsert', {
+            items: {
+                req: req,
+                myObject: espTemplate
+
+            }
+        });
+
+    },
+    insertRecomendationPost: function (req, res) {
+        console.log(req.body);
+        const _id = req.body.title;
+        const description = req.body.description;
+        const edad = req.body.edad;
+        const energyMin = req.body.energyMin;
+        const energyMax = req.body.energyMax;
+        const lipidsMin = req.body.lipidsMin;
+        const lipidsMax = req.body.lipidsMax;
+        const proteinMin = req.body.proteinMin;
+        const proteinMax = req.body.proteinMax;
+        const carbohydrtMin = req.body.carbohydrtMin;
+        const carbohydrtMax = req.body.carbohydrtMax;
+
+        const recomendacion = new Recomendation({
+            _id: _id,
+            description: description,
+            edad: edad,
+            energyMin: energyMin,
+            energyMax: energyMax,
+            lipidsMin: lipidsMin,
+            lipidsMax: lipidsMax,
+            proteinMin: proteinMin,
+            proteinMax: proteinMax,
+            carbohydrtMin: carbohydrtMin,
+            carbohydrtMax: carbohydrtMax
+        });
+
+        recomendacion.save(async function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                Recomendation.find({}, async function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+
+                        res.redirect("view")
+                        // res.render('recomendation/recomendationView', {
+                        //     items: {
+                        //         req: req,
+                        //         myObject: espTemplate,
+                        //         myDocs: docs,
+
+                        //     }
+                        // });
+                    }
+                }).sort({ _id: 1 })
+
+            }
+        })
+
+
+
+    },
+
 
     evaluation: function (req, res) {
         return res.status(200).render('evaluation/evaluation.ejs', {
