@@ -207,6 +207,31 @@
         ]
 
     },
+    "tablaRecomendacion": {
+        "nombres": [
+            "Nombre",
+            "Energía mín. (Kcal)",
+            "Energía máx. (Kcal)",
+            "Lípidos mín.",
+            "Lípidos máx.",
+            "Proteínas mín.",
+            "Proteínas máx.",
+            "Carbohidratos mín.",
+            "Carbohidratos máx.",
+            "Acciones"
+        ],
+        "valores": [
+            "_id",
+            "energyMin",
+            "energyMax",
+            "lipidsMin",
+            "lipidsMax",
+            "proteinMin",
+            "proteinMax",
+            "carbohydrtMin",
+            "carbohydrtMax"
+        ]
+    },
     "tablaUsers": {
         "nombres": [
             "Nombre",

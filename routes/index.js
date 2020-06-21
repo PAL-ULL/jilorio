@@ -52,6 +52,7 @@ router.get("/planification/delete/:_id", controller.removePlanification);
 router.get("/planification/insert/autocomplete/", controller.autocompletePlanificacion);
 
 router.get("/recomendation", controller.recomendation);
+router.get("/recomendation/view", controller.recomendationView);
 router.get("/evaluation", controller.evaluation);
 
 router.get("/register", controller.register);

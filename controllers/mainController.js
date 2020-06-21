@@ -26,6 +26,7 @@ const Dish = require("../models/dish");
 const Users = require("../models/user");
 const Menu = require("../models/menu");
 const Planification = require("../models/planification");
+const Recomendation = require("../models/recomendation");
 const User = require("../models/user");
 const Food = require("../models/food");
 
@@ -1248,6 +1249,24 @@ let controller = {
                 myObject: espTemplate
             }
         });
+    },
+
+    recomendationView: function (req, res) {
+        Recomendation.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('recomendation/recomendationView.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+     
     },
 
     evaluation: function (req, res) {
