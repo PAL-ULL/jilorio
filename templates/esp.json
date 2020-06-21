@@ -496,8 +496,8 @@
                 "icon": "fas fa-utensils",
                 "type": "text",
                 "placeholder": "Nombre de la recomendación",
-                "ariaLabel": "title",
-                "name": "title"
+                "ariaLabel": "_id",
+                "name": "_id"
             },
             {
                 "label": "Introduzca una descripción para la recomendación",

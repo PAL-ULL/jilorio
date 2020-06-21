@@ -1334,9 +1334,10 @@ let controller = {
         });
 
     },
+    
     insertRecomendationPost: function (req, res) {
         console.log(req.body);
-        const _id = req.body.title;
+        const _id = req.body._id;
         const description = req.body.description;
         const edad = req.body.edad;
         const energyMin = req.body.energyMin;
@@ -1372,23 +1373,90 @@ let controller = {
                     } else {
 
                         res.redirect("view")
-                        // res.render('recomendation/recomendationView', {
-                        //     items: {
-                        //         req: req,
-                        //         myObject: espTemplate,
-                        //         myDocs: docs,
-
-                        //     }
-                        // });
+                     
                     }
                 }).sort({ _id: 1 })
 
             }
         })
+    },
 
+    updateRecomendation: function (req, res) {
+        let recId = req.params._id;
+        const query = { _id: recId };
 
+        Recomendation.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('recomendation/updateRecomendation.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs[0]
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
 
     },
+
+   
+
+
+    updateRecomendationPost: function (req, res) {
+        console.log(req.body);
+        const query = { _id: req.params._id };
+
+    
+        const description = req.body.description;
+        const edad = req.body.edad;
+        const energyMin = req.body.energyMin;
+        const energyMax = req.body.energyMax;
+        const lipidsMin = req.body.lipidsMin;
+        const lipidsMax = req.body.lipidsMax;
+        const proteinMin = req.body.proteinMin;
+        const proteinMax = req.body.proteinMax;
+        const carbohydrtMin = req.body.carbohydrtMin;
+        const carbohydrtMax = req.body.carbohydrtMax;
+
+        const recomendacion = {
+  
+            description: description,
+            edad: edad,
+            energyMin: energyMin,
+            energyMax: energyMax,
+            lipidsMin: lipidsMin,
+            lipidsMax: lipidsMax,
+            proteinMin: proteinMin,
+            proteinMax: proteinMax,
+            carbohydrtMin: carbohydrtMin,
+            carbohydrtMax: carbohydrtMax
+        };
+        Recomendation.findById(query).then(recEncontrado => {
+            if (recEncontrado) {
+                console.log("Recomendación encontrada" + recEncontrado);
+
+                const set = { $set: recomendacion };
+                console.log(set)
+                Recomendation.updateOne(query, set, (err, updatedRec) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("\n\n\ Recomendación ACTUALIZADa: " + updatedRec)
+                        req.flash(
+                            'success_msg',
+                            'Recomendación has been updated'
+                        );
+                        res.redirect('/recomendation/view');
+                    }
+                })
+            }
+        });
+
+    },
+
 
 
     evaluation: function (req, res) {

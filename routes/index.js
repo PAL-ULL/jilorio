@@ -55,8 +55,12 @@ router.get("/recomendation", controller.recomendation);
 router.get("/recomendation/view", controller.recomendationView);
 router.get("/recomendation/insert", controller.insertRecomendation);
 router.post("/recomendation/insert", controller.insertRecomendationPost);
+router.get("/recomendation/update/:_id", controller.updateRecomendation);
+router.post("/recomendation/update/:_id", controller.updateRecomendationPost);
 router.get("/recomendation/:_id?", controller.recomendationDetails);
 router.get("/recomendation/delete/:_id", controller.removeRecomendation);
+
+// router.post("/menu/update/:_id", controller.updateMenuPost);
 router.get("/evaluation", controller.evaluation);
 
 router.get("/register", controller.register);
