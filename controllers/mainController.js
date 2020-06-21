@@ -1269,6 +1269,29 @@ let controller = {
      
     },
 
+    recomendationDetails: function (req, res) {
+        let dishId = req.params._id;
+        // console.log(dishId);
+        const query = { _id: dishId };
+
+  
+        Recomendation.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('recomendation/recomendationDetails.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs[0]
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+     
+    },
+
     evaluation: function (req, res) {
         return res.status(200).render('evaluation/evaluation.ejs', {
             items: {

@@ -53,6 +53,7 @@ router.get("/planification/insert/autocomplete/", controller.autocompletePlanifi
 
 router.get("/recomendation", controller.recomendation);
 router.get("/recomendation/view", controller.recomendationView);
+router.get("/recomendation/:_id?", controller.recomendationDetails);
 router.get("/evaluation", controller.evaluation);
 
 router.get("/register", controller.register);

@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -28,45 +29,48 @@
     
         <div class="infoPage">
             <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myObject.infoPage.recomendaciones %> </span>
+            <span> <%= items.myDocs._id %> </span>
         </div>
-        <hr style="border-color: rgb(46, 115, 124);">
-        <%- messages('message', locals) %>
-        <br>
-        
+        <hr style="border-color: rgb(46, 115, 124); border: 1.5px solid  rgb(46, 115, 124);">
+        <div class="row cont justify-content-between">
+            <div class="col-8">
+                <p class="descriptionRec"> <%= items.myDocs.description %> </p>
+               
+            </div>
+            <div class="col-4">
+                <p class="descriptionRec edad"> <%= items.myDocs.edad %> </p>
+            </div>
+        </div>
 
 
-        <% if ((items.myObject.tablaRecomendacion.valores.length) > 0) { %>
+        <% if ((items.myObject.tablaRecomendacionDetails.valores.length) > 0) { %>
             <table id="alimentos" class="table table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
 
-                        <% for (var i=0; i< items.myObject.tablaRecomendacion.nombres.length; i++) { %>
-                        <th> <%- items.myObject.tablaRecomendacion.nombres[i] %> </th>
+                        <% for (var i=0; i< items.myObject.tablaRecomendacionDetails.nombres.length; i++) { %>
+                        <th> <%- items.myObject.tablaRecomendacionDetails.nombres[i] %> </th>
                         <% } %>
 
                     </tr>
                 </thead>
                 <tbody>
 
-                    <% for (var i=0; i< items.myDocs.length; i++) { %>
+         
 
                     <tr>
-                        <% for (var j=0; j< items.myObject.tablaRecomendacion.valores.length; j++) { %>
-                        <% if ((items.myDocs[i][items.myObject.tablaRecomendacion.valores[j]]) === "") { %>
+                        <% for (var j=0; j< items.myObject.tablaRecomendacionDetails.valores.length; j++) { %>
+                        <% if ((items.myDocs[items.myObject.tablaRecomendacionDetails.valores[j]]) === "") { %>
                         <td> - </td>
                         <% } else { %>
-                        <td> <%= items.myDocs[i][items.myObject.tablaRecomendacion.valores[j]] %> </td>
+                        <td> <%= items.myDocs[items.myObject.tablaRecomendacionDetails.valores[j]] %> </td>
                         
                         <% } %>
                        
                         <% } %>
-                        <td> <button type="button" class="btn btn-danger"><a title="Eliminar" href="/recomendation/delete/<%=items.myDocs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button><br> 
-                            <button type="button" class="btn btn-info"><a title="Ver detalles"  href="/recomendation/<%=items.myDocs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button> 
-                            <button type="button" class="btn btn-warning"><a title="Editar" href="/recomendation/update/<%=items.myDocs[i]['_id']%>"><i class="fas fa-edit"></i></a></button></td> 
-                        </td>
+                      
                     </tr>
-                    <% } %>
+          
                 </tbody>
      
 
@@ -75,20 +79,7 @@
     </div>
     <%- include ("../partials/footer.ejs"); %>
 
-    <script>
-        $(document).ready(function () {
-            $('#alimentos').DataTable({
-                "language": {
-                    "emptyTable": " "
-                }
-            });
-    
-        });
-    </script>
-    <!-- BOOTSTRAP TABLE -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+  
 </body>
 
 

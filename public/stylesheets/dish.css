@@ -28,6 +28,27 @@ h1{
   font-size: 1em;
 }
 
+.descriptionRec {
+
+  width: 600px;
+  height: 100px;
+  margin: 10px 20px 0px 0px;
+  text-align: justify;
+  font-size: 1.1em;
+
+  font-weight: bold;
+}
+
+.cont {
+  min-height: 250px;
+}
+
+.edad {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+
 .btn-enlace {
   margin: 30px 20px 0px 0px;
   box-shadow: 5px 5px 5px 0px rgba(104, 100, 100, 0.637);
