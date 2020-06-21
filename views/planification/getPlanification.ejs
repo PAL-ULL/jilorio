@@ -53,7 +53,7 @@
 
         <% const  nombre =   items.myDocs[0]._id %>
 
-
+        
         <table class="table table-bordered table-striped table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
@@ -66,53 +66,37 @@
                 <tr>
                     <% for (var i=0; i < docs_sz; i++) { %>
                     <td> <%= items.myDocs[i]._id  %> </td>
-                    <td> <%= items.myDocs[i].tipo  %> </td>
-
-                    <td>
-                        <% if (items.myDocs[i].tipo === "diaria") {  %>
-                        <% for (var j=0; j < items.myDocs[i].menus.length; j++) { %>
-                        <% for (var k=0; k < items.myDocs[i].menus[0][j+1].length; k++) { %>
-                        <%= items.myDocs[i].menus[j][j+1][k]._id  %>
-                        <% if( (k+1) < items.myDocs[i].menus[0][1].length) {  %>
-                        <br>
-                        <% } %>
-                        <% } %>
-
-                        <% } %>
-                    <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                href="/planification/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button>
-                        <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                href="/planification/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
-                        <button type="button" class="btn btn-warning"><a title="Editar" href="#"><i
-                                    class="fas fa-edit"></i></a></button></td>
-                    </td>
-                    <% } %>
-
-                    <% if (items.myDocs[i].tipo === "semanal" || items.myDocs[i].tipo === "mensual") {  %>
-                    <% let  index =   1 %>
-                    <% let  index2 =   0 %>
+                    <td> <%= items.myDocs[i].dias  %> </td>
+                    <td> 
                     <% for (var j=0; j < items.myDocs[i].menus.length; j++) { %>
-                    <% for (var k=0; k < items.myDocs[i].menus[j][index].length; k++) { %>
-                    <%= items.myDocs[i].menus[j][index][k]._id  %>
-                    <% if ( k+1 === items.myDocs[i].menus[j][index].length) { %>
-                    <br>
-                    <% }  %>
-                    <% } %>
-                    <% index++ %>
-                    <% } %>
+                        <b> Día <%= j+1 %>: </b>
+                        <% for (var k=0; k < items.myDocs[i].menus[j].length; k++) { %>
+                           
+                            <% if ((k+1) < items.myDocs[i].menus[j].length) { %>
+                                 <%= items.myDocs[i].menus[j][k]._id  %> <br>
+                            <% } else{ %>
+                                 <%= items.myDocs[i].menus[j][k]._id  %> 
 
-                    <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                href="/planification/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button>
-                        <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                href="/planification/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
-                        <button type="button" class="btn btn-warning"><a title="Editar" href="#"><i
-                                    class="fas fa-edit"></i></a></button></td>
-                    </td>
+                            <% } %>
+                        <% } %>
+                      
+                        <% if (j+1 !== items.myDocs[i].menus.length ) { %>
+                        <br>
+                            <hr>
+                        <% } else{  %>
+                            <br>
+                        <% } %>
                     
                     <% } %>
+                    
+                     <td> <button type="button" class="btn btn-danger"><a title="Eliminar" href="/planification/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button> 
+                        <button type="button" class="btn btn-info"><a title="Ver detalles"  href="/planification/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button> 
+                        <button type="button" class="btn btn-warning"><a title="Editar" href="/planification/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button></td> 
+                   
                 </tr>
 
                 <% } %>
+            </td>
 
 
             </tbody>

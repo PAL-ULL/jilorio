@@ -44,9 +44,12 @@ router.post("/menu/update/:_id", controller.updateMenuPost);
 
 router.get("/planification", controller.planification);
 router.get("/planification/view", controller.planificationView);
+router.get("/planification/:_id?", controller.planificationDetails);
+router.get("/planification/insert", controller.insertPlanification);
+router.post("/planification/insert", controller.insertPlanificationPost);
 router.post("/planification/view:_id?", controller.getPlanification);
 router.get("/planification/delete/:_id", controller.removePlanification);
-router.get("/planification/:_id?", controller.planificationDetails);
+router.get("/planification/insert/autocomplete/", controller.autocompletePlanificacion);
 
 router.get("/recomendation", controller.recomendation);
 router.get("/evaluation", controller.evaluation);

@@ -37,6 +37,12 @@
         <div class="tabTitle">
             <span><%= items.myObject.tablaPlanificacion.titleTabla %></span>
         </div>
+        <% const  nombres_sz=  items.myObject.tablaPlanificacion.nombres.length %>
+        <% const  nombres=  items.myObject.tablaPlanificacion.nombres %>
+        <% const  docs_sz =   items.myDocs.length %>
+        <% const  docs =   items.myDocs %>
+
+
 
         <table class="table table-striped table-bordered table-hover table-sm">
             <thead class="thead-dark">
@@ -45,28 +51,50 @@
                     <th><%= items.myObject.tablaPlanificacion.tablaDetalles[i] %> </th>
                     <% } %>
                 </tr>
-                
+
             </thead>
             <tbody>
-                <tr>
-                    
-                    <% for (let i=0; i < items.myDocs.menus.length; i++) { %>
-                        <% for (var k=0; k < items.myDocs.menus[i][i+1].length; k++) { %>
-             
-                </tr>
 
-                <td><%= i+1 %> </td>
-                <td><%= items.myDocs.menus[i][i+1][k]._id  %></td>
-                <td>
-                <% for (var l=0; l <  items.myDocs.menus[i][i+1][k]["dishes"].length; l++) { %>
-               <%= items.myDocs.menus[i][i+1][k]["dishes"][l]._id %>  
-               <% if( (l+1) <  items.myDocs.menus[i][i+1][k]["dishes"].length) {  %> 
-                <%= "|   "  %>  
+                <tr>
+                    <% for (var i=0; i < items.myDocs.menus.length; i++) { %>
+                    <td> <b> <%= i+1 %> </b> </td>
+                    <td>
+                        <% for (var j=0; j < items.myDocs.menus[i].length; j++) { %>
+
+                            <% if ((j+1) < items.myDocs.menus[i].length) { %>
+                                <%= items.myDocs.menus[i][j]._id  %> 
+                            <% } else{ %>
+                                <%= items.myDocs.menus[i][j]._id  %>
+                            
+
+                            <% } %>
+                            <br>  
+                 
+                        <% } %>
+                    </td>
+                    <td>
+                    <% for (var j=0; j < items.myDocs.menus[i].length; j++) { %>
+
+                        <% for (var k=0; k < items.myDocs.menus[i][j].dishes.length; k++) { %>
+                            <% if ((k+1) < items.myDocs.menus[i][j].dishes.length) { %>
+                                <%= items.myDocs.menus[i][j].dishes[k]._id %> <b> | </b>
+                            <% } else{ %>
+                                <%= items.myDocs.menus[i][j].dishes[k]._id %>
+                                <br>
+                            <% } %>
+                           
+                        <% } %>
+
+             
+                    <% } %>
+            
+                           
+                    </td>
+                
+            </tr>
                 <% } %>
-                <% } %>
-                </td>
-                <% } %>
-                <% } %>
+          
+    
             </tbody>
         </table>
 

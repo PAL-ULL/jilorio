@@ -187,7 +187,7 @@
     "tablaPlanificacion": {
         "nombres": [
             "Nombre",
-            "Tipo",
+            "Días",
             "Menús",
             "Acciones"
         ],
@@ -198,6 +198,14 @@
             "Menú",
             "Platos"
         ]
+    },
+    "tablaMenusReducida": {
+        "nombres": [
+            "Nombre",
+            "Platos",
+            "Calorías del menú"
+        ]
+
     },
     "tablaUsers": {
         "nombres": [
@@ -373,6 +381,53 @@
         ],
         "update": "Actualización de menú",
         "updateFormFirst": ["_id", "description" ],
+        "button": "Confirmar"
+    },
+    "planificacion": {
+        "title": "Inserción de una planificación",
+        "form": [
+            {
+                "label": "Introduzca el nombre de la planificación",
+                "icon": "fas fa-utensils",
+                "type": "text",
+                "placeholder": "Nombre de la planificación",
+                "ariaLabel": "title",
+                "name": "title"
+            },
+            {
+                "label": "Introduzca una descripción para la planificación",
+                "icon": "fas fa-edit",
+                "type": "text",
+                "placeholder": "Descripción de la planificación",
+                "ariaLabel": "description",
+                "name": "description"
+            }
+        ],
+        "formTipoSel": [
+            {
+                "label": "Tipo de planificación",
+                "icon": "fas fa-apple-alt",
+                "options": [
+                    "diaria",
+                    "semanal",
+                    "mensual"
+                ],
+                "name": "tipo"
+            }
+        ],
+        "formMenu": [
+            {
+                "label": "Introduzca un menu",
+                "icon": "fas fa-apple-alt",
+                "type": "text",
+                "placeholder": "Menú de la planificación",
+                "ariaLabel": "menus",
+                "name": "menus[]"
+            }
+        ],
+        "update": "Actualización de una planificación",
+        "updateFormFirst": ["_id", "description" ],
+        
         "button": "Confirmar"
     },
     "userEdit":{

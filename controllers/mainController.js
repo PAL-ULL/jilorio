@@ -793,7 +793,7 @@ let controller = {
     },
 
     updateMenu: function (req, res) {
-        const query ={ _id: req.params._id};
+        const query = { _id: req.params._id };
         console.log(query);
 
         Menu.find(query, async function (err, docs) {
@@ -826,13 +826,13 @@ let controller = {
 
     },
     updateMenuPost: async function (req, res) {
-        const query ={ _id: req.params._id};
+        const query = { _id: req.params._id };
         console.log(query);
         console.log(req.body.title);
         const _id = req.body.title;
         const description = req.body.description;
         const dishes = req.body.platos;
-        
+
         let errors = [];
 
         let resultados = [];
@@ -858,7 +858,7 @@ let controller = {
                 resultados.push(data[0])
                 // menu.dishes.push(data[0]);
             }
- 
+
         }
         if (noEncontrados.length > 0) {
 
@@ -876,12 +876,12 @@ let controller = {
                     const menu = docs;
                     Dish.find({}, async function (err, docs) {
                         if (err) {
-    
+
                             console.log(err);
                         } else {
                             const suma = await calculateKcal(docs);
                             console.log(menu)
-    
+
                             res.render('menu/updateMenu', {
                                 items: {
                                     errors,
@@ -890,7 +890,7 @@ let controller = {
                                     myDocs: docs,
                                     myKcal: suma,
                                     myMenu: menu[0]
-    
+
                                 }
                             });
                         }
@@ -931,46 +931,141 @@ let controller = {
 
         }
 
+    },
+
+    insertPlanification: function (req, res) {
+        console.log("En planificación");
+
+        Menu.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                let valores = [];
+                for (let i = 0; i < docs.length; i++) {
+                    const value = await calculateNutrientsMenu(docs[i])
+                    valores.push(value);
+                }
+                res.render('planification/insertPlanification', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs,
+                        myNutrientsMenu: valores,
+
+                    }
+                });
+            }
+        }).sort({ _id: 1 });
+
+    },
+
+    insertPlanificationPost: async function (req, res) {
+        console.log(req.body);
+        const _id = req.body.title;
+        const description = req.body.description;
+        const tipo = req.body.tipo;
+        const menus = req.body.menus;
+
+        let incorrecto = [];
+        let correcto = [];
+        const planificacion = new Planification({
+            _id: _id,
+            description: description,
+            tipo: tipo
+
+        });
+
+        // console.log("menus: " + req.body.menus)
+        // console.log(util.inspect(menus.length));
+
+        for (let i = 0; i < menus.length; i++) {
+            const query = { _id: menus[i] }
+            // console.log(query)
+            var data = await myFunctionMenu(query);
+            // console.log("tam: " + data.length);
+
+            if (data.length === 0) {
+                incorrecto.push(menus[i]);
+            } else {
+                correcto.push(data[0]);
+            }
+          
+        }
+        if (incorrecto.length > 0) {
+            console.log("Algún plato está mal");
+            console.log(util.inspect(incorrecto));
+            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(incorrecto));
+            let errors = [];
+            for (let i = 0; i < incorrecto.length; i++) {
+                errors.push({ msg: "El menu " + incorrecto[i] + " no ha sido encontrado." });
+            }
+            Menu.find({}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(docs)
+                    let valores = [];
+                    for (let i = 0; i < docs.length; i++) {
+                        const value = await calculateNutrientsMenu(docs[i])
+                        valores.push(value);
+                    }
+                    res.render('planification/insertPlanification', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myDocs: docs,
+                            myNutrientsMenu: valores,
+                            errors,
+
+                        }
+                    });
+                }
+            }).sort({ _id: 1 });
+        }else{
+
+            console.log("Bueno");
+            // let vector = [];
+            // console.log(tipo)
+            // if (tipo === "diaria"){
+            //     console.log("Entra")
+            //     const dias = [];
+            //     let obj = {};
+            //     for (let i=0; i < 1; i++){
+            //         for (let j=0; j < correcto.length; j++){
+            //             dias.push(correcto[j])
+            //         }
+            //         obj = {
+            //             : dias
+            //         }
+            //         vector.push(obj);
+            //     }
+            //     console.log(util.inspect(vector[0]));
+            // }
+            // if (tipo === "semanal"){
+            //     const vector = [];
+            //     const dias = [];
+            //     for (let i=0; i < 7; i++){
+            //         for (let j=0; j < correcto.length; j++){
+            //             dias.push(correcto[j])
+            //         }
+            //         vector.push(dias);
+            //     }
+            // }
+            // if (tipo === "mensual"){
+            //     const vector = [];
+            //     const dias = [];
+            //     for (let i=0; i < 31; i++){
+            //         for (let j=0; j < correcto.length; j++){
+            //             dias.push(correcto[j])
+            //         }
+            //         vector.push(dias);
+            //     }
+            // }
+
+           
+        }
 
 
-
-
-
-
-
-
-
-
-
-
-
-        // Menu.find(query, async function (err, docs) {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         const menu = docs;
-        //         Dish.find({}, async function (err, docs) {
-        //             if (err) {
-
-        //                 console.log(err);
-        //             } else {
-        //                 const suma = await calculateKcal(docs);
-        //                 console.log(menu)
-
-        //                 res.render('menu/updateMenu', {
-        //                     items: {
-        //                         req: req,
-        //                         myObject: espTemplate,
-        //                         myDocs: docs,
-        //                         myKcal: suma,
-        //                         myMenu: menu[0]
-
-        //                     }
-        //                 });
-        //             }
-        //         })
-        //     }
-        // }).sort({ _id: 1 })
 
     },
 
@@ -989,7 +1084,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-
+       
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -1001,6 +1096,7 @@ let controller = {
             }
         }).sort({ _id: 1 })
     },
+
 
 
     getPlanification: async function (req, res) {
@@ -1034,17 +1130,21 @@ let controller = {
     planificationDetails: async function (req, res) {
         let planificationId = req.params._id;
         const query = { _id: planificationId };
+        console.log("ENTRA")
 
         Planification.find(query, async function (err, doc) {
             if (err) {
                 console.log(err);
             } else {
                 let valores = [];
-                console.log("\n\n\n" + doc[0] + "\n\n\n");
-                // console.log(doc[0]);
+                console.log("\n\nDETAILS:\n ");
+                // console.log(util.inspect(doc[0].menus[0]));
                 for (let i = 0; i < doc[0].menus.length; i++) {
-                    for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
-                        const value = await calculateNutrientsMenu(doc[0].menus[i][i + 1][k])
+                    for (let j = 0; j < doc[0].menus[i].length; j++) {
+                        console.log(util.inspect(doc[0]._id));
+                        console.log(util.inspect(doc[0].menus[i][j]));
+                //     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
+                        const value = await calculateNutrientsMenu(doc[0].menus[i][j])
                         valores.push(value);
                     }
                 }
@@ -1059,19 +1159,27 @@ let controller = {
                 let sodium = 0;
                 let cholestrl = 0;
                 let sugar = 0;
+      
 
+                // valores[0][0] + valores[1][0] + valores[2][0]
+               // valores[0][1] + valores[1][1] + valores[2][1]
+                
                 for (let i = 0; i < valores.length; i++) {
-                    water += (parseFloat(valores[i][0]))
-                    energKcal += (parseFloat(valores[i][1]))
-                    protein += (parseFloat(valores[i][2]))
-                    lipidTotal += (parseFloat(valores[i][3]))
-                    carbohydrt += (parseFloat(valores[i][4]))
-                    fiber += (parseFloat(valores[i][5]))
-                    sodium += (parseFloat(valores[i][6]))
-                    cholestrl += (parseFloat(valores[i][7]))
-                    sugar += (parseFloat(valores[i][8]))
-
+     
+                    water += (parseFloat(valores[i][0]));
+                    energKcal += (parseFloat(valores[i][1]));
+                    protein += (parseFloat(valores[i][2]));
+                    lipidTotal += (parseFloat(valores[i][3]));
+                    carbohydrt += (parseFloat(valores[i][4]));
+                    fiber += (parseFloat(valores[i][5]));
+                    sodium += (parseFloat(valores[i][6]));
+                    cholestrl += (parseFloat(valores[i][7]));
+                    sugar += (parseFloat(valores[i][8]));
+           
                 }
+
+               
+
 
                 newVector.push(water.toFixed(2));
                 newVector.push(energKcal.toFixed(2));
@@ -1083,7 +1191,9 @@ let controller = {
                 newVector.push(cholestrl.toFixed(2));
                 newVector.push(sugar.toFixed(2));
 
-                // console.log(util.inspect(newVector));
+                console.log("\n----------------------------------------------------------------\n")
+
+                console.log(util.inspect(doc[0].menus[0]));
 
 
                 res.render('planification/planificationDetails', {
@@ -1092,7 +1202,6 @@ let controller = {
                         myObject: espTemplate,
                         myDocs: doc[0],
                         myNutrients: newVector
-
                     }
                 });
             }
@@ -1527,7 +1636,7 @@ let controller = {
         }).sort({ _id: 1 })
 
     },
-    
+
     autocompleteMenu2: function (req, res) {
         const query = { _id: { $regex: req.query["term"] } };
 
@@ -1552,6 +1661,29 @@ let controller = {
             }
         }).sort({ _id: 1 })
 
+    },
+    autocompletePlanificacion: function (req, res) {
+        const query = { _id: { $regex: req.query["term"] } };
+        console.log(query)
+        Menu.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                let vector = [];
+                docs.forEach(element => {
+                    let obj = {
+                        id: element._id,
+                        label: element._id,
+                        ndbno: element.ndb_no
+                    };
+                    vector.push(obj);
+                });
+
+
+                res.jsonp(vector);
+            }
+        }).sort({ _id: 1 })
     },
 
 };
@@ -1622,7 +1754,7 @@ async function calculateNutrients(doc) {
 
 
 async function calculateNutrientsMenu(doc) {
-
+    console.log("\n\nLo que le paso a nutrients menu es: " + util.inspect(doc));
     let vector = [];
     // let nut_vector = [];
     for (let i = 0; i < doc.dishes.length; i++) {
@@ -1682,6 +1814,10 @@ async function calculateNutrientsMenu(doc) {
 
 async function myFunction(query) {
     return Dish.find(query).exec()
+}
+
+async function myFunctionMenu(query) {
+    return Menu.find(query).exec()
 }
 
 module.exports = controller;

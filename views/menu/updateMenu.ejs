@@ -56,6 +56,7 @@
                         aria-label="<%= items.myObject.menu.form[i].ariaLabel %>" aria-describedby="basic-addon1"
                         name="<%= items.myObject.menu.form[i].name %>" #<%= items.myObject.menu.form[i].name %>
                         required disabled>
+                      
                     <% } else { %>
                         <input value="<%= items.myMenu[items.myObject.menu.updateFormFirst[i]]%>" type="<%= items.myObject.menu.form[i].type %>" class="form-control"
                         placeholder="<%= items.myObject.menu.form[i].placeholder %>"
@@ -63,6 +64,7 @@
                         name="<%= items.myObject.menu.form[i].name %>" #<%= items.myObject.menu.form[i].name %>
                         required>
                         <% } %>
+                        
                 </div>
                 <% } %>
                 <br>
@@ -88,6 +90,7 @@
                                     aria-label="<%= items.myObject.menu.formPlatos[i].ariaLabel %>"
                                     aria-describedby="basic-addon1" name="<%= items.myObject.menu.formPlatos[i].name %>"
                                     #<%= items.myObject.menu.formPlatos[i].name %> required>
+                                    <!-- <button type="button" id="<% %>" class="btn btn-danger"><a title="Eliminar" href=""> <i class="fas fa-trash-alt"></i></a></button>  -->
                             </div>
                             <% } %>
 
