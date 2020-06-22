@@ -48,7 +48,7 @@
                                     class="  myIcons <%= items.myObject.evaluacion.recomendacion[i].icon %>"></i></span>
                         </div>
 
-                        <select id="recomendacion" class="mySelects form-control"
+                        <select required id="recomendacion" class="mySelects form-control"
                             name="<%= items.myObject.evaluacion.recomendacion[i].name %>">
                             <% for (var j=0; j< items.myRecomendations.length; j++) { %>
                             <option value="<%= items.myRecomendations[j]["_id"] %>">
@@ -68,7 +68,7 @@
                                     class="  myIcons <%= items.myObject.evaluacion.form[i].icon %>"></i></span>
                         </div>
 
-                        <select id="lista1" class="mySelects form-control"
+                        <select required id="lista1" class="mySelects form-control"
                             name="<%= items.myObject.evaluacion.form[i].name %>">
                             <% for (var j=0; j< items.myObject.evaluacion.form[i].options.length; j++) { %>
                             <option value=<%= j%>>
@@ -81,12 +81,11 @@
                 <% } %>
 
                 <div class="lista2" id="lista2">
-                    <select class='mySelect form-control' id="select2"></select>
-                    <input type="hidden" name="hidden" class="form-control" id="myHidden" value="" />
+                    <select required class='mySelect form-control' id="select2"></select>
                 </div>
                 <br> <br>
-                <div id="cardInside" class="cardInside"></div>
-                <br><br>
+                <div id="cardInside" class="cardInsideVal" style="display: none;" ></div>
+                <br>
                 <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
 
 
@@ -109,9 +108,6 @@
 
 <script>
     $(document).ready(function () {
-
-        // // $("#myHidden").val(selected_option);
-        // // console.log( $("#myHidden").val())
 
         if ($("#lista1").val() === "0") {
             ajaxGetPlatos();
@@ -215,12 +211,13 @@
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function (docs) {
+                    $("#cardInside").css('display', 'block');
+                    $("#cardInside").css('padding-bottom', '-20px');
                     $("#cardInside").html("<p>" +
-                        "Evaluación realizada <br>" +
-                        "--> " + docs.recomendacion + " " + docs.tipo + " " + docs.candidato + "</p>");
-                    // $("#cardInside").html("<p>" +
-                    //     "Post Successfully! <br>" +
-                    //     "--> " + docs.recomendacion + " " + docs.tipo + " " + docs.candidato + "</p>");
+                        "<b>Evaluación realizada: </b><br>" +
+                        " Los resultados obtenidos empleando " + docs.recomendacion + " para " + docs.candidato + " se encuentran actualmente disponibles. </p><br>");
+
+                    
                 },
                 error: function (e) {
                     alert("Error!")
