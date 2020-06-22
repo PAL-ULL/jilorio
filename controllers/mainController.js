@@ -1469,6 +1469,31 @@ let controller = {
         });
     },
 
+    getEvaluation: function (req, res) {
+        Valuation.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+          
+                Valuation.find({}, async function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('evaluation/getEvaluation.ejs', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: docs
+                            }
+                        });
+                    }
+                }).sort({ _id: 1 })
+            }
+        }).sort({ _id: 1 })
+
+     
+    },
+
     createEvaluation: function (req, res) {
 
         Recomendation.find({}, async function (err, docs) {
@@ -1534,6 +1559,7 @@ let controller = {
            
         });
 
+        
         valuation.save()
                 .then(data => {
                     res.send(data);

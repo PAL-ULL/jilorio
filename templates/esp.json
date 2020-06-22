@@ -256,6 +256,23 @@
             "carbohydrtMax"
         ]
     },
+    "tablaEvaluacion": {
+        "nombres": [
+            "Evaluado",
+            "Recomendación",
+            "Energía",
+            "Lípidos",
+            "Proteínas",
+            "Carbohidratos",
+            "Acciones"
+        ],
+        "valores": [
+            "_id",
+            "recomendacion",
+            "candidato",
+            "resultados"
+        ]
+    },
     
     "tablaUsers": {
         "nombres": [

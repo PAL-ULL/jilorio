@@ -64,6 +64,7 @@ router.get("/recomendation/delete/:_id", controller.removeRecomendation);
 router.get("/evaluation", controller.evaluation);
 router.post("/evaluation/create/load/post", controller.createEvaluationPost);
 router.get("/evaluation/create", controller.createEvaluation);
+router.get("/evaluation/view", controller.getEvaluation);
 
 router.get("/evaluation/create/load/dishes", controller.loadDataDishes);
 router.get("/evaluation/create/load/menus", controller.loadDataMenus);
