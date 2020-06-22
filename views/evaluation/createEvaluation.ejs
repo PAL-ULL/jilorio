@@ -84,6 +84,7 @@
                     <select class='mySelect form-control' id="select2"></select>
                     <input type="hidden" name="hidden" class="form-control" id="myHidden" value="" />
                 </div>
+                <br> <br>
                 <div id="cardInside" class="cardInside"></div>
                 <br><br>
                 <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
@@ -215,8 +216,11 @@
                 dataType: 'json',
                 success: function (docs) {
                     $("#cardInside").html("<p>" +
-                        "Post Successfully! <br>" +
+                        "Evaluación realizada <br>" +
                         "--> " + docs.recomendacion + " " + docs.tipo + " " + docs.candidato + "</p>");
+                    // $("#cardInside").html("<p>" +
+                    //     "Post Successfully! <br>" +
+                    //     "--> " + docs.recomendacion + " " + docs.tipo + " " + docs.candidato + "</p>");
                 },
                 error: function (e) {
                     alert("Error!")

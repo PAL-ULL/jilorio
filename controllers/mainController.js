@@ -1537,6 +1537,7 @@ let controller = {
         valuation.save()
                 .then(data => {
                     res.send(data);
+                    // res.redirect("/");
                 }).catch(err => {
                     res.status(500).send({
                         message: err.message
@@ -2079,6 +2080,30 @@ async function calculateNutrients(doc) {
     return vector;
 }
 
+async function calculateNutrientsDish(doc) {
+    console.log("calculateNutrients")
+    let nut_vector = [];
+    for (let i = 0; i < doc[0].ingredients.length; i++) {
+        const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);
+        nut_vector.push(nutrients);
+    }
+
+    const valores = dish.computeNutrients(doc[0].ingredients, nut_vector);
+    const vector = [];
+    vector.push(valores["water"]);
+    vector.push(valores["energKcal"]);
+    vector.push(valores["protein"]);
+    vector.push(valores["lipidTotal"]);
+    vector.push(valores["carbohydrt"]);
+    vector.push(valores["fiber"]);
+    vector.push(valores["sodium"]);
+    vector.push(valores["cholestrl"]);
+    vector.push(valores["sugar"]);
+
+    console.log("DEVUEVE ESTO:::::::::" + util.inspect(vector))
+    return vector;
+}
+
 
 async function calculateNutrientsMenu(doc) {
     console.log("\n\nLo que le paso a nutrients menu es: " + util.inspect(doc));
@@ -2229,8 +2254,8 @@ async function evaluador(recomendacion, tipo, candidato){
         console.log(queryC);
         const CanData = await myFunction(queryC);
         console.log("Se ha seleccionado la planificacion: " + CanData._id);
-        const nutrientes = await calculateNutrients(CanData);
-        console.log(nutrientes);
+        const nutrientes = await calculateNutrientsDish(CanData);
+        console.log(util.inspect(nutrientes[0]));
         const datos = await calculadora(recData, nutrientes);
         console.log(datos);
         return datos;
