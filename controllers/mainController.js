@@ -1572,6 +1572,29 @@ let controller = {
                         
     },
 
+    removeEvaluation: function (req, res) {
+        console.log(req.params)
+        let evalId = req.params.id;
+    
+    Valuation.findByIdAndRemove(evalId, (err, evalIdRemoved) => {
+        if (err) {
+            return req.flash('danger', "Error, no se ha podido eliminar la valoración.");
+        }
+        if (!evalIdRemoved) {
+            return req.flash('danger', "No se puede eliminar la valoración.");
+        }
+
+        Valuation.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+
+                res.redirect('/evaluation/view')
+            }
+        }).sort({ _id: 1 })
+
+    })
+    },
 
     register: function (req, res) {
         res.render('user/register', {
