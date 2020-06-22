@@ -38,7 +38,7 @@
         <%- include ("../partials/message.ejs"); %>
 
         <div class="card">
-            <form method="POST" , id="aux" >
+            <form method="POST" , id="aux">
                 <br>
                 <% for (var i=0; i< items.myObject.dish.form.length; i++) { %>
                 <label><%= items.myObject.dish.form[i].label %></label>
@@ -63,13 +63,15 @@
                         name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>
                         required>
                     <% } %>
+                    <input style="margin-left: 20px;" class="btn btn-warning vaciarCampos" type="button"
+                        value="Limpiar">
                 </div>
                 <% } %>
                 <br>
                 <div class="cardInside">
                     <div class="ref">
                         <% for (let k=0; k < items.myDocs.ingredients.length; k++){ %>
-                            <% let p= 0; %>
+                        <% let p= 0; %>
                         <div class="row">
                             <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
                             <div class="col-sm">
@@ -80,7 +82,7 @@
                                                 class=" myIcons <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
                                     </div>
                                     <% if (items.myObject.dish.formIngredientes[i].label === "Cantidad") { %>
-                            
+
 
                                     <input class="MyInputs" type="<%= items.myObject.dish.formIngredientes[i].type %>"
                                         class="form-control"
@@ -91,7 +93,7 @@
                                         min=<%= items.myObject.dish.formIngredientes[i].min %>
                                         value="<%= items.myDocs.ingredients[k][items.myObject.dish.updateFormSecond[p]]  %>"
                                         required>
-                                        <%  p= p+1; %>
+                                    <%  p= p+1; %>
 
                                     <%  } else { %>
 
@@ -102,7 +104,7 @@
                                         aria-describedby="basic-addon1"
                                         value="<%=  items.myDocs.ingredients[k][items.myObject.dish.updateFormSecond[i]]  %>"
                                         name="<%= items.myObject.dish.formIngredientes[i].name %>" required>
-                                        <%  p= p+1; %>
+                                    <%  p= p+1; %>
                                     <% } %>
                                 </div>
                             </div>
@@ -115,14 +117,18 @@
                                         <span class=" spanColor input-group-text"><i
                                                 class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
                                     </div>
-                                    
-                                    <select class="mySelects form-control" name="<%= items.myObject.dish.formIngredientesSel[i].name %>">
+
+                                    <select required class="mySelects form-control"
+                                        name="<%= items.myObject.dish.formIngredientesSel[i].name %>">
                                         <% for (var j=0; j< items.myObject.dish.formIngredientesSel[i].options.length; j++) { %>
                                         <% if ( items.myObject.dish.formIngredientesSel[i].options[j] === items.myDocs.ingredients[k]["unitMeasure"]) { %>
-                                           
-                                        <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>" selected> <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
-                                            <% } else { %>
-                                        <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>"> <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
+
+                                        <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>"
+                                            selected> <%= items.myObject.dish.formIngredientesSel[i].options[j] %>
+                                        </option>
+                                        <% } else { %>
+                                        <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>">
+                                            <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
                                         <% } %>
 
                                         <% } %>
@@ -130,14 +136,39 @@
                                 </div>
                             </div>
                             <% } %>
+                            <input style="margin-bottom: 30px; margin-top: -5px;" class="btn btn-danger eliminar2"
+                                type="button" value="Eliminar">
                         </div>
                         <% } %>
+
                     </div>
 
-                    <input type="button"  class="btn btn-dark" value="Añadir ingrediente" id="bSubmit">
+                    <input type="button" class="btn btn-dark" value="Añadir ingrediente" id="bSubmit">
                 </div>
 
                 <script>
+                    $(document).ready(function () {
+                        const fila = document.querySelectorAll('.row');
+                        console.log(fila.length)
+
+                        if (fila.length - 1) {
+                            const boton = document.querySelector('.eliminar2');
+                            boton.disabled = false;
+                           
+                        } else {
+                            const boton = document.querySelector('.eliminar2');
+                            boton.disabled = true;
+                        }
+                    });
+
+                    $("form").on("click", ".eliminar2", function (e) {
+                        const fila = document.querySelectorAll('.row');
+                        console.log(fila.length - 4)
+                        if (fila.length - 4) {
+                            $(this).closest('.row').remove();
+                        }
+                       
+                    });
 
                     const bSubmit = document.querySelector('#bSubmit');
                     bSubmit.addEventListener('click', () => {
@@ -187,13 +218,13 @@
                             console.log(selects);
                             console.log(i);
                             if (i <= 1) {
-                              
+
                                 const newI = document.createElement("INPUT");
 
                                 newI.setAttribute("type", inputs[i].type);
                                 newI.setAttribute("placeholder", inputs[i].placeholder);
                                 newI.setAttribute("name", inputs[i].name);
-                            
+
                                 if (inputs[i].name === "ingredients[]") {
                                     newI.classList.add("searchIngredient");
                                 }
@@ -213,7 +244,7 @@
                                 console.log("FALLA: " + selects[k])
                                 const newS = document.createElement("SELECT");
                                 newS.setAttribute("name", selects[k].name);
-                           
+
                                 const optS = document.createElement("OPTION");
                                 optS.value = selects[k].options[0].value;
                                 optS.innerHTML = selects[k].options[0].value;
@@ -233,8 +264,29 @@
                             }
                         }
 
+                        const col = document.createElement("DIV");
+                        col.classList.add("col-sm");
+                        const eliminar = document.createElement("INPUT");
+                        eliminar.classList.add("btn");
+                        eliminar.classList.add("btn-danger");
+                        eliminar.classList.add("eliminar");
+                        eliminar.setAttribute("type", "button");
+                        eliminar.value = "Eliminar"
+                        col.style.display = "flex";
+                        col.style["align-items"] = "center";
+                        col.style["padding-top"] = "12px";
+                        col.appendChild(eliminar)
+                        divRow.appendChild(col);
+
+
                         divRow.classList.add("row");
                         padre.appendChild(divRow);
+
+                        $("form").on("click", ".eliminar", function (e) {
+                            console.log("eliminar")
+                            var targets = $(this).closest(".row");
+                            $(targets).remove();
+                        });
                     };
 
 
@@ -310,7 +362,7 @@
             </form>
         </div>
 
-        <form method="POST" id="search" >
+        <form method="POST" id="search">
             <div class="wrap">
                 <div class="search">
                     <input type="text" name="shrt_desc" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">

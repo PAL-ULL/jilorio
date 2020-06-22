@@ -165,6 +165,7 @@
                                 newI.setAttribute("type", inputs[i].type);
                                 newI.setAttribute("placeholder", inputs[i].placeholder);
                                 newI.setAttribute("name", inputs[i].name);
+                                newI.required = true;
                                 if (inputs[i].name === "ingredients[]") {
                                     newI.classList.add("searchIngredient");
                                 }
@@ -184,6 +185,7 @@
 
                                 const newS = document.createElement("SELECT");
                                 newS.setAttribute("name", selects[k].name);
+                                newS.required = true;
                                 console.log(selects[k].name)
                                 const optS = document.createElement("OPTION");
                                 optS.value = selects[k].options[0].value;
