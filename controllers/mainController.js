@@ -27,6 +27,7 @@ const Users = require("../models/user");
 const Menu = require("../models/menu");
 const Planification = require("../models/planification");
 const Recomendation = require("../models/recomendation");
+const Valuation = require("../models/valuation");
 const User = require("../models/user");
 const Food = require("../models/food");
 
@@ -1334,7 +1335,7 @@ let controller = {
         });
 
     },
-    
+
     insertRecomendationPost: function (req, res) {
         console.log(req.body);
         const _id = req.body._id;
@@ -1373,7 +1374,7 @@ let controller = {
                     } else {
 
                         res.redirect("view")
-                     
+
                     }
                 }).sort({ _id: 1 })
 
@@ -1402,14 +1403,14 @@ let controller = {
 
     },
 
-   
+
 
 
     updateRecomendationPost: function (req, res) {
         console.log(req.body);
         const query = { _id: req.params._id };
 
-    
+
         const description = req.body.description;
         const edad = req.body.edad;
         const energyMin = req.body.energyMin;
@@ -1422,7 +1423,7 @@ let controller = {
         const carbohydrtMax = req.body.carbohydrtMax;
 
         const recomendacion = {
-  
+
             description: description,
             edad: edad,
             energyMin: energyMin,
@@ -1466,6 +1467,82 @@ let controller = {
                 myObject: espTemplate
             }
         });
+    },
+
+    createEvaluation: function (req, res) {
+
+        Recomendation.find({}, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                const recomendaciones = docs;
+                Dish.find({}, async function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        const platos = docs;
+                        Menu.find({}, async function (err, docs) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                const menus = docs;
+                                Planification.find({}, async function (err, docs) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        const planificaciones = docs;
+                                        return res.status(200).render('evaluation/createEvaluation.ejs', {
+                                            items: {
+                                                req: req,
+                                                myObject: espTemplate,
+                                                myRecomendations: recomendaciones,
+                                                myDishes: platos,
+                                                myMenus: menus,
+                                                myPlanifications: planificaciones
+
+                                            }
+                                        });
+                                    }
+                                }).sort({ _id: 1 })
+                            }
+                        }).sort({ _id: 1 })
+                    }
+                }).sort({ _id: 1 })
+            }
+        }).sort({ _id: 1 })
+
+    },
+
+    createEvaluationPost: async function (req, res) {
+        console.log("\n\n\n")
+        console.log(req.body)
+        const recomendacion = req.body.recomendacion;
+        const tipo = req.body.tipos;
+        const candidato = req.body.select;
+
+        
+
+        const resultado = await evaluador(recomendacion, tipo, candidato);
+        console.log(resultado);
+
+
+        const valuation = new Valuation({
+            recomendacion: recomendacion,
+            tipo: tipo,
+            candidato: candidato,
+            resultados: resultado
+           
+        });
+
+        valuation.save()
+                .then(data => {
+                    res.send(data);
+                }).catch(err => {
+                    res.status(500).send({
+                        message: err.message
+                    });
+                });
+                        
     },
 
 
@@ -1792,6 +1869,7 @@ let controller = {
             });
         });
     },
+
     autocomplete2: function (req, res) {
         const query = { shrt_desc: { $regex: req.query["term"] } };
 
@@ -1894,7 +1972,48 @@ let controller = {
         }).sort({ _id: 1 })
     },
 
+    loadDataDishes: function (req, res) {
+        console.log("Fetch all Users");
+
+        Dish.find()
+            .then(dishes => {
+                res.send(dishes);
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message
+                });
+            });
+
+    },
+    loadDataMenus: function (req, res) {
+        console.log("Fetch all Users");
+
+        Menu.find()
+            .then(menus => {
+                res.send(menus);
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message
+                });
+            });
+
+    },
+    loadDataPlanifications: function (req, res) {
+        console.log("Fetch all Users");
+
+        Planification.find()
+            .then(plans => {
+                res.send(plans);
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message
+                });
+            });
+
+    }
+
 };
+
 
 async function findAllDocuments(db, query, collection, callback) {
     // console.log(query)
@@ -1948,7 +2067,7 @@ async function calculateKcal(docs) {
 }
 
 async function calculateNutrients(doc) {
-
+    console.log("calculateNutrients")
     let nut_vector = [];
     for (let i = 0; i < doc[0].ingredients.length; i++) {
         const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);
@@ -2020,6 +2139,64 @@ async function calculateNutrientsMenu(doc) {
 
 
 
+async function calculateNutrientsPlanificacion(doc) {
+    let valores= [];
+    for (let i = 0; i < doc[0].menus.length; i++) {
+        for (let j = 0; j < doc[0].menus[i].length; j++) {
+            console.log(util.inspect(doc[0]._id));
+            console.log(util.inspect(doc[0].menus[i][j]));
+            //     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
+            const value = await calculateNutrientsMenu(doc[0].menus[i][j])
+            valores.push(value);
+        }
+    }
+
+    let newVector = [];
+    let water = 0;
+    let energKcal = 0;
+    let protein = 0;
+    let lipidTotal = 0;
+    let carbohydrt = 0;
+    let fiber = 0;
+    let sodium = 0;
+    let cholestrl = 0;
+    let sugar = 0;
+
+
+    // valores[0][0] + valores[1][0] + valores[2][0]
+    // valores[0][1] + valores[1][1] + valores[2][1]
+
+    for (let i = 0; i < valores.length; i++) {
+
+        water += (parseFloat(valores[i][0]));
+        energKcal += (parseFloat(valores[i][1]));
+        protein += (parseFloat(valores[i][2]));
+        lipidTotal += (parseFloat(valores[i][3]));
+        carbohydrt += (parseFloat(valores[i][4]));
+        fiber += (parseFloat(valores[i][5]));
+        sodium += (parseFloat(valores[i][6]));
+        cholestrl += (parseFloat(valores[i][7]));
+        sugar += (parseFloat(valores[i][8]));
+
+    }
+
+
+
+
+    newVector.push(water.toFixed(2));
+    newVector.push(energKcal.toFixed(2));
+    newVector.push(protein.toFixed(2));
+    newVector.push(lipidTotal.toFixed(2));
+    newVector.push(carbohydrt.toFixed(2));
+    newVector.push(fiber.toFixed(2));
+    newVector.push(sodium.toFixed(2));
+    newVector.push(cholestrl.toFixed(2));
+    newVector.push(sugar.toFixed(2));
+    return newVector;
+}
+
+
+
 async function myFunction(query) {
     return Dish.find(query).exec()
 }
@@ -2027,6 +2204,144 @@ async function myFunction(query) {
 async function myFunctionMenu(query) {
     return Menu.find(query).exec()
 }
+
+async function myFunctionPlanification(query) {
+    return Planification.find(query).exec()
+}
+
+async function myFunctionRecomendacion(query) {
+    return Recomendation.find(query).exec()
+}
+
+
+
+
+async function evaluador(recomendacion, tipo, candidato){
+    let resultados = [];
+    const queryR = {_id : recomendacion};
+    const recData = await myFunctionRecomendacion(queryR);
+    console.log("Se ha seleccionado la recomendación: " + recData);
+    console.log(tipo);
+
+    if (tipo === "0"){
+        console.log("Se ha seleccionado platos: ");
+        const queryC = {_id : candidato};
+        console.log(queryC);
+        const CanData = await myFunction(queryC);
+        console.log("Se ha seleccionado la planificacion: " + CanData._id);
+        const nutrientes = await calculateNutrients(CanData);
+        console.log(nutrientes);
+        const datos = await calculadora(recData, nutrientes);
+        console.log(datos);
+        return datos;
+
+    }else if (tipo === "1"){
+        console.log("Se ha seleccionado menus: ");
+        const queryC = {_id : candidato};
+        const CanData = await myFunctionMenu(queryC);
+        console.log("Se ha seleccionado la planificacion: " + CanData._id);
+        const nutrientes = await calculateNutrientsMenu(CanData[0]);
+        console.log(nutrientes);
+        const datos = await calculadora(recData, nutrientes);
+        console.log(datos);
+        return datos;
+    }else if (tipo === "2"){
+        console.log("Se ha seleccionado planificacion: ");
+        const queryC = {_id : candidato};
+        const CanData = await myFunctionPlanification(queryC);
+        console.log("Se ha seleccionado la planificacion: " + CanData[0]._id);
+        const nutrientes = await calculateNutrientsPlanificacion(CanData);
+        console.log(nutrientes);
+        const datos = await calculadora(recData, nutrientes);
+        console.log(datos);
+        return datos;
+    }
+
+
+    
+}
+
+
+async function calculadora(recData, nutrientes){
+    
+    console.log("-------- CALCULADORA --------");
+    const obj = {
+        energia : [nutrientes[1], await energy(recData[0], nutrientes)],
+        proteinas : [nutrientes[2], await proteinas(recData[0], nutrientes)],
+        lipidos : [nutrientes[3], await lipidos(recData[0], nutrientes)],
+        carbohidratos : [nutrientes[4], await carbohidratos(recData[0], nutrientes)]
+    }
+
+    return(obj);
+
+};
+
+async function energy(recData, nutrientes){
+    if ((parseInt(nutrientes[1])  > recData.energyMin) && (parseInt(nutrientes[1])  < recData.energyMax)){
+        const resultEnergia = "Muy recomendable"
+        console.log(resultEnergia);
+        return resultEnergia;
+    }else if ((parseInt(nutrientes[1]) > recData.energyMin-200) && (parseInt(nutrientes[1]) < recData.energyMax+200)){
+        const resultEnergia = "Recomendable"
+        console.log(resultEnergia);
+        return resultEnergia;
+    }else{
+        const resultEnergia = "No recomendable"
+        console.log(resultEnergia);
+        return resultEnergia;
+    }
+   
+};
+
+async function proteinas(recData, nutrientes){
+    if ((parseInt(nutrientes[2]) > recData.proteinMin) && (parseInt(nutrientes[2]) < recData.proteinMax)){
+        const resultproteins = "Muy recomendable"
+        console.log(resultproteins);
+        return resultproteins;
+    }else if ((parseInt(nutrientes[2]) > recData.proteinMin-50) && (parseInt(nutrientes[2]) < recData.proteinMax+50)){
+        const resultproteins = "Recomendable"
+        return resultproteins;
+    }else{
+        const resultproteins = "No recomendable"
+        console.log(resultproteins);
+        return resultproteins;
+    }
+   
+};
+
+async function lipidos(recData, nutrientes){
+    if ((parseInt(nutrientes[3]) > recData.lipidsMin) && (parseInt(nutrientes[3])  < recData.lipidsMax)){
+        const resultlipidos = "Muy recomendable"
+        console.log(resultlipidos);
+        return resultlipidos;
+    }else if ((parseInt(nutrientes[3])  > recData.lipidsMin-100) && (parseInt(nutrientes[3])  < recData.lipidsMax+100)){
+        const resultlipidos = "Recomendable"
+        console.log(resultlipidos);
+        return resultlipidos;
+    }else{
+        const resultlipidos = "No recomendable"
+        console.log(resultlipidos);
+        return resultlipidos;
+    } 
+};
+
+async function carbohidratos(recData, nutrientes){
+    if ((parseInt(nutrientes[4])  > recData.carbohydrtMin) && (parseInt(nutrientes[4])  < recData.carbohydrtMax)){
+        const resultcarbohidratos = "Muy recomendable"
+        console.log(resultcarbohidratos);
+        return resultcarbohidratos;
+    }else if ((parseInt(nutrientes[4])  > recData.carbohydrtMin-300) && (parseInt(nutrientes[4])  < recData.carbohydrtMax+300)){
+        const resultcarbohidratos = "Recomendable"
+        console.log(resultcarbohidratos);
+        return resultcarbohidratos;
+    }else{
+        const resultcarbohidratos = "No recomendable"
+        console.log(resultcarbohidratos);
+        return resultcarbohidratos;
+    }
+   
+};
+
 
 module.exports = controller;
 

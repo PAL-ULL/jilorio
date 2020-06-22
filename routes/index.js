@@ -62,6 +62,12 @@ router.get("/recomendation/delete/:_id", controller.removeRecomendation);
 
 // router.post("/menu/update/:_id", controller.updateMenuPost);
 router.get("/evaluation", controller.evaluation);
+router.post("/evaluation/create/load/post", controller.createEvaluationPost);
+router.get("/evaluation/create", controller.createEvaluation);
+
+router.get("/evaluation/create/load/dishes", controller.loadDataDishes);
+router.get("/evaluation/create/load/menus", controller.loadDataMenus);
+router.get("/evaluation/create/load/planifications", controller.loadDataPlanifications);
 
 router.get("/register", controller.register);
 router.get("/login", controller.login);

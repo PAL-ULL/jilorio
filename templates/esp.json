@@ -594,6 +594,37 @@
         "nutrientes": "Nutrientes recomendados:",
         "infor": "Información básica:"
     },
+    "evaluacion": {
+        "title": "Generar evaluación",
+        "recomendacion":[
+            {
+                "label": "Tipo de recomendación a usar",
+                "icon": "fas fa-apple-alt",
+                "name": "recomendacion",
+                "id": "recomendacion"
+            }
+        ],
+        "form":[
+            {
+                "label": "Tipo de candidato a evaluar",
+                "icon": "fas fa-apple-alt",
+                "options": [
+                    "Plato",
+                    "Menú",
+                    "Planificación"
+                ],
+                "name": "tipos",
+                "id": "tipos"
+            }
+        ],
+        "dynamic":[
+            {
+                "label": "Candidato a evaluar",
+                "icon": "fas fa-apple-alt",
+                "name": "candidato"
+            }
+        ]
+    },
     "userEdit":{
         "form": [
             {
