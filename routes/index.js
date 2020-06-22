@@ -25,6 +25,8 @@ router.get("/dish/insert/autocomplete/", isAuthenticated, authRole("default"), c
 router.get("/dish/update/:_id/autocomplete/", isAuthenticated, authRole("default"), controller.autocomplete2);
 // router.get("/dish/insert/check/", controller.check);
 router.post("/dish/insert", isAuthenticated, authRole("default"), controller.insertDishPost);
+router.get("/dish/insertJson",  controller.insertDishJson);
+router.post("/dish/insertJson",  controller.insertDishJsonPost);
 router.get("/dish/:_id", isAuthenticated, authRole("default"), controller.dishDetails);
 router.get("/dish/update/:_id", isAuthenticated, authRole("default"), controller.updateDish);
 router.post("/dish/update/:_id", isAuthenticated, authRole("default"), controller.updateDishPost);

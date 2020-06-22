@@ -335,6 +335,10 @@
         ],
         "button": "Regístrate"
     },
+    "jsonDish": {
+        "ejemplo": "Este es un ejemplo para insertar platos:",
+        "label": "Archivo .json"
+    },
     "dish": {
         "title": "Inserción de platos",
         "form": [

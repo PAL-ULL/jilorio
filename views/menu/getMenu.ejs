@@ -28,7 +28,7 @@
             <i class="fas fa-list-alt fa-2x"></i>
             <span> <%= items.myObject.infoPage.menus %> </span>
         </div>
-
+        <% if (items.req.user.rol === "admin"){ %>
         <hr style="border-color: rgb(46, 115, 124);">
         <br>
         <form method="POST">
@@ -80,7 +80,58 @@
             </tbody>
         </table>
 
-
+        <% } else { %>
+            <hr style="border-color: rgb(46, 115, 124);">
+            <br>
+            <form method="POST">
+                <div class="wrap">
+                    <div class="search">
+                        <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
+                        <a id="submit-form-link" href="#"></a>
+                        <button type="submit"class="spanColor searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <br><br>
+    
+            <% const  nombres_sz=  items.myObject.tablaMenu.nombres.length %>
+            <% const  nombres=  items.myObject.tablaMenu.nombres %>
+            <% const  docs_sz =   items.myDocs.length %>
+            <% const  docs =   items.myDocs %>
+         
+            <table class="table table-bordered table-striped table-hover table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <% for (var i=0; i< nombres_sz; i++) { %>
+                        <th scope="col"><%= nombres[i] %></th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% for (var i=0; i < docs_sz; i++) { %>
+                            <td> <%= docs[i]._id %> </td>
+                            <td> 
+                        <% for (var j=0; j < docs[i].dishes.length; j++) { %>
+                            <%=docs[i].dishes[j]._id%>  
+                            
+                            <% if( (j+1) < docs[i].dishes.length) {  %> 
+                                <%= "|   "  %>  
+                                <% } %>
+                      
+                        <% } %>
+                        <td><%= items.myNutrientsMenu[i][1] %> </td>
+                        <td>  
+                            <button type="button" class="btn btn-info"><a title="Ver detalles"  href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button> 
+                            
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <% } %>
     </div>
     <%- include ("../partials/footer.ejs"); %>
 </body>

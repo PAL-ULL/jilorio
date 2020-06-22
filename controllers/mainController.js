@@ -202,6 +202,124 @@ let controller = {
         });
     },
 
+    insertDishJson: function (req, res) {
+        var beautify = require('js-beautify').js;
+        let json = require("../public/dishExample.json")
+        json = beautify(JSON.stringify(json), { indent_size: 2, space_in_empty_paren: true })
+
+        res.render('dish/insertDishJson', {
+            items: {
+                req: req,
+                myObject: espTemplate,
+                json: json
+            }
+        });
+
+    },
+    
+    insertDishJsonPost: async function (req, res) {
+
+        const title = req.body.title;
+        console.log("title: " + title);
+        const description = req.body.description;
+        console.log("description: " + description);
+        const recipe = req.body.recipe;
+        console.log("receta: " + recipe);
+        const imageURL = req.body.imageURL;
+        console.log("imageURL: " + imageURL);
+        const vectorIngredientes = [];
+        console.log(req.body.ingredients)
+
+        let errors = [];
+
+        const cantidades = req.body.cantidades;
+        const Unidades = req.body.Unidades;
+        const ingredients = req.body.ingredients;
+        let resultados = [];
+        let noEncontrados = [];
+        console.log("\n\n");
+
+        // for (let i = 0; i < ingredients.length; i++) {
+        //     const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
+
+        //     if (result.length === 0) {
+        //         noEncontrados.push(ingredients[i]);
+
+        //     } else {
+        //         let obj = {
+        //             name: result[0].shrt_desc,
+        //             amount: cantidades[i],
+        //             unitMeasure: Unidades[i],
+        //             ndbno: result[0].ndb_no
+        //         }
+        //         resultados.push(obj);
+        //     }
+        // }
+        // if (noEncontrados.length > 0) {
+
+        //     console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+        //     for (let i = 0; i < noEncontrados.length; i++) {
+        //         errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+        //     }
+
+        //     client.connect(function (err, client) {
+        //         assert.equal(null, err);
+        //         console.log("\nConnected successfully to server");
+        //         const db = client.db(name);
+        //         const collection = db.collection("food");
+        //         const query = {};
+        //         findAllDocuments(db, query, collection, function (data) {
+        //             let resultArray = data;
+
+        //             res.render('dish/insertDish', {
+        //                 items: {
+        //                     req: req,
+        //                     myObject: espTemplate,
+        //                     myDocs: resultArray,
+        //                     errors
+        //                 }
+        //             });
+        //         });
+        //     });
+        // } else {
+
+        //     console.log("VECTORES: " + util.inspect(resultados));
+        //     const plato = new Dish({
+        //         _id: title,
+        //         description: description,
+        //         ingredients: resultados,
+        //         recipe: recipe,
+        //         imageURL: imageURL
+        //     });
+
+        //     plato.save(async function (err) {
+        //         if (err) {
+        //             console.log(err);
+        //         } else {
+        //             Dish.find({}, async function (err, docs) {
+        //                 if (err) {
+
+        //                     console.log(err);
+        //                 } else {
+        //                     const suma = await calculateKcal(docs);
+        //                     req.flash('success', 'Dish was inserted');
+        //                     res.render('dish/getDish', {
+        //                         items: {
+        //                             req: req,
+        //                             myObject: espTemplate,
+        //                             myDocs: docs,
+        //                             myKcal: suma
+
+        //                         }
+        //                     })
+        //                 }
+        //             });
+
+        //         }
+        //     })
+        // }
+    },
+
 
 
 
@@ -1474,7 +1592,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-          
+
                 Valuation.find({}, async function (err, docs) {
                     if (err) {
                         console.log(err);
@@ -1491,7 +1609,7 @@ let controller = {
             }
         }).sort({ _id: 1 })
 
-     
+
     },
 
     createEvaluation: function (req, res) {
@@ -1545,7 +1663,7 @@ let controller = {
         const tipo = req.body.tipos;
         const candidato = req.body.select;
 
-        
+
 
         const resultado = await evaluador(recomendacion, tipo, candidato);
         console.log(resultado);
@@ -1556,44 +1674,44 @@ let controller = {
             tipo: tipo,
             candidato: candidato,
             resultados: resultado
-           
+
         });
 
-        
+
         valuation.save()
-                .then(data => {
-                    res.send(data);
-                    // res.redirect("/");
-                }).catch(err => {
-                    res.status(500).send({
-                        message: err.message
-                    });
+            .then(data => {
+                res.send(data);
+                // res.redirect("/");
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message
                 });
-                        
+            });
+
     },
 
     removeEvaluation: function (req, res) {
         console.log(req.params)
         let evalId = req.params.id;
-    
-    Valuation.findByIdAndRemove(evalId, (err, evalIdRemoved) => {
-        if (err) {
-            return req.flash('danger', "Error, no se ha podido eliminar la valoración.");
-        }
-        if (!evalIdRemoved) {
-            return req.flash('danger', "No se puede eliminar la valoración.");
-        }
 
-        Valuation.find({}, async function (err, docs) {
+        Valuation.findByIdAndRemove(evalId, (err, evalIdRemoved) => {
             if (err) {
-                console.log(err);
-            } else {
-
-                res.redirect('/evaluation/view')
+                return req.flash('danger', "Error, no se ha podido eliminar la valoración.");
             }
-        }).sort({ _id: 1 })
+            if (!evalIdRemoved) {
+                return req.flash('danger', "No se puede eliminar la valoración.");
+            }
 
-    })
+            Valuation.find({}, async function (err, docs) {
+                if (err) {
+                    console.log(err);
+                } else {
+
+                    res.redirect('/evaluation/view')
+                }
+            }).sort({ _id: 1 })
+
+        })
     },
 
     register: function (req, res) {
@@ -2214,7 +2332,7 @@ async function calculateNutrientsMenu(doc) {
 
 
 async function calculateNutrientsPlanificacion(doc) {
-    let valores= [];
+    let valores = [];
     for (let i = 0; i < doc[0].menus.length; i++) {
         for (let j = 0; j < doc[0].menus[i].length; j++) {
             console.log(util.inspect(doc[0]._id));
@@ -2290,16 +2408,16 @@ async function myFunctionRecomendacion(query) {
 
 
 
-async function evaluador(recomendacion, tipo, candidato){
+async function evaluador(recomendacion, tipo, candidato) {
     let resultados = [];
-    const queryR = {_id : recomendacion};
+    const queryR = { _id: recomendacion };
     const recData = await myFunctionRecomendacion(queryR);
     console.log("Se ha seleccionado la recomendación: " + recData);
     console.log(tipo);
 
-    if (tipo === "0"){
+    if (tipo === "0") {
         console.log("Se ha seleccionado platos: ");
-        const queryC = {_id : candidato};
+        const queryC = { _id: candidato };
         console.log(queryC);
         const CanData = await myFunction(queryC);
         console.log("Se ha seleccionado la planificacion: " + CanData._id);
@@ -2309,9 +2427,9 @@ async function evaluador(recomendacion, tipo, candidato){
         console.log(datos);
         return datos;
 
-    }else if (tipo === "1"){
+    } else if (tipo === "1") {
         console.log("Se ha seleccionado menus: ");
-        const queryC = {_id : candidato};
+        const queryC = { _id: candidato };
         const CanData = await myFunctionMenu(queryC);
         console.log("Se ha seleccionado la planificacion: " + CanData._id);
         const nutrientes = await calculateNutrientsMenu(CanData[0]);
@@ -2319,9 +2437,9 @@ async function evaluador(recomendacion, tipo, candidato){
         const datos = await calculadora(recData, nutrientes);
         console.log(datos);
         return datos;
-    }else if (tipo === "2"){
+    } else if (tipo === "2") {
         console.log("Se ha seleccionado planificacion: ");
-        const queryC = {_id : candidato};
+        const queryC = { _id: candidato };
         const CanData = await myFunctionPlanification(queryC);
         console.log("Se ha seleccionado la planificacion: " + CanData[0]._id);
         const nutrientes = await calculateNutrientsPlanificacion(CanData);
@@ -2332,88 +2450,88 @@ async function evaluador(recomendacion, tipo, candidato){
     }
 
 
-    
+
 }
 
 
-async function calculadora(recData, nutrientes){
-    
+async function calculadora(recData, nutrientes) {
+
     console.log("-------- CALCULADORA --------");
     const obj = {
-        energia : [nutrientes[1], await energy(recData[0], nutrientes)],
-        proteinas : [nutrientes[2], await proteinas(recData[0], nutrientes)],
-        lipidos : [nutrientes[3], await lipidos(recData[0], nutrientes)],
-        carbohidratos : [nutrientes[4], await carbohidratos(recData[0], nutrientes)]
+        energia: [nutrientes[1], await energy(recData[0], nutrientes)],
+        proteinas: [nutrientes[2], await proteinas(recData[0], nutrientes)],
+        lipidos: [nutrientes[3], await lipidos(recData[0], nutrientes)],
+        carbohidratos: [nutrientes[4], await carbohidratos(recData[0], nutrientes)]
     }
 
-    return(obj);
+    return (obj);
 
 };
 
-async function energy(recData, nutrientes){
-    if ((parseInt(nutrientes[1])  > recData.energyMin) && (parseInt(nutrientes[1])  < recData.energyMax)){
+async function energy(recData, nutrientes) {
+    if ((parseInt(nutrientes[1]) > recData.energyMin) && (parseInt(nutrientes[1]) < recData.energyMax)) {
         const resultEnergia = "Muy recomendable"
         console.log(resultEnergia);
         return resultEnergia;
-    }else if ((parseInt(nutrientes[1]) > recData.energyMin-200) && (parseInt(nutrientes[1]) < recData.energyMax+200)){
+    } else if ((parseInt(nutrientes[1]) > recData.energyMin - 200) && (parseInt(nutrientes[1]) < recData.energyMax + 200)) {
         const resultEnergia = "Recomendable"
         console.log(resultEnergia);
         return resultEnergia;
-    }else{
+    } else {
         const resultEnergia = "No recomendable"
         console.log(resultEnergia);
         return resultEnergia;
     }
-   
+
 };
 
-async function proteinas(recData, nutrientes){
-    if ((parseInt(nutrientes[2]) > recData.proteinMin) && (parseInt(nutrientes[2]) < recData.proteinMax)){
+async function proteinas(recData, nutrientes) {
+    if ((parseInt(nutrientes[2]) > recData.proteinMin) && (parseInt(nutrientes[2]) < recData.proteinMax)) {
         const resultproteins = "Muy recomendable"
         console.log(resultproteins);
         return resultproteins;
-    }else if ((parseInt(nutrientes[2]) > recData.proteinMin-50) && (parseInt(nutrientes[2]) < recData.proteinMax+50)){
+    } else if ((parseInt(nutrientes[2]) > recData.proteinMin - 50) && (parseInt(nutrientes[2]) < recData.proteinMax + 50)) {
         const resultproteins = "Recomendable"
         return resultproteins;
-    }else{
+    } else {
         const resultproteins = "No recomendable"
         console.log(resultproteins);
         return resultproteins;
     }
-   
+
 };
 
-async function lipidos(recData, nutrientes){
-    if ((parseInt(nutrientes[3]) > recData.lipidsMin) && (parseInt(nutrientes[3])  < recData.lipidsMax)){
+async function lipidos(recData, nutrientes) {
+    if ((parseInt(nutrientes[3]) > recData.lipidsMin) && (parseInt(nutrientes[3]) < recData.lipidsMax)) {
         const resultlipidos = "Muy recomendable"
         console.log(resultlipidos);
         return resultlipidos;
-    }else if ((parseInt(nutrientes[3])  > recData.lipidsMin-100) && (parseInt(nutrientes[3])  < recData.lipidsMax+100)){
+    } else if ((parseInt(nutrientes[3]) > recData.lipidsMin - 100) && (parseInt(nutrientes[3]) < recData.lipidsMax + 100)) {
         const resultlipidos = "Recomendable"
         console.log(resultlipidos);
         return resultlipidos;
-    }else{
+    } else {
         const resultlipidos = "No recomendable"
         console.log(resultlipidos);
         return resultlipidos;
-    } 
+    }
 };
 
-async function carbohidratos(recData, nutrientes){
-    if ((parseInt(nutrientes[4])  > recData.carbohydrtMin) && (parseInt(nutrientes[4])  < recData.carbohydrtMax)){
+async function carbohidratos(recData, nutrientes) {
+    if ((parseInt(nutrientes[4]) > recData.carbohydrtMin) && (parseInt(nutrientes[4]) < recData.carbohydrtMax)) {
         const resultcarbohidratos = "Muy recomendable"
         console.log(resultcarbohidratos);
         return resultcarbohidratos;
-    }else if ((parseInt(nutrientes[4])  > recData.carbohydrtMin-300) && (parseInt(nutrientes[4])  < recData.carbohydrtMax+300)){
+    } else if ((parseInt(nutrientes[4]) > recData.carbohydrtMin - 300) && (parseInt(nutrientes[4]) < recData.carbohydrtMax + 300)) {
         const resultcarbohidratos = "Recomendable"
         console.log(resultcarbohidratos);
         return resultcarbohidratos;
-    }else{
+    } else {
         const resultcarbohidratos = "No recomendable"
         console.log(resultcarbohidratos);
         return resultcarbohidratos;
     }
-   
+
 };
 
 
