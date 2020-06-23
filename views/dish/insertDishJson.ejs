@@ -29,17 +29,21 @@
 
 </head>
 
-<body>
+<body class="jsonBody">
     <%- include ("../partials/navigation.ejs"); %>
 
 
     <div class="container">
         <h1><%= items.myObject.dish.title %></h1>
         <%- include ("../partials/message.ejs"); %>
-        <div class="card">
+        <div class="cardJson">
             <br>
-            <p><b><%= items.myObject.jsonDish.ejemplo %></b></p>
-            <textarea name="textarea" rows="12" cols="50" disabled><%= items.json %></textarea>
+
+            <p class="ejemplo"><%= items.myObject.jsonDish.ejemplo %></p>
+            <div class="d-flex justify-content-center align-items-center p-3 texto">
+            <textarea name="textarea" class="textarea" rows="12" disabled><%= items.json %></textarea>
+            </div>
+           
 
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -49,19 +53,21 @@
                         <label for="avatar"><%= items.myObject.jsonDish.label %></label><br></i>
                     <br> <br>
 
-                    <input type="file" name="filename" >
+                    <input type="file" class="btn  btn-outline-dark  btn-lg btn-block" name="filename" >
                     <br><br>
+                    
                     <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
 
                 </div>
             </form>
+            
 
             <br>
         </div>
     </div>
 
     <%- include ("../partials/footer.ejs"); %>
-</body>
+</body >
 
 <script>
     $(document).ready(function () {

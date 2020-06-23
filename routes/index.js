@@ -34,6 +34,8 @@ router.get("/dish/update/:_id", isAuthenticated, authRoleMultiple(["admin", "coc
 router.post("/dish/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateDishPost);
 
 
+
+
 router.get("/menu", controller.menu);
 router.get("/menu/view", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.menuView);
 router.post("/menu/view:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.getMenu);

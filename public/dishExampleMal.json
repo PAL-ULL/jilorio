@@ -17,7 +17,7 @@
         {
             "name" : "OIL,OLIVE,SALAD OR COOKING",
             "amount" : 3,
-            "unitMeasure" : "ml",
+            "unitMeasure" : "mililitros",
             "ndbno" : "04053"
         }
     ],

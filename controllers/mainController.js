@@ -50,6 +50,7 @@ let controller = {
         });
     },
 
+
     food: function (req, res) {
         return res.status(200).render('food/food.ejs', {
             items: {
@@ -229,6 +230,7 @@ let controller = {
             let file = req.files.filename;  // here is the field name of the form
             // console.log(file);
             const valor = JSON.parse(file.data)
+            console.log(typeof valor);
             // console.log(valor[0]);
             // console.log(valor[1]);
 
@@ -346,12 +348,30 @@ let controller = {
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
+                                errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
                                 console.log(err);
+                                res.render('dish/insertDishJson', {
+                                    items: {
+                                        req: req,
+                                        myObject: espTemplate,
+                                        errors
+
+                                    }
+                                })
                             } else {
                                 Dish.find({}, async function (err, docs) {
                                     if (err) {
                                         errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
                                         console.log(err);
+                                        res.render('dish/insertDishJson', {
+                                            items: {
+                                                req: req,
+                                                myObject: espTemplate,
+                                                myDocs: docs,
+                                                errors
+        
+                                            }
+                                        })
                                     } else {
                                         const suma = await calculateKcal(docs);
                                         req.flash('success', 'Dish was inserted');
@@ -375,6 +395,14 @@ let controller = {
                             if (err) {
                                 errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
                                 console.log(err);
+                                res.render('dish/insertDishJson', {
+                                    items: {
+                                        req: req,
+                                        myObject: espTemplate,
+                                        errors
+
+                                    }
+                                })
                             }
                         });
 
