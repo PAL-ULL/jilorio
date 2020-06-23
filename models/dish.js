@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
 let dishSchema = new Schema({
     _id: { type: String, required: true },
     description: { type: String, required: true },
-    ingredients: {type: Array, required: false},
+    ingredients: {type: Array, required: true},
     date: { type: Date, default: Date.now },
     relationatedDishes: {type: Array, required: false},
     recipe: {type: String, required: false},

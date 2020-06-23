@@ -219,128 +219,173 @@ let controller = {
 
     insertDishJsonPost: async function (req, res) {
 
-
         if (!req.files) {
             res.send("File was not found");
             return;
+
         } else {
 
 
             let file = req.files.filename;  // here is the field name of the form
-            console.log(file);
+            // console.log(file);
             const valor = JSON.parse(file.data)
-            console.log(valor);
-            // res.send("File Uploaded");
-
-            const title = valor._id;
-            console.log("title: " + title);
-            const description = valor.description;
-            console.log("description: " + description);
-            const recipe = valor.recipe;
-            console.log("receta: " + recipe);
-            const imageURL = valor.imageURL;
-            console.log("imageURL: " + imageURL);
-            const ingredients = valor.ingredients;
-            console.log("ingredients: " + ingredients);
-            const vectorIngredientes = [];
-            //  console.log(valor[0].ingredients)
+            // console.log(valor[0]);
+            // console.log(valor[1]);
 
             let errors = [];
-
-            //  // const cantidades = req.body.cantidades;
-            //  // const Unidades = req.body.Unidades;
-            //  // const ingredients = req.body.ingredients;
-            //  // let resultados = [];
             let noEncontrados = [];
-            //  console.log("\n\n");
 
-            for (let i = 0; i < ingredients.length; i++) {
-                console.log(ingredients[i]);
-                const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
+            for (let j = 0; j < valor.length; j++) {
+                const title = valor[j]._id;
+                console.log("title: " + title);
+                const description = valor[j].description;
+                console.log("description: " + description);
+                const recipe = valor[j].recipe;
+                console.log("receta: " + recipe);
+                const imageURL = valor[j].imageURL;
+                console.log("imageURL: " + imageURL);
+                const ingredients = valor[j].ingredients;
+                console.log("ingredients: " + ingredients);
 
-                if (result.length === 0) {
+                if (!title) {
+                    errors.push({ msg: "No se ha encontrado un nombre para el plato." });
+                }
+                if (!description) {
+                    errors.push({ msg: "No se ha encontrado una descripción para el plato." });
+                }
+
+                const regex = new RegExp(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/);
+                if (recipe) {
+                    if (recipe != "" ){
+                        if (!recipe.match(regex)) {
+                            errors.push({ msg: "La URL de la receta no es correcta." });
+                        }
+                    }
+                }
+                if (imageURL) {
+                    if (imageURL != ""){
+                        if (!imageURL.match(regex)) {
+                            errors.push({ msg: "La URL de la receta no es correcta." });
+                        }
+                    } 
+                }
+
+                for (let i = 0; i < ingredients.length; i++) {
                     console.log(ingredients[i]);
-                    noEncontrados.push(ingredients[i].name);
+
+                    const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
+                    if (result.length === 0) {
+                        console.log(ingredients[i]);
+                        noEncontrados.push(ingredients[i].name);
+                    }
+
+                    if (!(ingredients[i].amount)) {
+                        errors.push({ msg: "No se ha encontrado definida la cantidad para el alimento " + ingredients[i].name + "." });
+                    }
+                   
+                    if ((ingredients[i].amount) && (typeof (ingredients[i].amount) != "number")) {
+                        errors.push({ msg: "La cantidad para el alimento " + ingredients[i].name + " debe ser expresada con un dato numérico." });
+                    }
+
+                    if (!(ingredients[i].unitMeasure)) {
+                        errors.push({ msg: "No se ha encontrado definida la unidad de medida para la cantidad del alimento " + ingredients[i].name + "." });
+                    }
+
+                    if ( (ingredients[i].unitMeasure) && (  (ingredients[i].unitMeasure != "g") &&  (ingredients[i].unitMeasure != "ml") ) ) {
+                        errors.push({ msg: "La unidad de medida para la cantidad del alimento " + ingredients[i].name + " debe ser expresada como un dato en 'g' para gramos o 'ml' para mililitros." });
+                    }
+
+                    if (!(ingredients[i].ndbno)) {
+                        errors.push({ msg: "No se ha encontrado definido el identificador del alimento " + ingredients[i].name + "." });
+                    }
+
+               
+                    if ((ingredients[i].ndbno) && (typeof (ingredients[i].ndbno) != "string")) {
+                        errors.push({ msg: "La cantidad para el alimento " + ingredients[i].name + " debe ser expresada con una cadena de caracteres." });
+                    }
 
                 }
-                //  else {
-                //      // let obj = {
-                //      //     name: result[0].shrt_desc,
-                //      //     amount: cantidades[i],
-                //      //     unitMeasure: Unidades[i],
-                //      //     ndbno: result[0].ndb_no
-                //      // }
-                //      // resultados.push(obj);
-                //  }
-            }
-            if (noEncontrados.length > 0) {
 
-                console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
                 for (let i = 0; i < noEncontrados.length; i++) {
                     errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
                 }
 
-                client.connect(function (err, client) {
-                    assert.equal(null, err);
-                    console.log("\nConnected successfully to server");
-                    const db = client.db(name);
-                    const collection = db.collection("food");
-                    const query = {};
-                    findAllDocuments(db, query, collection, function (data) {
-                        let resultArray = data;
 
-                        res.render('dish/insertDishJson', {
-                            items: {
-                                req: req,
-                                myObject: espTemplate,
-                                myDocs: resultArray,
-                                errors
-                            }
+                if (errors.length > 0) {
+                    console.log("Fleje errores");
+                    console.log(errors);
+
+
+                    client.connect(function (err, client) {
+                        assert.equal(null, err);
+                        console.log("\nConnected successfully to server");
+                        const db = client.db(name);
+                        const collection = db.collection("food");
+                        const query = {};
+                        findAllDocuments(db, query, collection, function (data) {
+                            let resultArray = data;
+
+                            res.render('dish/insertDishJson', {
+                                items: {
+                                    req: req,
+                                    myObject: espTemplate,
+                                    myDocs: resultArray,
+                                    errors
+                                }
+                            });
                         });
                     });
-                });
+                }
+
+                else {
+                    console.log(valor[j].title)
+                    const objetoPlato = await createPlato(valor[j]);
+                    console.log("_____________________________________________________\n\n")
+                    console.log(objetoPlato._id)
+
+                    if ((j + 1) === valor.length) {
+                        objetoPlato.save(async function (err) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                Dish.find({}, async function (err, docs) {
+                                    if (err) {
+                                        errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
+                                        console.log(err);
+                                    } else {
+                                        const suma = await calculateKcal(docs);
+                                        req.flash('success', 'Dish was inserted');
+                                        res.render('dish/getDish', {
+                                            items: {
+                                                req: req,
+                                                myObject: espTemplate,
+                                                myDocs: docs,
+                                                myKcal: suma,
+                                                errors
+
+                                            }
+                                        })
+                                    }
+                                });
+
+                            }
+                        });
+                    } else {
+                        objetoPlato.save(async function (err) {
+                            if (err) {
+                                errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
+                                console.log(err);
+                            }
+                        });
+
+                    }
+
+                }
             }
+
         }
-
-
-        // else {
-
-        //     console.log("VECTORES: " + util.inspect(resultados));
-        //     const plato = new Dish({
-        //         _id: title,
-        //         description: description,
-        //         ingredients: resultados,
-        //         recipe: recipe,
-        //         imageURL: imageURL
-        //     });
-
-        //     plato.save(async function (err) {
-        //         if (err) {
-        //             console.log(err);
-        //         } else {
-        //             Dish.find({}, async function (err, docs) {
-        //                 if (err) {
-
-        //                     console.log(err);
-        //                 } else {
-        //                     const suma = await calculateKcal(docs);
-        //                     req.flash('success', 'Dish was inserted');
-        //                     res.render('dish/getDish', {
-        //                         items: {
-        //                             req: req,
-        //                             myObject: espTemplate,
-        //                             myDocs: docs,
-        //                             myKcal: suma
-
-        //                         }
-        //                     })
-        //                 }
-        //             });
-
-        //         }
-        //     })
-        // }
     },
+
 
 
 
@@ -2609,6 +2654,65 @@ async function carbohidratos(recData, nutrientes) {
 
 };
 
+function isValidURL(url) {
+    var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+
+    if (RegExp.test(url)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+async function createPlato (valor){
+
+    if ((valor.recipe) && (valor.imageURL)) {
+        const plato = new Dish({
+            _id: valor._id,
+            description: valor.description,
+            ingredients: valor.ingredients,
+            recipe: valor.recipe,
+            imageURL: valor.imageURL
+        });
+      
+        console.log(plato._id)
+        return plato
+    }
+
+
+    if ((valor.recipe) && (!valor.imageURL)) {
+        const plato = new Dish({
+            _id: valor._id,
+            description: valor.description,
+            ingredients: valor.ingredients,
+            recipe: valor.recipe
+        });
+        console.log(plato._id)
+        return plato
+    }
+
+    if (!(valor.recipe) && (valor.imageURL)) {
+        const plato = new Dish({
+            _id: valor._id,
+            description: valor.description,
+            ingredients: valor.ingredients,
+            imageURL: valor.imageURL
+        });
+        console.log(plato._id)
+        return plato
+    }
+
+    if (!(valor.recipe) && !(valor.imageURL)) {
+        const plato = new Dish({
+            _id: valor._id,
+            description: valor.description,
+            ingredients: valor.ingredients,
+        });
+        console.log(plato._id)
+        return plato
+    }
+
+}
 
 module.exports = controller;
 
