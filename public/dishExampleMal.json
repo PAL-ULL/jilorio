@@ -1,29 +1,32 @@
-{
-    "_id" : "Tomate con aceite y orégano",
-    "description" : "Este es un buen desayuno para comenzar el día.",
-    "ingredients" : [ 
+
         {
-            "name" : "TOM",
-            "amount" : 100,
-            "unitMeasure" : "g",
-            "ndbno" : "11527"
-        }, 
-        {
-            "name" : "SPICES,OREGANO,DRIED",
-            "amount" : 5,
-            "unitMeasure" : "g",
-            "ndbno" : "02027"
-        }, 
-        {
-            "name" : "OIL,OLIVE,SALAD OR COOKING",
-            "amount" : 3,
-            "unitMeasure" : "mililitros",
-            "ndbno" : "04053"
+        
+            "_id" : "Tomate con aceite y orégano 54",
+            "description" : "Este es un buen desayuno para comenzar el día.",
+            "ingredients" : [ 
+                {
+                    "name" : "SPICES,OREGANO,DRIED",
+                    "amount" : 100,
+                    "unitMeasure" : "g",
+                    "ndbno" : "11527"
+                }, 
+                {
+                    "name" : "SPICES,OREGANO,DRIED",
+                    "amount" : 5,
+                    "unitMeasure" : "g",
+                    "ndbno" : "02027"
+                }, 
+                {
+                    "name" : "OIL,OLIVE,SALAD OR COOKING",
+                    "amount" : 3,
+                    "unitMeasure" : "ml",
+                    "ndbno" : "04053"
+                }
+            ],
+            "relationatedDishes" : [ 
+                "Ensalada básica"
+            ],
+            "recipe" : "",
+            "imageURL" : "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
+        
         }
-    ],
-    "relationatedDishes" : [ 
-        "Ensalada básica"
-    ],
-    "recipe" : "",
-    "imageURL" : "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
-}

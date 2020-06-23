@@ -228,14 +228,41 @@ let controller = {
 
 
             let file = req.files.filename;  // here is the field name of the form
-            // console.log(file);
+            console.log(file);
             const valor = JSON.parse(file.data)
             console.log(typeof valor);
-            // console.log(valor[0]);
-            // console.log(valor[1]);
+            console.log(valor);
+            console.log(typeof valor.length);
 
             let errors = [];
             let noEncontrados = [];
+
+            if (typeof valor.length === "undefined"){
+                errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                console.log(errors);
+
+                client.connect(function (err, client) {
+                    assert.equal(null, err);
+                    console.log("\nConnected successfully to server");
+                    const db = client.db(name);
+                    const collection = db.collection("food");
+                    const query = {};
+                    findAllDocuments(db, query, collection, function (data) {
+                        let resultArray = data;
+
+                        res.render('dish/insertDishJson', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: resultArray,
+                                errors
+                            }
+                        });
+                    });
+                });
+            }
+
+            
 
             for (let j = 0; j < valor.length; j++) {
                 const title = valor[j]._id;
