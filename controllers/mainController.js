@@ -219,10 +219,29 @@ let controller = {
     },
 
     insertDishJsonPost: async function (req, res) {
+        let errors = [];
 
         if (!req.files) {
-            res.send("File was not found");
-            return;
+            errors.push({ msg: "El archivo está vacío." });
+            client.connect(function (err, client) {
+                assert.equal(null, err);
+                console.log("\nConnected successfully to server");
+                const db = client.db(name);
+                const collection = db.collection("food");
+                const query = {};
+                findAllDocuments(db, query, collection, function (data) {
+                    let resultArray = data;
+
+                    res.render('dish/insertDishJson', {
+                        items: {
+                            req: req,
+                            myObject: espTemplate,
+                            myDocs: resultArray,
+                            errors
+                        }
+                    });
+                });
+            });
 
         } else {
 
@@ -234,7 +253,7 @@ let controller = {
             console.log(valor);
             console.log(typeof valor.length);
 
-            let errors = [];
+  
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined"){
