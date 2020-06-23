@@ -223,25 +223,8 @@ let controller = {
 
         if (!req.files) {
             errors.push({ msg: "El archivo está vacío." });
-            client.connect(function (err, client) {
-                assert.equal(null, err);
-                console.log("\nConnected successfully to server");
-                const db = client.db(name);
-                const collection = db.collection("food");
-                const query = {};
-                findAllDocuments(db, query, collection, function (data) {
-                    let resultArray = data;
+            showErrorsDishJsoN(errors, req, res);
 
-                    res.render('dish/insertDishJson', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: resultArray,
-                            errors
-                        }
-                    });
-                });
-            });
 
         } else {
 
@@ -253,35 +236,17 @@ let controller = {
             console.log(valor);
             console.log(typeof valor.length);
 
-  
+
             let noEncontrados = [];
 
-            if (typeof valor.length === "undefined"){
+            if (typeof valor.length === "undefined") {
                 errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
                 console.log(errors);
+                showErrorsDishJsoN(errors, req, res);
 
-                client.connect(function (err, client) {
-                    assert.equal(null, err);
-                    console.log("\nConnected successfully to server");
-                    const db = client.db(name);
-                    const collection = db.collection("food");
-                    const query = {};
-                    findAllDocuments(db, query, collection, function (data) {
-                        let resultArray = data;
-
-                        res.render('dish/insertDishJson', {
-                            items: {
-                                req: req,
-                                myObject: espTemplate,
-                                myDocs: resultArray,
-                                errors
-                            }
-                        });
-                    });
-                });
             }
 
-            
+
 
             for (let j = 0; j < valor.length; j++) {
                 const title = valor[j]._id;
@@ -304,18 +269,18 @@ let controller = {
 
                 const regex = new RegExp(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/);
                 if (recipe) {
-                    if (recipe != "" ){
+                    if (recipe != "") {
                         if (!recipe.match(regex)) {
                             errors.push({ msg: "La URL de la receta no es correcta." });
                         }
                     }
                 }
                 if (imageURL) {
-                    if (imageURL != ""){
+                    if (imageURL != "") {
                         if (!imageURL.match(regex)) {
                             errors.push({ msg: "La URL de la receta no es correcta." });
                         }
-                    } 
+                    }
                 }
 
                 for (let i = 0; i < ingredients.length; i++) {
@@ -330,7 +295,7 @@ let controller = {
                     if (!(ingredients[i].amount)) {
                         errors.push({ msg: "No se ha encontrado definida la cantidad para el alimento " + ingredients[i].name + "." });
                     }
-                   
+
                     if ((ingredients[i].amount) && (typeof (ingredients[i].amount) != "number")) {
                         errors.push({ msg: "La cantidad para el alimento " + ingredients[i].name + " debe ser expresada con un dato numérico." });
                     }
@@ -339,7 +304,7 @@ let controller = {
                         errors.push({ msg: "No se ha encontrado definida la unidad de medida para la cantidad del alimento " + ingredients[i].name + "." });
                     }
 
-                    if ( (ingredients[i].unitMeasure) && (  (ingredients[i].unitMeasure != "g") &&  (ingredients[i].unitMeasure != "ml") ) ) {
+                    if ((ingredients[i].unitMeasure) && ((ingredients[i].unitMeasure != "g") && (ingredients[i].unitMeasure != "ml"))) {
                         errors.push({ msg: "La unidad de medida para la cantidad del alimento " + ingredients[i].name + " debe ser expresada como un dato en 'g' para gramos o 'ml' para mililitros." });
                     }
 
@@ -347,7 +312,7 @@ let controller = {
                         errors.push({ msg: "No se ha encontrado definido el identificador del alimento " + ingredients[i].name + "." });
                     }
 
-               
+
                     if ((ingredients[i].ndbno) && (typeof (ingredients[i].ndbno) != "string")) {
                         errors.push({ msg: "La cantidad para el alimento " + ingredients[i].name + " debe ser expresada con una cadena de caracteres." });
                     }
@@ -362,27 +327,8 @@ let controller = {
                 if (errors.length > 0) {
                     console.log("Fleje errores");
                     console.log(errors);
+                    showErrorsDishJsoN(errors, req, res);
 
-
-                    client.connect(function (err, client) {
-                        assert.equal(null, err);
-                        console.log("\nConnected successfully to server");
-                        const db = client.db(name);
-                        const collection = db.collection("food");
-                        const query = {};
-                        findAllDocuments(db, query, collection, function (data) {
-                            let resultArray = data;
-
-                            res.render('dish/insertDishJson', {
-                                items: {
-                                    req: req,
-                                    myObject: espTemplate,
-                                    myDocs: resultArray,
-                                    errors
-                                }
-                            });
-                        });
-                    });
                 }
 
                 else {
@@ -394,33 +340,21 @@ let controller = {
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
+                                errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
                                 console.log(err);
-                                res.render('dish/insertDishJson', {
-                                    items: {
-                                        req: req,
-                                        myObject: espTemplate,
-                                        errors
+                                showErrorsDishJsoN(errors, req, res);
 
-                                    }
-                                })
                             } else {
                                 Dish.find({}, async function (err, docs) {
                                     if (err) {
-                                        errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
+                                        errors.push({ msg: "Error al guardar el plato en la base de datos." });
                                         console.log(err);
-                                        res.render('dish/insertDishJson', {
-                                            items: {
-                                                req: req,
-                                                myObject: espTemplate,
-                                                myDocs: docs,
-                                                errors
-        
-                                            }
-                                        })
+                                        showErrorsDishJsoN(errors, req, res);
+
+
                                     } else {
                                         const suma = await calculateKcal(docs);
-                                        req.flash('success', 'Dish was inserted');
+                                        req.flash('success', 'El contenido del archivo ha sido insertado con éxito.');
                                         res.render('dish/getDish', {
                                             items: {
                                                 req: req,
@@ -441,14 +375,7 @@ let controller = {
                             if (err) {
                                 errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
                                 console.log(err);
-                                res.render('dish/insertDishJson', {
-                                    items: {
-                                        req: req,
-                                        myObject: espTemplate,
-                                        errors
-
-                                    }
-                                })
+                                showErrorsDishJsoN(errors, req, res);
                             }
                         });
 
@@ -1193,6 +1120,8 @@ let controller = {
         }
 
     },
+
+
 
     insertPlanification: function (req, res) {
         console.log("En planificación");
@@ -2738,7 +2667,7 @@ function isValidURL(url) {
     }
 }
 
-async function createPlato (valor){
+async function createPlato(valor) {
 
     if ((valor.recipe) && (valor.imageURL)) {
         const plato = new Dish({
@@ -2748,7 +2677,7 @@ async function createPlato (valor){
             recipe: valor.recipe,
             imageURL: valor.imageURL
         });
-      
+
         console.log(plato._id)
         return plato
     }
@@ -2785,6 +2714,18 @@ async function createPlato (valor){
         console.log(plato._id)
         return plato
     }
+
+}
+
+function showErrorsDishJsoN(errors, req, res) {
+
+    return res.render('dish/insertDishJson', {
+        items: {
+            req: req,
+            myObject: espTemplate,
+            errors
+        }
+    });
 
 }
 

@@ -30,8 +30,9 @@
             <i class="fas fa-list-alt fa-2x"></i>
             <span> <%= items.myObject.infoPage.platos %> </span>
         </div>
-
         <hr style="border-color: rgb(46, 115, 124);">
+        <br>
+        <%- include ("../partials/message.ejs"); %>
         <br>
         <form method="POST">
             <div class="wrap">
@@ -47,7 +48,6 @@
         <br><br>
 
 
- 
         <% const  nombres_sz=  items.myObject.tablaPlatos.nombres.length %>
         <% const  nombres=  items.myObject.tablaPlatos.nombres %>
         <% const  docs_sz =   items.myDocs.length %>
