@@ -8,7 +8,13 @@ const session = require('express-session');
 const passport = require('passport');
 const { ensureAuthenticated } = require('./config/auth');
 
+const fs = require('fs');
+const Path = require("path");
+
+const fileUpload = require("express-fileupload");
+
 require('events').EventEmitter.defaultMaxListeners = 30;
+
 
 const config = require('./config/database');
 require('./config/passport')(passport);
@@ -43,6 +49,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('short')); // Veo las peticiones que se hacen
 app.use(express.static(__dirname + '/public'));
+
+app.use(fileUpload());
 
 // Express session middleware
 app.use(session({

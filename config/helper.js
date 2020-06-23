@@ -28,7 +28,7 @@ helpers.authRoleMultiple = (roles) => {
                 counter++;
             }
         }
-       if (counter>0){
+       if (counter > 0){
         next();
        
        }else{

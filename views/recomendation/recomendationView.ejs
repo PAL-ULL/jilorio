@@ -34,6 +34,19 @@
         <%- messages('message', locals) %>
         <br>
         
+        <form method="POST">
+            <div class="wrap">
+                <div class="search">
+                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
+                    <a id="submit-form-link" href="#"></a>
+                    <button type="submit" class="spanColor searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br><br>
+
 
 
         <% if ((items.myObject.tablaRecomendacion.valores.length) > 0) { %>

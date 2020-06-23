@@ -216,72 +216,94 @@ let controller = {
         });
 
     },
-    
+
     insertDishJsonPost: async function (req, res) {
 
-        const title = req.body.title;
-        console.log("title: " + title);
-        const description = req.body.description;
-        console.log("description: " + description);
-        const recipe = req.body.recipe;
-        console.log("receta: " + recipe);
-        const imageURL = req.body.imageURL;
-        console.log("imageURL: " + imageURL);
-        const vectorIngredientes = [];
-        console.log(req.body.ingredients)
 
-        let errors = [];
+        if (!req.files) {
+            res.send("File was not found");
+            return;
+        } else {
 
-        const cantidades = req.body.cantidades;
-        const Unidades = req.body.Unidades;
-        const ingredients = req.body.ingredients;
-        let resultados = [];
-        let noEncontrados = [];
-        console.log("\n\n");
 
-        // for (let i = 0; i < ingredients.length; i++) {
-        //     const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
+            let file = req.files.filename;  // here is the field name of the form
+            console.log(file);
+            const valor = JSON.parse(file.data)
+            console.log(valor);
+            // res.send("File Uploaded");
 
-        //     if (result.length === 0) {
-        //         noEncontrados.push(ingredients[i]);
+            const title = valor._id;
+            console.log("title: " + title);
+            const description = valor.description;
+            console.log("description: " + description);
+            const recipe = valor.recipe;
+            console.log("receta: " + recipe);
+            const imageURL = valor.imageURL;
+            console.log("imageURL: " + imageURL);
+            const ingredients = valor.ingredients;
+            console.log("ingredients: " + ingredients);
+            const vectorIngredientes = [];
+            //  console.log(valor[0].ingredients)
 
-        //     } else {
-        //         let obj = {
-        //             name: result[0].shrt_desc,
-        //             amount: cantidades[i],
-        //             unitMeasure: Unidades[i],
-        //             ndbno: result[0].ndb_no
-        //         }
-        //         resultados.push(obj);
-        //     }
-        // }
-        // if (noEncontrados.length > 0) {
+            let errors = [];
 
-        //     console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
-        //     for (let i = 0; i < noEncontrados.length; i++) {
-        //         errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
-        //     }
+            //  // const cantidades = req.body.cantidades;
+            //  // const Unidades = req.body.Unidades;
+            //  // const ingredients = req.body.ingredients;
+            //  // let resultados = [];
+            let noEncontrados = [];
+            //  console.log("\n\n");
 
-        //     client.connect(function (err, client) {
-        //         assert.equal(null, err);
-        //         console.log("\nConnected successfully to server");
-        //         const db = client.db(name);
-        //         const collection = db.collection("food");
-        //         const query = {};
-        //         findAllDocuments(db, query, collection, function (data) {
-        //             let resultArray = data;
+            for (let i = 0; i < ingredients.length; i++) {
+                console.log(ingredients[i]);
+                const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
 
-        //             res.render('dish/insertDish', {
-        //                 items: {
-        //                     req: req,
-        //                     myObject: espTemplate,
-        //                     myDocs: resultArray,
-        //                     errors
-        //                 }
-        //             });
-        //         });
-        //     });
-        // } else {
+                if (result.length === 0) {
+                    console.log(ingredients[i]);
+                    noEncontrados.push(ingredients[i].name);
+
+                }
+                //  else {
+                //      // let obj = {
+                //      //     name: result[0].shrt_desc,
+                //      //     amount: cantidades[i],
+                //      //     unitMeasure: Unidades[i],
+                //      //     ndbno: result[0].ndb_no
+                //      // }
+                //      // resultados.push(obj);
+                //  }
+            }
+            if (noEncontrados.length > 0) {
+
+                console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+                for (let i = 0; i < noEncontrados.length; i++) {
+                    errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+                }
+
+                client.connect(function (err, client) {
+                    assert.equal(null, err);
+                    console.log("\nConnected successfully to server");
+                    const db = client.db(name);
+                    const collection = db.collection("food");
+                    const query = {};
+                    findAllDocuments(db, query, collection, function (data) {
+                        let resultArray = data;
+
+                        res.render('dish/insertDishJson', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: resultArray,
+                                errors
+                            }
+                        });
+                    });
+                });
+            }
+        }
+
+
+        // else {
 
         //     console.log("VECTORES: " + util.inspect(resultados));
         //     const plato = new Dish({
@@ -1388,6 +1410,33 @@ let controller = {
 
     },
 
+
+    getRecomendation: async function (req, res) {
+
+        const searchData = req.body._id;
+        if ((searchData == null) || (searchData == "")) {
+            req.flash('success', "No existente");
+        }
+        console.log(req.body);
+        const query = { _id: { $regex: `${searchData}` } };
+
+        Recomendation.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('recomendation/recomendationView.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+    },
+
+
+
     recomendationDetails: function (req, res) {
         let dishId = req.params._id;
         // console.log(dishId);
@@ -1587,30 +1636,56 @@ let controller = {
         });
     },
 
-    getEvaluation: function (req, res) {
-        Valuation.find({}, async function (err, docs) {
+
+    evaluationView: function (req, res) {
+
+        Valuation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-
-                Valuation.find({}, async function (err, docs) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.render('evaluation/getEvaluation.ejs', {
-                            items: {
-                                req: req,
-                                myObject: espTemplate,
-                                myDocs: docs
-                            }
-                        });
+                console.log(docs)
+                console.log(query)
+                res.render('evaluation/getEvaluation.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs
                     }
-                }).sort({ _id: 1 })
+                });
             }
         }).sort({ _id: 1 })
 
+    },
+
+    getEvaluation: function (req, res) {
+
+        const searchData = req.body._id;
+        if ((searchData == null) || (searchData == "")) {
+            req.flash('success', "Objeto no existente");
+        }
+        console.log(searchData);
+        let query = { candidato: { $regex: `${searchData}` } };
+        console.log(query)
+
+        Valuation.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs)
+                console.log(query)
+                res.render('evaluation/getEvaluation.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
 
     },
+
+
 
     createEvaluation: function (req, res) {
 

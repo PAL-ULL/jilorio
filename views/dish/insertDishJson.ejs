@@ -39,14 +39,23 @@
         <div class="card">
             <br>
             <p><b><%= items.myObject.jsonDish.ejemplo %></b></p>
-            <textarea name="textarea" rows="12" cols="50" ><%= items.json %></textarea>
-            <form method="POST" , id="aux" action='./insert'>
-                <br>  <br>
-                <i class="fas fa-file-upload fa-3x m-auto text-info">
-                <label for="avatar"><%= items.myObject.jsonDish.label %></label><br></i> <br> <br>
-                <input type="file" id="file" name="file" accept=".json">
+            <textarea name="textarea" rows="12" cols="50"><%= items.json %></textarea>
 
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+
+                    <br> <br>
+                    <i class="fas fa-file-upload fa-3x m-auto text-info">
+                        <label for="avatar"><%= items.myObject.jsonDish.label %></label><br></i>
+                    <br> <br>
+
+                    <input type="file" name="filename" >
+                    <br><br>
+                    <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
+
+                </div>
             </form>
+
             <br>
         </div>
     </div>
