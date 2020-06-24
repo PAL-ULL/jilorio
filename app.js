@@ -106,6 +106,8 @@ app.get('*', function(req, res, next){
     next();
 });
 
+
+
 // Start Server
 app.listen(8080, () => {
     console.log("Servidor corriendo correctamente en localhost:8080\n");

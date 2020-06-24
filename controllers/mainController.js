@@ -500,6 +500,7 @@ let controller = {
                 errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
             }
 
+
             client.connect(function (err, client) {
                 assert.equal(null, err);
                 console.log("\nConnected successfully to server");
@@ -643,7 +644,7 @@ let controller = {
 
             console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
             for (let i = 0; i < noEncontrados.length; i++) {
-                errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+                errors.push({ msg: "El alimento " + noEncontrados[i]._id + " no ha sido encontrado." });
             }
 
             const query = { _id: dishId }
@@ -908,11 +909,12 @@ let controller = {
         if (incorrecto.length > 0) {
             console.log("Algún plato está mal");
             console.log(util.inspect(incorrecto));
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(incorrecto));
+            console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(incorrecto));
             let errors = [];
             for (let i = 0; i < incorrecto.length; i++) {
-                errors.push({ msg: "El plato " + incorrecto[i] + " no ha sido encontrado." });
+                errors.push({ msg: "El plato " + incorrecto[i]._id + " no ha sido encontrado." });
             }
+
             Dish.find({}, async function (err, docs) {
                 if (err) {
 
@@ -936,12 +938,6 @@ let controller = {
 
 
         } else {
-            // console.log("Bien: -> " + correcto[0])
-
-            // for (let i = 0; i < correcto.length; i++) {
-            //     menu.dishes[i] = (correcto[i]);
-            // }
-            // console.log("AHORAAAAAAAAAAA" + util.inspect(menu))
 
             menu.save(async function (err) {
                 if (err) {
@@ -971,14 +967,158 @@ let controller = {
                 }
             })
         }
-        // console.log("FINAL")
-        // // console.log(incorrecto.length)
-        // if (incorrecto.lenght > 0){
-        //     console.log("Hay alguno mal");
-        // }else {
-        //     console.log("Todo correcto");
-        // }
+
     },
+
+    insertMenuJson: function (req, res) {
+        var beautify = require('js-beautify').js;
+        let json = require("../public/menuExample.json")
+        json = beautify(JSON.stringify(json), { indent_size: 2, space_in_empty_paren: true })
+
+        res.render('menu/insertMenuJson', {
+            items: {
+                req: req,
+                myObject: espTemplate,
+                json: json
+            }
+        });
+    },
+
+    insertMenuJsonPost: async function (req, res, next) {
+        let errors = [];
+        // console.log("pasa")
+        if (!req.files) {
+
+            errors.push({ msg: "El archivo está vacío." });
+            return showErrorsMenuJson(errors, req, res);
+
+        } else {
+            // console.log("pasa")
+
+            let file = req.files.filename;  // here is the field name of the form
+            // console.log(file);
+            const valor = JSON.parse(file.data)
+            // console.log(typeof valor);
+            console.log(valor);
+
+
+            let noEncontrados = [];
+
+            if (typeof valor.length === "undefined") {
+                errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                // console.log(errors);
+                return showErrorsMenuJson(errors, req, res);
+
+            } else {
+                // console.log(valor.length);
+
+
+                for (let j = 0; j < valor.length; j++) {
+
+                    const _id = valor[j]._id;
+                    // console.log("_id: " + _id);
+                    const description = valor[j].description;
+                    // console.log("description: " + description);
+                    const dishes = valor[j].dishes;
+                    // console.log("dishes: " + dishes);
+
+                    if (!(_id)) {
+                        errors.push({ msg: "No se ha encontrado un nombre para el menú o menús." });
+                        console.log("ha entrado en title")
+                    }
+                    if (!description) {
+                        errors.push({ msg: "No se ha encontrado una descripción para el menú o menús." });
+                        // console.log("ha entrado en description")
+                    }
+
+                    // console.log(util.inspect(errors));
+
+                    const menu = new Menu({
+                        _id: _id,
+                        description: description,
+
+                    });
+
+
+                    for (let i = 0; i < dishes.length; i++) {
+                        // console.log(util.inspect(dishes[i]._id));
+
+                        const query = { _id: dishes[i]._id }
+                        // console.log("\n\n NO HA SALTADO O SII????????????????????????? ")
+                        var data = await myFunction(query);
+
+
+                        if (data.length === 0) {
+                            noEncontrados.push(dishes[i]);
+                        } else {
+                            menu.dishes.push(data[0]);
+                        }
+                    }
+
+                    if ((noEncontrados.length > 0) || (errors.length > 0)) {
+                        // console.log("Algún plato está mal");
+                        // console.log(util.inspect(noEncontrados));
+                        // console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(noEncontrados));
+                        // let errors = [];
+                        for (let i = 0; i < noEncontrados.length; i++) {
+                            errors.push({ msg: "El plato " + noEncontrados[i]._id + " no ha sido encontrado." });
+                        }
+
+                        //    console.log("LLAMANDO A RENDER")
+                        return res.render('menu/insertMenuJson', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                errors
+                            }
+                        });
+
+                    } else {
+                        menu.save(async function (err) {
+                            if (err) {
+                                errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica al menú no haya sido utilizado antes. No puede existir menús con nombres iguales." });
+                                console.log(err);
+                                showErrorsMenuJson(errors, req, res);
+                            } else {
+                                Menu.find({}, async function (err, docs) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        if ((j + 1) === valor.length) {
+                                            console.log("\n\n\n\n\n\n ENTRAMOS PORQUE ES EL ULTIMO " + valor.length + " " + j + "\n\n\n\n")
+                                            // console.log(docs)
+                                            let valores = [];
+                                            for (let i = 0; i < docs.length; i++) {
+                                                const value = await calculateNutrientsMenu(docs[i])
+                                                valores.push(value);
+                                            }
+                                            console.log("USUARIO: " + req.user);
+                                            res.redirect("/menu/view");
+                                           
+
+                                        }else{
+                                            console.log("\n\n\n\n\n\n NO ES EL ULTIMO MENÚ PARA INSERTAR "+ valor.length + " " + j+ "\n\n\n\n")
+                                        }
+
+                                        // res.render('menu/getMenu', {
+                                        //     items: {
+                                        //         req: req,
+                                        //         myObject: espTemplate,
+                                        //         myDocs: docs,
+                                        //         myNutrientsMenu: valores,
+                                        //     }
+                                        // });
+                                    }
+                                }).sort({ _id: 1 })
+                            }
+                        })
+
+                    }
+                }
+            }
+        }
+    },
+
 
     updateMenu: function (req, res) {
         const query = { _id: req.params._id };
@@ -2109,6 +2249,7 @@ let controller = {
         })(req, res, next);
 
     },
+
     all: function (req, res, next) {
         res.locals.user = req.user || null;
         next();
@@ -2126,12 +2267,8 @@ let controller = {
     logout: function (req, res) {
         req.logout();
         req.flash('success_msg', 'You are logged out');
-        res.render('user/login', {
-            items: {
-                req: req,
-                myObject: espTemplate
-            }
-        });
+        res.redirect('/login');
+
     },
 
     autocomplete: function (req, res) {
@@ -2726,7 +2863,19 @@ function showErrorsDishJsoN(errors, req, res) {
             errors
         }
     });
+}
 
+function showErrorsMenuJson(errors, req, res) {
+
+    console.log("\n\nLLAMA A ERRORES DE MENU\n\n");
+
+    return res.render('menu/insertMenuJson', {
+        items: {
+            req: req,
+            myObject: espTemplate,
+            errors
+        }
+    });
 }
 
 module.exports = controller;

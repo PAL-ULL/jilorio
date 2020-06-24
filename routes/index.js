@@ -45,6 +45,8 @@ router.get("/menu/:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero"
 router.get("/menu/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.autocompleteMenu);
 router.get("/menu/update/:_id/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.autocompleteMenu2);
 router.post("/menu/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertMenuPost);
+router.get("/menu/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertMenuJson);
+router.post("/menu/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertMenuJsonPost);
 router.get("/menu/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateMenu);
 router.post("/menu/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateMenuPost);
 

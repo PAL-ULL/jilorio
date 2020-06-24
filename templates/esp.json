@@ -454,6 +454,10 @@
         "updateFormFirst": ["_id", "description" ],
         "button": "Confirmar"
     },
+    "jsonMenu": {
+        "ejemplo": "Este es un ejemplo para insertar menús:",
+        "label": "Archivo .json"
+    },
     "planificacion": {
         "title": "Inserción de una planificación",
         "form": [

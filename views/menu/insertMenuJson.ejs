@@ -34,14 +34,14 @@
 
 
     <div class="container">
-        <h1><%= items.myObject.dish.title %></h1>
+        <h1><%= items.myObject.menu.title %></h1>
         <%- include ("../partials/message.ejs"); %>
         <div class="cardJson">
             <br>
 
-            <p class="ejemplo"><%= items.myObject.jsonDish.ejemplo %></p>
+            <p class="ejemplo"><%= items.myObject.jsonMenu.ejemplo %></p>
             <div class="d-flex justify-content-center align-items-center p-3 texto">
-            <textarea name="textarea" class="textarea" rows="12" disabled><%= items.json %></textarea>
+            <textarea name="textarea" class="textarea" rows="15" disabled><%= items.json %></textarea>
             </div>
            
 
@@ -50,7 +50,7 @@
 
                     <br> <br>
                     <i class="fas fa-file-upload fa-3x m-auto text-info">
-                        <label for="avatar"><%= items.myObject.jsonDish.label %></label><br></i>
+                        <label for="avatar"><%= items.myObject.jsonMenu.label %></label><br></i>
                     <br> <br>
 
                     <input type="file" class="btn  btn-outline-dark  btn-lg btn-block" name="filename" >
