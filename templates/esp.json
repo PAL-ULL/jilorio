@@ -513,6 +513,10 @@
         
         "button": "Confirmar"
     },
+    "jsonPlanification": {
+        "ejemplo": "Este es un ejemplo para insertar planificaciones:",
+        "label": "Archivo .json"
+    },
     "recomendacion": {
         "title": "Inserción de una recomendación",
         "form": [

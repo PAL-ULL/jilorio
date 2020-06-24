@@ -1,0 +1,283 @@
+[
+    {
+        "_id" : "vhbdksbcvjhgbsdcndsmbnc ufhksd cadh kfjka",
+        "description" : "Esta planificación es diaria pero también pueden ser semanales y mensuales",
+        "dias" : 3,
+        "menus" : [ 
+            [ 
+                {
+                    "_id" : "Menú: Leche desnatada y cereales",
+                    "description" : "Desayuno. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+                    "dishes" : [ 
+                        {
+                            "_id" : "Leche desnatada y cereales",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "MILK,NONFAT,FLUID,WO/ ADDED VIT A & VIT D (FAT FREE OR SKIM)",
+                                    "amount" : 140,
+                                    "unitMeasure" : "ml",
+                                    "ndbno" : "01151"
+                                }, 
+                                {
+                                    "name" : "CEREALS RTE,POST,SHREDDED WHEAT,ORIGINAL BIG BISCUIT",
+                                    "amount" : 40,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "08147"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Leche desnatada con cereales"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://fotografias.antena3.com/clipping/cmsimages01/2016/02/04/1FAA21C3-23EE-48BC-BBAD-A5D2005D0CDC/58.jpg"
+                        }
+                    ]
+                }, 
+                {
+                    "_id" : "Menú: Lentejas con chorizo",
+                    "description" : "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+                    "dishes" : [ 
+                        {
+                            "_id" : "Lentejas con chorizo",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "TOMATOES,GREEN,RAW",
+                                    "amount" : 20,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11527"
+                                }, 
+                                {
+                                    "name" : "LENTILS,SPROUTED,RAW",
+                                    "amount" : 90,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11248"
+                                }, 
+                                {
+                                    "name" : "POTATOES,RAW,SKIN",
+                                    "amount" : 40,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11362"
+                                }, 
+                                {
+                                    "name" : "CHORIZO,PORK AND BEEF",
+                                    "amount" : 40,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "07019"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Lentejas"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://crujienteyaldente.com/wp-content/uploads/2017/03/lentejas-caseras-1-1024x683.jpg"
+                        }
+                    ]
+                }
+            ], 
+            [ 
+                {
+                    "_id" : "Menú: Leche desnatada con galletas",
+                    "description" : "Desayuno. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+                    "dishes" : [ 
+                        {
+                            "_id" : "Leche desnatada con galletas",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "MILK,NONFAT,FLUID,WO/ ADDED VIT A & VIT D (FAT FREE OR SKIM)",
+                                    "amount" : 200,
+                                    "unitMeasure" : "ml",
+                                    "ndbno" : "01151"
+                                }, 
+                                {
+                                    "name" : "COOKIES,BROWNIES,COMMLY PREP",
+                                    "amount" : 50,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "18151"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Leche con galletas mini"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://i.blogs.es/6491bf/2469448442_57814c8a50/450_1000.jpg"
+                        }
+                    ]
+                }, 
+                {
+                    "_id" : "Menú: Lentejas y zumo de narnaja y plátano",
+                    "description" : "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 2 platos.",
+                    "dishes" : [ 
+                        {
+                            "_id" : "Lentejas",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "TOMATOES,GREEN,RAW",
+                                    "amount" : 30,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11527"
+                                }, 
+                                {
+                                    "name" : "LENTILS,SPROUTED,RAW",
+                                    "amount" : 120,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11248"
+                                }, 
+                                {
+                                    "name" : "POTATOES,RAW,SKIN",
+                                    "amount" : 50,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11362"
+                                }, 
+                                {
+                                    "name" : "CARROTS,RAW",
+                                    "amount" : 30,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11124"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Lentejas con chorizo"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://t1.rg.ltmcdn.com/es/images/7/9/9/lentejas_viudas_73997_600_square.jpg"
+                        }, 
+                        {
+                            "_id" : "Zumo de naranja y plátano",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "ORANGE JUC,CHILLED,INCL FROM CONC,W/ ADDED CA",
+                                    "amount" : 160,
+                                    "unitMeasure" : "ml",
+                                    "ndbno" : "09211"
+                                }, 
+                                {
+                                    "name" : "BANANAS,RAW",
+                                    "amount" : 80,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "09040"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Zumo de naranja y papaya"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://api.motorpress-iberica.es/nutrition/api/v1/images/recipe/57bd6dfa36a18e976ef4f1c2.jpg"
+                        }
+                    ]
+                }, 
+                {
+                    "_id" : "Menú: Ensalada básica 2",
+                    "description" : "Cena. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+                    "dishes" : [ 
+                        {
+                            "_id" : "Ensalada básica",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "TOMATOES,GREEN,RAW",
+                                    "amount" : 100,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11527"
+                                }, 
+                                {
+                                    "name" : "LETTUCE,ICEBERG (INCL CRISPHEAD TYPES),RAW",
+                                    "amount" : 60,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11252"
+                                }, 
+                                {
+                                    "name" : "OIL,OLIVE,SALAD OR COOKING",
+                                    "amount" : 5,
+                                    "unitMeasure" : "ml",
+                                    "ndbno" : "04053"
+                                }, 
+                                {
+                                    "name" : "CUCUMBER,PEELED,RAW",
+                                    "amount" : 60,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11206"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Tomate con aceite y orégano"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://t1.rg.ltmcdn.com/es/images/1/7/7/ensalada_de_apio_tomate_y_aguacate_60771_orig.jpg"
+                        }
+                    ]
+                }
+            ], 
+            [ 
+                {
+                    "_id" : "Menú: Lentejas y zumo de narnaja y plátano",
+                    "description" : "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 2 platos.",
+                    "dishes" : [ 
+                        {
+                            "_id" : "Lentejas",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "TOMATOES,GREEN,RAW",
+                                    "amount" : 30,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11527"
+                                }, 
+                                {
+                                    "name" : "LENTILS,SPROUTED,RAW",
+                                    "amount" : 120,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11248"
+                                }, 
+                                {
+                                    "name" : "POTATOES,RAW,SKIN",
+                                    "amount" : 50,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11362"
+                                }, 
+                                {
+                                    "name" : "CARROTS,RAW",
+                                    "amount" : 30,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "11124"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Lentejas con chorizo"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://t1.rg.ltmcdn.com/es/images/7/9/9/lentejas_viudas_73997_600_square.jpg"
+                        }, 
+                        {
+                            "_id" : "Zumo de naranja y plátano",
+                            "description" : "Este es un buen desayuno para comenzar el día.",
+                            "ingredients" : [ 
+                                {
+                                    "name" : "ORANGE JUC,CHILLED,INCL FROM CONC,W/ ADDED CA",
+                                    "amount" : 160,
+                                    "unitMeasure" : "ml",
+                                    "ndbno" : "09211"
+                                }, 
+                                {
+                                    "name" : "BANANAS,RAW",
+                                    "amount" : 80,
+                                    "unitMeasure" : "g",
+                                    "ndbno" : "09040"
+                                }
+                            ],
+                            "relationatedDishes" : [ 
+                                "Zumo de naranja y papaya"
+                            ],
+                            "recipe" : "",
+                            "imageURL" : "https://api.motorpress-iberica.es/nutrition/api/v1/images/recipe/57bd6dfa36a18e976ef4f1c2.jpg"
+                        }
+                    ]
+                }
+            ]
+        ]
+    }
+]

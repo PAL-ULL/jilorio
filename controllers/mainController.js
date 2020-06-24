@@ -1094,10 +1094,10 @@ let controller = {
                                             }
                                             console.log("USUARIO: " + req.user);
                                             res.redirect("/menu/view");
-                                           
 
-                                        }else{
-                                            console.log("\n\n\n\n\n\n NO ES EL ULTIMO MENÚ PARA INSERTAR "+ valor.length + " " + j+ "\n\n\n\n")
+
+                                        } else {
+                                            console.log("\n\n\n\n\n\n NO ES EL ULTIMO MENÚ PARA INSERTAR " + valor.length + " " + j + "\n\n\n\n")
                                         }
 
                                         // res.render('menu/getMenu', {
@@ -1309,7 +1309,7 @@ let controller = {
         // console.log(util.inspect(menus.length));
 
         for (let i = 0; i < menus.length; i++) {
-            const query = { _id: menus[i] }
+            const query = { _id: menus[i] } // creo que está mal falta id
             // console.log(query)
             var data = await myFunctionMenu(query);
             // console.log("tam: " + data.length);
@@ -1538,6 +1538,188 @@ let controller = {
         }).sort({ _id: 1 })
     },
 
+    insertPlanificationJson: function (req, res) {
+        var beautify = require('js-beautify').js;
+
+        let json = require("../public/planExample.json")
+        json = beautify(JSON.stringify(json), { indent_size: 2, space_in_empty_paren: true })
+
+        res.render('planification/insertPlanificationJson', {
+            items: {
+                req: req,
+                myObject: espTemplate,
+                json: json
+            }
+        });
+
+    },
+
+    insertPlanificationJsonPost: async function (req, res) {
+        let errors = [];
+        if (!req.files) {
+            errors.push({ msg: "El archivo está vacío." });
+            return showErrorsPlanificationJson(errors, req, res);
+
+        } else {
+
+            let file = req.files.filename;  // here is the field name of the form
+            // console.log(file);
+            const valor = JSON.parse(file.data)
+            // console.log("\n\nVALOR: " + valor);
+
+            let noEncontrados = [];
+
+            if (typeof valor.length === "undefined") {
+                errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                console.log(errors);
+                return showErrorsPlanificationJson(errors, req, res);
+
+            } else {
+
+                if (typeof valor.length === "undefined") {
+                    errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                    console.log(errors);
+                    showErrorsPlanificationJsoN(errors, req, res);
+                }
+
+                for (let j = 0; j < valor.length; j++) {
+                    const title = valor[j]._id;
+                    // console.log("title: " + title);
+                    const description = valor[j].description;
+                    // console.log("description: " + description);
+                    const dias = valor[j].dias;
+                    // console.log("dias: " + dias);
+                    const menus = valor[j].menus;
+                    // console.log("menus: " + menus);
+
+                    if (!title) {
+                        errors.push({ msg: "No se ha encontrado un nombre para la planificación." });
+                    }
+
+                    if ((title === "") || (typeof title != "string")) {
+                        errors.push({ msg: "El nombre de la planificación no puede estar vacío y debe estar formado por una cadena de caracteres." });
+                    }
+
+                    if ((description === "") || (typeof description != "string")) {
+                        errors.push({ msg: "La descripción no puede estar vacía y debe estar formada por una cadena de caracteres." });
+                    }
+
+                    if (!dias) {
+                        errors.push({ msg: "No se ha encontrado el número de días para la planificación." });
+                    }
+
+                    if ((typeof dias != "number")) {
+                        errors.push({ msg: "El número de días debe ser introducido con un caracter numérico." });
+                    }
+
+                    if ((dias < 1)) {
+                        errors.push({ msg: "El mínimo de días debe ser 1." });
+                    }
+
+
+                    if (menus.length != dias) {
+                        errors.push({ msg: "El número de días no coincide con los días en los que se organiza los menús." });
+                    }
+
+                    if (errors.length > 0) {
+                        console.log(errors)
+                        showErrorsPlanificationJson(errors, req, res);
+                    } else {
+                        const plan = new Planification({
+                            _id: title,
+                            description: description,
+                            dias: dias
+
+                        });
+                     
+                        // console.log("\n\n\n\nLOS MENUS SON: " + util.inspect(menus))
+                        // console.log("LOS MENUS SON: " + util.inspect(menus[1]))
+                        for (let i = 0; i < menus.length; i++) {
+                            console.log("\n")
+                            let menusk = [];
+                            // console.log("LOS MENUS SON: " + util.inspect(menus[i]))
+                            // console.log("\n\n\n")
+                            for (let k = 0; k < menus[i].length; k++) {
+
+                                const query = { _id: menus[i][k]._id };
+                                // console.log("----> query: " + util.inspect(query))
+                                const data = await myFunctionMenu(query);
+                                // console.log("data es_____: " + util.inspect(data))
+                                if (data.length === 0) {
+                                    noEncontrados.push(menus[i][k]);
+                                } else {
+                                    var beautify = require('js-beautify').js;
+                                    
+                                    menusk.push(data[0]);
+                                    
+                                }
+                               
+                            }
+                            plan.menus.push(menusk);
+                         }
+                        
+                         console.log("plan.menus: " + beautify(JSON.stringify(plan.menus), { indent_size: 8, space_in_empty_paren: true }))
+                         
+                         if ((noEncontrados.length > 0) || (errors.length > 0)) {
+                            // console.log("Algún plato está mal");
+                            // console.log(util.inspect(noEncontrados));
+                            // console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(noEncontrados));
+                            // let errors = [];
+                            for (let i = 0; i < noEncontrados.length; i++) {
+                                errors.push({ msg: "El menú " + noEncontrados[i]._id + " no ha sido encontrado." });
+                            }
+
+                            //    console.log("LLAMANDO A RENDER")
+                            return res.render('planification/insertPlanificationJson', {
+                                items: {
+                                    req: req,
+                                    myObject: espTemplate,
+                                    errors
+                                }
+                            });
+
+                        } 
+
+                            console.log("\n\n\n\n ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                            console.log(util.inspect(plan.menus));
+                            console.log("\n\n\n")
+                            plan.save(async function (err) {
+                                if (err) {
+                                    errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica a la planificación no haya sido utilizado antes. No puede existir menús con nombres iguales." });
+                                    console.log(err);
+                                    showErrorsPlanificationJson(errors, req, res);
+                                } else {
+                                    if ((j + 1) === valor.length) {
+                                        console.log("ultimoo ooooooooooooooooooooooooooooooooooooooooo")
+                                        Planification.find({}, async function (err, docs) {
+                                            if (err) {
+                                                console.log(err);
+                                            } else {
+
+                                                // console.log("\n\n\n\n\n\n ENTRAMOS PORQUE ES EL ULTIMO " + valor.length + " " + j + "\n\n\n\n")
+                                                // console.log(docs)
+
+                                                // console.log("USUARIO: " + req.user);
+                                                return res.redirect("/planification/view");
+
+
+                                            }
+
+                                        }).sort({ _id: 1 })
+                                    }
+                                }
+                            })
+                        
+
+
+                    }
+                }
+
+            }
+
+        }
+
+    },
 
     removePlanification: function (req, res) {
 
@@ -2794,16 +2976,6 @@ async function carbohidratos(recData, nutrientes) {
 
 };
 
-function isValidURL(url) {
-    var RegExp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-
-    if (RegExp.test(url)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 async function createPlato(valor) {
 
     if ((valor.recipe) && (valor.imageURL)) {
@@ -2870,6 +3042,19 @@ function showErrorsMenuJson(errors, req, res) {
     console.log("\n\nLLAMA A ERRORES DE MENU\n\n");
 
     return res.render('menu/insertMenuJson', {
+        items: {
+            req: req,
+            myObject: espTemplate,
+            errors
+        }
+    });
+}
+
+function showErrorsPlanificationJson(errors, req, res) {
+
+    console.log("\n\nLLAMA A ERRORES DE PLAN\n\n");
+
+    return res.render('planification/insertPlanificationJson', {
         items: {
             req: req,
             myObject: espTemplate,

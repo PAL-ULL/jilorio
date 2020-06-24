@@ -57,6 +57,8 @@ router.get("/planification/insert", isAuthenticated, authRoleMultiple(["admin", 
 router.get("/planification/:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.planificationDetails);
 router.post("/planification/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertPlanificationPost);
 router.post("/planification/view:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.getPlanification);
+router.get("/planification/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertPlanificationJson);
+router.post("/planification/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertPlanificationJsonPost);
 router.get("/planification/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.removePlanification);
 router.get("/planification/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.autocompletePlanificacion);
 
