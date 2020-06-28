@@ -52,16 +52,17 @@ router.post("/menu/update/:_id", isAuthenticated, authRoleMultiple(["admin", "co
 
 
 router.get("/planification", controller.planification);
-router.get("/planification/view", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.planificationView);
-router.get("/planification/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertPlanification);
-router.get("/planification/:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.planificationDetails);
-router.post("/planification/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertPlanificationPost);
-router.post("/planification/view:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.getPlanification);
+router.get("/planification/view",  controller.planificationView);
+router.get("/planification/insert", controller.insertPlanification);
+router.get("/planification/:_id?",  controller.planificationDetails);
+// router.post("/planification/insert", controller.insertPlanificationPost);
+router.post("/planification/view:_id?",  controller.getPlanification);
 router.get("/planification/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertPlanificationJson);
 router.post("/planification/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertPlanificationJsonPost);
 router.get("/planification/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.removePlanification);
-router.get("/planification/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.autocompletePlanificacion);
-
+router.get("/planification/insert/autocomplete/",  controller.autocompletePlanificacion);
+router.get("/planification/create/load/menus", controller.loadDataMenus);
+router.post("/planification/create/load/post", controller.insertPlanificationPost);
 
 router.get("/recomendation", controller.recomendation);
 router.get("/recomendation/view", isAuthenticated,  authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]),  controller.recomendationView);

@@ -467,7 +467,8 @@
                 "type": "text",
                 "placeholder": "Nombre de la planificación",
                 "ariaLabel": "title",
-                "name": "title"
+                "name": "title",
+                "id": "_id"
             },
             {
                 "label": "Introduzca una descripción para la planificación",
@@ -475,7 +476,8 @@
                 "type": "text",
                 "placeholder": "Descripción de la planificación",
                 "ariaLabel": "description",
-                "name": "description"
+                "name": "description",
+                "id": "description"
             }
         ],
         "formNumber": [

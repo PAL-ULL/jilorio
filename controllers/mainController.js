@@ -1291,110 +1291,53 @@ let controller = {
 
     insertPlanificationPost: async function (req, res) {
         console.log(req.body);
-        const _id = req.body.title;
+        const _id = req.body._id;
         const description = req.body.description;
-        const tipo = req.body.tipo;
-        const menus = req.body.menus;
+        const dias = req.body.days;
+        // const menus = req.body.menus;
+        let vectorObjMenu =[];
+        for (let i=0; i < req.body.NombreMenus.length; i++){
+            const query={_id: req.body.NombreMenus[i]}
+            const obj = await myFunctionMenu(query);
+            vectorObjMenu.push(obj[0]);
+        }
+        console.log(vectorObjMenu.length + "\n")
+        for (let i=0; i < vectorObjMenu.length; i++){
+            // console.log("________ MENU: " + i)
+            console.log(util.inspect(vectorObjMenu[i]._id))
+            // console.log("________\n\n")
+        }
 
-        let incorrecto = [];
-        let correcto = [];
-        const planificacion = new Planification({
+        const menus = [];
+        for (let i= 0; i < dias; i ++){
+            let diasV = [];
+            for (let j = 0; j < req.body.nMenus[i]; j++ ){
+                console.log("\n\n------------------ j : " + j + " -------- i : " + i +"\n\n")
+                // console.log(req.body.NombreMenus[j]);
+                console.log("Metiendo el " + vectorObjMenu[0]._id + "\n")
+                diasV.push(vectorObjMenu[0]);
+                vectorObjMenu.shift();
+                console.log("\n\nActualizo el vector" + util.inspect(vectorObjMenu) + "\n")
+            }
+            menus.push(diasV);
+        }
+        console.log("\n\n\n\nAQUI SE VIENE LO BUENO" + util.inspect(menus))
+        const plan = new Planification({
             _id: _id,
             description: description,
-            tipo: tipo
+            dias: dias,
+            menus: menus
+        })
 
+        plan.save()
+        .then(data => {
+            res.send(data);
+            // res.redirect("/");
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message
+            });
         });
-
-        // console.log("menus: " + req.body.menus)
-        // console.log(util.inspect(menus.length));
-
-        for (let i = 0; i < menus.length; i++) {
-            const query = { _id: menus[i] } // creo que está mal falta id
-            // console.log(query)
-            var data = await myFunctionMenu(query);
-            // console.log("tam: " + data.length);
-
-            if (data.length === 0) {
-                incorrecto.push(menus[i]);
-            } else {
-                correcto.push(data[0]);
-            }
-
-        }
-        if (incorrecto.length > 0) {
-            console.log("Algún plato está mal");
-            console.log(util.inspect(incorrecto));
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(incorrecto));
-            let errors = [];
-            for (let i = 0; i < incorrecto.length; i++) {
-                errors.push({ msg: "El menu " + incorrecto[i] + " no ha sido encontrado." });
-            }
-            Menu.find({}, async function (err, docs) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(docs)
-                    let valores = [];
-                    for (let i = 0; i < docs.length; i++) {
-                        const value = await calculateNutrientsMenu(docs[i])
-                        valores.push(value);
-                    }
-                    res.render('planification/insertPlanification', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: docs,
-                            myNutrientsMenu: valores,
-                            errors,
-
-                        }
-                    });
-                }
-            }).sort({ _id: 1 });
-        } else {
-
-            console.log("Bueno");
-            // let vector = [];
-            // console.log(tipo)
-            // if (tipo === "diaria"){
-            //     console.log("Entra")
-            //     const dias = [];
-            //     let obj = {};
-            //     for (let i=0; i < 1; i++){
-            //         for (let j=0; j < correcto.length; j++){
-            //             dias.push(correcto[j])
-            //         }
-            //         obj = {
-            //             : dias
-            //         }
-            //         vector.push(obj);
-            //     }
-            //     console.log(util.inspect(vector[0]));
-            // }
-            // if (tipo === "semanal"){
-            //     const vector = [];
-            //     const dias = [];
-            //     for (let i=0; i < 7; i++){
-            //         for (let j=0; j < correcto.length; j++){
-            //             dias.push(correcto[j])
-            //         }
-            //         vector.push(dias);
-            //     }
-            // }
-            // if (tipo === "mensual"){
-            //     const vector = [];
-            //     const dias = [];
-            //     for (let i=0; i < 31; i++){
-            //         for (let j=0; j < correcto.length; j++){
-            //             dias.push(correcto[j])
-            //         }
-            //         vector.push(dias);
-            //     }
-            // }
-
-
-        }
-
 
 
     },
@@ -2709,13 +2652,13 @@ async function calculateNutrientsDish(doc) {
     vector.push(valores["cholestrl"]);
     vector.push(valores["sugar"]);
 
-    console.log("DEVUEVE ESTO:::::::::" + util.inspect(vector))
+    // console.log("DEVUEVE ESTO:::::::::" + util.inspect(vector))
     return vector;
 }
 
 
 async function calculateNutrientsMenu(doc) {
-    console.log("\n\nLo que le paso a nutrients menu es: " + util.inspect(doc));
+    // console.log("\n\nLo que le paso a nutrients menu es: " + util.inspect(doc));
     let vector = [];
     // let nut_vector = [];
     for (let i = 0; i < doc.dishes.length; i++) {

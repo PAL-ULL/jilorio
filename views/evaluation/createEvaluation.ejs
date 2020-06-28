@@ -211,6 +211,7 @@
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function (docs) {
+                    window.location.href = "/planification/view";
                     $("#cardInside").css('display', 'block');
                     $("#cardInside").css('padding-bottom', '-20px');
                     $("#cardInside").html("<p>" +

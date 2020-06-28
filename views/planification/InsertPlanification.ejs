@@ -49,7 +49,7 @@
                                 class=" <%= items.myObject.planificacion.form[i].icon %>"></i></span>
 
                     </div>
-                    <input type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
+                    <input id="<%= items.myObject.planificacion.form[i].id %>" type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
                         placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
                         aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
                         aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.form[i].name %>"
@@ -65,8 +65,8 @@
                                 class=" <%= items.myObject.planificacion.formNumber[i].icon %>"></i></span>
 
                     </div>
-                    <input type="<%= items.myObject.planificacion.formNumber[i].type %>"
-                        class=" myInputs days form-control"
+                    <input  type="<%= items.myObject.planificacion.formNumber[i].type %>"
+                        class=" myInputs days form-control" id="myNumberDays"
                         placeholder="<%= items.myObject.planificacion.formNumber[i].placeholder %>"
                         aria-label="<%= items.myObject.planificacion.formNumber[i].ariaLabel %>"
                         aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.formNumber[i].name %>"
@@ -74,305 +74,218 @@
                         min="<%= items.myObject.planificacion.formNumber[i].min %>" required>
                 </div>
                 <% } %>
+                <div class="cardInside" style="display: none;" id="referencia">
+                    <div class="dinamico"></div>
+                </div>
 
                 <br>
-                <input type="button" class="btn btn-dark confirmar" value="Confirmar">
+               
 
                 <br><br>
-                <div class="padre">
-                    <div class="cardInside" style="display: none;">
-
-
-                        <div class="ref">
-
-
-                        </div>
-                        <div class="row menuAdd"  style="display: none">
-                            <% for (var i=0; i< items.myObject.planificacion.formMenu.length; i++) { %>
-                            <div class="col-sm">
-                                <label class="myLabels"><%= items.myObject.planificacion.formMenu[i].label %></label>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class=" spanColor input-group-text"><i
-                                                class=" myIcons <%= items.myObject.planificacion.formMenu[i].icon %>"></i></span>
-                                    </div>
-                
-                                    <input class="MyInputs searchMenu"
-                                        type="<%= items.myObject.planificacion.formMenu[i].type %>" class="form-control"
-                                        placeholder="<%= items.myObject.planificacion.formMenu[i].placeholder %>"
-                                        aria-label="<%= items.myObject.planificacion.formMenu[i].ariaLabel %>"
-                                        aria-describedby="basic-addon1"
-                                        name="<%= items.myObject.planificacion.formMenu[i].name %>" required>
-                
-                                </div>
-                            </div>
-                            <% } %>
-                
-                        </div>
-
-                        <input type="button" class="btn btn-dark" value="Añadir menú" id="bSubmit">
-                        <br><br>
-
-                    </div>
-                </div>
-                <br><br>
-                <input type="submit" disabled id="mySubmit" class="btn btn-info" value="Submit" />
-                <!-- Aqui -->
+         
+                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
+        
 
 
         </div>
 
-        <script>
-
-            // const bSubmit = document.querySelector('#bSubmit');
-            // bSubmit.addEventListener('click', () => {
-            //     const days = document.querySelector('.days').value;
-            //     const ing = document.querySelector('.searchMenu');
-            //     const inputs = document.querySelectorAll(".MyInputs");
-            //     const myLabels = document.querySelectorAll(".myLabels");
-            //     const myIcons = document.querySelectorAll(".myIcons");
-            //     console.log(myIcons)
-            //     console.log(inputs)
-            //     console.log(myLabels)
-            //     createNewInputs(inputs, myLabels, myIcons, days);
-            // });
-
-            // function createNewInputs(inputs, myLabels, myIcons, days) {
-            //     console.log("Funcion")
-            //     const padre = document.querySelector(".ref");
-            //     const divRow = document.createElement("DIV");
-            //     let k = 0;
-            //     for (let i = 0; i < myLabels.length; i++) {
-            //         const col = document.createElement("DIV");
-            //         const aLabel = document.createElement("LABEL");
-            //         console.log(myLabels[i].innerHTML)
-            //         aLabel.innerHTML = myLabels[i].innerHTML;
-            //         col.appendChild(aLabel);
-
-                    // const divInputGroup = document.createElement("DIV");
-                    // divInputGroup.classList.add("input-group");
-                    // divInputGroup.classList.add("mb-3")
-                    // const divInputGroupPrepend = document.createElement("DIV");
-                    // divInputGroupPrepend.classList.add("input-group-prepend");
-
-                    // const spanIcon = document.createElement("SPAN");
-                    // spanIcon.classList.add("spanColor");
-                    // spanIcon.classList.add("input-group-text");
-
-                    // let icon = document.createElement("ICON");
-
-
-                    // for (let j = 0; j < myIcons[i].classList.length; j++) {
-                    //     icon.classList.value += myIcons[i].classList[j] + " ";
-                    // }
-
-                    // spanIcon.appendChild(icon);
-                    // divInputGroupPrepend.appendChild(spanIcon);
-                    // divInputGroup.appendChild(divInputGroupPrepend);
-
-
-                    // const newI = document.createElement("INPUT");
-
-                    // newI.setAttribute("type", inputs[i].type);
-                    // newI.setAttribute("placeholder", inputs[i].placeholder);
-                    // newI.setAttribute("name", inputs[i].name);
-                    // newI.classList.add("searchMenu");
-
-
-                    // newI.classList.add("form-control");
-                    // newI.classList.add("ui-autocomplete-input");
-                    // divInputGroup.appendChild(newI);
-                    // col.appendChild(divInputGroup);
-                    // col.classList.add("col-sm");
-                    // divRow.appendChild(col);
-
-            //     }
-
-            //     divRow.classList.add("row");
-            //     padre.appendChild(divRow);
-            // };
-
-
-
-        </script>
 
         <script>
+            var valueDay = $("#myNumberDays").val();
 
-            const confirmar = document.querySelector('.confirmar');
-            const cardInside = document.querySelector('.ref');
-            const padre = document.querySelector('.padre');
-            console.log(confirmar)
-            confirmar.addEventListener('click', () => {
-                confirmar.setAttribute("disabled", true)
+            const referencia = document.querySelector('#referencia');
+            const dinamico = document.querySelector('.dinamico');
 
-                const inputs = document.querySelectorAll(".myInputs");
-                for (let i = 0; i < inputs.length; i++) {
+            $("#myNumberDays").on('change keyup', function () {
 
-                    inputs[i].setAttribute("disabled", true)
-                    console.log(inputs[i])
-                }
+                if ((this.value !== valueDay) && (this.valueDay !== "0")) {
 
-                cardInside.style.display = "block";
-                const days = document.querySelector('.days');
-                console.log(days.value);
-
-                if (!days.value) {
-                    console.log("Caso")
-                    days.value = 1;
-                }
-
-                for (let i = 0; i < days.value; i++) {
-                    const myDiv = document.createElement("DIV");
-                    const mySpan = document.createElement("SPAN");
-                    mySpan.innerHTML = "Menús para día: " + (i + 1);
-                    myDiv.appendChild(mySpan);
-                    cardInside.appendChild(myDiv);
-
-                    padre.appendChild(myDiv)
-
-                    const aLavel = document.createElement("LABEL");
-                    const div1 = document.createElement("DIV");
-                    div1.classList.add("input-group");
-                    div1.classList.add("mb-3");
-                    const div2 = document.createElement("DIV");
-                    div2.classList.add("input-group-prepend");
-
-                    padre.appendChild(aLavel);
-
-                    const span1 = document.createElement("SPAN");
-                    span1.classList.add("spanColor");
-                    span1.classList.add("input-group-text");
-                    const icon1 = document.createElement("ICON");
-                    icon1.classList.add("spanColor");
-                    icon1.classList.add("fas");
-                    icon1.classList.add("fa-edit");
-                    span1.appendChild(icon1);
-                    div2.appendChild(span1);
-
-
-                    const input1 = document.createElement("INPUT");
-                    input1.setAttribute("type", "number");
-                    input1.setAttribute("placeholder", "# Menús para el día " + (i + 1));
-                    input1.setAttribute("name", "menuDays[]");
-                    input1.setAttribute("min", 1);
-                    input1.classList.add("menuDays"+i)
-
-                    console.log(typeof parseInt(days.value))
-                    console.log(typeof (i + 1))
-                    console.log((i + 1) == days.value)
-
-
-                    div1.appendChild(div2);
-                    div1.appendChild(input1);
-
-                    padre.appendChild(div1);
-                    if ((i + 1) === parseInt(days.value)) {
-                        const boton = document.createElement("INPUT");
-                        boton.classList.add("btn");
-                        boton.classList.add("btn-dark");
-                        boton.setAttribute("type", "button");
-                        boton.setAttribute("id", "confirmMenu");
-                        boton.value = "Confirmar menús";
-                        boton.innerHTML = "Confirmar menús"
-                        padre.appendChild(boton);
-                    }
-
-                   
-                    const confirmarMenus = document.querySelector('#confirmMenu');
-                    confirmarMenus.addEventListener('click', () => {
-                    console.log("CLICK")
-                    const days = document.querySelector('.days');
-                    let menus=[];
-                    for (let i = 0; i < days.value; i++){
-                        const menu = document.querySelector('.menuDays'+i);
-                        console.log(menu)
-                        menus.push(menu);
-                    }
-                    const menuAdd = document.querySelector('.menuAdd');
-                    const ref = document.querySelector('.ref');
-                    menuAdd.style.display = "block";
-                    ref.appendChild(menuAdd)
-                    console.log(menuAdd)
-                    console.log(ref)
-                    // for (let i=0; i < menus.length; i++){
-                    //     console.log("---------------" + menus[i]);
-                    //     const menuA = menuAdd;
-                    //     ref.appendChild(menuA);
-
-
-                    // }
-                }
-                    
-                );
-
+                    createDays(this.value);
                 }
             });
-                
 
-                
-        </script>
-        <script>
-           
-        </script>
 
-        <script>
-                $(function () {
-                    $(".searchMenu").autocomplete({
-                        source: function (req, res) {
-                            $.ajax({
-                                url: "insert/autocomplete/",
-                                dataType: "jsonp",
-                                type: "GET",
-                                data: req,
-                                success: function (data) {
-                                    res(data);
-                                },
-                                error: function (err) {
-                                    console.log(err);
-                                }
-                            });
-                        },
-                        minLength: 1,
-                        select: function (event, ui) {
-                            console.log(event);
-                            console.log(ui);
-                            if (ui.item) {
-                                $('.searchMenu').text(ui.item.label);
+            function createDays(valueDay) {
 
+
+                var div = $(".dinamico");
+
+                if (div.length > 0) {
+                    div.find(".removingThen").remove();
+                    referencia.style.display = "none";
+                } else {
+                    // console.log("No existe la caja previamente creada.");
+                }
+
+                const value = parseInt(valueDay);
+
+                if (value !== 0) {
+                    for (let i = 1; i <= value; i++) {
+
+
+                        const myDiv = document.createElement("DIV");
+                        myDiv.classList.add("removingThen");
+
+                        myDiv.classList.add("cardInside2");
+                        const mySpan = document.createElement("SPAN");
+                        mySpan.innerHTML = "Día: " + (i);
+                        const myDivMenu = document.createElement("DIV");
+                        myDivMenu.style.marginTop = "5px";
+                        myDivMenu.style.marginBottom = "20px";
+                        myIMenus = document.createElement("INPUT")
+                        myIMenus.setAttribute("type", "number");
+                        myLabelMenus = document.createElement("LABEL")
+                        myLabelMenus.innerHTML = "Introduce el número de menús:";
+                        myIMenus.setAttribute("placeholder", "Número de menús ");
+                        myIMenus.setAttribute("name", "menuDays[]");
+                        myIMenus.setAttribute("min", 1);
+                        myIMenus.required = true;
+                        myIMenus.classList.add("menuDays" + i);
+                        myIMenus.classList.add("comun");
+                        myIMenus.classList.add("form-control");
+                        const otro = document.createElement("DIV");
+                        otro.classList.add("removingThen");
+                        otro.classList.add("global" + i);
+
+                        let variable = "menuDays" + i;
+
+                        myDivMenu.classList.add("removingThen")
+                        myLabelMenus.style.display = "block"
+                        myDivMenu.appendChild(myLabelMenus);
+                        myDivMenu.appendChild(myIMenus);
+                        otro.appendChild(myDivMenu)
+                        myDiv.appendChild(mySpan);
+                        dinamico.appendChild(myDiv);
+                        dinamico.appendChild(otro);
+                        referencia.style.display = "block";
+                    }
+                    const loop = document.querySelectorAll(".comun");
+                    let j = 0;
+                    // let index = 0;
+                    for (let item of loop) {
+                        j++;
+                        let variable = "global" + j;
+                        let prueba = "prueba" + j;
+                        item.addEventListener("change", () => {
+
+                            console.log("prueba ES: " + prueba)
+                            const todos = document.querySelectorAll("." + prueba);
+                            console.dir(todos);
+                            for (uno of todos) {
+                                uno.remove();
                             }
-                        }
-                    })
-                });
-        </script>
-        <!-- <script>
-            $("#bSubmit").on("click", () => {
-                $(".searchMenu").autocomplete({
-                    source: function (req, res) {
-                        $.ajax({
-                            url: "insert/autocomplete/",
-                            dataType: "jsonp",
-                            type: "GET",
-                            data: req,
-                            success: function (data) {
-                                res(data);
-                            },
-                            error: function (err) {
-                                console.log(err);
-                            }
+                            item.style.background = "rgb(170, 221, 170)"
+                            createSelectForMenus(item.value, variable, prueba)
+                        });
+                    }
+                }
+            }
+
+            function createSelectForMenus(value, variable, prueba) {
+                // console.log("EN CREATE MENUS CON " + j);
+
+                for (let i = 1; i <= value; i++) {
+                    let idMenus = "selectMenu" + i;
+                    const divSelect = document.createElement("DIV");
+                    divSelect.classList.add("lista2");
+                    const Select = document.createElement("SELECT");
+                    Select.setAttribute("id", idMenus);
+                    Select.classList.add("selectMenu");
+                    const padre = document.querySelector("." + variable);
+
+                    divSelect.appendChild(Select);
+                    divSelect.classList.add("removingThen");
+                    divSelect.classList.add(prueba);
+                    Select.classList.add("mySelect");
+                    Select.classList.add("form-control");
+                    Select.style.marginBottom = "15px";
+                    padre.appendChild(divSelect);
+                    // console.log(padre);
+                    ajaxGetMenus();
+                }
+
+            }
+
+            function ajaxGetMenus() {
+
+                $.ajax({
+                    type: "GET",
+                    url: "create/load/menus",
+                    success: function (result) {
+                       
+                        $('.lista2 select').empty();
+                        $.each(result, function (i, menu) {
+                            $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
                         });
                     },
-                    minLength: 1,
-                    select: function (event, ui) {
-                        console.log(event);
-                        console.log(ui);
-                        if (ui.item) {
-                            $('.searchMenu').text(ui.item.label);
 
-                        }
-                    }
-                })
+                });
+            };
+
+
+            $("#aux").submit(function (event) {
+              
+                event.preventDefault();
+                ajaxPost();
             });
-        </script> -->
+
+
+            function ajaxPost() {
+                const vectorMenus = [];
+        
+                const comun = document.querySelectorAll(".comun");
+
+                for(uno of comun){
+                    console.dir("Valor de uno: " + uno.value);
+                    if (uno.value === ""){
+                        vectorMenus.push(0)
+                    }else{
+                        vectorMenus.push(parseInt(uno.value));
+                  
+                    }
+                }
+
+                
+                const vectorMenusCandidatos = [];
+                const array = document.querySelectorAll(".selectMenu");
+                
+                    for (let item of array){
+                        console.log(item.value);
+                          vectorMenusCandidatos.push(item.value);
+                    }
+                   
+                // PREPARE FORM DATA
+                var formData = {
+                    _id: $("#_id").val(),
+                    description: $("#description").val(),
+                    days: $("#myNumberDays").val(),
+                    nMenus: vectorMenus,
+                    NombreMenus: vectorMenusCandidatos
+                }
+
+                // DO POST
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "create/load/post",
+                    data: JSON.stringify(formData),
+                    dataType: 'json',
+                    success: function (docs) {
+                        console.log("SUCCES: " + docs)
+                        window.location.href = "/planification/view";
+                       
+                    },
+                    error: function (e) {
+                         console.log("ERROR: ", e);
+                    }
+                });
+
+                
+
+            }
+
+         
+        </script>
 
 
         </form>
@@ -433,14 +346,14 @@
 </body>
 
 <script>
-                $(document).ready(function () {
-                    $('#alimentos').DataTable({
-                        "language": {
-                            "emptyTable": " "
-                        }
-                    });
+    $(document).ready(function () {
+        $('#alimentos').DataTable({
+            "language": {
+                "emptyTable": " "
+            }
+        });
 
-                });
+    });
 </script>
 
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
