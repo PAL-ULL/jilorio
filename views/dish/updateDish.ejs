@@ -63,8 +63,8 @@
                         name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>
                         required>
                     <% } %>
-                    <input style="margin-left: 20px;" class="btn btn-warning vaciarCampos" type="button"
-                        value="Limpiar">
+                    <!-- <input style="margin-left: 20px;" class="btn btn-warning vaciarCampos" type="button"
+                        value="Limpiar"> -->
                 </div>
                 <% } %>
                 <br>
@@ -84,8 +84,8 @@
                                     <% if (items.myObject.dish.formIngredientes[i].label === "Cantidad") { %>
 
 
-                                    <input class="MyInputs" type="<%= items.myObject.dish.formIngredientes[i].type %>"
-                                        class="form-control"
+                                    <input class="MyInputs form-control" type="<%= items.myObject.dish.formIngredientes[i].type %>"
+                                  
                                         placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
                                         aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
                                         aria-describedby="basic-addon1"
@@ -97,8 +97,8 @@
 
                                     <%  } else { %>
 
-                                    <input class="MyInputs searchIngredient"
-                                        type="<%= items.myObject.dish.formIngredientes[i].type %>" class="form-control"
+                                    <input class="MyInputs searchIngredient form-control"
+                                        type="<%= items.myObject.dish.formIngredientes[i].type %>"
                                         placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
                                         aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
                                         aria-describedby="basic-addon1"
@@ -136,8 +136,14 @@
                                 </div>
                             </div>
                             <% } %>
-                            <input style="margin-bottom: 30px; margin-top: -5px;" class="btn btn-danger eliminar2"
+                            <% if ( k > 0) { %>
+                                <div class="col-sm">
+                            <input style="margin-top: 30px" class="btn btn-danger eliminar2"
                                 type="button" value="Eliminar">
+                                </div>
+                                <% } else{%>
+                                    <div class="col-sm"> </div>
+                                    <% } %>
                         </div>
                         <% } %>
 
@@ -272,9 +278,12 @@
                         eliminar.classList.add("eliminar");
                         eliminar.setAttribute("type", "button");
                         eliminar.value = "Eliminar"
-                        col.style.display = "flex";
-                        col.style["align-items"] = "center";
-                        col.style["padding-top"] = "12px";
+         
+                        // col.style.display = "table";
+                        eliminar.style.marginTop="30px"
+                        // eliminar.style.verticalAlign="middle"
+                        // col.style["align-items"] = "center";
+                        // col.style["padding-top"] = "12px";
                         col.appendChild(eliminar)
                         divRow.appendChild(col);
 

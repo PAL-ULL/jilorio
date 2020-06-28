@@ -16,8 +16,8 @@ router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "co
 // router.post("/saveDish", controller.saveDish);
 
 router.get("/dish", controller.dish);
-router.get("/dish/view", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]),controller.dishView);
-router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.getDish);
+router.get("/dish/view",controller.dishView);
+router.post("/dish/view:_id?", controller.getDish);
 // router.get("/dish/add", controller.addDish);
 router.get("/dish/delete/:_id", isAuthenticated,  authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.removeDish);
 router.get("/dish/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertDish);
@@ -30,8 +30,8 @@ router.post("/dish/insert", isAuthenticated, authRoleMultiple(["admin", "cociner
 router.get("/dish/insert/json", controller.insertDishJson);
 router.post("/dish/insert/json", controller.insertDishJsonPost);
 router.get("/dish/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.dishDetails);
-router.get("/dish/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateDish);
-router.post("/dish/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateDishPost);
+router.get("/dish/update/:_id",  controller.updateDish);
+router.post("/dish/update/:_id",  controller.updateDishPost);
 
 
 
