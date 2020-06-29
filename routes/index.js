@@ -40,15 +40,15 @@ router.get("/menu", controller.menu);
 router.get("/menu/view", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.menuView);
 router.post("/menu/view:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.getMenu);
 router.get("/menu/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.removeMenu);
-router.get("/menu/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertMenu);
+router.get("/menu/insert", controller.insertMenu);
 router.get("/menu/:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero"]), controller.menuDetails);
 router.get("/menu/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.autocompleteMenu);
 router.get("/menu/update/:_id/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.autocompleteMenu2);
-router.post("/menu/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertMenuPost);
+router.post("/menu/insert", controller.insertMenuPost);
 router.get("/menu/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertMenuJson);
 router.post("/menu/insert/json", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.insertMenuJsonPost);
-router.get("/menu/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateMenu);
-router.post("/menu/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateMenuPost);
+router.get("/menu/update/:_id", controller.updateMenu);
+router.post("/menu/update/:_id", controller.updateMenuPost);
 
 
 router.get("/planification", controller.planification);

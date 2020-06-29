@@ -42,7 +42,7 @@
                 <br>
                 <% for (var i=0; i< items.myObject.menu.form.length; i++) { %>
                 <label><%= items.myObject.menu.form[i].label %></label>
-           
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -51,20 +51,22 @@
 
                     </div>
                     <% if (items.myObject.menu.updateFormFirst[i] === "_id")  {%>
-                    <input value="<%= items.myMenu[items.myObject.menu.updateFormFirst[i]]%>" type="<%= items.myObject.menu.form[i].type %>" class="form-control"
+                    <input value="<%= items.myMenu[items.myObject.menu.updateFormFirst[i]]%>"
+                        type="<%= items.myObject.menu.form[i].type %>" class="form-control"
                         placeholder="<%= items.myObject.menu.form[i].placeholder %>"
                         aria-label="<%= items.myObject.menu.form[i].ariaLabel %>" aria-describedby="basic-addon1"
-                        name="<%= items.myObject.menu.form[i].name %>" #<%= items.myObject.menu.form[i].name %>
-                        required disabled>
-                      
+                        name="<%= items.myObject.menu.form[i].name %>" #<%= items.myObject.menu.form[i].name %> required
+                        disabled>
+
                     <% } else { %>
-                        <input value="<%= items.myMenu[items.myObject.menu.updateFormFirst[i]]%>" type="<%= items.myObject.menu.form[i].type %>" class="form-control"
+                    <input value="<%= items.myMenu[items.myObject.menu.updateFormFirst[i]]%>"
+                        type="<%= items.myObject.menu.form[i].type %>" class="form-control"
                         placeholder="<%= items.myObject.menu.form[i].placeholder %>"
                         aria-label="<%= items.myObject.menu.form[i].ariaLabel %>" aria-describedby="basic-addon1"
                         name="<%= items.myObject.menu.form[i].name %>" #<%= items.myObject.menu.form[i].name %>
                         required>
-                        <% } %>
-                        
+                    <% } %>
+
                 </div>
                 <% } %>
                 <br>
@@ -75,40 +77,59 @@
                         <div class="row">
 
                             <% for (var i=0; i< items.myObject.menu.formPlatos.length; i++) { %>
-                            <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
+                            <div class="col-sm">
+                                <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
 
-                                    <span class=" spanColor input-group-text"><i
-                                            class="myIcons <%= items.myObject.menu.formPlatos[i].icon %>"></i></span>
+                                        <span class=" spanColor input-group-text"><i
+                                                class="myIcons <%= items.myObject.menu.formPlatos[i].icon %>"></i></span>
 
-                                </div>
-                                <input value="<%= items.myMenu.dishes[k]._id %>"
-                                    type="<%= items.myObject.menu.formPlatos[i].type %>"
-                                    class="searchDish MyInputs form-control"
-                                    placeholder="<%= items.myObject.menu.formPlatos[i].placeholder %>"
-                                    aria-label="<%= items.myObject.menu.formPlatos[i].ariaLabel %>"
-                                    aria-describedby="basic-addon1" name="<%= items.myObject.menu.formPlatos[i].name %>"
-                                    #<%= items.myObject.menu.formPlatos[i].name %> required>
+                                    </div>
+                                    <input value="<%= items.myMenu.dishes[k]._id %>"
+                                        type="<%= items.myObject.menu.formPlatos[i].type %>"
+                                        class="searchDish MyInputs form-control"
+                                        placeholder="<%= items.myObject.menu.formPlatos[i].placeholder %>"
+                                        aria-label="<%= items.myObject.menu.formPlatos[i].ariaLabel %>"
+                                        aria-describedby="basic-addon1"
+                                        name="<%= items.myObject.menu.formPlatos[i].name %>"
+                                        #<%= items.myObject.menu.formPlatos[i].name %> required>
                                     <!-- <button type="button" id="<% %>" class="btn btn-danger"><a title="Eliminar" href=""> <i class="fas fa-trash-alt"></i></a></button>  -->
+                                </div>
                             </div>
                             <% } %>
-
+                            <% if ( k > 0) { %>
+                            <div class="col-sm">
+                                <input style="margin-top: 30px" class="btn btn-danger eliminar2" type="button"
+                                    value="Eliminar">
+                            </div>
+                            <% } else{%>
+                            <div class="col-sm"> </div>
+                            <% } %>
 
 
                             <br>
                         </div>
                         <% } %>
+
                     </div>
 
 
                 </div>
                 <br>
-                <input type="button"  class="btn btn-dark" value="Añadir plato" id="bSubmit">
+                <input type="button" class="btn btn-dark" value="Añadir plato" id="bSubmit">
 
 
 
                 <script>
+                    $("form").on("click", ".eliminar2", function (e) {
+                        const fila = document.querySelectorAll('.row');
+                        console.log(fila.length - 1)
+                        if (fila.length - 1) {
+                            $(this).closest('.row').remove();
+                        }
+
+                    });
 
                     const bSubmit = document.querySelector('#bSubmit');
                     bSubmit.addEventListener('click', () => {
@@ -161,6 +182,7 @@
                             newI.setAttribute("placeholder", inputs[i].placeholder);
                             newI.setAttribute("name", inputs[i].name);
                             newI.classList.add("searchDish");
+                            newI.required = true;
 
 
                             newI.classList.add("form-control");
@@ -171,9 +193,30 @@
                             divRow.appendChild(col);
 
                         }
-
+                        const col = document.createElement("DIV");
+                        col.classList.add("col-sm");
+                        const eliminar = document.createElement("INPUT");
+                        eliminar.classList.add("btn");
+                        eliminar.classList.add("btn-danger");
+                        eliminar.classList.add("eliminar");
+                        eliminar.setAttribute("type", "button");
+                        eliminar.value = "Eliminar"
+         
+                        // col.style.display = "table";
+                        eliminar.style.marginTop="30px"
+                        // eliminar.style.verticalAlign="middle"
+                        // col.style["align-items"] = "center";
+                        // col.style["padding-top"] = "12px";
+                        col.appendChild(eliminar)
+                        divRow.appendChild(col);
                         divRow.classList.add("row");
                         padre.appendChild(divRow);
+
+                        $("form").on("click", ".eliminar", function (e) {
+                            console.log("eliminar")
+                            var targets = $(this).closest(".row");
+                            $(targets).remove();
+                        });
                     };
 
 

@@ -433,24 +433,25 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            Dish.find({}, async function (err, docs) {
-                if (err) {
-                    console.log(err);
-                } else {
+            // Dish.find({}, async function (err, docs) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
 
-                    const suma = await calculateKcal(docs);
+                    res.redirect("/dish/view")
+                    // const suma = await calculateKcal(docs);
 
-                    res.render('dish/getDish', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: docs,
-                            myKcal: suma
+                    // res.render('dish/getDish', {
+                    //     items: {
+                    //         req: req,
+                    //         myObject: espTemplate,
+                    //         myDocs: docs,
+                    //         myKcal: suma
 
-                        }
-                    });
-                }
-            }).sort({ _id: 1 })
+                    //     }
+                    // });
+            //     }
+            // }).sort({ _id: 1 })
 
         })
     },
@@ -833,26 +834,27 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            Menu.find({}, async function (err, docs) {
-                if (err) {
-                    console.log(err);
-                } else {
+            // Menu.find({}, async function (err, docs) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
                     // console.log(docs);
-                    let valores = [];
-                    for (let i = 0; i < docs.length; i++) {
-                        const value = await calculateNutrientsMenu(docs[i])
-                        valores.push(value);
-                    }
-                    res.render('menu/getMenu', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: docs,
-                            myNutrientsMenu: valores,
-                        }
-                    });
-                }
-            }).sort({ _id: 1 })
+                    // let valores = [];
+                    // for (let i = 0; i < docs.length; i++) {
+                    //     const value = await calculateNutrientsMenu(docs[i])
+                    //     valores.push(value);
+                    // }
+                    // // res.render('menu/getMenu', {
+                    // //     items: {
+                    // //         req: req,
+                    // //         myObject: espTemplate,
+                    // //         myDocs: docs,
+                    // //         myNutrientsMenu: valores,
+                    // //     }
+                    // // });
+                    res.redirect("/menu/view")
+            //     }
+            // }).sort({ _id: 1 })
 
         })
     },
@@ -1779,20 +1781,21 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            Planification.find({}, async function (err, docs) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    // console.log(docs);
-                    res.render('planification/getPlanification', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: docs
-                        }
-                    });
-                }
-            }).sort({ _id: 1 })
+            // Planification.find({}, async function (err, docs) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+                    res.redirect("/planification/view")
+                    // // console.log(docs);
+                    // res.render('planification/getPlanification', {
+                    //     items: {
+                    //         req: req,
+                    //         myObject: espTemplate,
+                    //         myDocs: docs
+                    //     }
+                    // });
+            //     }
+            // }).sort({ _id: 1 })
 
         })
     },
@@ -1887,21 +1890,22 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar la recomendación.");
             }
 
-            Recomendation.find({}, async function (err, docs) {
-                if (err) {
-                    console.log(err);
-                } else {
+            // Recomendation.find({}, async function (err, docs) {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+                    res.redirect("/recomendation/view")
 
-                    res.render('recomendation/recomendationView', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: docs,
+                    // res.render('recomendation/recomendationView', {
+                    //     items: {
+                    //         req: req,
+                    //         myObject: espTemplate,
+                    //         myDocs: docs,
 
-                        }
-                    });
-                }
-            }).sort({ _id: 1 })
+                    //     }
+                    // });
+            //     }
+            // }).sort({ _id: 1 })
 
         })
     },
@@ -2470,7 +2474,7 @@ let controller = {
 
     logUser: function (req, res, next) {
         passport.authenticate('local', {
-            successRedirect: '/dashboard',
+            successRedirect: '/',
             failureRedirect: '/login',
             failureFlash: true
         })(req, res, next);

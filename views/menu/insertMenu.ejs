@@ -35,7 +35,7 @@
     <div class="container">
         <h1><%= items.myObject.menu.title %></h1>
         <%- include ("../partials/message.ejs"); %>
-        
+
         <div class="card">
             <form method="POST" , id="aux" action='./insert'>
                 <br>
@@ -60,111 +60,132 @@
                 <div class="cardInside">
                     <div class="ref">
                         <div class="row">
-                 
-                    <% for (var i=0; i< items.myObject.menu.formPlatos.length; i++) { %>
-                    <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
 
-                            <span class=" spanColor input-group-text"><i
-                                    class="myIcons <%= items.myObject.menu.formPlatos[i].icon %>"></i></span>
+                            <% for (var i=0; i< items.myObject.menu.formPlatos.length; i++) { %>
+                            <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
 
+                                    <span class=" spanColor input-group-text"><i
+                                            class="myIcons <%= items.myObject.menu.formPlatos[i].icon %>"></i></span>
+
+                                </div>
+                                <input type="<%= items.myObject.menu.formPlatos[i].type %>"
+                                    class="searchDish MyInputs form-control"
+                                    placeholder="<%= items.myObject.menu.formPlatos[i].placeholder %>"
+                                    aria-label="<%= items.myObject.menu.formPlatos[i].ariaLabel %>"
+                                    aria-describedby="basic-addon1" name="<%= items.myObject.menu.formPlatos[i].name %>"
+                                    #<%= items.myObject.menu.formPlatos[i].name %> required>
+                            </div>
+                            <% } %>
+                            <br>
                         </div>
-                        <input type="<%= items.myObject.menu.formPlatos[i].type %>" class="searchDish MyInputs form-control"
-                            placeholder="<%= items.myObject.menu.formPlatos[i].placeholder %>"
-                            aria-label="<%= items.myObject.menu.formPlatos[i].ariaLabel %>"
-                            aria-describedby="basic-addon1" name="<%= items.myObject.menu.formPlatos[i].name %>"
-                            #<%= items.myObject.menu.formPlatos[i].name %> required>
                     </div>
-                    <% } %>
-                    <br>
-                </div>
-            </div>
 
 
                 </div>
                 <br>
-                <input type="button"  class="btn btn-dark" value="Añadir plato" id="bSubmit">
-                
-
-
-        <script>
-
-            const bSubmit = document.querySelector('#bSubmit');
-            bSubmit.addEventListener('click', () => {
-                const ing = document.querySelector('.searchDish');
-                const inputs = document.querySelectorAll(".MyInputs");
-                const myLabels = document.querySelectorAll(".myLabels");
-                const myIcons = document.querySelectorAll(".myIcons");
-                console.log(myIcons)
-                console.log(inputs)
-                console.log(myLabels)
-                createNewInputs(inputs, myLabels, myIcons);
-            });
-
-            function createNewInputs(inputs, myLabels, myIcons) {
-                const padre = document.querySelector(".ref");
-                const divRow = document.createElement("DIV");
-                let k = 0;
-                for (let i = 0; i < myLabels.length; i++) {
-                    const col = document.createElement("DIV");
-                    const aLabel = document.createElement("LABEL");
-                    console.log(myLabels[i].innerHTML)
-                    aLabel.innerHTML = myLabels[i].innerHTML;
-                    col.appendChild(aLabel);
-
-                    const divInputGroup = document.createElement("DIV");
-                    divInputGroup.classList.add("input-group");
-                    divInputGroup.classList.add("mb-3")
-                    const divInputGroupPrepend = document.createElement("DIV");
-                    divInputGroupPrepend.classList.add("input-group-prepend");
-
-                    const spanIcon = document.createElement("SPAN");
-                    spanIcon.classList.add("spanColor");
-                    spanIcon.classList.add("input-group-text");
-
-                    let icon = document.createElement("ICON");
-
-
-                    for (let j = 0; j < myIcons[i].classList.length; j++) {
-                        icon.classList.value += myIcons[i].classList[j] + " ";
-                    }
-
-                    spanIcon.appendChild(icon);
-                    divInputGroupPrepend.appendChild(spanIcon);
-                    divInputGroup.appendChild(divInputGroupPrepend);
-
-
-                    const newI = document.createElement("INPUT");
-
-                    newI.setAttribute("type", inputs[i].type);
-                    newI.setAttribute("placeholder", inputs[i].placeholder);
-                    newI.setAttribute("name", inputs[i].name);
-                    newI.classList.add("searchDish");
-             
-
-                    newI.classList.add("form-control");
-                    newI.classList.add("ui-autocomplete-input");
-                    divInputGroup.appendChild(newI);
-                    col.appendChild(divInputGroup);
-                    col.classList.add("col-sm");
-                    divRow.appendChild(col);
-
-                }
-
-                divRow.classList.add("row");
-                padre.appendChild(divRow);
-            };
+                <input type="button" class="btn btn-dark" value="Añadir plato" id="bSubmit">
 
 
 
+                <script>
 
-        </script>
+                    const bSubmit = document.querySelector('#bSubmit');
+                    bSubmit.addEventListener('click', () => {
+                        const ing = document.querySelector('.searchDish');
+                        const inputs = document.querySelectorAll(".MyInputs");
+                        const myLabels = document.querySelectorAll(".myLabels");
+                        const myIcons = document.querySelectorAll(".myIcons");
+                        console.log(myIcons)
+                        console.log(inputs)
+                        console.log(myLabels)
+                        createNewInputs(inputs, myLabels, myIcons);
+                    });
+
+                    function createNewInputs(inputs, myLabels, myIcons) {
+                        const padre = document.querySelector(".ref");
+                        const divRow = document.createElement("DIV");
+                        let k = 0;
+                        for (let i = 0; i < myLabels.length; i++) {
+                            const col = document.createElement("DIV");
+                            const aLabel = document.createElement("LABEL");
+                            console.log(myLabels[i].innerHTML)
+                            aLabel.innerHTML = myLabels[i].innerHTML;
+                            col.appendChild(aLabel);
+
+                            const divInputGroup = document.createElement("DIV");
+                            divInputGroup.classList.add("input-group");
+                            divInputGroup.classList.add("mb-3")
+                            const divInputGroupPrepend = document.createElement("DIV");
+                            divInputGroupPrepend.classList.add("input-group-prepend");
+
+                            const spanIcon = document.createElement("SPAN");
+                            spanIcon.classList.add("spanColor");
+                            spanIcon.classList.add("input-group-text");
+
+                            let icon = document.createElement("ICON");
 
 
-        <br><br>
-        <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
-    </div>
+                            for (let j = 0; j < myIcons[i].classList.length; j++) {
+                                icon.classList.value += myIcons[i].classList[j] + " ";
+                            }
+
+                            spanIcon.appendChild(icon);
+                            divInputGroupPrepend.appendChild(spanIcon);
+                            divInputGroup.appendChild(divInputGroupPrepend);
+
+
+                            const newI = document.createElement("INPUT");
+
+                            newI.setAttribute("type", inputs[i].type);
+                            newI.setAttribute("placeholder", inputs[i].placeholder);
+                            newI.setAttribute("name", inputs[i].name);
+                            newI.classList.add("searchDish");
+
+
+                            newI.classList.add("form-control");
+                            newI.classList.add("ui-autocomplete-input");
+                            divInputGroup.appendChild(newI);
+                            col.appendChild(divInputGroup);
+                            col.classList.add("col-sm");
+                            divRow.appendChild(col);
+
+                        }
+
+                        const col = document.createElement("DIV");
+                        col.classList.add("col-sm");
+                        const eliminar = document.createElement("INPUT");
+                        eliminar.classList.add("btn");
+                        eliminar.classList.add("btn-danger");
+                        eliminar.classList.add("eliminar");
+                        eliminar.setAttribute("type", "button");
+                        eliminar.value = "Eliminar"
+                        col.style.display = "flex";
+                        col.style["align-items"] = "center";
+                        col.style["padding-top"] = "12px";
+                        col.appendChild(eliminar)
+                        divRow.appendChild(col);
+
+
+                        divRow.classList.add("row");
+                        padre.appendChild(divRow);
+
+                        $("form").on("click", ".eliminar", function (e) {
+                            var targets = $(this).closest(".row");
+                            $(targets).remove();
+                        });
+                    };
+
+
+
+
+                </script>
+
+
+                <br><br>
+                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
+        </div>
         <script>
             $(function () {
                 $(".searchDish").autocomplete({
@@ -194,7 +215,7 @@
                 })
             });
         </script>
-         <script>
+        <script>
             $("#bSubmit").on("click", () => {
                 $(".searchDish").autocomplete({
                     source: function (req, res) {
