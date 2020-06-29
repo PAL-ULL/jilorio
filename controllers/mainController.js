@@ -438,18 +438,18 @@ let controller = {
             //         console.log(err);
             //     } else {
 
-                    res.redirect("/dish/view")
-                    // const suma = await calculateKcal(docs);
+            res.redirect("/dish/view")
+            // const suma = await calculateKcal(docs);
 
-                    // res.render('dish/getDish', {
-                    //     items: {
-                    //         req: req,
-                    //         myObject: espTemplate,
-                    //         myDocs: docs,
-                    //         myKcal: suma
+            // res.render('dish/getDish', {
+            //     items: {
+            //         req: req,
+            //         myObject: espTemplate,
+            //         myDocs: docs,
+            //         myKcal: suma
 
-                    //     }
-                    // });
+            //     }
+            // });
             //     }
             // }).sort({ _id: 1 })
 
@@ -838,21 +838,21 @@ let controller = {
             //     if (err) {
             //         console.log(err);
             //     } else {
-                    // console.log(docs);
-                    // let valores = [];
-                    // for (let i = 0; i < docs.length; i++) {
-                    //     const value = await calculateNutrientsMenu(docs[i])
-                    //     valores.push(value);
-                    // }
-                    // // res.render('menu/getMenu', {
-                    // //     items: {
-                    // //         req: req,
-                    // //         myObject: espTemplate,
-                    // //         myDocs: docs,
-                    // //         myNutrientsMenu: valores,
-                    // //     }
-                    // // });
-                    res.redirect("/menu/view")
+            // console.log(docs);
+            // let valores = [];
+            // for (let i = 0; i < docs.length; i++) {
+            //     const value = await calculateNutrientsMenu(docs[i])
+            //     valores.push(value);
+            // }
+            // // res.render('menu/getMenu', {
+            // //     items: {
+            // //         req: req,
+            // //         myObject: espTemplate,
+            // //         myDocs: docs,
+            // //         myNutrientsMenu: valores,
+            // //     }
+            // // });
+            res.redirect("/menu/view")
             //     }
             // }).sort({ _id: 1 })
 
@@ -1785,15 +1785,15 @@ let controller = {
             //     if (err) {
             //         console.log(err);
             //     } else {
-                    res.redirect("/planification/view")
-                    // // console.log(docs);
-                    // res.render('planification/getPlanification', {
-                    //     items: {
-                    //         req: req,
-                    //         myObject: espTemplate,
-                    //         myDocs: docs
-                    //     }
-                    // });
+            res.redirect("/planification/view")
+            // // console.log(docs);
+            // res.render('planification/getPlanification', {
+            //     items: {
+            //         req: req,
+            //         myObject: espTemplate,
+            //         myDocs: docs
+            //     }
+            // });
             //     }
             // }).sort({ _id: 1 })
 
@@ -1894,16 +1894,16 @@ let controller = {
             //     if (err) {
             //         console.log(err);
             //     } else {
-                    res.redirect("/recomendation/view")
+            res.redirect("/recomendation/view")
 
-                    // res.render('recomendation/recomendationView', {
-                    //     items: {
-                    //         req: req,
-                    //         myObject: espTemplate,
-                    //         myDocs: docs,
+            // res.render('recomendation/recomendationView', {
+            //     items: {
+            //         req: req,
+            //         myObject: espTemplate,
+            //         myDocs: docs,
 
-                    //     }
-                    // });
+            //     }
+            // });
             //     }
             // }).sort({ _id: 1 })
 
@@ -2044,6 +2044,43 @@ let controller = {
 
     },
 
+    insertRecomendationJson: async function (req, res, next) {
+        var beautify = require('js-beautify').js;
+        let json = require("../public/recExample.json")
+        json = beautify(JSON.stringify(json), { indent_size: 2, space_in_empty_paren: true })
+
+        res.render('recomendation/insertRecomendationJson', {
+            items: {
+                req: req,
+                myObject: espTemplate,
+                json: json
+            }
+        });
+    },
+
+    insertRecomendationJsonPost: async function (req, res, next) {
+        let errors = [];
+
+        if (!req.files) {
+            errors.push({ msg: "El archivo está vacío." });
+            showErrorsRecJson(errors, req, res);
+
+
+        } else {
+
+
+            let file = req.files.filename;  // here is the field name of the form
+            console.log(file);
+            const valor = JSON.parse(file.data)
+            console.log(typeof valor);
+            console.log(valor);
+            console.log(typeof valor.length);
+            for (let i=0; i < valor.length; i++ ){
+              
+            }
+
+        }
+    },
 
 
     evaluation: function (req, res) {
@@ -3111,6 +3148,24 @@ function showErrorsPlanificationJson(errors, req, res) {
         }
     });
 }
+
+
+function showErrorsRecJson(errors, req, res) {
+
+    console.log("\n\nLLAMA A ERRORES DE REC\n\n");
+
+    return res.render('recomendation/insertRecomendationJson', {
+        items: {
+            req: req,
+            myObject: espTemplate,
+            errors
+        }
+    });
+}
+
+
+
+
 
 module.exports = controller;
 

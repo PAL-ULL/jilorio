@@ -625,6 +625,10 @@
         "nutrientes": "Nutrientes recomendados:",
         "infor": "Información básica:"
     },
+    "jsonRecomendation": {
+        "ejemplo": "Este es un ejemplo para insertar recomendaciones:",
+        "label": "Archivo .json"
+    },
     "evaluacion": {
         "title": "Generar evaluación",
         "recomendacion":[
