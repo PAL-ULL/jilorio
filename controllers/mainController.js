@@ -2075,8 +2075,159 @@ let controller = {
             console.log(typeof valor);
             console.log(valor);
             console.log(typeof valor.length);
-            for (let i=0; i < valor.length; i++ ){
-              
+
+            for (let i = 0; i < valor.length; i++) {
+                console.log(valor[i]._id)
+                const title = valor[i]._id;
+                const description = valor[i].description;
+                const edad = valor[i].edad;
+                const energyMax = valor[i].energyMax;
+                const energyMin = valor[i].energyMin;
+                const lipidsMax = valor[i].lipidsMax;
+                const lipidsMin = valor[i].lipidsMin;
+                const proteinMax = valor[i].proteinMax;
+                const proteinMin = valor[i].proteinMin;
+                const carbohydrtMax = valor[i].carbohydrtMax;
+                const carbohydrtMin = valor[i].carbohydrtMin;
+
+                if (!title) {
+                    errors.push({ msg: "No se ha encontrado un nombre para la planificación." });
+                }
+                if ((title === "") || (typeof title != "string")) {
+                    errors.push({ msg: "El nombre de la planificación no puede estar vacío y debe estar formado por una cadena de caracteres." });
+                }
+                //////////////////////////////
+                if ((description === "") || (typeof description != "string")) {
+                    errors.push({ msg: "La descripción no puede estar vacía y debe estar formada por una cadena de caracteres." });
+                }
+                //////////////////////////////
+                if (!edad) {
+                    errors.push({ msg: "No se ha encontrado la edad para la recomendación." });
+                }
+                if ((edad === "") || (typeof edad != "string")) {
+                    errors.push({ msg: "La edad no puede estar vacía y debe estar formada por una cadena de caracteres." });
+                }
+                //////////////////////////////
+                if (!energyMax) {
+                    errors.push({ msg: "No se ha encontrado el número de energyMax para la planificación." });
+                }
+                if ((typeof energyMax != "number")) {
+                    errors.push({ msg: "El número de energyMax debe ser introducido con un caracter numérico." });
+                }
+                if ((energyMax < 1)) {
+                    errors.push({ msg: "El mínimo de energyMax debe ser 1." });
+                }
+                if (!energyMin) {
+                    errors.push({ msg: "No se ha encontrado el número de energyMin para la planificación." });
+                }
+                if ((typeof energyMin != "number")) {
+                    errors.push({ msg: "El número de energyMin debe ser introducido con un caracter numérico." });
+                }
+                if ((energyMin < 1)) {
+                    errors.push({ msg: "El mínimo de energyMin debe ser 1." });
+                }
+                if (energyMin > energyMax){
+                    errors.push({ msg: "El energyMin no puede ser menor que el energyMax." });
+                }
+                //////////////////////////////
+                if (!lipidsMax) {
+                    errors.push({ msg: "No se ha encontrado el número de lipidsMax para la planificación." });
+                }
+                if ((typeof lipidsMax != "number")) {
+                    errors.push({ msg: "El número de lipidsMax debe ser introducido con un caracter numérico." });
+                }
+                if ((lipidsMax < 1)) {
+                    errors.push({ msg: "El mínimo de lipidsMax debe ser 1." });
+                }
+                if (!lipidsMin) {
+                    errors.push({ msg: "No se ha encontrado el número de lipidsMin para la planificación." });
+                }
+                if ((typeof lipidsMin != "number")) {
+                    errors.push({ msg: "El número de lipidsMin debe ser introducido con un caracter numérico." });
+                }
+                if ((lipidsMin < 1)) {
+                    errors.push({ msg: "El mínimo de lipidsMin debe ser 1." });
+                }
+                if (lipidsMin > lipidsMax){
+                    errors.push({ msg: "El lipidsMin no puede ser menor que el lipidsMax." });
+                }
+                //////////////////////////////
+                if (!proteinMax) {
+                    errors.push({ msg: "No se ha encontrado el número de proteinMax para la planificación." });
+                }
+                if ((typeof proteinMax != "number")) {
+                    errors.push({ msg: "El número de proteinMax debe ser introducido con un caracter numérico." });
+                }
+                if ((proteinMax < 1)) {
+                    errors.push({ msg: "El mínimo de proteinMax debe ser 1." });
+                }
+                if (!proteinMin) {
+                    errors.push({ msg: "No se ha encontrado el número de proteinMin para la planificación." });
+                }
+                if ((typeof proteinMin != "number")) {
+                    errors.push({ msg: "El número de proteinMin debe ser introducido con un caracter numérico." });
+                }
+                if ((proteinMin < 1)) {
+                    errors.push({ msg: "El mínimo de proteinMin debe ser 1." });
+                }
+                if (proteinMin > proteinMax){
+                    errors.push({ msg: "El proteinMin no puede ser menor que el proteinMax." });
+                }
+                //////////////////////////////
+                if (!carbohydrtMax) {
+                    errors.push({ msg: "No se ha encontrado el número de carbohydrtMax para la planificación." });
+                }
+                if ((typeof carbohydrtMax != "number")) {
+                    errors.push({ msg: "El número de carbohydrtMax debe ser introducido con un caracter numérico." });
+                }
+                if ((carbohydrtMax < 1)) {
+                    errors.push({ msg: "El mínimo de carbohydrtMax debe ser 1." });
+                }
+                if (!carbohydrtMin) {
+                    errors.push({ msg: "No se ha encontrado el número de carbohydrtMin para la planificación." });
+                }
+                if ((typeof carbohydrtMin != "number")) {
+                    errors.push({ msg: "El número de carbohydrtMin debe ser introducido con un caracter numérico." });
+                }
+                if ((carbohydrtMin < 1)) {
+                    errors.push({ msg: "El mínimo de carbohydrtMin debe ser 1." });
+                }
+                if (carbohydrtMin > carbohydrtMax){
+                    errors.push({ msg: "El carbohydrtMin no puede ser menor que el carbohydrtMax." });
+                }
+
+                if (errors.length > 0) {
+                    console.log(errors)
+                    return showErrorsRecJson(errors, req, res);
+                } else {
+                    const recomendation = new Recomendation({
+                        _id: title,
+                        description: description,
+                        edad: edad,
+                        energyMin : energyMin,
+                        energyMax : energyMax,
+                        lipidsMin : lipidsMin,
+                        lipidsMax : lipidsMax,
+                        proteinMin : proteinMin,
+                        proteinMax : proteinMax,
+                        carbohydrtMin : carbohydrtMin,
+                        carbohydrtMax : carbohydrtMax
+
+                    });
+
+                    recomendation.save()
+                    .then(data => {
+                        if ((i+1) === valor.length){
+                            return res.redirect("/recomendation/view");
+                        }
+                        // res.send(data);
+                        
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: err.message
+                        });
+                    });
+                }
             }
 
         }

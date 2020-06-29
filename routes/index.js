@@ -68,7 +68,7 @@ router.post("/planification/create/load/post", controller.insertPlanificationPos
 router.post("/planification/update/create/load/post", controller.updatePlanificationPost);
 
 router.get("/recomendation", controller.recomendation);
-router.get("/recomendation/view", isAuthenticated,  authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]),  controller.recomendationView);
+router.get("/recomendation/view", controller.recomendationView);
 router.get("/recomendation/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertRecomendation);
 router.post("/recomendation/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertRecomendationPost);
 router.get("/recomendation/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateRecomendation);
