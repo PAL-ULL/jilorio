@@ -1295,24 +1295,24 @@ let controller = {
         const description = req.body.description;
         const dias = req.body.days;
         // const menus = req.body.menus;
-        let vectorObjMenu =[];
-        for (let i=0; i < req.body.NombreMenus.length; i++){
-            const query={_id: req.body.NombreMenus[i]}
+        let vectorObjMenu = [];
+        for (let i = 0; i < req.body.NombreMenus.length; i++) {
+            const query = { _id: req.body.NombreMenus[i] }
             const obj = await myFunctionMenu(query);
             vectorObjMenu.push(obj[0]);
         }
         console.log(vectorObjMenu.length + "\n")
-        for (let i=0; i < vectorObjMenu.length; i++){
+        for (let i = 0; i < vectorObjMenu.length; i++) {
             // console.log("________ MENU: " + i)
             console.log(util.inspect(vectorObjMenu[i]._id))
             // console.log("________\n\n")
         }
 
         const menus = [];
-        for (let i= 0; i < dias; i ++){
+        for (let i = 0; i < dias; i++) {
             let diasV = [];
-            for (let j = 0; j < req.body.nMenus[i]; j++ ){
-                console.log("\n\n------------------ j : " + j + " -------- i : " + i +"\n\n")
+            for (let j = 0; j < req.body.nMenus[i]; j++) {
+                console.log("\n\n------------------ j : " + j + " -------- i : " + i + "\n\n")
                 // console.log(req.body.NombreMenus[j]);
                 console.log("Metiendo el " + vectorObjMenu[0]._id + "\n")
                 diasV.push(vectorObjMenu[0]);
@@ -1330,18 +1330,118 @@ let controller = {
         })
 
         plan.save()
-        .then(data => {
-            res.send(data);
-            // res.redirect("/");
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message
+            .then(data => {
+                res.send(data);
+                // res.redirect("/");
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message
+                });
             });
-        });
 
 
     },
 
+    updatePlanification: function (req, res) {
+        let planId = req.params._id;
+        const query = { _id: planId };
+
+        Planification.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                const plan = docs[0];
+                console.log(plan)
+                Menu.find({}, async function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        let valores = [];
+                        for (let i = 0; i < docs.length; i++) {
+                            const value = await calculateNutrientsMenu(docs[i])
+                            valores.push(value);
+                        }
+                        res.render('planification/updatePlanification.ejs', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: plan,
+                                myMenus: docs,
+                                myNutrientsMenu: valores,
+
+                            }
+                        });
+                    }
+                }).sort({ _id: 1 });
+
+
+            }
+        }).sort({ _id: 1 })
+    },
+
+    updatePlanificationPost: async function (req, res) {
+
+        console.log(req.body);
+        const _id = req.body._id;
+        const description = req.body.description;
+        const dias = req.body.days;
+        // const menus = req.body.menus;
+        let vectorObjMenu = [];
+        for (let i = 0; i < req.body.NombreMenus.length; i++) {
+            const query = { _id: req.body.NombreMenus[i] }
+            const obj = await myFunctionMenu(query);
+            vectorObjMenu.push(obj[0]);
+        }
+        console.log(vectorObjMenu.length + "\n")
+        for (let i = 0; i < vectorObjMenu.length; i++) {
+            // console.log("________ MENU: " + i)
+            console.log(util.inspect(vectorObjMenu[i]._id))
+            // console.log("________\n\n")
+        }
+
+        const menus = [];
+        for (let i = 0; i < dias; i++) {
+            let diasV = [];
+            for (let j = 0; j < req.body.nMenus[i]; j++) {
+                console.log("\n\n------------------ j : " + j + " -------- i : " + i + "\n\n")
+                // console.log(req.body.NombreMenus[j]);
+                console.log("Metiendo el " + vectorObjMenu[0]._id + "\n")
+                diasV.push(vectorObjMenu[0]);
+                vectorObjMenu.shift();
+                console.log("\n\nActualizo el vector" + util.inspect(vectorObjMenu) + "\n")
+            }
+            menus.push(diasV);
+        }
+        console.log("\n\n\n\nAQUI SE VIENE LO BUENO" + util.inspect(menus))
+
+
+        const query = { _id: req.body._id };
+        Planification.findById(query).then(planFound => {
+            if (planFound) {
+                console.log("Plan encontrado" + planFound);
+                const plan = new Planification({
+                    _id: _id,
+                    description: description,
+                    dias: dias,
+                    menus: menus
+                })
+                const set = { $set: plan };
+                Planification.updateOne(query, set)
+                    .then(data => {
+                        res.send(data);
+                        // res.redirect("/");
+                    }).catch(err => {
+                        res.status(500).send({
+                            message: err.message
+                        });
+                    });
+
+            }
+        })
+
+
+
+    },
 
     planification: function (req, res) {
         return res.status(200).render('planification/planification.ejs', {
@@ -1351,6 +1451,8 @@ let controller = {
             }
         });
     },
+
+
 
     planificationView: async function (req, res) {
         Planification.find({}, async function (err, docs) {
@@ -1574,7 +1676,7 @@ let controller = {
                             dias: dias
 
                         });
-                     
+
                         // console.log("\n\n\n\nLOS MENUS SON: " + util.inspect(menus))
                         // console.log("LOS MENUS SON: " + util.inspect(menus[1]))
                         for (let i = 0; i < menus.length; i++) {
@@ -1592,18 +1694,18 @@ let controller = {
                                     noEncontrados.push(menus[i][k]);
                                 } else {
                                     var beautify = require('js-beautify').js;
-                                    
+
                                     menusk.push(data[0]);
-                                    
+
                                 }
-                               
+
                             }
                             plan.menus.push(menusk);
-                         }
-                        
-                         console.log("plan.menus: " + beautify(JSON.stringify(plan.menus), { indent_size: 8, space_in_empty_paren: true }))
-                         
-                         if ((noEncontrados.length > 0) || (errors.length > 0)) {
+                        }
+
+                        console.log("plan.menus: " + beautify(JSON.stringify(plan.menus), { indent_size: 8, space_in_empty_paren: true }))
+
+                        if ((noEncontrados.length > 0) || (errors.length > 0)) {
                             // console.log("Algún plato está mal");
                             // console.log(util.inspect(noEncontrados));
                             // console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(noEncontrados));
@@ -1621,38 +1723,38 @@ let controller = {
                                 }
                             });
 
-                        } 
+                        }
 
-                            console.log("\n\n\n\n ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                            console.log(util.inspect(plan.menus));
-                            console.log("\n\n\n")
-                            plan.save(async function (err) {
-                                if (err) {
-                                    errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica a la planificación no haya sido utilizado antes. No puede existir menús con nombres iguales." });
-                                    console.log(err);
-                                    showErrorsPlanificationJson(errors, req, res);
-                                } else {
-                                    if ((j + 1) === valor.length) {
-                                        console.log("ultimoo ooooooooooooooooooooooooooooooooooooooooo")
-                                        Planification.find({}, async function (err, docs) {
-                                            if (err) {
-                                                console.log(err);
-                                            } else {
+                        console.log("\n\n\n\n ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                        console.log(util.inspect(plan.menus));
+                        console.log("\n\n\n")
+                        plan.save(async function (err) {
+                            if (err) {
+                                errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica a la planificación no haya sido utilizado antes. No puede existir menús con nombres iguales." });
+                                console.log(err);
+                                showErrorsPlanificationJson(errors, req, res);
+                            } else {
+                                if ((j + 1) === valor.length) {
+                                    console.log("ultimoo ooooooooooooooooooooooooooooooooooooooooo")
+                                    Planification.find({}, async function (err, docs) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
 
-                                                // console.log("\n\n\n\n\n\n ENTRAMOS PORQUE ES EL ULTIMO " + valor.length + " " + j + "\n\n\n\n")
-                                                // console.log(docs)
+                                            // console.log("\n\n\n\n\n\n ENTRAMOS PORQUE ES EL ULTIMO " + valor.length + " " + j + "\n\n\n\n")
+                                            // console.log(docs)
 
-                                                // console.log("USUARIO: " + req.user);
-                                                return res.redirect("/planification/view");
+                                            // console.log("USUARIO: " + req.user);
+                                            return res.redirect("/planification/view");
 
 
-                                            }
+                                        }
 
-                                        }).sort({ _id: 1 })
-                                    }
+                                    }).sort({ _id: 1 })
                                 }
-                            })
-                        
+                            }
+                        })
+
 
 
                     }

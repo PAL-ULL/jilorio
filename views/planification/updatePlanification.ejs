@@ -49,12 +49,22 @@
                                 class=" <%= items.myObject.planificacion.form[i].icon %>"></i></span>
 
                     </div>
-                    <input id="<%= items.myObject.planificacion.form[i].id %>"
+                    <% if (items.myObject.planificacion.form[i].name === "title"){ %>
+
+                    <input value="<%=  items.myDocs._id %>" id="<%= items.myObject.planificacion.form[i].id %>" disabled
                         type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
                         placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
                         aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
                         aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.form[i].name %>"
                         #<%= items.myObject.planificacion.form[i].name %> required>
+                    <% } else if  (items.myObject.planificacion.form[i].name === "description"){%>
+                    <input value="<%=  items.myDocs.description %>" id="<%= items.myObject.planificacion.form[i].id %>"
+                        type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
+                        placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
+                        aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
+                        aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.form[i].name %>"
+                        #<%= items.myObject.planificacion.form[i].name %> required>
+                    <% }  %>
                 </div>
                 <% } %>
                 <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
@@ -66,7 +76,8 @@
                                 class=" <%= items.myObject.planificacion.formNumber[i].icon %>"></i></span>
 
                     </div>
-                    <input type="<%= items.myObject.planificacion.formNumber[i].type %>"
+                    <input disabled value=<%= items.myDocs.dias %>
+                        type="<%= items.myObject.planificacion.formNumber[i].type %>"
                         class=" myInputs days form-control" id="myNumberDays"
                         placeholder="<%= items.myObject.planificacion.formNumber[i].placeholder %>"
                         aria-label="<%= items.myObject.planificacion.formNumber[i].ariaLabel %>"
@@ -75,8 +86,44 @@
                         min="<%= items.myObject.planificacion.formNumber[i].min %>" required>
                 </div>
                 <% } %>
-                <div class="cardInside" style="display: none;" id="referencia">
-                    <div class="dinamico"></div>
+
+                <div class="cardInside" id="referencia">
+                    <div class="dinamico">
+                        <% for (var i=0; i< items.myDocs.menus.length; i++) { %>
+                        <div class="removingThen cardInside2">
+                            <span>Día: <%= i+1 %></span>
+                        </div>
+                        <div class="<%="global"+(i+1) %> removingThen">
+                            <div class="removingThen" style="margin-top: 5px; margin-bottom: 20px;">
+                                <label style="display: block;">Introduce el número de menús:</label>
+
+                                <input disabled value=<%= items.myDocs.menus[i].length %> type=number
+                                    class="<%="menuDays"+(i+1) %> form-control removingThen comun"
+                                    placeholder="Número de menús" aria-label="menus" aria-describedby="basic-addon1"
+                                    name="menuDays[]" #menuDays min="1" required>
+                            </div>
+                            <% for (var j=0; j< items.myDocs.menus[i].length; j++) { %>
+                            <select id="<%="selectMenu"+(j+1) %>" class="selectMenu mySelect form-control"
+                                style="margin-bottom: 15px;">
+                                <% for (var k=0; k< items.myMenus.length; k++) { %>
+                                    <% if (  items.myMenus[k]._id === items.myDocs.menus[i][j]._id) { %>
+                                    <option selected value="<%=items.myDocs.menus[i][j]._id%>"><%=items.myDocs.menus[i][j]._id%> </option>
+
+
+                                    <% } else { %>
+                                        <option  value="<%=items.myMenus[k]._id%>"><%=items.myMenus[k]._id%> </option>
+                                        <% } %>
+                                <% } %>
+                            </select>
+
+                            <% } %>
+                        </div>
+                        <% } %>
+
+
+
+
+                    </div>
                 </div>
 
                 <br>
@@ -93,7 +140,25 @@
 
         <script>
 
+                    const loop = document.querySelectorAll(".comun");
+                    let j = 0;
+                    // let index = 0;
+                    for (let item of loop) {
+                        j++;
+                        let variable = "global" + j;
+                        let prueba = "prueba" + j;
+                        item.addEventListener("change", () => {
 
+                            // console.log("prueba ES: " + prueba)
+                            const todos = document.querySelectorAll(".selectMenu");
+                            console.dir(todos);
+                            for (uno of todos) {
+                                uno.remove();
+                            }
+                            // item.style.background = "rgb(170, 221, 170)"
+                            createSelectForMenus(item.value, variable, prueba)
+                        });
+                    }
 
             var valueDay = $("#myNumberDays").val();
 
@@ -102,23 +167,18 @@
 
             $("#myNumberDays").on('change keyup', function () {
 
-                // if ((this.value !== valueDay) && (this.valueDay !== "0")) {
-                let nSelects = document.querySelectorAll("input[type='number']");
-                console.log("valueDay " + $("#myNumberDays").val() + " type " + typeof (valueDay));
-                console.log("value " + this.value + " type " + typeof (this.value));
-                createDays(this.value, nSelects.length);
-                // }
+                if ((this.valueDay !== "0")) {
+
+                    createDays(this.value);
+                }
             });
 
 
-            function createDays(valueDay, tam) {
+            function createDays(valueDay) {
 
 
                 var div = $(".dinamico");
 
-                console.log(tam)
-                console.log(valueDay)
-                console.log("------")
                 if (div.length > 0) {
                     div.find(".removingThen").remove();
                     referencia.style.display = "none";
@@ -177,8 +237,7 @@
                         let prueba = "prueba" + j;
                         item.addEventListener("change", () => {
 
-                            console.log("item.balue " + item.value)
-                            console.log("query " + document.querySelectorAll(".selectMenu").length)
+                            console.log("prueba ES: " + prueba)
                             const todos = document.querySelectorAll("." + prueba);
                             console.dir(todos);
                             for (uno of todos) {
@@ -220,16 +279,13 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "create/load/menus",
+                    url: "/planification/create/load/menus",
                     success: function (result) {
 
                         $('.lista2 select').empty();
-                        // console.log("TAMAÑO------------> " + $('.lista2 select').length)
-                        // if ($('.lista2 select').length === 0) {
-                            $.each(result, function (i, menu) {
-                                $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
-                            });
-                        // }
+                        $.each(result, function (i, menu) {
+                            $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
+                        });
                     },
 
                 });
@@ -259,13 +315,20 @@
                 }
 
 
+
                 const vectorMenusCandidatos = [];
                 const array = document.querySelectorAll(".selectMenu");
+                console.dir(array)
+
 
                 for (let item of array) {
+                    console.log( "Actualizando ---------> ")
                     console.log(item.value);
                     vectorMenusCandidatos.push(item.value);
                 }
+
+
+
 
                 // PREPARE FORM DATA
                 var formData = {
@@ -275,6 +338,7 @@
                     nMenus: vectorMenus,
                     NombreMenus: vectorMenusCandidatos
                 }
+                console.log(formData)
 
                 // DO POST
                 $.ajax({
@@ -319,8 +383,8 @@
 
         <% const  nombres_sz=  items.myObject.tablaMenusReducida.nombres.length %>
         <% const  nombres=  items.myObject.tablaMenusReducida.nombres %>
-        <% const  docs_sz =   items.myDocs.length %>
-        <% const  docs =   items.myDocs %>
+        <% const  docs_sz =   items.myMenus.length %>
+        <% const  docs =   items.myMenus %>
 
 
         <table class="table table-bordered table-striped table-hover table-sm">

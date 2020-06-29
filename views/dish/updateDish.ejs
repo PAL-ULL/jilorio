@@ -153,19 +153,19 @@
                 </div>
 
                 <script>
-                    $(document).ready(function () {
-                        const fila = document.querySelectorAll('.row');
-                        console.log(fila.length)
+                    // $(document).ready(function () {
+                    //     const fila = document.querySelectorAll('.row');
+                    //     console.log(fila.length)
 
-                        if (fila.length - 1) {
-                            const boton = document.querySelector('.eliminar2');
-                            boton.disabled = false;
+                    //     if (fila.length - 1) {
+                    //         const boton = document.querySelector('.eliminar2');
+                    //         boton.disabled = false;
                            
-                        } else {
-                            const boton = document.querySelector('.eliminar2');
-                            boton.disabled = true;
-                        }
-                    });
+                    //     } else {
+                    //         const boton = document.querySelector('.eliminar2');
+                    //         boton.disabled = true;
+                    //     }
+                    // });
 
                     $("form").on("click", ".eliminar2", function (e) {
                         const fila = document.querySelectorAll('.row');

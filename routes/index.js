@@ -54,6 +54,8 @@ router.post("/menu/update/:_id", isAuthenticated, authRoleMultiple(["admin", "co
 router.get("/planification", controller.planification);
 router.get("/planification/view",  controller.planificationView);
 router.get("/planification/insert", controller.insertPlanification);
+router.get("/planification/update/:_id", controller.updatePlanification);
+// router.post("/planification/update/:_id", controller.updatePlanificationPost);
 router.get("/planification/:_id?",  controller.planificationDetails);
 // router.post("/planification/insert", controller.insertPlanificationPost);
 router.post("/planification/view:_id?",  controller.getPlanification);
@@ -63,6 +65,7 @@ router.get("/planification/delete/:_id", isAuthenticated, authRoleMultiple(["adm
 router.get("/planification/insert/autocomplete/",  controller.autocompletePlanificacion);
 router.get("/planification/create/load/menus", controller.loadDataMenus);
 router.post("/planification/create/load/post", controller.insertPlanificationPost);
+router.post("/planification/update/create/load/post", controller.updatePlanificationPost);
 
 router.get("/recomendation", controller.recomendation);
 router.get("/recomendation/view", isAuthenticated,  authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]),  controller.recomendationView);
