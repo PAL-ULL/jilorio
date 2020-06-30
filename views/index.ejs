@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
-
+    <title>Jilorio - Aplicación web de cálculo nutricional</title>
+    <link rel="shortcut icon" href="https://doorcountypulse.com/wp-content/uploads/2020/03/forkspoon.png">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -21,7 +21,7 @@
             <div class="jilorioInfo">
                 <h1 class="display-4"><%= items.myObject.jilorioInfo[0].home.title %></h1>
                 <p><%= items.myObject.jilorioInfo[0].home.description %></p>
-                <p><a class="btn btn-primary btn-lg" href="#" role="button">Comienza ahora &raquo;</a></p>
+                <p><a class="btn btn-primary btn-lg" href="<%= items.myObject.jilorioInfo[0].home.href %>" role="button"><%= items.myObject.jilorioInfo[0].home.text %> &raquo;</a></p>
             </div>
         </div>
         <div class="container">
@@ -35,7 +35,7 @@
                         </div>
                         <h2 class="features-icons-icon"> <%= items.myObject.homeIndex[i].name %></h2>
                         <p class= "text-justify"><%= items.myObject.homeIndex[i].description %> </p>
-                        <p><a class="btn btn-info" href="<%= items.myObject.homeIndex[i].href %>" role="button">Ver más &raquo;</a></p>
+                        <p><a class="btn btn-info" href="<%= items.myObject.homeIndex[i].href %>" role="button"><%= items.myObject.homeIndex[i].text %> &raquo;</a></p>
                     </div>
                 </div>
                 <% } %>
@@ -53,7 +53,7 @@
                         </div>
                         <h2 class="features-icons-icon"> <%= items.myObject.homeIndex[i].name %></h2>
                         <p class= "text-justify"><%= items.myObject.homeIndex[i].description %> </p>
-                        <p><a class="btn btn-info" href="<%= items.myObject.homeIndex[i].href %>" role="button">Ver más &raquo;</a></p>
+                        <p><a class="btn btn-info" href="<%= items.myObject.homeIndex[i].href %>" role="button"><%= items.myObject.homeIndex[i].text %> &raquo;</a></p>
                     </div>
                 </div>
                 <% } %>

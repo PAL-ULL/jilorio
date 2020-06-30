@@ -50,41 +50,53 @@
     "homeIndex": [
         {
             "name": "Alimentos",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "description": "Obtén información nutricional de más de 8700 alimentos. Lleva el análisis, la compilación y la presentación de datos de nutrientes y componentes de alimentos a un nuevo nivel.",
             "icon": "fas fa-apple-alt",
-            "href": "/food"
+            "href": "/food",
+            "text": "Ver más"
         },
         {
             "name": "Platos",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "description": "Visualiza los platos disponibles, su forma de preparación, ingredientes y datos nutricionales. ¿Quieres conocer los datos nutricionales de uno de tus platos? Créalo y podrás tener toda la información nutricional disponible para descargarla.",
             "icon": "fas fa-utensils",
-            "href": "/dish"
+            "href": "/dish",
+            "text": "Ver más"
         },
         {
             "name": "Menús",
-            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "description": "Conoce los menús disponibles, los platos que lo forman, sus ingredientes y datos nutricionales. Añade tus propios menús y descarga la información de cualquiera de la lista.",
             "icon": "fas fa-concierge-bell",
-            "href": "/menu"
+            "href": "/menu",
+            "text": "Ver más"
         },
         {
             "name": "Planificaciones",
-            "description": "Eget dolor morbi non arcu risus. Vitae justo eget magna fermentum iaculis eu non diam. Nunc sed augue lacus viverra vitae congue. Dignissim convallis aenean et tortor at risus viverra adipiscing. Tempor commodo ullamcorper a lacus.",
+            "description": "Planifica los menús de los próximos días, semanas o meses. Tendrás todas las planificaciones visibles y con los datos nutricionales totales listas para descargar.",
             "icon": "fas fa-calendar-alt",
-            "href": "/planification"
+            "href": "/planification",
+            "text": "Ver más"
         },
         {
             "name": "Recomendaciones",
-            "description": "At urna condimentum mattis pellentesque. Justo nec ultrices dui sapien eget mi proin sed libero. Nisi est sit amet facilisis magna etiam tempor orci eu. Id nibh tortor id aliquet lectus proin. Quam quisque id diam vel quam.",
+            "description": "Comprueba los estándares nutricionales que han incluido los nutricionistas en la aplicación y conoce cuáles son los límites saludables de la alimentación.",
             "icon": "fas fa-book",
-            "href": "/recomendation"
+            "href": "/recomendation",
+            "text": "Ver más"
         },
         {
             "name": "Evaluaciones",
-            "description": "Purus sit amet volutpat consequat mauris nunc congue. Viverra maecenas accumsan lacus vel facilisis volutpat est. Sit amet dictum sit amet justo donec enim. Semper feugiat nibh sed pulvinar.",
+            "description": "Verifica si un plato, menú o planificación se ajusta a los valores mínimos y máximos nutricionales de una recomendación",
             "icon": "fas fa-balance-scale",
-            "href": "/evaluation"
+            "href": "/evaluation",
+            "text": "Ver más"
         }
     ],
+    "HomeButtons": {
+        "start": {
+            "text": "Comenzar ahora",
+            "href": "/register"
+        }
+    },
     "infoPage": {
         "alimentos": "Listado de alimentos",
         "platos": "Listado de platos",
@@ -333,7 +345,12 @@
                 "name": "password2"
             }
         ],
-        "button": "Regístrate"
+        "button": "Regístrate",
+        "principal": "REGISTRO",
+        "texto": "Regístrate en la aplicación completando el formulario con tus datos personales.",
+        "pregunta": "¿Tienes cuenta?",
+        "click": "Inicia sesión",
+        "href": "/login" 
     },
     "jsonDish": {
         "ejemplo": "Este es un ejemplo para insertar platos:",
@@ -733,7 +750,12 @@
                 "name": "password"
             }
         ],
-        "button": "Inicia sesión"
+        "button": "Iniciar sesión",
+        "principal": "INICIO DE SESIÓN",
+        "texto": "Inicia sesión utilizando tu nombre de usuario y contraseña asociados a esta aplicación.",
+        "pregunta": "¿No tienes cuenta?",
+        "click": "Regístrate",
+        "href": "/register" 
     },
     "dishIndex": [
         {
@@ -866,7 +888,9 @@
         {
             "home": {
                 "title": "Jilorio",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Jilorio es una aplicación web creada con el fin de evaluar la calidad de platos, menús y planificaciones a partir de recomendaciones dietéticas.",
+                "text": "Comenzar ahora",
+                "href": "/register"
             }
         },
         {

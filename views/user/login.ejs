@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
+    <title>Inicio de sesión de Usuario - Jilorio</title>
+    <link rel="shortcut icon" href="https://doorcountypulse.com/wp-content/uploads/2020/03/forkspoon.png">
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -10,8 +11,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css" />
+
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
 </head>
@@ -31,11 +33,11 @@
                             alt=""></div>
                     <div class="login_text d-flex flex-row justify-content-center align-items-center">
                         <span></span>
-                        <span class="text px-1">INICIO DE SESIÓN</span>
+                        <span class="text px-1"><%= items.myObject.login.principal %></span>
                         <span></span>
                     </div>
                     <div class="login_with_text">
-                        Login with your username and password or using your social media
+                         <span><%= items.myObject.login.texto %> </span>
                     </div>
                 </div>
                 <div class="card-body">
@@ -70,7 +72,7 @@
                 </div>
                 <div class="card-footer d-flex flex-column ">
                     <div class="d-flex justify-content-center align-items-center p-3 texto">
-                        Dont have an account? <a href="/register" class="ml-2">Click here</a>
+                        <span><%= items.myObject.login.pregunta %></span><a href="<%= items.myObject.login.href %>" class="ml-2"><%= items.myObject.login.click %></a>
                     </div>
                 </div>
             </div>

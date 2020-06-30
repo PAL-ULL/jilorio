@@ -4,6 +4,8 @@ html {
 }
 
 body {
+  background-image: url("../images/cubiertos.jpg") no-repeat center center fixed ;
+
   margin-bottom: 60px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -23,10 +25,14 @@ body {
   /* background-color:  rgba(172, 189, 186, 0.70);  */
 }
 
+.btn{
+  font-size: 1.2em !important;
+}
+
 .a{
   color: white;
-
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -135,6 +141,15 @@ label {
 
 nav {
   background-color: #1f2524;
+}
+
+p {
+  font-size: 1.3em;
+}
+
+h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bolder;
 }
 
 h1 {
@@ -281,8 +296,13 @@ table td {
 @import url(https://fonts.googleapis.com/css?family=Open + Sans);
 
 body {
+  
   background: #f2f2f2;
   font-family: "Open Sans", sans-serif;
+}
+
+label{
+  font-size: 1.1em;
 }
 
 .search {
@@ -306,6 +326,10 @@ body {
   color: #00b4cc;
 }
 
+input{
+  font-size: 1.1em !important; 
+}
+
 .searchButton {
   width: 40px;
   height: 36px;
@@ -327,6 +351,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
 
 .spanColor {
     background: linear-gradient(

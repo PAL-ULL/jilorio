@@ -1,91 +1,122 @@
-.beauty_login{
-	max-width: 600px;
-	-webkit-box-shadow: 0px 0px 16px -6px rgba(0,0,0,0.55);
-	-moz-box-shadow: 0px 0px 16px -6px rgba(0,0,0,0.55);
-	box-shadow: 0px 0px 16px -6px rgba(0,0,0,0.55);
-	border-radius: 15px ;
-	border: none;
+.beauty_login {
+  max-width: 600px;
+  -webkit-box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.55);
+  -moz-box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.55);
+  box-shadow: 0px 0px 16px -6px rgba(0, 0, 0, 0.55);
+  border-radius: 15px;
+  border: none;
 }
 
-.beauty_login .card-header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(to top, rgba(146,221,205,1) 0%, rgba(7,110,128,1) 100%);
-    border-top-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom: none;
+.beauty_login .card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(
+    to top,
+    rgba(146, 221, 205, 1) 0%,
+    rgba(7, 110, 128, 1) 100%
+  );
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom: none;
+}
+.btn {
+  font-size: 1.1em;
 }
 
-.beauty_login .card-header .logo{
-    height: 150px;
-    width: 150px;
-    padding: 8px;
-    border-radius: 50%;
-    position: absolute;
-    top: -50px;
-    background: #ffffff;
+span {
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
-.beauty_login .card-header .logo img{
-	width: 100%;
-	height: auto;
+a {
+  font-size: 1.1em;
 }
 
-.beauty_login .card-header .login_text{
-	padding-top: 95px;
-	font-size: 25px;
-	font-weight: bold;
-	width: 100%;
-    color: #ffffff;
-    text-shadow: 2px 2px 2px rgb(7, 7, 7);
-}
-		
-.beauty_login .card-header .login_text > span:not(.text){
-flex: 1;
-height: 2px;
-background: #ffffff85;
+.beauty_login .card-header .logo {
+  height: 150px;
+  width: 150px;
+  padding: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  background: #ffffff;
 }
 
-.beauty_login .card-header .login_with_text{
-    text-align: center;
-    font-size: 16px;
-    color: #ffffff;
-    text-shadow: 1px 1px 2px rgb(7, 7, 7);
+.beauty_login .card-header .logo img {
+  width: 100%;
+  height: auto;
 }
 
-.beauty_login .card-body .login_container .custom-control-input:checked~.custom-control-label::before{
-    border-color: #f5be29 !important;
-    box-shadow: none !important;
-    background: linear-gradient(to top, rgba(146,221,205,1) 0%, rgba(7,110,128,1) 100%);
-}
-.beauty_login .card-body .login_container .input-group .input-group-text{
-    background: linear-gradient(to top, rgba(146,221,205,1) 0%, rgba(7,110,128,1) 100%);
-    color: #ffffff;
+.beauty_login .card-header .login_text {
+  padding-top: 95px;
+  font-size: 25px;
+  font-weight: bold;
+  width: 100%;
+  color: #ffffff;
+  text-shadow: 2px 2px 2px rgb(7, 7, 7);
 }
 
-.card-footer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(241, 245, 246); 
+.beauty_login .card-header .login_text > span:not(.text) {
+  flex: 1;
+  height: 2px;
+  background: #ffffff85;
+}
 
+.beauty_login .card-header .login_with_text {
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgb(7, 7, 7);
+}
+
+.beauty_login
+  .card-body
+  .login_container
+  .custom-control-input:checked
+  ~ .custom-control-label::before {
+  border-color: #f5be29 !important;
+  box-shadow: none !important;
+  background: linear-gradient(
+    to top,
+    rgba(146, 221, 205, 1) 0%,
+    rgba(7, 110, 128, 1) 100%
+  );
+}
+.beauty_login .card-body .login_container .input-group .input-group-text {
+  background: linear-gradient(
+    to top,
+    rgba(146, 221, 205, 1) 0%,
+    rgba(7, 110, 128, 1) 100%
+  );
+  color: #ffffff;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(241, 245, 246);
 }
 .texto {
-    color: black;
-    font-size: medium;
+  color: black;
+  font-size: medium;
 }
 
 .texto a {
-    color: rgb(31, 37, 36); 
+  color: rgb(31, 37, 36);
 }
 
-body{  
-    background-image:  radial-gradient(ellipse at center, rgba(245,249,255,1) 0%, rgba(205,236,250,1) 100%);
+body {
+  background-image: radial-gradient(
+    ellipse at center,
+    rgba(245, 249, 255, 1) 0%,
+    rgba(205, 236, 250, 1) 100%
+  );
 }
 
-.alerts{
-    margin-top: 100px;
-    margin-bottom: 100px;
-    width: 100%
+.alerts {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 100%;
 }
