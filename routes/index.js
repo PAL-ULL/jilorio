@@ -73,7 +73,7 @@ router.get("/recomendation/insert", isAuthenticated, authRoleMultiple(["admin", 
 router.post("/recomendation/insert", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertRecomendationPost);
 router.get("/recomendation/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateRecomendation);
 router.post("/recomendation/update/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.updateRecomendationPost);
-router.get("/recomendation/:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.recomendationDetails);
+router.get("/recomendation/:_id?", controller.recomendationDetails);
 router.get("/recomendation/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.removeRecomendation);
 router.post("/recomendation/view:_id?", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "nutricionista"]), controller.getRecomendation);
 router.get("/recomendation/insert/json",  controller.insertRecomendationJson);

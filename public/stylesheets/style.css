@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  background-image: url("../images/cubiertos.jpg") no-repeat center center fixed ;
+  background-image: url("../images/cubiertos.jpg") no-repeat center center fixed;
 
   margin-bottom: 60px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -25,19 +25,29 @@ body {
   /* background-color:  rgba(172, 189, 186, 0.70);  */
 }
 
-.btn{
+.btn {
   font-size: 1.2em !important;
 }
 
-.a{
+.a {
   color: white;
+}
+a:hover {
+  color: #343a40;
+}
+
+.imgen {
+  width: 80%;
+  height: 99%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 80px;
   line-height: 60px;
   background-color: rgb(31, 37, 36);
   border-top: 2px solid rgba(172, 189, 186, 0.2);
@@ -48,35 +58,34 @@ body {
   font-weight: bold;
 }
 
-.textarea{
+.textarea {
   width: 90%;
 }
 
-
-
-.cardJson{
-
+.cardJson {
   box-shadow: 15px 15px 5px 0px rgba(170, 167, 167, 0.6);
   border: 6px dashed #0d6977;
   /* border-style: ; */
-  background-image:  radial-gradient(ellipse at center, rgb(255, 255, 255) 0%, rgb(253, 250, 250) 100%);
+  background-image: radial-gradient(
+    ellipse at center,
+    rgb(255, 255, 255) 0%,
+    rgb(253, 250, 250) 100%
+  );
   padding: 40px;
-  
+
   margin-bottom: 20px;
 }
 
-
-.ejemplo{
+.ejemplo {
   padding-left: 20px;
   font-size: 1.2em;
   font-weight: bold;
 }
 
-
-.nutrientesTitle{
-    font-size: 1.5em;
-    text-align: center;
-    font-weight: bold;
+.nutrientesTitle {
+  font-size: 1.5em;
+  text-align: center;
+  font-weight: bold;
 }
 
 label {
@@ -89,7 +98,6 @@ label {
   background-size: cover;
   background-repeat: no-repeat;
 }
-
 
 .infoPage {
   width: 100%;
@@ -107,17 +115,14 @@ label {
   margin-bottom: 15px;
 }
 
-
 .features-icons-icon:hover {
   transform: scale(1.18);
-
 }
 
 .infoPage span {
-    font-family: sans-serif;
+  font-family: sans-serif;
   font-weight: bold;
   font-size: 38px;
-
 }
 
 .footer > .container {
@@ -148,12 +153,12 @@ p {
 }
 
 h2 {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bolder;
 }
 
 h1 {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
   margin-top: 40px;
   text-align: justify;
@@ -177,6 +182,10 @@ h1 {
   align-items: center;
   /* background-color: rgba(252, 247, 0, 0.25); */
   background-image: url("../images/platos.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .platos {
@@ -193,6 +202,10 @@ h1 {
   /* background-color: rgba(0, 255, 213, 0.25);
      */
   background-image: url("../images/menu.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .menus {
@@ -208,6 +221,10 @@ h1 {
   align-items: center;
   /* background-color: rgba(0, 153, 255, 0.25); */
   background-image: url("../images/planificacion.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .page-item.active .page-link {
@@ -232,6 +249,10 @@ h1 {
   align-items: center;
   /* background-color: rgba(0, 153, 255, 0.25); */
   background-image: url("../images/carne.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .recomendation {
@@ -247,6 +268,10 @@ h1 {
   align-items: center;
   /* background-color: rgba(0, 153, 255, 0.25); */
   background-image: url("../images/recomendacion.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .recomendation {
@@ -262,6 +287,10 @@ h1 {
   align-items: center;
   /* background-color: rgba(0, 153, 255, 0.25); */
   background-image: url("../images/evaluacion.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .evaluation {
@@ -277,6 +306,11 @@ h1 {
   align-items: center;
   /* background-color: rgba(0, 153, 255, 0.25); */
   background-image: url("../images/alimentos.png");
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll;
 }
 
 .food {
@@ -296,12 +330,11 @@ table td {
 @import url(https://fonts.googleapis.com/css?family=Open + Sans);
 
 body {
-  
   background: #f2f2f2;
   font-family: "Open Sans", sans-serif;
 }
 
-label{
+label {
   font-size: 1.1em;
 }
 
@@ -326,8 +359,8 @@ label{
   color: #00b4cc;
 }
 
-input{
-  font-size: 1.1em !important; 
+input {
+  font-size: 1.1em !important;
 }
 
 .searchButton {
@@ -352,24 +385,21 @@ input{
   transform: translate(-50%, -50%);
 }
 
-
-
 .spanColor {
-    background: linear-gradient(
-      to top,
-      rgba(146, 221, 205, 1) 0%,
-      rgba(7, 110, 128, 1) 100%
-    );
-    color: #ffffff;
-  }
+  background: linear-gradient(
+    to top,
+    rgba(146, 221, 205, 1) 0%,
+    rgba(7, 110, 128, 1) 100%
+  );
+  color: #ffffff;
+}
 
-  .jsonBody{
-   
-    background: linear-gradient(
-      to bottom,
-      rgba(252, 252, 252, 1) 0%,
-      rgba(252, 252, 252, 0.8) 30%,
-      rgba(206, 206, 206, 0.5) 70%,
-      rgba(132, 146, 150, 0.45) 100%
-    );
-  }
+.jsonBody {
+  background: linear-gradient(
+    to bottom,
+    rgba(252, 252, 252, 1) 0%,
+    rgba(252, 252, 252, 0.8) 30%,
+    rgba(206, 206, 206, 0.5) 70%,
+    rgba(132, 146, 150, 0.45) 100%
+  );
+}

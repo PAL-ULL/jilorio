@@ -1,0 +1,12 @@
+body {
+    background-image:  url("../images/food.png");
+    /* background-position: 0cm; */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: scroll;
+  }
+  
+  td{
+      background-color: white;
+  }

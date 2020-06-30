@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
+    <title>Información detallada de una recomendación dietética - Jilorio</title>
+    <link rel="shortcut icon" href="https://doorcountypulse.com/wp-content/uploads/2020/03/forkspoon.png">
 
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -12,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
@@ -32,16 +34,18 @@
             <span> <%= items.myDocs._id %> </span>
         </div>
         <hr style="border-color: rgb(46, 115, 124); border: 1.5px solid  rgb(46, 115, 124);">
+        <div class="cardInside3">
         <div class="row cont justify-content-between">
-            <div class="col-8">
+            <div class="col-sm">
                 <p class="descriptionRec"> <%= items.myDocs.description %> </p>
                
             </div>
-            <div class="col-4">
+            <div class="col-sm">
                 <p class="descriptionRec edad"> <%= items.myDocs.edad %> </p>
             </div>
         </div>
-
+    </div>
+    <br><br>
 
         <% if ((items.myObject.tablaRecomendacionDetails.valores.length) > 0) { %>
             <table id="alimentos" class="table table-bordered table-hover table-sm">
