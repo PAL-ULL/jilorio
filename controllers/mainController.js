@@ -9,7 +9,8 @@ const password = "password123";
 const host = "127.0.0.1";
 const port = "27017";
 const name = "entullo";
-const url = `mongodb://${host}:${port}/${name}`;
+// const url = `mongodb://${host}:${port}/${name}`;
+const url = "<dbuser>:<dbpassword>@ds123662.mlab.com:23662/heroku_zp6jl2nt";
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const bcrypt = require('bcryptjs')
