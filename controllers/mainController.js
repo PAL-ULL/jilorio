@@ -883,8 +883,6 @@ let controller = {
     },
 
     insertMenuPost: async function (req, res) {
-
-        console.log(req.body);
         const _id = req.body.title;
         const description = req.body.description;
         const platos = req.body.platos;
