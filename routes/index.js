@@ -10,7 +10,7 @@ const {isAuthenticated, authRole, authRoleMultiple} = require("../config/helper"
 router.get("/", controller.home);
 
 router.get("/food", controller.food);
-router.get("/food/view", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "cocinero", "nutricionista"]),  controller.foodView);
+router.get("/food/view",  controller.foodView);
 router.post("/food/view", isAuthenticated, authRoleMultiple(["admin", "cocinero", "default", "cocinero", "nutricionista"]), controller.getFood);
 router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "cocinero"]), controller.getFood);
 // router.post("/saveDish", controller.saveDish);
