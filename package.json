@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
+    "dev": "nodemon app.js",
     "lint:ejs": "ejslint views/partials/message.ejs"
   },
   "author": "Kathrina Arrocha",
