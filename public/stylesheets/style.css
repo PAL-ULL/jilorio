@@ -175,13 +175,13 @@ nav {
 p {
   font-size: 1.1em;
   font-weight: 400;
-  /* display: block;
+  display: block;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-top: 0;
-  margin-bottom: 1rem; */
+  margin-bottom: 1rem;
 }
 
 .feature {
@@ -447,8 +447,9 @@ input {
 }
 
 
-@media (max-width: 400px) {
-  .jilorioInfo {
-    max-width: auto !important;
+@media screen and (max-width: 600px){
+  .jilorioInfo{
+  width:100%;
+  height:auto;
   }
-}
+  }
