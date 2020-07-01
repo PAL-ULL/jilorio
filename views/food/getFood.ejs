@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
@@ -48,8 +50,8 @@
                 </div>
             </div>
         </form>
-
-
+<br>
+<div class="cardInside3">
         <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
             <table id="alimentos" class="table table-bordered table-hover table-sm">
                 <thead class="thead-dark">
@@ -81,6 +83,7 @@
             </table>
             <% } %>
     </div>
+</div>
     <%- include ("../partials/footer.ejs"); %>
 
     <script>

@@ -67,21 +67,38 @@ a:hover {
   width: 90%;
 }
 
-#alimentos {
+table {
   table-layout: fixed;
   width: 100% !important;
 }
-#alimentos td {
+table td {
   width: auto !important;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-#alimentos th {
+table th {
   width: auto !important;
   white-space: normal;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.pagination {
+  max-width: 50% !important;
+  width: auto !important;
+  table-layout: fixed;
+  width: 100% !important;
+}
+
+.dataTables_paginate{
+
+  padding-top: 50px !important;
+  padding-left: 80px !important;
+  max-width: 50% !important;
+  width: auto !important;
+  table-layout: fixed;
+  width: 100% !important;
 }
 
 .cardJson {
