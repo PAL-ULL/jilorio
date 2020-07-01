@@ -11,6 +11,6 @@ const name = "entullo";
 
 module.exports = {
     // database:`mongodb://${host}:${port}/${name}`,
-    database:"<dbuser>:<dbpassword>@ds123662.mlab.com:23662/heroku_zp6jl2nt",
+    database:"ds123662.mlab.com:23662/heroku_zp6jl2nt",
     secret: 'yoursecret'
 }

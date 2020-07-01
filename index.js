@@ -12,7 +12,7 @@ const name = "entullo";
 
 mongoose.Promise = global.Promise;
 // mongoose.connect(`mongodb://${host}:${port}/${name}`)
-mongoose.connect("mongodb://<dbuser>:<dbpassword>@ds123662.mlab.com:23662/heroku_zp6jl2nt")
+mongoose.connect("mongodb://ds123662.mlab.com:23662/heroku_zp6jl2nt")
 .then(() =>{
   console.log("\nConexión a la base de datos establecida.");
  
