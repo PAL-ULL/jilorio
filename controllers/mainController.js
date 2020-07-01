@@ -2245,8 +2245,8 @@ let controller = {
 
 
     evaluationView: function (req, res) {
-
-        Valuation.find(query, async function (err, docs) {
+        console.log("LLEGAAAAAAAAAA")
+        Valuation.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {

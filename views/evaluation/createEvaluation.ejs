@@ -217,12 +217,12 @@
                 data: JSON.stringify(formData),
                 dataType: 'json',
                 success: function (docs) {
-                    window.location.href = "/planification/view";
-                    $("#cardInside").css('display', 'block');
-                    $("#cardInside").css('padding-bottom', '-20px');
-                    $("#cardInside").html("<p>" +
-                        "<b>Evaluación realizada: </b><br>" +
-                        " Los resultados obtenidos empleando " + docs.recomendacion + " para " + docs.candidato + " se encuentran actualmente disponibles. </p><br>");
+                    window.location.href = "/evaluation/view";
+                    // $("#cardInside").css('display', 'block');
+                    // $("#cardInside").css('padding-bottom', '-20px');
+                    // $("#cardInside").html("<p>" +
+                    //     "<b>Evaluación realizada: </b><br>" +
+                    //     " Los resultados obtenidos empleando " + docs.recomendacion + " para " + docs.candidato + " se encuentran actualmente disponibles. </p><br>");
 
 
                 },
