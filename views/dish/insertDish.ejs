@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
-
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
     <!-- JQUERY AUTOCOMPLETE -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -34,9 +34,10 @@
 
 
     <div class="container">
+        <div class="cardInside2">
         <h1><%= items.myObject.dish.title %></h1>
         <%- include ("../partials/message.ejs"); %>
-
+        </div>
         <div class="card">
             <form method="POST" , id="aux" action='./insert'>
                 <br>
@@ -314,8 +315,11 @@
                 </div>
             </div>
         </form>
+        <br><br>
+
 
         <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
+            <div class="cardInside3">
         <table id="alimentos" class="table table-bordered table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
@@ -341,6 +345,7 @@
             </tbody>
 
         </table>
+    </div>
         <% } %>
     </div>
     <%- include ("../partials/footer.ejs"); %>
@@ -353,6 +358,9 @@
     $(document).ready(function () {
         $('#alimentos').DataTable({
             "language": {
+             
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+
                 "emptyTable": " "
             }
         });

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
     <!-- JQUERY AUTOCOMPLETE -->
@@ -35,7 +36,10 @@
 
 
     <div class="container">
-        <h1><%= items.myObject.planificacion.title %></h1>
+        <div class="cardInside2">
+            <h1><%= items.myObject.planificacion.title %></h1>
+        </div>
+        <br>
         <%- include ("../partials/message.ejs"); %>
 
         <div class="card">
@@ -227,9 +231,9 @@
                         // $('.lista2 select').empty();
                         // console.log("TAMAÑO------------> " + $('.lista2 select').length)
                         // if ($('.lista2 select').length === 0) {
-                            $.each(result, function (i, menu) {
-                                $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
-                            });
+                        $.each(result, function (i, menu) {
+                            $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
+                        });
                         // }
                     },
 

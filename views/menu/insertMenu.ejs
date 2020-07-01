@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/menu.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
     <!-- JQUERY AUTOCOMPLETE -->
@@ -34,7 +35,9 @@
 <body>
     <%- include ("../partials/navigation.ejs"); %>
     <div class="container">
+        <div class="cardInside2">
         <h1><%= items.myObject.menu.title %></h1>
+        </div>
         <%- include ("../partials/message.ejs"); %>
 
         <div class="card">

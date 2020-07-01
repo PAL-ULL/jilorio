@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/menu.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
     <!-- JQUERY AUTOCOMPLETE -->
@@ -34,9 +35,16 @@
 <body>
     <%- include ("../partials/navigation.ejs"); %>
     <div class="container">
+        <div class="cardInside2">
         <h1><%= items.myObject.menu.update %></h1>
-        <h2><%= items.myMenu._id %></h2>
+        </div>
+        <br>
         <%- include ("../partials/message.ejs"); %>
+        <br>
+        <div class="cardInside3">
+        <h2><%= items.myMenu._id %></h2>
+        </div>
+  
 
         <div class="card">
             <form method="POST" , id="aux" action=''>

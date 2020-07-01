@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  background-image: url("../images/cubiertos.jpg") no-repeat center center fixed;
+
 
   margin-bottom: 60px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -23,6 +23,11 @@ body {
   color: rgba(255, 255, 255, 0.897);
   background-color: rgba(31, 37, 36, 0.92);
   /* background-color:  rgba(172, 189, 186, 0.70);  */
+}
+
+.detailsSpan {
+  font-weight: 900;
+  font-size: 1.4rem;
 }
 
 .btn {
@@ -60,6 +65,23 @@ a:hover {
 
 .textarea {
   width: 90%;
+}
+
+#alimentos {
+  table-layout: fixed;
+  width: 100% !important;
+}
+#alimentos td{
+  width: auto !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#alimentos th{
+  width: auto !important;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .cardJson {
@@ -149,7 +171,23 @@ nav {
 }
 
 p {
-  font-size: 1.3em;
+  font-size: 1.1em;
+  font-weight: 400;
+  display: block;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.feature {
+  font-weight: 800 !important;
+  padding: 10px;
+  font-size: 1.4rem;
+
+  /* padding-bottom: 20px; */
 }
 
 h2 {
@@ -167,13 +205,7 @@ h1 {
   text-shadow: 3px 2px 2px rgb(100, 103, 104);
 }
 
-.table {
-  text-align: center;
-  margin-bottom: 40px;
-  border: 2px solid rgb(46, 115, 124);
-  border-collapse: collapse;
-  box-shadow: 10px 10px 5px 0px rgba(170, 167, 167, 0.6);
-}
+
 
 .jumbotronPlatos {
   min-height: 400px;
@@ -402,4 +434,12 @@ input {
     rgba(206, 206, 206, 0.5) 70%,
     rgba(132, 146, 150, 0.45) 100%
   );
+}
+
+.table {
+  text-align: center;
+  margin-bottom: 40px;
+  border: 2px solid rgb(46, 115, 124);
+
+  box-shadow: 5px 5px 5px 0px rgba(170, 167, 167, 0.6);
 }

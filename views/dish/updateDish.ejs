@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
     <!-- JQUERY AUTOCOMPLETE -->
@@ -35,8 +36,16 @@
 
 
     <div class="container">
-        <h1><%= items.myObject.dish.update %></h1>
+        <div class="cardInside2">
+            <h1><%= items.myObject.dish.update %></h1>
+        </div>
+        <br>
         <%- include ("../partials/message.ejs"); %>
+        <br>
+        <div class="cardInside3">
+            <h2><%= items.myDocs._id %></h2>
+        </div>
+     
 
         <div class="card">
             <form method="POST" , id="aux">
@@ -85,8 +94,8 @@
                                     <% if (items.myObject.dish.formIngredientes[i].label === "Cantidad") { %>
 
 
-                                    <input class="MyInputs form-control" type="<%= items.myObject.dish.formIngredientes[i].type %>"
-                                  
+                                    <input class="MyInputs form-control"
+                                        type="<%= items.myObject.dish.formIngredientes[i].type %>"
                                         placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
                                         aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
                                         aria-describedby="basic-addon1"
@@ -138,13 +147,13 @@
                             </div>
                             <% } %>
                             <% if ( k > 0) { %>
-                                <div class="col-sm">
-                            <input style="margin-top: 30px" class="btn btn-danger eliminar2"
-                                type="button" value="Eliminar">
-                                </div>
-                                <% } else{%>
-                                    <div class="col-sm"> </div>
-                                    <% } %>
+                            <div class="col-sm">
+                                <input style="margin-top: 30px" class="btn btn-danger eliminar2" type="button"
+                                    value="Eliminar">
+                            </div>
+                            <% } else{%>
+                            <div class="col-sm"> </div>
+                            <% } %>
                         </div>
                         <% } %>
 
@@ -161,7 +170,7 @@
                     //     if (fila.length - 1) {
                     //         const boton = document.querySelector('.eliminar2');
                     //         boton.disabled = false;
-                           
+
                     //     } else {
                     //         const boton = document.querySelector('.eliminar2');
                     //         boton.disabled = true;
@@ -174,7 +183,7 @@
                         if (fila.length - 4) {
                             $(this).closest('.row').remove();
                         }
-                       
+
                     });
 
                     const bSubmit = document.querySelector('#bSubmit');
@@ -279,9 +288,9 @@
                         eliminar.classList.add("eliminar");
                         eliminar.setAttribute("type", "button");
                         eliminar.value = "Eliminar"
-         
+
                         // col.style.display = "table";
-                        eliminar.style.marginTop="30px"
+                        eliminar.style.marginTop = "30px"
                         // eliminar.style.verticalAlign="middle"
                         // col.style["align-items"] = "center";
                         // col.style["padding-top"] = "12px";
@@ -384,33 +393,38 @@
             </div>
         </form>
 
-        <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
-        <table id="alimentos" class="table table-bordered table-hover table-sm">
-            <thead class="thead-dark">
-                <tr>
+        <br><br>
 
-                    <% for (var i=0; i< items.myObject.tablaAlimentos.nombres.length; i++) { %>
-                    <th> <%- items.myObject.tablaAlimentos.nombres[i] %> </th>
-                    <% } %>
+            <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
+                <div class="cardInside3">
+            <table id="alimentos" class="table table-bordered table-hover table-sm" >
+                <thead class="thead-dark">
+                    <tr>
 
-                </tr>
-            </thead>
-            <tbody>
-                <% for (var i=0; i< items.myFood.length; i++) { %>
-                <tr>
-                    <% for (var j=0; j< items.myObject.tablaAlimentos.valores.length; j++) { %>
-                    <% if ((items.myFood[i][items.myObject.tablaAlimentos.valores[j]]) === "") { %>
-                    <td> - </td>
-                    <% } else { %>
-                    <td> <%= items.myFood[i][items.myObject.tablaAlimentos.valores[j]] %> </td>
-                    <% } %>
-                    <% } %>
-                </tr>
-                <% } %>
-            </tbody>
+                        <% for (var i=0; i< items.myObject.tablaAlimentos.nombres.length; i++) { %>
+                        <th> <%- items.myObject.tablaAlimentos.nombres[i] %> </th>
+                        <% } %>
 
-        </table>
-        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i< items.myFood.length; i++) { %>
+                    <tr>
+                        <% for (var j=0; j< items.myObject.tablaAlimentos.valores.length; j++) { %>
+                        <% if ((items.myFood[i][items.myObject.tablaAlimentos.valores[j]]) === "") { %>
+                        <td> - </td>
+                        <% } else { %>
+                        <td> <%= items.myFood[i][items.myObject.tablaAlimentos.valores[j]] %> </td>
+                        <% } %>
+                        <% } %>
+                    </tr>
+                    <% } %>
+                </tbody>
+
+            </table>
+        </div>
+            <% } %>
+  
     </div>
     <%- include ("../partials/footer.ejs"); %>
 
@@ -418,10 +432,15 @@
 
 </body>
 
+
+
 <script>
     $(document).ready(function () {
         $('#alimentos').DataTable({
             "language": {
+             
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+
                 "emptyTable": " "
             }
         });

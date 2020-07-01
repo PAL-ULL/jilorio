@@ -266,7 +266,9 @@
             "proteinMax",
             "carbohydrtMin",
             "carbohydrtMax"
-        ]
+        ],
+        "title": "Datos de la recomendación",
+        "edad": "Edad recomendada:"
     },
     "tablaEvaluacion": {
         "nombres": [
@@ -435,7 +437,7 @@
         "updateFormFirst": ["_id", "description", "recipe", "imageURL" ],
         "updateFormSecond": ["name", "amount", "unitMeasure" ],
         "button": "Confirmar",
-        "update": "Actualización de plato"
+        "update": "Actualización de un plato"
     },
     "menu": {
         "title": "Inserción de menus",
@@ -467,7 +469,7 @@
                 "name": "platos[]"
             }
         ],
-        "update": "Actualización de menú",
+        "update": "Actualización de un menú",
         "updateFormFirst": ["_id", "description" ],
         "button": "Confirmar"
     },
@@ -538,6 +540,7 @@
     },
     "recomendacion": {
         "title": "Inserción de una recomendación",
+        "update": "Actualización de una recomendación",
         "form": [
             {
                 "label": "Introduzca el nombre de la recomendación",
@@ -647,7 +650,7 @@
         "label": "Archivo .json"
     },
     "evaluacion": {
-        "title": "Generar evaluación",
+        "title": "Crear evaluación",
         "recomendacion":[
             {
                 "label": "Tipo de recomendación a usar",
@@ -758,23 +761,25 @@
         "href": "/register" 
     },
     "dishIndex": [
+
+        
         {
-            "name": "Añadir plato",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "name": "Ver platos",
+            "description": "Visualiza los platos, sus ingredientes y los datos nutricionales de cada uno de ellos.",
+            "icon": "fas fa-search",
+            "href": "/dish/view"
+        },
+        {
+            "name": "Añadir platos",
+            "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
             "href": "/dish/insert"
         },
         {
-            "name": "Añadir plato desde un archivo json",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "name": "Añadir platos desde un archivo JSON",
+            "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
             "href": "/dish/insertDishJson"
-        },
-        {
-            "name": "Ver platos",
-            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
-            "icon": "fas fa-search",
-            "href": "/dish/view"
         }
     ],
     "dishDetails": [
@@ -793,80 +798,78 @@
     "recipeDish": "Ir a la receta",
     "menuIndex": [
         {
-            "name": "Añadir menú",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "name": "Ver menús",
+            "description": "Visualiza los menús, los platos que lo forman y los datos nutricionales de cada uno de ellos.",
+            "icon": "fas fa-search",
+            "href": "/menu/view"
+        },
+        {
+            "name": "Añadir menús",
+            "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
             "href": "/menu/insert"
         },
         {
-            "name": "Añadir menú desde un archivo json",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "name": "Añadir menús desde un archivo JSON",
+            "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
             "href": "/menu/insertJson"
-        },
-        {
-            "name": "Ver menús",
-            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
-            "icon": "fas fa-search",
-            "href": "/menu/view"
         }
+        
     ],
     "planificationIndex": [
         {
-            "name": "Añadir planificación",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "name": "Ver planificaciones",
+            "description": "Visualiza las planificaciones, los menús de cada día y los datos nutricionales de cada planificación.",
+            "icon": "fas fa-search",
+            "href": "/planification/view"
+        },
+        {
+            "name": "Añadir planificaciones",
+            "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
             "href": "/planification/insert"
         },
         {
-            "name": "Añadir planificación desde un archivo json",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "name": "Añadir planificaciones desde un archivo JSON",
+            "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
             "href": "/planification/insertJson"
-        },
-        {
-            "name": "Ver planificaciones",
-            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
-            "icon": "fas fa-search",
-            "href": "/planification/view"
         }
+
     ],
     "recomendationIndex": [
         {
-            "name": "Añadir recomendación",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "name": "Ver recomendaciones",
+            "description": "Visualiza las recomendaciones nutricionales aportadas por nutricionistas.",
+            "icon": "fas fa-search",
+            "href": "/recomendation/view"
+        },
+        {
+            "name": "Añadir recomendaciones",
+            "description": "Siendo nutricionista, podrás crear tus propias recomendaciones a través de un simple formulario.",
             "icon": "fas fa-edit",
             "href": "/recomendation/insert"
         },
         {
-            "name": "Añadir recomendación desde un archivo json",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
+            "name": "Añadir recomendaciones desde un archivo JSON",
+            "description": "Siendo nutricionista, crea tus propias recomendaciones a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
             "href": "/recomendation/insertJson"
-        },
-        {
-            "name": "Ver recomendaciones",
-            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
-            "icon": "fas fa-search",
-            "href": "/recomendation/view"
         }
+
     ],
     "evaluationIndex": [
         {
-            "name": "Añadir evaluación",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "name": "Realizar evaluaciones",
+            "description": "Crea tus propias planificaciones, utilizando los platos, menús y planificaciones disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
             "href": "/evaluation/insert"
         },
-        {
-            "name": "Añadir evaluación desde un archivo json",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
-            "icon": "fas fa-file-alt",
-            "href": "/evaluation/insertJson"
-        },
+        
         {
             "name": "Ver evaluaciones",
-            "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse.",
+            "description": "Visualiza los resultados de las evaluaciones de platos, menús y planificaciones.",
             "icon": "fas fa-search",
             "href": "/evaluation/view"
         }
@@ -874,14 +877,9 @@
     "foodIndex": [
         {
             "name": "Ver alimentos",
-            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida rutrum quisque non tellus orci ac. Laoreet id donec ultrices tincidunt arcu non sodales neque sodales.",
+            "description": "Visualiza los datos nutricionales de más de 8700 alimentos.",
             "icon": "fas fa-edit",
             "href": "/food/view"
-        },
-        {
-            "name": "Ver nutrientes de alimentos",
-            "description": "Dictum varius duis at consectetur lorem donec massa sapien. Aliquam id diam maecenas ultricies mi. Pretium viverra suspendisse potenti nullam ac. Viverra nibh cras pulvinar mattis nunc.",
-            "icon": "fas fa-file-alt"
         }
     ],
     "jilorioInfo": [

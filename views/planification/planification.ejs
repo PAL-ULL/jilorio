@@ -30,14 +30,15 @@
                 <div class="row">
                     <% for (var i=0; i < items.myObject.planificationIndex.length; i++) { %>
                     <div class="col-md-4">
-                        <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3">
+                        <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3" style="min-height: 245px;">
                             <div class="features-icons-icon d-flex">
                                 <i class="<%= items.myObject.planificationIndex[i].icon%> fa-3x m-auto text-info"></i>
                             </div>
-                            <h2> <%= items.myObject.planificationIndex[i].name %></h2>
+                            <div class="feature features-icons-icon"><%= items.myObject.planificationIndex[i].name %></div>
                             <p class="text-justify"><%= items.myObject.planificationIndex[i].description %> </p>
+                            </div>
                             <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
-                        </div>
+                      
                     </div>
                     <% } %>
                 </div>

@@ -30,14 +30,17 @@
                 <div class="row">
                     <% for (var i=0; i < items.myObject.menuIndex.length; i++) { %>
                     <div class="col-md-4">
-                        <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3">
+                        <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3" style="min-height: 255px;">
                             <div class="features-icons-icon d-flex">
                                 <i class="<%= items.myObject.menuIndex[i].icon%> fa-3x m-auto text-info"></i>
                             </div>
-                            <h2> <%= items.myObject.menuIndex[i].name %></h2>
+                            <div class="feature features-icons-icon"> <%= items.myObject.menuIndex[i].name %></div>
+
                             <p class="text-justify"><%= items.myObject.menuIndex[i].description %> </p>
-                            <p><a class="btn btn-info" href="<%= items.myObject.menuIndex[i].href %>"  role="button">Ver más &raquo;</a></p>
+
                         </div>
+                        <p><a class="btn btn-info" href="<%= items.myObject.menuIndex[i].href %>" role="button">Ver más
+                                &raquo;</a></p>
                     </div>
                     <% } %>
                 </div>

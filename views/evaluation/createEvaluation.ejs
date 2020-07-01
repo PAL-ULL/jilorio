@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo2.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
     <!-- JQUERY AUTOCOMPLETE -->
@@ -35,9 +37,12 @@
 
 
     <div class="container">
-        <h1><%= items.myObject.evaluacion.title %></h1>
+        <div class="cardInside2">
+            <h1><%= items.myObject.evaluacion.title %></h1>
+        </div>
+        <br>
         <%- include ("../partials/message.ejs"); %>
-
+        <br>
         <div class="card">
             <form method="POST" , id="aux" action=''>
                 <% for (var i=0; i< items.myObject.evaluacion.recomendacion.length; i++) { %>
@@ -81,11 +86,11 @@
                 </div>
                 <% } %>
 
-                <div class="lista2" id="lista2">
+                <div class="lista2" id="lista2" style="padding-left: 16px; padding-right: 16px; ">
                     <select required class='mySelect form-control' id="select2"></select>
                 </div>
                 <br> <br>
-                <div id="cardInside" class="cardInsideVal" style="display: none;" ></div>
+                <div id="cardInside" class="cardInsideVal" style="display: none;"></div>
                 <br>
                 <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
 
@@ -219,7 +224,7 @@
                         "<b>Evaluación realizada: </b><br>" +
                         " Los resultados obtenidos empleando " + docs.recomendacion + " para " + docs.candidato + " se encuentran actualmente disponibles. </p><br>");
 
-                    
+
                 },
                 error: function (e) {
                     alert("Error!")
@@ -240,57 +245,3 @@
 
     })
 </script>
-
-<!-- <script type="text/javascript">
-$(document).ready(function(){
-    $("#lista1").val(0);
-    recargarLista();
-
-    $("#lista1").change(function(){
-        recargarLista();
-    });
-})
-</script>
-
-<script type="text/javascript">
-   function recargarLista(req, res){
-       
-       $.ajax({
-            url: "create/load",
-            type: "POST",
-            data: req,
-            success: function (data) {
-                res(data);
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    
-   }
-    </script> -->
-
-<!-- <script>
-    $(function () {
-        $(".lista1").change({
-            
-            source: function (req, res) {
-                console.log("entra")
-                $.ajax({
-                    url: "create/load/",
-                    dataType: "jsonp",
-                    type: "GET",
-                    data: req,
-                    success: function (data) {
-                        console.log("hey")
-                        res(data);
-                    },
-                    error: function (err) {
-                        console.log(err);
-                    }
-                });
-            },
-
-        })
-    });
-</script> -->

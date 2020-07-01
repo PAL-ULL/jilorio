@@ -30,14 +30,15 @@
                 <div class="row">
                     <% for (var i=0; i < items.myObject.evaluationIndex.length; i++) { %>
                     <div class="col-md-4">
-                        <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3">
+                        <div class=" mx-auto mb-5 mb-lg-0 mb-lg-3" style="min-height: 235px;">
                             <div class="features-icons-icon d-flex">
                                 <i class="<%= items.myObject.evaluationIndex[i].icon%> fa-3x m-auto text-info"></i>
                             </div>
-                            <h2> <%= items.myObject.evaluationIndex[i].name %></h2>
+                            <div class="feature features-icons-icon">  <%= items.myObject.evaluationIndex[i].name %></div>
                             <p class="text-justify"><%= items.myObject.evaluationIndex[i].description %> </p>
-                            <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                         
                         </div>
+                        <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
                     </div>
                     <% } %>
                 </div>

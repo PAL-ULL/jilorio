@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
     <!-- JQUERY AUTOCOMPLETE -->
@@ -35,8 +36,15 @@
 
 
     <div class="container">
-        <h1><%= items.myObject.planificacion.title %></h1>
-        <%- include ("../partials/message.ejs"); %>
+        <div class="cardInside2">
+        <h1><%= items.myObject.planificacion.update %></h1>
+    </div>
+    <br>
+    <%- include ("../partials/message.ejs"); %>
+    <br>
+    <div class="cardInside3">
+        <h2><%= items.myDocs._id %></h2>
+    </div>
 
         <div class="card">
             <form method="POST" , id="aux" action='./insert'>
