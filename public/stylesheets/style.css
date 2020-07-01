@@ -449,6 +449,6 @@ input {
 
 @media (max-width: 400px) {
   .jilorioInfo {
-    max-width: auto;
+    max-width: auto !important;
   }
 }
