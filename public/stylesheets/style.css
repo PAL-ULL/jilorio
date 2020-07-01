@@ -445,3 +445,10 @@ input {
 
   box-shadow: 5px 5px 5px 0px rgba(170, 167, 167, 0.6);
 }
+
+
+@media only screen and (max-width: 400px) {
+  .jilorioInfo {
+    max-width: auto;
+  }
+}
