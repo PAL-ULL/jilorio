@@ -744,6 +744,7 @@ let controller = {
                     const value = await calculateNutrientsMenu(docs[i])
                     valores.push(value);
                 }
+                console.log(req.user);
                 res.render('menu/getMenu', {
                     items: {
                         req: req,
