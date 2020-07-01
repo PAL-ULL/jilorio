@@ -4,8 +4,6 @@ html {
 }
 
 body {
-
-
   margin-bottom: 60px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -73,12 +71,12 @@ a:hover {
   table-layout: fixed;
   width: 100% !important;
 }
-#alimentos td{
+#alimentos td {
   width: auto !important;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-#alimentos th{
+#alimentos th {
   width: auto !important;
   white-space: normal;
   text-overflow: ellipsis;
@@ -206,8 +204,6 @@ h1 {
   color: #ffffff;
   text-shadow: 3px 2px 2px rgb(100, 103, 104);
 }
-
-
 
 .jumbotronPlatos {
   min-height: 400px;
@@ -446,11 +442,10 @@ input {
   box-shadow: 5px 5px 5px 0px rgba(170, 167, 167, 0.6);
 }
 
-
-@media screen and (max-width: 600px){
-  .jilorioInfo{
-  width:100%;
-  max-width: 100%;
-  height:auto;
+@media screen and (max-width: 600px) {
+  .jilorioInfo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
   }
-  }
+}
