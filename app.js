@@ -13,6 +13,7 @@ const Path = require("path");
 
 const fileUpload = require("express-fileupload");
 
+require('dotenv').config()
 require('events').EventEmitter.defaultMaxListeners = 30;
 
 
