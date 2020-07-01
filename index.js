@@ -6,7 +6,7 @@ const user = "admin";
 const password = "password123";
 const host = "127.0.0.1";
 const port = "27017";
-const name = "entullo";
+const name = "heroku_zp6jl2nt";
 
 //cargar config
 

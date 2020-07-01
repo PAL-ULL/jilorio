@@ -7,7 +7,7 @@ const user = "admin";
 const password = "password123";
 const host = "127.0.0.1";
 const port = "27017";
-const name = "entullo";
+const name = "heroku_zp6jl2nt";
 const fs = require("fs");
 const Dish = require('../../models/dish');
 
@@ -17,9 +17,9 @@ const dish = {};
 
 dish.storeDishes = async (query) => {
     return new Promise(function (resolve, reject) {
-        MongoClient.connect(`mongodb://${host}:${port}/${name}`, function (err, db) {
+        MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("entullo");
+            var dbo = db.db("heroku_zp6jl2nt");
 
             dbo.collection(`${DishCollection}`).find(query)
                 .sort({ ndb_no: 1 })
@@ -37,9 +37,9 @@ dish.storeNutrients = async (ingredients) => {
     return new Promise(function (resolve, reject) {
         const MongoClient = require("mongodb").MongoClient;
 
-        MongoClient.connect(`mongodb://${host}:${port}/${name}`, function (err, db) {
+        MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("entullo");
+            var dbo = db.db("heroku_zp6jl2nt");
             const resultados = [];
 
             const query = { ndb_no: ingredients.ndbno };
