@@ -894,37 +894,37 @@
         {
             "dish": {
                 "title": "Platos",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Desde Platos, puedes acceder a cada uno de ellos y conocer sus ingredientes y valores nutricionales. Si te falta un plato, no dudes en incluirlos desde un formulario o a partir de la subida de un archivo JSON."
             }
         },
         {
             "menu": {
                 "title": "Menús",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Desde Menús, puedes acceder a cada uno de ellos y conocer sus platos y valores nutricionales. Si te falta un menú, no dudes en incluirlos desde un formulario o a partir de la subida de un archivo JSON."
             }
         },
         {
             "planification": {
                 "title": "Planificaciones",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Desde Planificaciones, puedes acceder a cada una de ellas para conocer los menús que lo forman y los valores nutricionales totales. Puedes crear tus propias planificaciones desde un formulario o a partir de la subida de un archivo JSON."
             }
         },
         {
             "recomendation": {
                 "title": "Recomendaciones",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Desde Recomendaciones, puedes visualizar los estándares nutrcionales de cada una de ellas. Si eres un nutricionista, podrás añadir tus propias recomendaciones desde un formulario o con la subidad de un archivo JSON."
             }
         },
         {
             "evaluation": {
                 "title": "Evaluaciones",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Desde Evaluaciones, puedes comprobar si un plato, menú o planificación se ha ajustado a los valores mínimos y máximos de una recomendación. Para crear una evaluación, solo tienes que indicar el candidato a evaluar y la recomendación a emplear."
             }
         },
         {
             "food": {
                 "title": "Alimentos",
-                "description": "Vulputate mi sit amet mauris. Orci nulla pellentesque dignissim enim. Sodales ut eu sem integer vitae justo. Consequat id porta nibh venenatis cras. Nibh mauris cursus mattis molestie a iaculis at. Nisi lacus sed viverra tellus in hac habitasse."
+                "description": "Desde Alimentos, puedes tener acceso a los datos nutricionales de cada uno de los alimentos."
             }
         }
     ]
