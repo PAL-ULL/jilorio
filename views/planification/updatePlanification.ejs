@@ -376,27 +376,15 @@
 
         </form>
 
-
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br><br>
+        <br>
 
         <% const  nombres_sz=  items.myObject.tablaMenusReducida.nombres.length %>
         <% const  nombres=  items.myObject.tablaMenusReducida.nombres %>
         <% const  docs_sz =   items.myMenus.length %>
         <% const  docs =   items.myMenus %>
 
-
-        <table class="table table-bordered table-striped table-hover table-sm">
+        <div class="cardInside3">
+        <table id="planification" class="table table-bordered table-striped table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
                     <% for (var i=0; i< nombres_sz; i++) { %>
@@ -423,6 +411,8 @@
                 <% } %>
             </tbody>
         </table>
+    </div>
+    <br>
 
     </div>
     <%- include ("../partials/footer.ejs"); %>
@@ -433,7 +423,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#alimentos').DataTable({
+        $('#planification').DataTable({
             "language": {
                 "emptyTable": " "
             }

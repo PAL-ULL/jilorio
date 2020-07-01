@@ -15,6 +15,7 @@ router.post("/food/view",  controller.getFood);
 router.post("/food/:shrt_desc?",  controller.getFood);
 // router.post("/saveDish", controller.saveDish);
 
+
 router.get("/dish", controller.dish);
 router.get("/dish/view",controller.dishView);
 router.post("/dish/view:_id?", controller.getDish);
@@ -25,6 +26,7 @@ router.get("/dish/insert/autocomplete/",  controller.autocomplete);
 router.get("/dish/update/:_id/autocomplete/", controller.autocomplete2);
 // router.get("/dish/insert/check/", controller.check);
 router.post("/dish/insert", controller.insertDishPost);
+
 // router.get("/dish/insert/json",authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertDishJson);
 // router.post("/dish/insert/json", authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertDishJsonPost);
 router.get("/dish/insert/json", controller.insertDishJson);
@@ -99,6 +101,7 @@ router.post("/login", controller.logUser);
 router.get("/dashboard", controller.dashboard);
 router.get("/logout", controller.logout);
 router.get("/users",  controller.viewUsers);
+router.post("/users/:_id?",  controller.viewUsersPost);
 router.get("/users/delete/:_id",  controller.removeUser);
 router.get("/users/update/:_id",controller.updateUser);
 router.post("/users/update/:_id", controller.updateUserPost);

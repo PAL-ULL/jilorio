@@ -303,6 +303,7 @@
             "rol"
         ]
     },
+    "usersUpdate": "Actualización de un usuario", 
     "register": {
         "title": "Registro de usuarios",
         "form": [

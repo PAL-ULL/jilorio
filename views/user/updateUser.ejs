@@ -12,13 +12,14 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/update.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
 
 
 </head>
@@ -26,34 +27,22 @@
 <body>
     <%- include ("../partials/navigation.ejs"); %>
     <div class="container">
-        <div class="infoPage">
-            <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myObject.infoPage.users %> </span>
+        <div class="cardInside2">
+            <h1> <%= items.myObject.usersUpdate %> </h1>
         </div>
 
-        <hr style="border-color: rgb(46, 115, 124);">
         <br>
         <%- include ("../partials/message.ejs"); %>
-        <br>
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br><br>
 
+        <div class="cardInside3">
+            <h2><%= items.myUsers[0].name %></h2>
+        </div>
         <% const  nombres_sz=  items.myObject.tablaUsers.nombres.length %>
         <% const  nombres=  items.myObject.tablaUsers.nombres %>
         <% const  docs_sz =   items.myUsers.length %>
         <% const  docs =   items.myUsers %>
 
-        <div class="card-body">
+        <div class="cardInside3">
             <div class="login_container d-flex flex-column">
                 <form method="POST" , action='/users/update/<%= items.id %>'>
                     <br>
@@ -83,20 +72,21 @@
                             name="<%= items.myObject.userEdit.form[i].name %>"
                             #<%= items.myObject.userEdit.form[i].name %> required>
                         <% } %>
-                       
-                      
+
+
                     </div>
                     <% } %>
-                  
+
                     <br>
                     <div class="d-flex justify-content-center align-items-center p-3 texto">
-                        <button class="btn btn-info" type="submit" href="/users/update/<%= items.id %>"><%= items.myObject.userEdit.button %></button>
+                        <button class="btn btn-info" type="submit"
+                            href="/users/update/<%= items.id %>"><%= items.myObject.userEdit.button %></button>
                     </div>
                 </form>
                 </form>
             </div>
         </div>
-
+        <br><br>
     </div>
     <%- include ("../partials/footer.ejs"); %>
 </body>

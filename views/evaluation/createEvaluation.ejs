@@ -42,7 +42,7 @@
         </div>
         <br>
         <%- include ("../partials/message.ejs"); %>
-        <br>
+     
         <div class="card">
             <form method="POST" , id="aux" action=''>
                 <% for (var i=0; i< items.myObject.evaluacion.recomendacion.length; i++) { %>
@@ -89,20 +89,17 @@
                 <div class="lista2" id="lista2" style="padding-left: 16px; padding-right: 16px; ">
                     <select required class='mySelect form-control' id="select2"></select>
                 </div>
-                <br> <br>
+                <br> 
                 <div id="cardInside" class="cardInsideVal" style="display: none;"></div>
                 <br>
-                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
-
-
-
+                <input style="margin-left: 16px;"  type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
 
 
             </form>
         </div>
 
 
-
+        <br><br>
     </div>
     <%- include ("../partials/footer.ejs"); %>
 

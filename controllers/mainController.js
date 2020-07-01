@@ -2511,6 +2511,32 @@ let controller = {
 
     },
 
+
+    viewUsersPost: function (req, res) {
+        console.log(req.body)
+        const searchData = req.body._id;
+        if ((searchData == null) || (searchData == "")) {
+            req.flash('success', "No existente");
+        }
+        console.log(req.body);
+        const query = { name: { $regex: `${searchData}` } };
+        Users.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(docs);
+                res.render('user/users', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myUsers: docs
+                    }
+                });
+            }
+        }).sort({ _id: 1 })
+
+    },
+
     removeUser: function (req, res) {
         let userId = req.params._id;
 

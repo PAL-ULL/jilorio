@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/fondo3.css" />
@@ -307,28 +308,15 @@
 
 
         </form>
-
-
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br><br>
+<br>
 
         <% const  nombres_sz=  items.myObject.tablaMenusReducida.nombres.length %>
         <% const  nombres=  items.myObject.tablaMenusReducida.nombres %>
         <% const  docs_sz =   items.myDocs.length %>
         <% const  docs =   items.myDocs %>
 
-
-        <table class="table table-bordered table-striped table-hover table-sm">
+        <div class="cardInside3">
+        <table id="planification" class="table table-bordered table-striped table-hover table-sm">
             <thead class="thead-dark">
                 <tr>
                     <% for (var i=0; i< nombres_sz; i++) { %>
@@ -357,6 +345,8 @@
         </table>
 
     </div>
+        <br>
+</div>
     <%- include ("../partials/footer.ejs"); %>
 
 
@@ -365,10 +355,13 @@
 
 <script>
     $(document).ready(function () {
-        $('#alimentos').DataTable({
+        $('#planification').DataTable({
             "language": {
-                "emptyTable": " "
-            }
+                 
+                 "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+     
+                     "emptyTable": " "
+                 }
         });
 
     });

@@ -30,6 +30,8 @@
 
 
 
+
+
 </head>
 
 <body>
@@ -251,21 +253,8 @@
 
         </form>
 
-
-
-        <form method="POST" id="search" , action='./insert'>
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="shrt_desc" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
         <br>
-        <br>
+    
 
 
         <% const  nombres_sz=  items.myObject.tablaPlatosReducida.nombres.length %>
@@ -273,8 +262,8 @@
         <% const  docs_sz =   items.myDocs.length %>
         <% const  docs =   items.myDocs %>
 
-
-        <table class="table table-striped table-bordered table-hover">
+        <div class="cardInside3">
+        <table id="menus" class="table table-striped table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
                     <% for (var i=0; i< nombres_sz; i++) { %>
@@ -291,10 +280,30 @@
                 <% } %>
             </tbody>
         </table>
-
     </div>
+<br>    
+</div>
+
     <%- include ("../partials/footer.ejs"); %>
 </body>
+
+<script>
+    $(document).ready(function () {
+        console.log("hello")
+        $('#menus').DataTable({
+            "language": {
+             
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+
+                "emptyTable": " "
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
 
 
 </html>

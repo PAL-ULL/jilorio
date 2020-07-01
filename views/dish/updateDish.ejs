@@ -73,8 +73,7 @@
                         name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>
                         required>
                     <% } %>
-                    <!-- <input style="margin-left: 20px;" class="btn btn-warning vaciarCampos" type="button"
-                        value="Limpiar"> -->
+       
                 </div>
                 <% } %>
                 <br>
@@ -163,19 +162,7 @@
                 </div>
 
                 <script>
-                    // $(document).ready(function () {
-                    //     const fila = document.querySelectorAll('.row');
-                    //     console.log(fila.length)
 
-                    //     if (fila.length - 1) {
-                    //         const boton = document.querySelector('.eliminar2');
-                    //         boton.disabled = false;
-
-                    //     } else {
-                    //         const boton = document.querySelector('.eliminar2');
-                    //         boton.disabled = true;
-                    //     }
-                    // });
 
                     $("form").on("click", ".eliminar2", function (e) {
                         const fila = document.querySelectorAll('.row');
@@ -381,19 +368,8 @@
             </form>
         </div>
 
-        <form method="POST" id="search">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="shrt_desc" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-
-        <br><br>
+       
+        <br>
 
             <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
                 <div class="cardInside3">
@@ -424,7 +400,7 @@
             </table>
         </div>
             <% } %>
-  
+        <br>
     </div>
     <%- include ("../partials/footer.ejs"); %>
 
