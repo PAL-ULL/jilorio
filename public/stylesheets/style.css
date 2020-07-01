@@ -450,6 +450,7 @@ input {
 @media screen and (max-width: 600px){
   .jilorioInfo{
   width:100%;
+  max-width: 100%;
   height:auto;
   }
   }
