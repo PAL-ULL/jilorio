@@ -4,7 +4,7 @@ body {
     background-repeat: no-repeat !important;
     background-position: center center !important;
     background-size: cover !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
   }
   
   td{

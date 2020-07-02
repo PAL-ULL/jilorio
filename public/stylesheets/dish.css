@@ -87,7 +87,7 @@ h1{
 }
 
 .cardInside2{
-  background-color: rgb(255, 255, 255, 0.85);
+  background-color: rgb(255, 255, 255, 0.9) !important;
   text-align: center;
   width:auto;
   

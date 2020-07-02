@@ -10,6 +10,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
     <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
@@ -22,14 +23,14 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
+
 
 </head>
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
     <div class="container">
-    
+
         <div class="infoPage">
             <i class="fas fa-list-alt fa-2x"></i>
             <span> <%= items.myObject.infoPage.alimentos %> </span>
@@ -50,9 +51,9 @@
                 </div>
             </div>
         </form>
-<br>
-<div class="cardInside3">
-        <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
+        <br>
+        <div class="cardInside3">
+            <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
             <table id="alimentos" class="table table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
@@ -82,18 +83,22 @@
 
             </table>
             <% } %>
+        </div>
+        <br>
     </div>
-</div>
     <%- include ("../partials/footer.ejs"); %>
 
     <script>
         $(document).ready(function () {
+
             $('#alimentos').DataTable({
                 "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
                     "emptyTable": " "
-                }
+                },
+                "pagingType": "simple",
             });
-    
+
         });
     </script>
     <!-- BOOTSTRAP TABLE -->
