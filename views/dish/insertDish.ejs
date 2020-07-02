@@ -44,7 +44,7 @@
             <form method="POST" , id="aux" action='./insert'>
                 <br>
                 <% for (var i=0; i< items.myObject.dish.form.length; i++) { %>
-                <label><%= items.myObject.dish.form[i].label %></label>
+                <label><%= items.myObject.dish.form[i].label %><span class="required">*</span></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -65,7 +65,7 @@
                         <div class="row">
                             <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
                             <div class="col-sm">
-                                <label class="myLabels"><%= items.myObject.dish.formIngredientes[i].label %></label>
+                                <label class="myLabels"><%= items.myObject.dish.formIngredientes[i].label %><span class="required">*</span></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class=" spanColor input-group-text"><i
@@ -92,7 +92,7 @@
                             <% } %>
                             <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
                             <div class="col-sm">
-                                <label class="myLabels"><%= items.myObject.dish.formIngredientesSel[i].label %></label>
+                                <label class="myLabels"><%= items.myObject.dish.formIngredientesSel[i].label %><span class="required">*</span></label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class=" spanColor input-group-text"><i
@@ -112,6 +112,12 @@
                         </div>
                     </div>
 
+                    <br>
+                    <div class="requiredSpan">
+                        <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                            class="required">*</span>
+                    </div>
+                    <br>
                     <input type="button" class="btn btn-dark" value="Añadir ingrediente" id="bSubmit">
                 </div>
 

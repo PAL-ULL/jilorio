@@ -50,7 +50,7 @@
             <form method="POST" , id="aux" action=''>
                 <br>
                 <% for (var i=0; i< items.myObject.menu.form.length; i++) { %>
-                <label><%= items.myObject.menu.form[i].label %></label>
+                <label><%= items.myObject.menu.form[i].label %></label><span class="required">*</span>
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -87,7 +87,7 @@
 
                             <% for (var i=0; i< items.myObject.menu.formPlatos.length; i++) { %>
                             <div class="col-sm">
-                                <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label>
+                                <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label><span class="required">*</span>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
 
@@ -161,6 +161,7 @@
                             const aLabel = document.createElement("LABEL");
                             console.log(myLabels[i].innerHTML)
                             aLabel.innerHTML = myLabels[i].innerHTML;
+                            aLabel.classList.add("required2")
                             col.appendChild(aLabel);
 
                             const divInputGroup = document.createElement("DIV");
@@ -233,8 +234,12 @@
 
                 </script>
 
-
                 <br><br>
+                <div class="requiredSpan">
+                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                        class="required">*</span>
+                </div>
+                <br>
                 <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
         </div>
         <script>

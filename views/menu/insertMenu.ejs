@@ -38,7 +38,7 @@
     <%- include ("../partials/navigation.ejs"); %>
     <div class="container">
         <div class="cardInside2">
-        <h1><%= items.myObject.menu.title %></h1>
+            <h1><%= items.myObject.menu.title %></h1>
         </div>
         <%- include ("../partials/message.ejs"); %>
 
@@ -46,7 +46,7 @@
             <form method="POST" , id="aux" action='./insert'>
                 <br>
                 <% for (var i=0; i< items.myObject.menu.form.length; i++) { %>
-                <label><%= items.myObject.menu.form[i].label %></label>
+                <label><%= items.myObject.menu.form[i].label %></label><span class="required">*</span>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -68,7 +68,8 @@
                         <div class="row">
 
                             <% for (var i=0; i< items.myObject.menu.formPlatos.length; i++) { %>
-                            <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %></label>
+                            <label class="myLabels"><%= items.myObject.menu.formPlatos[i].label %><span
+                                class="required">*</span></label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
 
@@ -90,6 +91,7 @@
 
 
                 </div>
+
                 <br>
                 <input type="button" class="btn btn-dark" value="Añadir plato" id="bSubmit">
 
@@ -118,6 +120,7 @@
                             const aLabel = document.createElement("LABEL");
                             console.log(myLabels[i].innerHTML)
                             aLabel.innerHTML = myLabels[i].innerHTML;
+                            aLabel.classList.add("required2")
                             col.appendChild(aLabel);
 
                             const divInputGroup = document.createElement("DIV");
@@ -148,6 +151,7 @@
                             newI.setAttribute("placeholder", inputs[i].placeholder);
                             newI.setAttribute("name", inputs[i].name);
                             newI.classList.add("searchDish");
+                            
 
 
                             newI.classList.add("form-control");
@@ -188,8 +192,12 @@
 
                 </script>
 
-
-                <br><br>
+                <br>
+                <div class="requiredSpan">
+                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                        class="required">*</span>
+                </div>
+                <br>
                 <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
         </div>
         <script>
@@ -254,7 +262,7 @@
         </form>
 
         <br>
-    
+
 
 
         <% const  nombres_sz=  items.myObject.tablaPlatosReducida.nombres.length %>
@@ -263,26 +271,26 @@
         <% const  docs =   items.myDocs %>
 
         <div class="cardInside3">
-        <table id="menus" class="table table-striped table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <% for (var i=0; i< nombres_sz; i++) { %>
-                    <th scope="col"><%= nombres[i] %></th>
+            <table id="menus" class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <% for (var i=0; i< nombres_sz; i++) { %>
+                        <th scope="col"><%= nombres[i] %></th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% for (var i=0; i < docs_sz; i++) { %>
+                        <td> <%= docs[i]._id %> </td>
+                        <td> <%= items.myKcal[i] %> </td>
+                    </tr>
                     <% } %>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <% for (var i=0; i < docs_sz; i++) { %>
-                    <td> <%= docs[i]._id %> </td>
-                    <td> <%= items.myKcal[i] %> </td>
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        <br>
     </div>
-<br>    
-</div>
 
     <%- include ("../partials/footer.ejs"); %>
 </body>

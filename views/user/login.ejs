@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-        <!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -36,23 +42,25 @@
             <div class="card beauty_login">
                 <div class="card-header">
                     <div class="logo"><img
-                            src="https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824144_960_720.png"
-                            alt=""></div>
+                            src="https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824144_960_720.png" alt="">
+                    </div>
                     <div class="login_text d-flex flex-row justify-content-center align-items-center">
                         <span></span>
                         <span class="text px-1"><%= items.myObject.login.principal %></span>
                         <span></span>
                     </div>
                     <div class="login_with_text">
-                         <span><%= items.myObject.login.texto %> </span>
+                        <span><%= items.myObject.login.texto %> </span>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="login_container d-flex flex-column">
                         <form method="POST">
                             <br>
+
                             <% for (var i=0; i< items.myObject.login.form.length; i++) { %>
-                            <label><%= items.myObject.login.form[i].label %></label>
+
+                            <label><%= items.myObject.login.form[i].label %></label><span class="required">*</span>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <% if (items.myObject.login.form[i].name === "username")  {%>
@@ -62,24 +70,29 @@
                                             class="<%= items.myObject.login.form[i].icon %>"></i></span>
                                     <% } %>
                                 </div>
-                                <input autocomplete="off" type="<%= items.myObject.login.form[i].type %>" class="form-control"
-                                    placeholder="<%= items.myObject.login.form[i].placeholder %>"
+                                <input autocomplete="off" type="<%= items.myObject.login.form[i].type %>"
+                                    class="form-control" placeholder="<%= items.myObject.login.form[i].placeholder %>"
                                     aria-label="<%= items.myObject.login.form[i].ariaLabel %>"
                                     aria-describedby="basic-addon1" name="<%= items.myObject.login.form[i].name %>"
                                     #<%= items.myObject.login.form[i].name %> required>
                             </div>
                             <% } %>
+                            <div class="requiredSpan">
+                                <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                                    class="required">*</span>
+                            </div>
                             <br>
                             <div class="d-flex justify-content-center align-items-center">
-                            <button class="btn btn-info" type="submit"><%= items.myObject.login.button %></button>
-                        </div>
+                                <button class="btn btn-info" type="submit"><%= items.myObject.login.button %></button>
+                            </div>
 
                         </form>
                     </div>
                 </div>
                 <div class="card-footer d-flex flex-column ">
                     <div class="d-flex justify-content-center align-items-center p-3 texto">
-                        <span><%= items.myObject.login.pregunta %></span><a href="<%= items.myObject.login.href %>" class="ml-2"><%= items.myObject.login.click %></a>
+                        <span><%= items.myObject.login.pregunta %></span><a href="<%= items.myObject.login.href %>"
+                            class="ml-2"><%= items.myObject.login.click %></a>
                     </div>
                 </div>
             </div>

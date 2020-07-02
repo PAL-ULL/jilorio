@@ -47,7 +47,8 @@
             <form method="POST" , id="aux" action=''>
                 <% for (var i=0; i< items.myObject.evaluacion.recomendacion.length; i++) { %>
                 <div class="col-sm">
-                    <label class="myLabels"><%= items.myObject.evaluacion.recomendacion[i].label %></label>
+                    <label class="myLabels"><%= items.myObject.evaluacion.recomendacion[i].label %><span
+                        class="required">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class=" spanColor input-group-text"><i
@@ -67,7 +68,8 @@
 
                 <% for (var i=0; i< items.myObject.evaluacion.form.length; i++) { %>
                 <div class="col-sm">
-                    <label class="myLabels"><%= items.myObject.evaluacion.form[i].label %></label>
+                    <label class="myLabels"><%= items.myObject.evaluacion.form[i].label %><span
+                        class="required">*</span></label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class=" spanColor input-group-text"><i
@@ -91,6 +93,12 @@
                 </div>
                 <br> 
                 <div id="cardInside" class="cardInsideVal" style="display: none;"></div>
+              
+                <br>
+                <div class="requiredSpan">
+                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                        class="required">*</span>
+                </div>
                 <br>
                 <input style="margin-left: 16px;"  type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
 

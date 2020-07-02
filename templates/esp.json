@@ -928,5 +928,6 @@
                 "description": "Desde Alimentos, puedes tener acceso a los datos nutricionales de cada uno de los alimentos."
             }
         }
-    ]
+    ],
+    "required": "Campo requerido"
 }

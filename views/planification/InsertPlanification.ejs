@@ -47,7 +47,7 @@
             <form method="POST" , id="aux" action='./insert'>
                 <br>
                 <% for (var i=0; i< items.myObject.planificacion.form.length; i++) { %>
-                <label><%= items.myObject.planificacion.form[i].label %></label>
+                <label><%= items.myObject.planificacion.form[i].label %></label><span class="required">*</span>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -64,7 +64,7 @@
                 </div>
                 <% } %>
                 <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
-                <label><%= items.myObject.planificacion.formNumber[i].label %></label>
+                <label><%= items.myObject.planificacion.formNumber[i].label %></label><span class="required">*</span>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -85,10 +85,15 @@
                     <div class="dinamico"></div>
                 </div>
 
+                <br><br>
+                <div class="requiredSpan">
+                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                        class="required">*</span>
+                </div>
                 <br>
 
 
-                <br><br>
+
 
                 <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
 
@@ -151,6 +156,7 @@
                         myIMenus.setAttribute("type", "number");
                         myLabelMenus = document.createElement("LABEL")
                         myLabelMenus.innerHTML = "Introduce el número de menús:";
+                        myLabelMenus.classList.add("required2")
                         myIMenus.setAttribute("placeholder", "Número de menús ");
                         myIMenus.setAttribute("name", "menuDays[]");
                         myIMenus.setAttribute("min", 1);

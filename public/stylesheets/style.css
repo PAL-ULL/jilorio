@@ -64,7 +64,6 @@ a:hover {
   font-weight: bold;
 }
 
-
 .textarea {
   width: 90%;
 }
@@ -85,7 +84,6 @@ table th {
   overflow: hidden;
   white-space: nowrap;
 }
-
 
 .cardJson {
   box-shadow: 15px 15px 5px 0px rgba(170, 167, 167, 0.6);
@@ -269,15 +267,13 @@ h1 {
   border: 2px solid rgb(46, 115, 124);
 }
 
-
 .page-link {
   color: white;
   background-color: #17a2b8;
 }
 
-
-.planificacion { 
-   min-width: auto;
+.planificacion {
+  min-width: auto;
   min-height: 250px;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.6);
 }
@@ -458,12 +454,28 @@ input {
     max-width: 100%;
     height: auto;
   }
-  .display-4{
+  .display-4 {
     font-size: 2.25em;
   }
 }
 
+.required{
+  padding-left: 2px;
+  color: red;
+}
 
-html{
-  width: 100%
+
+.requiredSpan {
+  font-size: 16px;
+  font-weight: lighter;
+  margin-bottom: 20px;
+}
+
+html {
+  width: 100%;
+}
+
+.required2:after {
+  content: " *";
+  color: red;
 }

@@ -52,7 +52,7 @@
                         <form method="POST" , action='./register'>
                             <br>
                             <% for (var i=0; i< items.myObject.register.form.length; i++) { %>
-                            <label><%= items.myObject.register.form[i].label %></label>
+                            <label><%= items.myObject.register.form[i].label %></label><span class="required">*</span>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <% if (items.myObject.register.form[i].name === "username")  {%>
@@ -69,12 +69,16 @@
                                     #<%= items.myObject.register.form[i].name %> required>
                             </div>
                             <% } %>
+                            <div class="requiredSpan">
+                                <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                                    class="required">*</span>
+                            </div>
                             <br>
                             <div class="d-flex justify-content-center align-items-center p-3 texto">
                             <button class="btn btn-info" type="submit"><%= items.myObject.register.button %></button>
                         </div>
                         </form>
-                        </form>
+                        
                     </div>
                 </div>
                 <div class="card-footer d-flex flex-column">

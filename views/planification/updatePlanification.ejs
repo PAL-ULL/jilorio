@@ -50,7 +50,7 @@
             <form method="POST" , id="aux" action='./insert'>
                 <br>
                 <% for (var i=0; i< items.myObject.planificacion.form.length; i++) { %>
-                <label><%= items.myObject.planificacion.form[i].label %></label>
+                <label class="required2"><%= items.myObject.planificacion.form[i].label %></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -77,7 +77,7 @@
                 </div>
                 <% } %>
                 <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
-                <label><%= items.myObject.planificacion.formNumber[i].label %></label>
+                <label  class="required2"><%= items.myObject.planificacion.formNumber[i].label %></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -104,7 +104,7 @@
                         </div>
                         <div class="<%="global"+(i+1) %> removingThen">
                             <div class="removingThen" style="margin-top: 5px; margin-bottom: 20px;">
-                                <label style="display: block;">Introduce el número de menús:</label>
+                                <label  class="required2" style="display: block;">Introduce el número de menús:</label>
 
                                 <input disabled value=<%= items.myDocs.menus[i].length %> type=number
                                     class="<%="menuDays"+(i+1) %> form-control removingThen comun"
@@ -134,8 +134,12 @@
 
                     </div>
                 </div>
-
                 <br>
+                <div class="requiredSpan">
+                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
+                        class="required">*</span>
+                </div>
+         
 
 
                 <br><br>
