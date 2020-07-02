@@ -13,7 +13,8 @@ helpers.authRole = (role) => {
         
         if (req.user.rol !== role){
             res.status(401);
-            return res.send("Not alowed");
+            req.flash('error_msg', "Usuario no autenticado")
+            return res.redirect('/login');
         }
         next();
     }
@@ -33,7 +34,8 @@ helpers.authRoleMultiple = (roles) => {
        
        }else{
         res.status(401);
-        return res.send("Not alowed");
+        req.flash('error_msg', "Usuario no autenticado")
+        return res.redirect('/login');
        }
         
     }

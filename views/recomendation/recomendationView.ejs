@@ -51,10 +51,10 @@
                 </div>
             </div>
         </form>
-        <br>  <br>
+        <br> <br>
 
 
-        <div  class="cardInside3">
+        <div class="cardInside3">
             <table id="recomendation" class="table table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                     <tr>
@@ -79,6 +79,17 @@
                         <% } %>
 
                         <% } %>
+                        <% if ((items.req.user.rol === "default") || (items.req.user.rol === "cocinero") ){ %>
+                        <td>
+                            <button type="button" class="btn btn-info"><a title="Ver detalles"
+                                href="/recomendation/<%=items.myDocs[i]['_id']%>"><i
+                                    class="fas fa-search-plus"></i></a></button> 
+                                    <button type="button" class="btn btn-success"><a title="Descargar"
+                                        href="/recomendation/download/<%=items.myDocs[i]['_id']%>"><i
+                                            class="far fa-file-alt"></i></a></button></td>
+
+                        <% } else{ %>
+
                         <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
                                     href="/recomendation/delete/<%=items.myDocs[i]['_id']%>"> <i
                                         class="fas fa-trash-alt"></i></a></button><br>
@@ -88,10 +99,13 @@
                             <button type="button" class="btn btn-warning"><a title="Editar"
                                     href="/recomendation/update/<%=items.myDocs[i]['_id']%>"><i
                                         class="fas fa-edit"></i></a></button> <br>
-                                        
-                                    <button type="button" class="btn btn-success"><a title="Descargar" href="/recomendation/download/<%=items.myDocs[i]['_id']%>"><i class="far fa-file-alt"></i></a></button></td>
-                                    </td> <br>
+                            <button type="button" class="btn btn-success"><a title="Descargar"
+                                    href="/recomendation/download/<%=items.myDocs[i]['_id']%>"><i
+                                        class="far fa-file-alt"></i></a></button></td>
                         </td>
+                        <% } %>
+
+
                     </tr>
                     <% } %>
                 </tbody>
@@ -109,10 +123,10 @@
         $(document).ready(function () {
             $('#recomendation').DataTable({
                 "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                "emptyTable": " "
-            },
-            "pagingType": "simple",
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                    "emptyTable": " "
+                },
+                "pagingType": "simple",
             });
 
         });
