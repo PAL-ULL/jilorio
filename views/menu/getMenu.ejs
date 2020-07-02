@@ -47,6 +47,7 @@
                     <button type="submit" class="spanColor searchButton">
                         <i class="fa fa-search"></i>
                     </button>
+
                 </div>
             </div>
         </form>
@@ -88,6 +89,7 @@
                                     href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
                             <button type="button" class="btn btn-warning"><a title="Editar"
                                     href="/menu/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button>
+                                    <button type="button" class="btn btn-success"><a title="Editar" href="/menu/download/<%=docs[i]['_id']%>"><i class="far fa-file-alt"></i></a></button></td>
                         </td>
                         </td>
                     </tr>
@@ -145,6 +147,7 @@
                         <td>
                             <button type="button" class="btn btn-info"><a title="Ver detalles"
                                     href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
+                                    <button type="button" class="btn btn-success"><a title="Descargar" href="/menu/download/<%=docs[i]['_id']%>"><i class="far fa-file-alt"></i></a></button></td>
 
                         </td>
                     </tr>

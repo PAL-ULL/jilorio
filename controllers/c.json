@@ -1,0 +1,195 @@
+[{
+    "menus": [
+        [{
+            "dishes": [{
+                "_id": "Tomate con aceite y orégano",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "ingredients": [{
+                    "name": "TOMATOES,GREEN,RAW",
+                    "amount": 100,
+                    "unitMeasure": "g",
+                    "ndbno": "11527"
+                }, {
+                    "name": "SPICES,OREGANO,DRIED",
+                    "amount": 5,
+                    "unitMeasure": "g",
+                    "ndbno": "02027"
+                }, {
+                    "name": "OIL,OLIVE,SALAD OR COOKING",
+                    "amount": 3,
+                    "unitMeasure": "ml",
+                    "ndbno": "04053"
+                }],
+                "relationatedDishes": ["Ensalada básica"],
+                "recipe": "",
+                "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
+            }],
+            "_id": "Menú: Tomate con aceite y orégano 2",
+            "description": "Cena. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+            "date": "2020-06-29T01:18:23.872Z"
+        }, {
+            "dishes": [{
+                "_id": "Leche desnatada con galletas",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "ingredients": [{
+                    "name": "MILK,NONFAT,FLUID,WO/ ADDED VIT A & VIT D (FAT FREE OR SKIM)",
+                    "amount": 200,
+                    "unitMeasure": "ml",
+                    "ndbno": "01151"
+                }, {
+                    "name": "COOKIES,BROWNIES,COMMLY PREP",
+                    "amount": 50,
+                    "unitMeasure": "g",
+                    "ndbno": "18151"
+                }],
+                "relationatedDishes": ["Leche con galletas mini"],
+                "recipe": "",
+                "imageURL": "https://i.blogs.es/6491bf/2469448442_57814c8a50/450_1000.jpg"
+            }],
+            "_id": "Menú: Leche desnatada con galletas",
+            "description": "Desayuno. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+            "date": "2020-06-29T01:18:23.875Z"
+        }],
+        [{
+            "dishes": [{
+                "_id": "Tomate con aceite y orégano",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "ingredients": [{
+                    "name": "TOMATOES,GREEN,RAW",
+                    "amount": 100,
+                    "unitMeasure": "g",
+                    "ndbno": "11527"
+                }, {
+                    "name": "SPICES,OREGANO,DRIED",
+                    "amount": 5,
+                    "unitMeasure": "g",
+                    "ndbno": "02027"
+                }, {
+                    "name": "OIL,OLIVE,SALAD OR COOKING",
+                    "amount": 3,
+                    "unitMeasure": "ml",
+                    "ndbno": "04053"
+                }],
+                "relationatedDishes": ["Ensalada básica"],
+                "recipe": "",
+                "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
+            }],
+            "_id": "Menú: Tomate con aceite y orégano",
+            "description": "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
+            "date": "2020-06-29T01:18:23.877Z"
+        }, {
+            "dishes": [{
+                "ingredients": [{
+                    "name": "ORANGE JUC,CHILLED,INCL FROM CONC,W/ ADDED CA",
+                    "amount": 160,
+                    "unitMeasure": "ml",
+                    "ndbno": "09211"
+                }, {
+                    "name": "PAPAYAS,RAW",
+                    "amount": 80,
+                    "unitMeasure": "g",
+                    "ndbno": "09226"
+                }],
+                "relationatedDishes": ["Zumo de naranja y plátano"],
+                "imageURL": "https://www.vidactual.com/rcpmaker/wp-content/uploads/2018/10/Jugo-Papaya-500x455.jpg",
+                "_id": "Zumo de naranja y papaya",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "recipe": "",
+                "date": "2020-06-20T19:56:28.552Z"
+            }, {
+                "ingredients": [{
+                    "name": "TOMATOES,GREEN,RAW",
+                    "amount": 30,
+                    "unitMeasure": "g",
+                    "ndbno": "11527"
+                }, {
+                    "name": "LENTILS,SPROUTED,RAW",
+                    "amount": 120,
+                    "unitMeasure": "g",
+                    "ndbno": "11248"
+                }, {
+                    "name": "POTATOES,RAW,SKIN",
+                    "amount": 50,
+                    "unitMeasure": "g",
+                    "ndbno": "11362"
+                }, {
+                    "name": "CARROTS,RAW",
+                    "amount": 30,
+                    "unitMeasure": "g",
+                    "ndbno": "11124"
+                }],
+                "relationatedDishes": ["Lentejas con chorizo"],
+                "imageURL": "https://t1.rg.ltmcdn.com/es/images/7/9/9/lentejas_viudas_73997_600_square.jpg",
+                "_id": "Lentejas",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "recipe": "",
+                "date": "2020-06-20T19:56:28.556Z"
+            }, {
+                "ingredients": [{
+                    "name": "TOMATOES,GREEN,RAW",
+                    "amount": 100,
+                    "unitMeasure": "g",
+                    "ndbno": "11527"
+                }, {
+                    "name": "LETTUCE,ICEBERG (INCL CRISPHEAD TYPES),RAW",
+                    "amount": 60,
+                    "unitMeasure": "g",
+                    "ndbno": "11252"
+                }, {
+                    "name": "OIL,OLIVE,SALAD OR COOKING",
+                    "amount": 5,
+                    "unitMeasure": "ml",
+                    "ndbno": "04053"
+                }, {
+                    "name": "CUCUMBER,PEELED,RAW",
+                    "amount": 60,
+                    "unitMeasure": "g",
+                    "ndbno": "11206"
+                }],
+                "relationatedDishes": ["Tomate con aceite y orégano"],
+                "imageURL": "https://t1.rg.ltmcdn.com/es/images/1/7/7/ensalada_de_apio_tomate_y_aguacate_60771_orig.jpg",
+                "_id": "Ensalada básica",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "recipe": "",
+                "date": "2020-06-20T19:56:28.559Z"
+            }, {
+                "ingredients": [{
+                    "name": "TOMATOES,GREEN,RAW",
+                    "amount": 20,
+                    "unitMeasure": "g",
+                    "ndbno": "11527"
+                }, {
+                    "name": "LENTILS,SPROUTED,RAW",
+                    "amount": 90,
+                    "unitMeasure": "g",
+                    "ndbno": "11248"
+                }, {
+                    "name": "POTATOES,RAW,SKIN",
+                    "amount": 40,
+                    "unitMeasure": "g",
+                    "ndbno": "11362"
+                }, {
+                    "name": "CHORIZO,PORK AND BEEF",
+                    "amount": 40,
+                    "unitMeasure": "g",
+                    "ndbno": "07019"
+                }],
+                "relationatedDishes": ["Lentejas"],
+                "imageURL": "https://crujienteyaldente.com/wp-content/uploads/2017/03/lentejas-caseras-1-1024x683.jpg",
+                "_id": "Lentejas con chorizo",
+                "description": "Este es un buen desayuno para comenzar el día.",
+                "recipe": "",
+                "date": "2020-06-20T19:56:28.562Z"
+            }],
+            "_id": "Prueba",
+            "description": "Checkyyyyyyyyyyy",
+            "date": "2020-06-20T18:09:25.126Z",
+            "__v": 0
+        }]
+    ],
+    "_id": "c",
+    "description": "prueba",
+    "dias": 2,
+    "date": "2020-06-29T01:18:23.921Z",
+    "__v": 0
+}]

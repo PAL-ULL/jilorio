@@ -1,0 +1,34 @@
+[{
+    "dishes": [{
+        "ingredients": [{
+            "name": "TOMATOES,GREEN,RAW",
+            "amount": 100,
+            "unitMeasure": "g",
+            "ndbno": "11527"
+        }, {
+            "name": "LETTUCE,ICEBERG (INCL CRISPHEAD TYPES),RAW",
+            "amount": 60,
+            "unitMeasure": "g",
+            "ndbno": "11252"
+        }, {
+            "name": "OIL,OLIVE,SALAD OR COOKING",
+            "amount": 5,
+            "unitMeasure": "ml",
+            "ndbno": "04053"
+        }, {
+            "name": "CUCUMBER,PEELED,RAW",
+            "amount": 60,
+            "unitMeasure": "g",
+            "ndbno": "11206"
+        }],
+        "relationatedDishes": ["Tomate con aceite y orégano"],
+        "imageURL": "https://t1.rg.ltmcdn.com/es/images/1/7/7/ensalada_de_apio_tomate_y_aguacate_60771_orig.jpg",
+        "_id": "Ensalada básica",
+        "description": "Este es un buen desayuno para comenzar el día.",
+        "recipe": "",
+        "date": "2020-06-29T01:05:16.009Z"
+    }],
+    "_id": "Menú: Ensalada básica",
+    "description": "d",
+    "date": "2020-07-02T11:18:28.023Z"
+}]

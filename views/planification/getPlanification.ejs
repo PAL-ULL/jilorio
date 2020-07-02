@@ -98,7 +98,9 @@
                     
                      <td> <button type="button" class="btn btn-danger"><a title="Eliminar" href="/planification/delete/<%=docs[i]['_id']%>"> <i class="fas fa-trash-alt"></i></a></button> 
                         <button type="button" class="btn btn-info"><a title="Ver detalles"  href="/planification/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button> 
-                        <button type="button" class="btn btn-warning"><a title="Editar" href="/planification/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button></td> 
+                        <button type="button" class="btn btn-warning"><a title="Editar" href="/planification/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button>  
+                         <button type="button" class="btn btn-success"><a title="Descargar" href="/planification/download/<%=docs[i]['_id']%>"><i class="far fa-file-alt"></i></a></button></td>
+                    </td> 
                    
                 </tr>
 

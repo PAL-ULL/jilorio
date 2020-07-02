@@ -87,7 +87,10 @@
                                         class="fas fa-search-plus"></i></a></button> <br>
                             <button type="button" class="btn btn-warning"><a title="Editar"
                                     href="/recomendation/update/<%=items.myDocs[i]['_id']%>"><i
-                                        class="fas fa-edit"></i></a></button></td> <br>
+                                        class="fas fa-edit"></i></a></button> <br>
+                                        
+                                    <button type="button" class="btn btn-success"><a title="Descargar" href="/recomendation/download/<%=items.myDocs[i]['_id']%>"><i class="far fa-file-alt"></i></a></button></td>
+                                    </td> <br>
                         </td>
                     </tr>
                     <% } %>

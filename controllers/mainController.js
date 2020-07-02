@@ -12,7 +12,8 @@ const name = "heroku_zp6jl2nt";
 // const url = `mongodb://${host}:${port}/${name}`;
 const url = "mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt";
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
+const fs = require('fs')
+const path = require('path')
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
@@ -723,6 +724,39 @@ let controller = {
 
     },
 
+    downloadDish: async function (req, res) {
+        console.log(req.params._id);
+        const searchData = req.params._id;
+
+        const query = { _id: searchData };
+
+        Dish.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+                const nutrientes = await calculateNutrients(docs);
+                let filename = docs[0]._id+'.json';
+                let absPath = path.join(__dirname, filename);
+
+                var beautify = require('js-beautify').js;
+                let json = beautify(JSON.stringify(docs), { indent_size: 4, space_in_empty_paren: true })
+
+                fs.writeFile(absPath, json, (err) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                    res.download(absPath, (err) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                     
+                    });
+                  });
+            }
+        });
+
+    },
+
 
 
     menu: function (req, res) {
@@ -1263,6 +1297,39 @@ let controller = {
 
     },
 
+    downloadMenu: async function (req, res) {
+        console.log(req.params._id);
+        const searchData = req.params._id;
+
+        const query = { _id: searchData };
+
+        Menu.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+    
+                let filename = docs[0]._id+'.json';
+                let absPath = path.join(__dirname, filename);
+
+                var beautify = require('js-beautify').js;
+                let json = beautify(JSON.stringify(docs), { indent_size: 4, space_in_empty_paren: true })
+
+                fs.writeFile(absPath, json, (err) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                    res.download(absPath, (err) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                     
+                    });
+                  });
+            }
+        });
+
+    },
+
 
 
     insertPlanification: function (req, res) {
@@ -1800,6 +1867,39 @@ let controller = {
         })
     },
 
+    downloadPlanification: async function (req, res) {
+        console.log(req.params._id);
+        const searchData = req.params._id;
+
+        const query = { _id: searchData };
+
+        Planification.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+               
+                let filename = docs[0]._id+'.json';
+                let absPath = path.join(__dirname, filename);
+
+                var beautify = require('js-beautify').js;
+                let json = beautify(JSON.stringify(docs), { indent_size: 4, space_in_empty_paren: true })
+
+                fs.writeFile(absPath, json, (err) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                    res.download(absPath, (err) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                     
+                    });
+                  });
+            }
+        });
+
+    },
+
 
     recomendation: function (req, res) {
         return res.status(200).render('recomendation/recomendation.ejs', {
@@ -2126,7 +2226,7 @@ let controller = {
                 if ((energyMin < 1)) {
                     errors.push({ msg: "El mínimo de energyMin debe ser 1." });
                 }
-                if (energyMin > energyMax){
+                if (energyMin > energyMax) {
                     errors.push({ msg: "El energyMin no puede ser menor que el energyMax." });
                 }
                 //////////////////////////////
@@ -2148,7 +2248,7 @@ let controller = {
                 if ((lipidsMin < 1)) {
                     errors.push({ msg: "El mínimo de lipidsMin debe ser 1." });
                 }
-                if (lipidsMin > lipidsMax){
+                if (lipidsMin > lipidsMax) {
                     errors.push({ msg: "El lipidsMin no puede ser menor que el lipidsMax." });
                 }
                 //////////////////////////////
@@ -2170,7 +2270,7 @@ let controller = {
                 if ((proteinMin < 1)) {
                     errors.push({ msg: "El mínimo de proteinMin debe ser 1." });
                 }
-                if (proteinMin > proteinMax){
+                if (proteinMin > proteinMax) {
                     errors.push({ msg: "El proteinMin no puede ser menor que el proteinMax." });
                 }
                 //////////////////////////////
@@ -2192,7 +2292,7 @@ let controller = {
                 if ((carbohydrtMin < 1)) {
                     errors.push({ msg: "El mínimo de carbohydrtMin debe ser 1." });
                 }
-                if (carbohydrtMin > carbohydrtMax){
+                if (carbohydrtMin > carbohydrtMax) {
                     errors.push({ msg: "El carbohydrtMin no puede ser menor que el carbohydrtMax." });
                 }
 
@@ -2204,33 +2304,66 @@ let controller = {
                         _id: title,
                         description: description,
                         edad: edad,
-                        energyMin : energyMin,
-                        energyMax : energyMax,
-                        lipidsMin : lipidsMin,
-                        lipidsMax : lipidsMax,
-                        proteinMin : proteinMin,
-                        proteinMax : proteinMax,
-                        carbohydrtMin : carbohydrtMin,
-                        carbohydrtMax : carbohydrtMax
+                        energyMin: energyMin,
+                        energyMax: energyMax,
+                        lipidsMin: lipidsMin,
+                        lipidsMax: lipidsMax,
+                        proteinMin: proteinMin,
+                        proteinMax: proteinMax,
+                        carbohydrtMin: carbohydrtMin,
+                        carbohydrtMax: carbohydrtMax
 
                     });
 
                     recomendation.save()
-                    .then(data => {
-                        if ((i+1) === valor.length){
-                            return res.redirect("/recomendation/view");
-                        }
-                        // res.send(data);
-                        
-                    }).catch(err => {
-                        res.status(500).send({
-                            message: err.message
+                        .then(data => {
+                            if ((i + 1) === valor.length) {
+                                return res.redirect("/recomendation/view");
+                            }
+                            // res.send(data);
+
+                        }).catch(err => {
+                            res.status(500).send({
+                                message: err.message
+                            });
                         });
-                    });
                 }
             }
 
         }
+    },
+
+    downloadRecomendation: async function (req, res) {
+        console.log(req.params._id);
+        const searchData = req.params._id;
+
+        const query = { _id: searchData };
+
+        Recomendation.find(query, async function (err, docs) {
+            if (err) {
+                console.log(err);
+            } else {
+               
+                let filename = docs[0]._id+'.json';
+                let absPath = path.join(__dirname, filename);
+
+                var beautify = require('js-beautify').js;
+                let json = beautify(JSON.stringify(docs), { indent_size: 4, space_in_empty_paren: true })
+
+                fs.writeFile(absPath, json, (err) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                    res.download(absPath, (err) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                     
+                    });
+                  });
+            }
+        });
+
     },
 
 

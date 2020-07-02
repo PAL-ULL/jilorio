@@ -34,7 +34,7 @@ router.post("/dish/insert/json", controller.insertDishJsonPost);
 router.get("/dish/:_id",  controller.dishDetails);
 router.get("/dish/update/:_id",  controller.updateDish);
 router.post("/dish/update/:_id",  controller.updateDishPost);
-
+router.get("/dish/download/:_id",  controller.downloadDish);
 
 
 
@@ -51,6 +51,7 @@ router.get("/menu/insert/json", controller.insertMenuJson);
 router.post("/menu/insert/json",  controller.insertMenuJsonPost);
 router.get("/menu/update/:_id", controller.updateMenu);
 router.post("/menu/update/:_id", controller.updateMenuPost);
+router.get("/menu/download/:_id",  controller.downloadMenu);
 
 
 router.get("/planification", controller.planification);
@@ -68,6 +69,7 @@ router.get("/planification/insert/autocomplete/",  controller.autocompletePlanif
 router.get("/planification/create/load/menus", controller.loadDataMenus);
 router.post("/planification/create/load/post", controller.insertPlanificationPost);
 router.post("/planification/update/create/load/post", controller.updatePlanificationPost);
+router.get("/planification/download/:_id",  controller.downloadPlanification);
 
 router.get("/recomendation", controller.recomendation);
 router.get("/recomendation/view", controller.recomendationView);
@@ -80,6 +82,8 @@ router.get("/recomendation/delete/:_id",  controller.removeRecomendation);
 router.post("/recomendation/view:_id?", controller.getRecomendation);
 router.get("/recomendation/insert/json",  controller.insertRecomendationJson);
 router.post("/recomendation/insert/json",  controller.insertRecomendationJsonPost);
+router.get("/recomendation/download/:_id",  controller.downloadRecomendation);
+
 
 // router.post("/menu/update/:_id", controller.updateMenuPost);
 router.get("/evaluation", controller.evaluation);
