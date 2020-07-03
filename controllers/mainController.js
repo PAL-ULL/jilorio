@@ -2571,6 +2571,7 @@ let controller = {
             });
         } else {
             User.findOne({ email: email }).then(user => {
+                console.log(user);
                 if (user) {
                     errors.push({ msg: 'Email already exists' });
                     res.render('user/register', {
