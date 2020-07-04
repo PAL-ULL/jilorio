@@ -3325,11 +3325,11 @@ async function energy(recData, nutrientes) {
 };
 
 async function proteinas(recData, nutrientes) {
-    if ((parseInt(nutrientes[2]) > recData.proteinMin) && (parseInt(nutrientes[2]) < recData.proteinMax)) {
+    if (((parseInt(nutrientes[2])*4) > recData.proteinMin) && ((parseInt(nutrientes[2])*4)  < recData.proteinMax)) {
         const resultproteins = "Muy recomendable"
         console.log(resultproteins);
         return resultproteins;
-    } else if ((parseInt(nutrientes[2]) > recData.proteinMin - 50) && (parseInt(nutrientes[2]) < recData.proteinMax + 50)) {
+    } else if (((parseInt(nutrientes[2])*4)  > recData.proteinMin - 50) && ((parseInt(nutrientes[2])*4) < recData.proteinMax + 50)) {
         const resultproteins = "Recomendable"
         return resultproteins;
     } else {
@@ -3341,11 +3341,11 @@ async function proteinas(recData, nutrientes) {
 };
 
 async function lipidos(recData, nutrientes) {
-    if ((parseInt(nutrientes[3]) > recData.lipidsMin) && (parseInt(nutrientes[3]) < recData.lipidsMax)) {
+    if (((parseInt(nutrientes[3])*9) > recData.lipidsMin) && ((parseInt(nutrientes[3])*9) < recData.lipidsMax)) {
         const resultlipidos = "Muy recomendable"
         console.log(resultlipidos);
         return resultlipidos;
-    } else if ((parseInt(nutrientes[3]) > recData.lipidsMin - 100) && (parseInt(nutrientes[3]) < recData.lipidsMax + 100)) {
+    } else if (((parseInt(nutrientes[3])*9) > recData.lipidsMin - 100) && ((parseInt(nutrientes[3])*9) < recData.lipidsMax + 100)) {
         const resultlipidos = "Recomendable"
         console.log(resultlipidos);
         return resultlipidos;
@@ -3357,11 +3357,11 @@ async function lipidos(recData, nutrientes) {
 };
 
 async function carbohidratos(recData, nutrientes) {
-    if ((parseInt(nutrientes[4]) > recData.carbohydrtMin) && (parseInt(nutrientes[4]) < recData.carbohydrtMax)) {
+    if (((parseInt(nutrientes[4])*4) > recData.carbohydrtMin) && ((parseInt(nutrientes[4])*4) < recData.carbohydrtMax)) {
         const resultcarbohidratos = "Muy recomendable"
         console.log(resultcarbohidratos);
         return resultcarbohidratos;
-    } else if ((parseInt(nutrientes[4]) > recData.carbohydrtMin - 300) && (parseInt(nutrientes[4]) < recData.carbohydrtMax + 300)) {
+    } else if (((parseInt(nutrientes[4])*4)  > recData.carbohydrtMin - 300) && ((parseInt(nutrientes[4])*4) < recData.carbohydrtMax + 300)) {
         const resultcarbohidratos = "Recomendable"
         console.log(resultcarbohidratos);
         return resultcarbohidratos;
