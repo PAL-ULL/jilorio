@@ -3298,9 +3298,9 @@ async function calculadora(recData, nutrientes) {
     console.log("-------- CALCULADORA --------");
     const obj = {
         energia: [nutrientes[1], await energy(recData[0], nutrientes)],
-        proteinas: [(nutrientes[2]*4), await proteinas(recData[0], nutrientes)],
-        lipidos: [(nutrientes[3]*9), await lipidos(recData[0], nutrientes)],
-        carbohidratos: [(nutrientes[4]*4), await carbohidratos(recData[0], nutrientes)]
+        proteinas: [((nutrientes[2]*4).toFixed(2)), await proteinas(recData[0], nutrientes)],
+        lipidos: [((nutrientes[3]*9).toFixed(2)), await lipidos(recData[0], nutrientes)],
+        carbohidratos: [((nutrientes[4]*4).toFixed(2)), await carbohidratos(recData[0], nutrientes)]
     }
 
     return (obj);
