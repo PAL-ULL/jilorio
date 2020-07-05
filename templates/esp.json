@@ -763,25 +763,27 @@
         "href": "/register" 
     },
     "dishIndex": [
-
-        
+   
         {
             "name": "Ver platos",
             "description": "Visualiza los platos, sus ingredientes y los datos nutricionales de cada uno de ellos.",
             "icon": "fas fa-search",
-            "href": "/dish/view"
+            "href": "/dish/view",
+            "button": "Ver más"
         },
         {
             "name": "Añadir platos",
             "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
-            "href": "/dish/insert"
+            "href": "/dish/insert",
+            "button": "Ver más"
         },
         {
             "name": "Añadir platos desde un archivo JSON",
             "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
-            "href": "/dish/insertDishJson"
+            "href": "/dish/insert/json",
+            "button": "Ver más"
         }
     ],
     "dishDetails": [
@@ -803,19 +805,22 @@
             "name": "Ver menús",
             "description": "Visualiza los menús, los platos que lo forman y los datos nutricionales de cada uno de ellos.",
             "icon": "fas fa-search",
-            "href": "/menu/view"
+            "href": "/menu/view",
+            "button": "Ver más"
         },
         {
             "name": "Añadir menús",
             "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
-            "href": "/menu/insert"
+            "href": "/menu/insert",
+            "button": "Ver más"
         },
         {
             "name": "Añadir menús desde un archivo JSON",
             "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
-            "href": "/menu/insertJson"
+            "href": "/menu/insert/json",
+            "button": "Ver más"
         }
         
     ],
@@ -824,19 +829,22 @@
             "name": "Ver planificaciones",
             "description": "Visualiza las planificaciones, los menús de cada día y los datos nutricionales de cada planificación.",
             "icon": "fas fa-search",
-            "href": "/planification/view"
+            "href": "/planification/view",
+            "button": "Ver más"
         },
         {
             "name": "Añadir planificaciones",
             "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un simple formulario.",
             "icon": "fas fa-edit",
-            "href": "/planification/insert"
+            "href": "/planification/insert",
+            "button": "Ver más"
         },
         {
             "name": "Añadir planificaciones desde un archivo JSON",
             "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
-            "href": "/planification/insertJson"
+            "href": "/planification/insert/json",
+            "button": "Ver más"
         }
 
     ],
@@ -845,35 +853,39 @@
             "name": "Ver recomendaciones",
             "description": "Visualiza las recomendaciones nutricionales aportadas por nutricionistas.",
             "icon": "fas fa-search",
-            "href": "/recomendation/view"
+            "href": "/recomendation/view",
+            "button": "Ver más"
         },
         {
             "name": "Añadir recomendaciones",
             "description": "Siendo nutricionista, podrás crear tus propias recomendaciones a través de un simple formulario.",
             "icon": "fas fa-edit",
-            "href": "/recomendation/insert"
+            "href": "/recomendation/insert",
+            "button": "Ver más"
         },
         {
             "name": "Añadir recomendaciones desde un archivo JSON",
             "description": "Siendo nutricionista, crea tus propias recomendaciones a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
-            "href": "/recomendation/insertJson"
+            "href": "/recomendation/insert/json",
+            "button": "Ver más"
         }
 
     ],
     "evaluationIndex": [
         {
-            "name": "Realizar evaluaciones",
-            "description": "Crea tus propias planificaciones, utilizando los platos, menús y planificaciones disponibles, a través de un simple formulario.",
-            "icon": "fas fa-edit",
-            "href": "/evaluation/insert"
-        },
-        
-        {
             "name": "Ver evaluaciones",
             "description": "Visualiza los resultados de las evaluaciones de platos, menús y planificaciones.",
             "icon": "fas fa-search",
-            "href": "/evaluation/view"
+            "href": "/evaluation/view",
+            "button": "Ver más"
+        },
+        {
+            "name": "Realizar evaluaciones",
+            "description": "Crea tus propias planificaciones, utilizando los platos, menús y planificaciones disponibles, a través de un simple formulario.",
+            "icon": "fas fa-edit",
+            "href": "/evaluation/create",
+            "button": "Ver más"
         }
     ],
     "foodIndex": [
@@ -881,7 +893,8 @@
             "name": "Ver alimentos",
             "description": "Visualiza los datos nutricionales de más de 8700 alimentos.",
             "icon": "fas fa-edit",
-            "href": "/food/view"
+            "href": "/food/view",
+            "button": "Ver más"
         }
     ],
     "jilorioInfo": [
@@ -897,12 +910,15 @@
             "dish": {
                 "title": "Platos",
                 "description": "Desde Platos, puedes acceder a cada uno de ellos y conocer sus ingredientes y valores nutricionales. Si te falta un plato, no dudes en incluirlos desde un formulario o a partir de la subida de un archivo JSON."
+             
+            
             }
         },
         {
             "menu": {
                 "title": "Menús",
                 "description": "Desde Menús, puedes acceder a cada uno de ellos y conocer sus platos y valores nutricionales. Si te falta un menú, no dudes en incluirlos desde un formulario o a partir de la subida de un archivo JSON."
+               
             }
         },
         {
@@ -926,7 +942,9 @@
         {
             "food": {
                 "title": "Alimentos",
-                "description": "Desde Alimentos, puedes tener acceso a los datos nutricionales de cada uno de los alimentos."
+                "description": "Desde Alimentos, puedes tener acceso a los datos nutricionales de cada uno de los alimentos.",
+                "listadoHref": "/food/view",
+                "button": "Ver más"
             }
         }
     ],

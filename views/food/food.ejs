@@ -44,7 +44,7 @@
                             </div>
                             <div class="feature features-icons-icon">  <%= items.myObject.foodIndex[i].name %></div>
                             <p class="text-justify"><%= items.myObject.foodIndex[i].description %> </p>
-                            <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                            <p><a class="btn btn-info" href="<%= items.myObject.foodIndex[i].href %>" role="button"><%= items.myObject.foodIndex[i].button %>&raquo;</a></p>
                         </div>
                     </div>
                     <% } %>

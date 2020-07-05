@@ -6,7 +6,6 @@
     <link rel="shortcut icon" href="https://doorcountypulse.com/wp-content/uploads/2020/03/forkspoon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -46,7 +45,7 @@
                             <p class="text-justify"><%= items.myObject.evaluationIndex[i].description %> </p>
                          
                         </div>
-                        <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                        <p><a class="btn btn-info" href="<%= items.myObject.evaluationIndex[i].href %>" role="button"><%= items.myObject.evaluationIndex[i].button %> &raquo;</a></p>
                     </div>
                     <% } %>
                 </div>

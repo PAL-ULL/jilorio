@@ -10,13 +10,19 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 
-        <!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
@@ -29,7 +35,7 @@
         <div class="jumbotronRecomendation center-block">
             <div class="jilorioInfo recomendation">
                 <h1 class="display-4"> <%= items.myObject.jilorioInfo[4].recomendation.title %> </h1>
-                <p  style="text-align: center;"><%= items.myObject.jilorioInfo[4].recomendation.description%></p>
+                <p style="text-align: center;"><%= items.myObject.jilorioInfo[4].recomendation.description%></p>
             </div>
         </div>
         <div class="container">
@@ -42,10 +48,12 @@
                             <div class="features-icons-icon d-flex">
                                 <i class="<%= items.myObject.recomendationIndex[i].icon%> fa-3x m-auto text-info"></i>
                             </div>
-                            <div class="feature features-icons-icon"> <%= items.myObject.recomendationIndex[i].name %></div>
+                            <div class="feature features-icons-icon"> <%= items.myObject.recomendationIndex[i].name %>
+                            </div>
                             <p class="text-justify"><%= items.myObject.recomendationIndex[i].description %> </p>
                         </div>
-                        <p><a class="btn btn-info" href="#" role="button">Ver más &raquo;</a></p>
+                        <p><a class="btn btn-info" href="<%= items.myObject.recomendationIndex[i].href %>"
+                                role="button"><%= items.myObject.recomendationIndex[i].button %> &raquo;</a></p>
                     </div>
                     <% } %>
                 </div>

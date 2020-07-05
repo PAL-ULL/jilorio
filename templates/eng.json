@@ -26,19 +26,22 @@
                 "href": "../evaluacion.ejs"
             }
         ],
-        "usuario": [
+        "usuarioLog": [
+            {
+                "name": "Log out",
+                "href": "../cerrarSesion.ejs"
+            }
+        ],
+        "usuarioNoLog":[
             {
                 "name": "Log in",
                 "href": "../iniciarSesion.ejs"
             },
             {
-                "name": "Log out",
-                "href": "../cerrarSesion.ejs"
-            },
-            {
                 "name": "Sign in",
                 "href": "../registro.ejs"
             }
+            
         ]
     },
     "tablaAlimentos": {

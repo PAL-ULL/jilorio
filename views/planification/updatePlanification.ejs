@@ -27,6 +27,17 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
 
 
 </head>
@@ -37,14 +48,14 @@
 
     <div class="container">
         <div class="cardInside2">
-        <h1><%= items.myObject.planificacion.update %></h1>
-    </div>
-    <br>
-    <%- include ("../partials/message.ejs"); %>
-    <br>
-    <div class="cardInside3">
-        <h2><%= items.myDocs._id %></h2>
-    </div>
+            <h1><%= items.myObject.planificacion.update %></h1>
+        </div>
+        <br>
+        <%- include ("../partials/message.ejs"); %>
+        <br>
+        <div class="cardInside3">
+            <h2><%= items.myDocs._id %></h2>
+        </div>
 
         <div class="card">
             <form method="POST" , id="aux" action='./insert'>
@@ -77,7 +88,7 @@
                 </div>
                 <% } %>
                 <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
-                <label  class="required2"><%= items.myObject.planificacion.formNumber[i].label %></label>
+                <label class="required2"><%= items.myObject.planificacion.formNumber[i].label %></label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 
@@ -104,7 +115,7 @@
                         </div>
                         <div class="<%="global"+(i+1) %> removingThen">
                             <div class="removingThen" style="margin-top: 5px; margin-bottom: 20px;">
-                                <label  class="required2" style="display: block;">Introduce el número de menús:</label>
+                                <label class="required2" style="display: block;">Introduce el número de menús:</label>
 
                                 <input disabled value=<%= items.myDocs.menus[i].length %> type=number
                                     class="<%="menuDays"+(i+1) %> form-control removingThen comun"
@@ -115,13 +126,14 @@
                             <select id="<%="selectMenu"+(j+1) %>" class="selectMenu mySelect form-control"
                                 style="margin-bottom: 15px;">
                                 <% for (var k=0; k< items.myMenus.length; k++) { %>
-                                    <% if (  items.myMenus[k]._id === items.myDocs.menus[i][j]._id) { %>
-                                    <option selected value="<%=items.myDocs.menus[i][j]._id%>"><%=items.myDocs.menus[i][j]._id%> </option>
+                                <% if (  items.myMenus[k]._id === items.myDocs.menus[i][j]._id) { %>
+                                <option selected value="<%=items.myDocs.menus[i][j]._id%>">
+                                    <%=items.myDocs.menus[i][j]._id%> </option>
 
 
-                                    <% } else { %>
-                                        <option  value="<%=items.myMenus[k]._id%>"><%=items.myMenus[k]._id%> </option>
-                                        <% } %>
+                                <% } else { %>
+                                <option value="<%=items.myMenus[k]._id%>"><%=items.myMenus[k]._id%> </option>
+                                <% } %>
                                 <% } %>
                             </select>
 
@@ -139,7 +151,7 @@
                     <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
                         class="required">*</span>
                 </div>
-         
+
 
 
                 <br><br>
@@ -153,25 +165,25 @@
 
         <script>
 
-                    const loop = document.querySelectorAll(".comun");
-                    let j = 0;
-                    // let index = 0;
-                    for (let item of loop) {
-                        j++;
-                        let variable = "global" + j;
-                        let prueba = "prueba" + j;
-                        item.addEventListener("change", () => {
+            const loop = document.querySelectorAll(".comun");
+            let j = 0;
+            // let index = 0;
+            for (let item of loop) {
+                j++;
+                let variable = "global" + j;
+                let prueba = "prueba" + j;
+                item.addEventListener("change", () => {
 
-                            // console.log("prueba ES: " + prueba)
-                            const todos = document.querySelectorAll(".selectMenu");
-                            console.dir(todos);
-                            for (uno of todos) {
-                                uno.remove();
-                            }
-                            // item.style.background = "rgb(170, 221, 170)"
-                            createSelectForMenus(item.value, variable, prueba)
-                        });
+                    // console.log("prueba ES: " + prueba)
+                    const todos = document.querySelectorAll(".selectMenu");
+                    console.dir(todos);
+                    for (uno of todos) {
+                        uno.remove();
                     }
+                    // item.style.background = "rgb(170, 221, 170)"
+                    createSelectForMenus(item.value, variable, prueba)
+                });
+            }
 
             var valueDay = $("#myNumberDays").val();
 
@@ -335,7 +347,7 @@
 
 
                 for (let item of array) {
-                    console.log( "Actualizando ---------> ")
+                    console.log("Actualizando ---------> ")
                     console.log(item.value);
                     vectorMenusCandidatos.push(item.value);
                 }
@@ -388,35 +400,35 @@
         <% const  docs =   items.myMenus %>
 
         <div class="cardInside3">
-        <table id="planification" class="table table-bordered table-striped table-hover table-sm">
-            <thead class="thead-dark">
-                <tr>
-                    <% for (var i=0; i< nombres_sz; i++) { %>
-                    <th scope="col"><%= nombres[i] %></th>
+            <table id="planification" class="table table-bordered table-striped table-hover table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <% for (var i=0; i< nombres_sz; i++) { %>
+                        <th scope="col"><%= nombres[i] %></th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <% for (var i=0; i < docs_sz; i++) { %>
+                        <td> <%= docs[i]._id %> </td>
+                        <td>
+                            <% for (var j=0; j < docs[i].dishes.length; j++) { %>
+                            <%=docs[i].dishes[j]._id%>
+
+                            <% if( (j+1) < docs[i].dishes.length) {  %>
+                            <%= "|   "  %>
+                            <% } %>
+
+                            <% } %>
+                        <td><%= items.myNutrientsMenu[i][1] %> </td>
+
+                    </tr>
                     <% } %>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <% for (var i=0; i < docs_sz; i++) { %>
-                    <td> <%= docs[i]._id %> </td>
-                    <td>
-                        <% for (var j=0; j < docs[i].dishes.length; j++) { %>
-                        <%=docs[i].dishes[j]._id%>
-
-                        <% if( (j+1) < docs[i].dishes.length) {  %>
-                        <%= "|   "  %>
-                        <% } %>
-
-                        <% } %>
-                    <td><%= items.myNutrientsMenu[i][1] %> </td>
-
-                </tr>
-                <% } %>
-            </tbody>
-        </table>
-    </div>
-    <br>
+                </tbody>
+            </table>
+        </div>
+        <br>
 
     </div>
     <%- include ("../partials/footer.ejs"); %>

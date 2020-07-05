@@ -29,6 +29,16 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -44,7 +54,7 @@
         <%- include ("../partials/message.ejs"); %>
         <br>
         <div class="cardInside3">
-        <h2><%= items.myDocs._id %></h2>
+            <h2><%= items.myDocs._id %></h2>
         </div>
 
         <div class="card">
@@ -61,21 +71,23 @@
 
                     </div>
                     <% if (items.myObject.recomendacion.form[i].name ==="_id") { %>
-                        <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
+                    <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
                         placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
                         aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
                         aria-describedby="basic-addon1" name="<%= items.myObject.recomendacion.form[i].name %>"
                         #<%= items.myObject.recomendacion.form[i].name %>
-                        min="<%= items.myObject.recomendacion.form[i].min %>" value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" disabled required>
-                        <% } else{%>
-                            <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
-                            placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
-                            aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
-                            aria-describedby="basic-addon1" name="<%= items.myObject.recomendacion.form[i].name %>"
-                            #<%= items.myObject.recomendacion.form[i].name %>
-                            min="<%= items.myObject.recomendacion.form[i].min %>" value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" required>
-                            <% } %>
-                    
+                        min="<%= items.myObject.recomendacion.form[i].min %>"
+                        value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" disabled required>
+                    <% } else{%>
+                    <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
+                        placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
+                        aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
+                        aria-describedby="basic-addon1" name="<%= items.myObject.recomendacion.form[i].name %>"
+                        #<%= items.myObject.recomendacion.form[i].name %>
+                        min="<%= items.myObject.recomendacion.form[i].min %>"
+                        value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" required>
+                    <% } %>
+
                 </div>
                 <% } %>
                 <br>
@@ -89,7 +101,8 @@
                     <div class="row">
                         <% } %>
                         <div class="col">
-                            <label><%= items.myObject.recomendacion.formNumber[i].label %><span class="required">*</span></label>
+                            <label><%= items.myObject.recomendacion.formNumber[i].label %><span
+                                    class="required">*</span></label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
 
@@ -104,7 +117,8 @@
                                     aria-describedby="basic-addon1"
                                     name="<%= items.myObject.recomendacion.formNumber[i].name %>"
                                     #<%= items.myObject.recomendacion.formNumber[i].name %>
-                                    min="<%= items.myObject.recomendacion.formNumber[i].min %>" value="<%=items.myDocs[items.myObject.recomendacion.formNumber[i].name]%>" required>
+                                    min="<%= items.myObject.recomendacion.formNumber[i].min %>"
+                                    value="<%=items.myDocs[items.myObject.recomendacion.formNumber[i].name]%>" required>
                             </div>
                         </div>
                         <% if (j === 2){ %>
@@ -122,7 +136,8 @@
 
 
                 <br>
-                <input type="submit" id="mySubmit" class="btn btn-info" value="<%= items.myObject.recomendacion.button %>" />
+                <input type="submit" id="mySubmit" class="btn btn-info"
+                    value="<%= items.myObject.recomendacion.button %>" />
             </form>
         </div>
         <br>

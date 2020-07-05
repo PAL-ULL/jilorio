@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+    
 </head>
 
 <body>
@@ -46,7 +47,7 @@
                             <p class="text-justify"><%= items.myObject.menuIndex[i].description %> </p>
 
                         </div>
-                        <p><a class="btn btn-info" href="<%= items.myObject.menuIndex[i].href %>" role="button">Ver más
+                        <p><a class="btn btn-info" href="<%= items.myObject.menuIndex[i].href %>" role="button"><%= items.myObject.menuIndex[i].button %>
                                 &raquo;</a></p>
                     </div>
                     <% } %>

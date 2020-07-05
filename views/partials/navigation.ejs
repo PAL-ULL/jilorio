@@ -18,13 +18,18 @@
     <ul class="navbar-nav ml-auto">
 
       <% if (!items.req.user) { %>
+
       <% for (let i=0; i< items.myObject.navegacion.usuarioNoLog.length; i++) { %>
       <a class="nav-link"
         href="<%- items.myObject.navegacion.usuarioNoLog[i].href %>"><%- items.myObject.navegacion.usuarioNoLog[i].name %></a>
       </li>
       <% } %>
       <% }  else { %>
-
+        <% if (items.req.user.rol === "admin") { %>
+          <a class="nav-link"
+          href="/users">Users</a>
+        </li>
+          <% } %>
       <% for (let i=0; i< items.myObject.navegacion.usuarioLog.length; i++) { %>
       <li class="nav-item">
         <a class="nav-link logout"
