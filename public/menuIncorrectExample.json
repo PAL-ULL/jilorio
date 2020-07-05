@@ -1,4 +1,4 @@
-{
+[{
     "id": "Hola",
     "description": "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
     "dishes": [
@@ -8,7 +8,7 @@
             "ingredients": [
                 {
                     "name": "TOMATOES,GREEN,RAW",
-                    "amount": 100,
+                    "amount": "100",
                     "unitMeasure": "g",
                     "ndbno": "11527"
                 },
@@ -67,4 +67,4 @@
             "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
         }
     ]
-}
+}]

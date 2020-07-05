@@ -1,75 +1,10 @@
 [
     {
-        "_id": "",
+        "_id": "fgg",
         "description": "Esta planificación es diaria pero también pueden ser semanales y mensuales",
         "dias": "1",
         "menus": [
-            [
-                {
-                    "_id": "Menú: Lentejas y zumo de narnaja y plátano",
-                    "description": "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 2 platos.",
-                    "dishes": [
-                        {
-                            "_id": "Lentejas",
-                            "description": "Este es un buen desayuno para comenzar el día.",
-                            "ingredients": [
-                                {
-                                    "name": "TOMATOES,GREEN,RAW",
-                                    "amount": 30,
-                                    "unitMeasure": "g",
-                                    "ndbno": "11527"
-                                },
-                                {
-                                    "name": "LENTILS,SPROUTED,RAW",
-                                    "amount": 120,
-                                    "unitMeasure": "g",
-                                    "ndbno": "11248"
-                                },
-                                {
-                                    "name": "POTATOES,RAW,SKIN",
-                                    "amount": 50,
-                                    "unitMeasure": "g",
-                                    "ndbno": "11362"
-                                },
-                                {
-                                    "name": "CARROTS,RAW",
-                                    "amount": 30,
-                                    "unitMeasure": "g",
-                                    "ndbno": "11124"
-                                }
-                            ],
-                            "relationatedDishes": [
-                                "Lentejas con chorizo"
-                            ],
-                            "recipe": "",
-                            "imageURL": "https://t1.rg.ltmcdn.com/es/images/7/9/9/lentejas_viudas_73997_600_square.jpg"
-                        },
-                        {
-                            "_id": "Zumo de naranja y plátano",
-                            "description": "Este es un buen desayuno para comenzar el día.",
-                            "ingredients": [
-                                {
-                                    "name": "ORANGE JUC,CHILLED,INCL FROM CONC,W/ ADDED CA",
-                                    "amount": 160,
-                                    "unitMeasure": "ml",
-                                    "ndbno": "09211"
-                                },
-                                {
-                                    "name": "BANANAS,RAW",
-                                    "amount": 80,
-                                    "unitMeasure": "g",
-                                    "ndbno": "09040"
-                                }
-                            ],
-                            "relationatedDishes": [
-                                "Zumo de naranja y papaya"
-                            ],
-                            "recipe": "",
-                            "imageURL": "https://api.motorpress-iberica.es/nutrition/api/v1/images/recipe/57bd6dfa36a18e976ef4f1c2.jpg"
-                        }
-                    ]
-                }
-            ]
+            
         ]
     }
   
