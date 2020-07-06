@@ -47,7 +47,12 @@
                 <form method="POST" , action='/users/update/<%= items.id %>'>
                     <br>
                     <% for (var i=0; i< items.myObject.userEdit.form.length; i++) { %>
+                    <% if ((items.myObject.userEdit.form[i].name === "password") || (items.myObject.userEdit.form[i].name === "password2")) {%>
+                    <label><%= items.myObject.userEdit.form[i].label %></label>
+                    <% } else{ %>
                     <label><%= items.myObject.userEdit.form[i].label %><span class="required">*</span></label>
+                    <% } %>
+
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <% if (items.myObject.userEdit.form[i].name === "username")  {%>
@@ -62,7 +67,7 @@
                             placeholder="<%= items.myObject.userEdit.form[i].placeholder %>"
                             aria-label="<%= items.myObject.userEdit.form[i].ariaLabel %>"
                             aria-describedby="basic-addon1" name="<%= items.myObject.userEdit.form[i].name %>"
-                            #<%= items.myObject.userEdit.form[i].name %> required>
+                            #<%= items.myObject.userEdit.form[i].name %>>
                         <% } else {%>
                         <input type="<%= items.myObject.userEdit.form[i].type %>" class="form-control"
                             placeholder="<%= items.myObject.userEdit.form[i].placeholder %>"
@@ -86,9 +91,9 @@
                         <button class="btn btn-info" type="submit"
                             href="/users/update/<%= items.id %>"><%= items.myObject.userEdit.button %></button>
                     </div>
-                
+
                 </form>
-                
+
             </div>
         </div>
         <br><br>

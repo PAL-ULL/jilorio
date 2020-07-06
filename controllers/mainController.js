@@ -2645,27 +2645,34 @@ let controller = {
 
     updateUserPost: function (req, res) {
 
-
-
         const { name, email, username, password, password2, rol } = req.body;
         let errors = [];
 
-        if (!name || !email || !username || !password || !password2 || !rol) {
-            errors.push({ msg: 'Please enter all fields' });
+        if (!name || !email || !username  || !rol) {
+            errors.push({ msg: 'Please enter all required fields' });
         }
+
+        const regex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+
+        if (!email.match(regex)) {
+            errors.push({ msg: "La dirección de email es incorrecta." });
+        }
+
 
         req.checkBody('req.body.email', 'Email is invalid').notEmpty();
 
-        if (password != password2) {
-            errors.push({ msg: 'Passwords do not match' });
+        if ((password.length > 0) || (password2.length > 0)) {
+            if (password != password2) {
+                errors.push({ msg: 'Passwords do not match' });
+            }
+
+            if (password.length < 6) {
+                errors.push({ msg: 'Password must be at least 6 characters' });
+            }
         }
 
-        if (password.length < 6) {
-            errors.push({ msg: 'Password must be at least 6 characters' });
-        }
 
         if (errors.length > 0) {
-
 
             Users.find({ _id: req.params._id }, async function (err, docs) {
                 if (err) {
@@ -2694,8 +2701,12 @@ let controller = {
             const query = { _id: req.params._id };
             const id = req.params._id;
 
+            if (password.length > 0) {
+                var newvalues = { name: name, username: username, rol: rol, email: email, password: password };
+            } else {
+                var newvalues = { name: name, username: username, rol: rol, email: email };
+            }
 
-            var newvalues = { name: name, username: username, rol: rol, email: email, password: password };
             User.findById(query).then(user => {
                 if (user) {
 
@@ -2706,28 +2717,46 @@ let controller = {
                         rol
                     };
 
-                    bcrypt.genSalt(10, (err, salt) => {
-                        bcrypt.hash(newvalues.password, salt, (err, hash) => {
-                            if (err) throw err;
+                    if (newvalues.password) {
+                        bcrypt.genSalt(10, (err, salt) => {
+                            bcrypt.hash(newvalues.password, salt, (err, hash) => {
+                                if (err) throw err;
 
-                            newUser.password = hash;
-                            const set = { $set: newUser };
+                                newUser.password = hash;
+                                const set = { $set: newUser };
 
-                            Users.updateOne(query, set, (err, updateUser) => {
-                                if (err) {
-                                    console.log(err);
-                                } else {
+                                Users.updateOne(query, set, (err, updateUser) => {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
 
-                                    req.flash(
-                                        'success_msg',
-                                        'User has been updated'
-                                    );
-                                    res.redirect('/users');
-                                }
-                            })
+                                        req.flash(
+                                            'success_msg',
+                                            'User has been updated'
+                                        );
+                                        res.redirect('/users');
+                                    }
+                                })
 
+                            });
                         });
-                    });
+                    }else{
+                        const set = { $set: newUser };
+
+                        Users.updateOne(query, set, (err, updateUser) => {
+                            if (err) {
+                                console.log(err);
+                            } else {
+
+                                req.flash(
+                                    'success_msg',
+                                    'User has been updated'
+                                );
+                                res.redirect('/users');
+                            }
+                        })
+
+                    }
                 }
 
             });

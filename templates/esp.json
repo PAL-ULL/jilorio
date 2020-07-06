@@ -711,7 +711,7 @@
             {
                 "label": "Actualice la contraseña",
                 "icon": "fas fa-lock",
-                "type": "text",
+                "type": "password",
                 "placeholder": "Contraseña",
                 "ariaLabel": "password",
                 "name": "password"
@@ -719,7 +719,7 @@
             {
                 "label": "Confirme la contraseña",
                 "icon": "fas fa-lock",
-                "type": "text",
+                "type": "password",
                 "placeholder": "Contraseña",
                 "ariaLabel": "password2",
                 "name": "password2"
