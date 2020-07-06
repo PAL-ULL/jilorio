@@ -1,0 +1,19 @@
+[{
+    "ingredients": [{
+        "name": "ORANGE JUC,CHILLED,INCL FROM CONC,W/ ADDED CA",
+        "amount": 160,
+        "unitMeasure": "ml",
+        "ndbno": "09211"
+    }, {
+        "name": "BANANAS,RAW",
+        "amount": 80,
+        "unitMeasure": "g",
+        "ndbno": "09040"
+    }],
+    "recipe": "",
+    "imageURL": "https://api.motorpress-iberica.es/nutrition/api/v1/images/recipe/57bd6dfa36a18e976ef4f1c2.jpg",
+    "_id": "Zumo de naranja y plátano",
+    "description": "Este es un buen desayuno para comenzar el día.",
+    "relationatedDishes": ["Zumo de naranja y papaya"],
+    "date": "2020-07-06T22:19:49.972Z"
+}]

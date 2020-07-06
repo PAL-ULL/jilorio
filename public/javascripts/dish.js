@@ -181,10 +181,12 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         lipidTotal: Number(lipidTotal.toFixed(2)),
         carbohydrt: Number(carbohydrt.toFixed(2)),
         fiber: Number(fiber.toFixed(2)),
+        sugar: Number(sugar.toFixed(2)),
         sodium: Number(sodium.toFixed(2)),
-        cholestrl: Number(cholestrl.toFixed(2)),
-        sugar: Number(sugar.toFixed(2))
+        cholestrl: Number(cholestrl.toFixed(2))
+        
     };
+    console.log("total nutrients: " + util.inspect(totalNutrients))
 
     return totalNutrients;
 };

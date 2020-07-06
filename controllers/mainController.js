@@ -152,6 +152,7 @@ let controller = {
                 console.log(err);
             } else {
                 const nutrientes = await calculateNutrients(doc);
+                // console.log(nutrientes[0])
                 res.render('dish/dishDetails', {
                     items: {
                         req: req,
@@ -772,13 +773,13 @@ let controller = {
                     const value = await calculateNutrientsMenu(docs[i])
                     valores.push(value);
                 }
-
+              
                 res.render('menu/getMenu', {
                     items: {
                         req: req,
                         myObject: espTemplate,
                         myDocs: docs,
-                        myNutrientsMenu: valores,
+                        myNutrientsMenu: valores
                     }
                 });
             }
@@ -801,7 +802,7 @@ let controller = {
                 const kcal = await calculateKcal(doc[0].dishes);
 
                 kcalPlatos.push(kcal);
-
+                console.log(valores)
 
                 res.render('menu/menuDetails', {
                     items: {
@@ -3048,8 +3049,10 @@ async function calculateNutrientsDish(doc) {
     vector.push(valores["carbohydrt"]);
     vector.push(valores["fiber"]);
     vector.push(valores["sodium"]);
-    vector.push(valores["cholestrl"]);
     vector.push(valores["sugar"]);
+    vector.push(valores["cholestrl"]);
+
+    //ojo
 
     return vector;
 }
@@ -3066,7 +3069,7 @@ async function calculateNutrientsMenu(doc) {
             nut_vector.push(nutrients);
         }
 
-
+        console.log("nut_vector: " + util.inspect(nut_vector))
         const valores = dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
 
         vector.push(valores);
@@ -3103,9 +3106,10 @@ async function calculateNutrientsMenu(doc) {
         lipidTotal.toFixed(2),
         carbohydrt.toFixed(2),
         fiber.toFixed(2),
+        sugar.toFixed(2),
         sodium.toFixed(2),
-        cholestrl.toFixed(2),
-        sugar.toFixed(2)
+        cholestrl.toFixed(2)
+      
     ]
 
     return total;

@@ -23,7 +23,7 @@ helpers.authRole = (role) => {
 helpers.authRoleMultiple = (roles) => {
     return (req, res, next) => {
         let counter = 0;
-        console.log("Roles: " + roles)
+
         for (let i= 0; i < roles.length; i++){
             if (req.user.rol === roles[i]){
                 counter++;

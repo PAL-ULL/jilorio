@@ -57,7 +57,7 @@
         },
         {
             "name": "Platos",
-            "description": "Visualiza los platos disponibles, su forma de preparación, ingredientes y datos nutricionales. ¿Quieres conocer los datos nutricionales de uno de tus platos? Créalo y podrás tener toda la información nutricional disponible para descargarla.",
+            "description": "Visualiza los platos disponibles, su forma de preparación, ingredientes y datos nutricionales. ¿Quieres conocer los datos nutricionales de uno de tus platos? Créelo y podrás tener toda la información nutricional disponible para descargarla.",
             "icon": "fas fa-utensils",
             "href": "/dish",
             "text": "Ver más"
@@ -85,7 +85,7 @@
         },
         {
             "name": "Evaluaciones",
-            "description": "Verifica si un plato, menú o planificación se ajusta a los valores mínimos y máximos nutricionales de una recomendación",
+            "description": "Verifica si un plato, menú o planificación se ajusta a los valores mínimos y máximos nutricionales de una recomendación.",
             "icon": "fas fa-balance-scale",
             "href": "/evaluation",
             "text": "Ver más"
@@ -111,14 +111,14 @@
             "ID",
             "Nombre",
             "Energía (Kcal)",
-            "Agua",
-            "Proteínas",
-            "Lípidos",
-            "Carbohidratos",
-            "Fibra",
-            "Azúcar",
-            "Sal",
-            "Colesterol"
+            "Agua (g)",
+            "Proteínas (g)",
+            "Lípidos (g)",
+            "Carbohidratos (g)",
+            "Fibra (g)",
+            "Azúcar (g)",
+            "Sal (g)",
+            "Colesterol (g)"
         ],
         "valores": [
             "ndb_no",
@@ -159,15 +159,15 @@
             "Actualizar"
         ],
         "nutrientes": [
-            "Agua",
+            "Agua (g)",
             "Energía (Kcal)",
-            "Proteínas",
-            "Lípidos",
-            "Carbohidratos",
-            "Fibra",
-            "Azúcar",
-            "Sal",
-            "Colesterol"
+            "Proteínas (g)",
+            "Lípidos (g)",
+            "Carbohidratos (g)",
+            "Fibra (g)",
+            "Azúcar (g)",
+            "Sal (g)",
+            "Colesterol (g)"
         ],
         "nutrientesValue": [
             "water",
@@ -176,9 +176,10 @@
             "lipidTotal",
             "carbohydrt",
             "fiber",
+            "sugar",
             "sodium",
-            "cholestrl",
-            "sugar"
+            "cholestrl"
+            
         ]
     },
     "tablaPlatosReducida": {
