@@ -10,7 +10,6 @@ const name = "heroku_zp6jl2nt";
 
 
 module.exports = {
-    // database:`mongodb://${host}:${port}/${name}`,
     database:"mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt",
     secret: 'yoursecret'
 }

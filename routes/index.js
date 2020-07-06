@@ -2,7 +2,6 @@
 
 const express = require('express');
 const controller = require("../controllers/mainController");
-// const {ensureAuthenticated} = require('../config/auth')
 const router = express.Router();
 const {isAuthenticated, authRole, authRoleMultiple} = require("../config/helper");
 
@@ -13,22 +12,21 @@ router.get("/food", controller.food);
 router.get("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.foodView);
 router.post("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getFood);
 router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getFood);
-// router.post("/saveDish", controller.saveDish);
+
 
 
 router.get("/dish", controller.dish);
 router.get("/dish/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.dishView);
 router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
-// router.get("/dish/add", controller.addDish);
+
 router.get("/dish/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.removeDish);
 router.get("/dish/insert", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDish);
 router.get("/dish/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.autocomplete);
 router.get("/dish/update/:_id/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.autocomplete2);
-// router.get("/dish/insert/check/", controller.check);
+
 router.post("/dish/insert", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishPost);
 
-// router.get("/dish/insert/json",authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertDishJson);
-// router.post("/dish/insert/json", authRoleMultiple(["admin", "cocinero", "nutricionista"]), controller.insertDishJsonPost);
+
 router.get("/dish/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishJson);
 router.post("/dish/insert/json",isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishJsonPost);
 router.get("/dish/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.dishDetails);
@@ -58,9 +56,9 @@ router.get("/planification", controller.planification);
 router.get("/planification/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.planificationView);
 router.get("/planification/insert", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertPlanification);
 router.get("/planification/update/:_id", isAuthenticated,  authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.updatePlanification);
-// router.post("/planification/update/:_id", controller.updatePlanificationPost);
+
 router.get("/planification/:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.planificationDetails);
-// router.post("/planification/insert", controller.insertPlanificationPost);
+
 router.post("/planification/view:_id?",isAuthenticated,  authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.getPlanification);
 router.get("/planification/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.insertPlanificationJson);
 router.post("/planification/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertPlanificationJsonPost);
@@ -85,7 +83,7 @@ router.post("/recomendation/insert/json", isAuthenticated, authRoleMultiple(["ad
 router.get("/recomendation/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.downloadRecomendation);
 
 
-// router.post("/menu/update/:_id", controller.updateMenuPost);
+
 router.get("/evaluation", controller.evaluation);
 router.post("/evaluation/create/load/post", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.createEvaluationPost);
 router.get("/evaluation/create", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.createEvaluation);

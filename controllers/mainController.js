@@ -9,7 +9,6 @@ const password = "password123";
 const host = "127.0.0.1";
 const port = "27017";
 const name = "heroku_zp6jl2nt";
-// const url = `mongodb://${host}:${port}/${name}`;
 const url = "mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt";
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const fs = require('fs')
@@ -85,7 +84,7 @@ let controller = {
 
     getFood: function (req, res) {
         const searchData = req.body.shrt_desc;
-        console.log(searchData);
+
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "Objeto no existente");
         }
@@ -123,16 +122,11 @@ let controller = {
 
     dishView: async function (req, res) {
 
-        // console.log(Dish)
         Dish.find({}, async function (err, docs) {
             if (err) {
 
                 console.log(err);
             } else {
-                console.log("si" + docs)
-                // for (let i = 0; i < docs.length; i++) {
-                //     console.log(docs[i].ingredients);
-                // }
 
                 const suma = await calculateKcal(docs);
 
@@ -151,7 +145,6 @@ let controller = {
 
     dishDetails: async function (req, res) {
         let dishId = req.params._id;
-        // console.log(dishId);
         const query = { _id: dishId };
 
         Dish.find(query, async function (err, doc) {
@@ -173,7 +166,7 @@ let controller = {
     },
 
     insertDish: function (req, res) {
-        console.log(req.body);
+
 
         let query = {};
 
@@ -232,18 +225,16 @@ let controller = {
 
 
             let file = req.files.filename;  // here is the field name of the form
-            console.log(file);
+
             const valor = JSON.parse(file.data)
-            console.log(typeof valor);
-            console.log(valor);
-            console.log(typeof valor.length);
+
 
 
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
                 errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
-                console.log(errors);
+
                 showErrorsDishJsoN(errors, req, res);
 
             }
@@ -252,15 +243,15 @@ let controller = {
 
             for (let j = 0; j < valor.length; j++) {
                 const title = valor[j]._id;
-                console.log("title: " + title);
+
                 const description = valor[j].description;
-                console.log("description: " + description);
+
                 const recipe = valor[j].recipe;
-                console.log("receta: " + recipe);
+
                 const imageURL = valor[j].imageURL;
-                console.log("imageURL: " + imageURL);
+
                 const ingredients = valor[j].ingredients;
-                console.log("ingredients: " + ingredients);
+
 
                 if (!title) {
                     errors.push({ msg: "No se ha encontrado un nombre para el plato." });
@@ -290,11 +281,11 @@ let controller = {
                 } else {
 
                     for (let i = 0; i < ingredients.length; i++) {
-                        console.log(ingredients[i]);
+
 
                         const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
                         if (result.length === 0) {
-                            console.log(ingredients[i]);
+
                             noEncontrados.push(ingredients[i].name);
                         }
 
@@ -331,23 +322,21 @@ let controller = {
                 }
 
                 if (errors.length > 0) {
-                    console.log("Fleje errores");
-                    console.log(errors);
+
                     showErrorsDishJsoN(errors, req, res);
 
                 }
 
                 else {
-                    console.log(valor[j].title)
+
                     const objetoPlato = await createPlato(valor[j]);
-                    console.log("_____________________________________________________\n\n")
-                    console.log(objetoPlato._id)
+
 
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
                                 errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
-                                console.log(err);
+
                                 showErrorsDishJsoN(errors, req, res);
 
                             } else {
@@ -403,7 +392,7 @@ let controller = {
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "Objeto no existente");
         }
-        console.log(searchData);
+
         const query = { _id: { $regex: `${searchData}` } };
 
         Dish.find(query, async function (err, docs) {
@@ -412,8 +401,7 @@ let controller = {
             } else {
 
                 const suma = await calculateKcal(docs);
-                console.log(suma);
-                // console.log(docs);
+
                 res.render('dish/getDish', {
                     items: {
                         req: req,
@@ -439,25 +427,8 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            // Dish.find({}, async function (err, docs) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
-
             res.redirect("/dish/view")
-            // const suma = await calculateKcal(docs);
 
-            // res.render('dish/getDish', {
-            //     items: {
-            //         req: req,
-            //         myObject: espTemplate,
-            //         myDocs: docs,
-            //         myKcal: suma
-
-            //     }
-            // });
-            //     }
-            // }).sort({ _id: 1 })
 
         })
     },
@@ -465,15 +436,10 @@ let controller = {
     insertDishPost: async function (req, res) {
 
         const title = req.body.title;
-        console.log("title: " + title);
         const description = req.body.description;
-        console.log("description: " + description);
         const recipe = req.body.recipe;
-        console.log("receta: " + recipe);
         const imageURL = req.body.imageURL;
-        console.log("imageURL: " + imageURL);
         const vectorIngredientes = [];
-        console.log(req.body.ingredients)
 
         let errors = [];
 
@@ -482,7 +448,7 @@ let controller = {
         const ingredients = req.body.ingredients;
         let resultados = [];
         let noEncontrados = [];
-        console.log("\n\n");
+
 
         for (let i = 0; i < ingredients.length; i++) {
             const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
@@ -502,7 +468,7 @@ let controller = {
         }
         if (noEncontrados.length > 0) {
 
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+
             for (let i = 0; i < noEncontrados.length; i++) {
                 errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
             }
@@ -510,7 +476,7 @@ let controller = {
 
             client.connect(function (err, client) {
                 assert.equal(null, err);
-                console.log("\nConnected successfully to server");
+
                 const db = client.db(name);
                 const collection = db.collection("food");
                 const query = {};
@@ -529,7 +495,7 @@ let controller = {
             });
         } else {
 
-            console.log("VECTORES: " + util.inspect(resultados));
+
             const plato = new Dish({
                 _id: title,
                 description: description,
@@ -570,13 +536,12 @@ let controller = {
         const searchData = req.params._id;
 
         const query = { _id: searchData };
-        // console.log(query);
+
         Dish.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
                 let aux = docs[0];
-                console.log(docs[0]);
 
                 client.connect(function (err, client) {
                     assert.equal(null, err);
@@ -607,19 +572,17 @@ let controller = {
 
     updateDishPost: function (req, res) {
         let dishId = req.params._id;
-        console.log(req.params);
-        console.log(req.body);
-        console.log("Funcion deseada")
+
         const title = req.body.title;
-        console.log("title: " + title);
+
         const description = req.body.description;
-        console.log("description: " + description);
+
         const recipe = req.body.recipe;
-        console.log("receta: " + recipe);
+
         const imageURL = req.body.imageURL;
-        console.log("imageURL: " + imageURL);
+
         const vectorIngredientes = [];
-        console.log(req.body.ingredients)
+
 
 
         let errors = [];
@@ -629,7 +592,6 @@ let controller = {
         const ingredients = req.body.ingredients;
         let resultados = [];
         let noEncontrados = [];
-        console.log("\n\n");
 
         for (let i = 0; i < ingredients.length; i++) {
             const result = usdaJson.filter(word => word.shrt_desc === ingredients[i]);
@@ -648,20 +610,17 @@ let controller = {
             }
         }
         if (noEncontrados.length > 0) {
-
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
             for (let i = 0; i < noEncontrados.length; i++) {
                 errors.push({ msg: "El alimento " + noEncontrados[i]._id + " no ha sido encontrado." });
             }
 
             const query = { _id: dishId }
-            console.log(query);
             Dish.find(query, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
                     let aux = docs[0];
-                    // console.log(docs[0])
+
                     client.connect(function (err, client) {
                         assert.equal(null, err);
                         console.log("\nConnected successfully to server");
@@ -687,16 +646,14 @@ let controller = {
             })
         } else {
 
-            console.log("VECTORES: " + util.inspect(resultados));
 
             const query = { _id: req.params._id };
             const id = req.params._id;
-            console.log(id);
+
 
             var newvalues = { description: description, ingredients: resultados, recipe: recipe, imageURL: imageURL };
             Dish.findById(query).then(plato => {
                 if (plato) {
-                    console.log("Plato encontrado" + plato);
                     const newPlato = {
                         description,
                         ingredients,
@@ -704,12 +661,12 @@ let controller = {
                         imageURL
                     };
                     const set = { $set: newvalues };
-                    console.log(set)
+
                     Dish.updateOne(query, set, (err, updateDish) => {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("\n\n\nUSUARIO ACTUALIZADO: " + updateDish)
+
                             req.flash(
                                 'success_msg',
                                 'Dish has been updated'
@@ -729,7 +686,7 @@ let controller = {
     },
 
     downloadDish: async function (req, res) {
-        console.log(req.params._id);
+
         const searchData = req.params._id;
 
         const query = { _id: searchData };
@@ -781,7 +738,7 @@ let controller = {
                     const value = await calculateNutrientsMenu(docs[i])
                     valores.push(value);
                 }
-                console.log(req.user);
+
                 res.render('menu/getMenu', {
                     items: {
                         req: req,
@@ -800,7 +757,7 @@ let controller = {
 
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "Objeto no existente");
-            console.log(searchData);
+
         }
 
         const query = { _id: { $regex: `${searchData}` } };
@@ -842,9 +799,9 @@ let controller = {
                 valores = await calculateNutrientsMenu(doc[0]);
                 let kcalPlatos = [];
                 const kcal = await calculateKcal(doc[0].dishes);
-                // console.log("valores --------: " + valores)
+
                 kcalPlatos.push(kcal);
-                // console.log("kcalPlatos: " + util.inspect(kcalPlatos[0]))
+
 
                 res.render('menu/menuDetails', {
                     items: {
@@ -873,27 +830,9 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            // Menu.find({}, async function (err, docs) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
-            // console.log(docs);
-            // let valores = [];
-            // for (let i = 0; i < docs.length; i++) {
-            //     const value = await calculateNutrientsMenu(docs[i])
-            //     valores.push(value);
-            // }
-            // // res.render('menu/getMenu', {
-            // //     items: {
-            // //         req: req,
-            // //         myObject: espTemplate,
-            // //         myDocs: docs,
-            // //         myNutrientsMenu: valores,
-            // //     }
-            // // });
+
             res.redirect("/menu/view")
-            //     }
-            // }).sort({ _id: 1 })
+
 
         })
     },
@@ -905,7 +844,7 @@ let controller = {
 
                 console.log(err);
             } else {
-                console.log("si" + docs)
+
                 const suma = await calculateKcal(docs);
                 res.render('menu/insertMenu', {
                     items: {
@@ -931,12 +870,11 @@ let controller = {
             description: description,
 
         });
-        console.log("platos: " + req.body.platos)
+
         for (let i = 0; i < platos.length; i++) {
             const query = { _id: platos[i] }
-            console.log(query)
+
             var data = await myFunction(query);
-            console.log("tam: " + data.length);
 
             if (data.length === 0) {
                 incorrecto.push(platos[i]);
@@ -946,9 +884,7 @@ let controller = {
         }
 
         if (incorrecto.length > 0) {
-            console.log("Algún plato está mal");
-            console.log(util.inspect(incorrecto));
-            console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(incorrecto));
+
             let errors = [];
             for (let i = 0; i < incorrecto.length; i++) {
                 errors.push({ msg: "El plato " + incorrecto[i]._id + " no ha sido encontrado." });
@@ -956,12 +892,9 @@ let controller = {
 
             Dish.find({}, async function (err, docs) {
                 if (err) {
-
                     console.log(err);
                 } else {
-                    // console.log("si" + docs)
                     const suma = await calculateKcal(docs);
-                    // console.log("SUMA: " + suma)
                     res.render('menu/insertMenu', {
                         items: {
                             req: req,
@@ -986,7 +919,7 @@ let controller = {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log(docs)
+
                             let valores = [];
                             for (let i = 0; i < docs.length; i++) {
                                 const value = await calculateNutrientsMenu(docs[i])
@@ -1025,52 +958,48 @@ let controller = {
 
     insertMenuJsonPost: async function (req, res, next) {
         let errors = [];
-        // console.log("pasa")
+
         if (!req.files) {
 
             errors.push({ msg: "El archivo está vacío." });
             return showErrorsMenuJson(errors, req, res);
 
         } else {
-            // console.log("pasa")
+
 
             let file = req.files.filename;  // here is the field name of the form
-            // console.log(file);
+
             const valor = JSON.parse(file.data)
-            // console.log(typeof valor);
-            console.log(valor);
+
 
 
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
                 errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
-                // console.log(errors);
+
                 return showErrorsMenuJson(errors, req, res);
 
             } else {
-                // console.log(valor.length);
+
 
 
                 for (let j = 0; j < valor.length; j++) {
 
                     const _id = valor[j]._id;
-                    // console.log("_id: " + _id);
+
                     const description = valor[j].description;
-                    // console.log("description: " + description);
                     const dishes = valor[j].dishes;
-                    // console.log("dishes: " + dishes);
 
                     if (!(_id)) {
                         errors.push({ msg: "No se ha encontrado un nombre para el menú o menús." });
-                        console.log("ha entrado en title")
+
                     }
                     if (!description) {
                         errors.push({ msg: "No se ha encontrado una descripción para el menú o menús." });
-                        // console.log("ha entrado en description")
+
                     }
 
-                    // console.log(util.inspect(errors));
 
                     const menu = new Menu({
                         _id: _id,
@@ -1080,16 +1009,16 @@ let controller = {
 
                     if (dishes.length === 0) {
                         errors.push({ msg: "Debe introducir al menos un menú." });
-                        // console.log("ha entrado en description")
+
                     }
 
 
 
                     for (let i = 0; i < dishes.length; i++) {
-                        // console.log(util.inspect(dishes[i]._id));
+
 
                         const query = { _id: dishes[i]._id }
-                        // console.log("\n\n NO HA SALTADO O SII????????????????????????? ")
+
                         var data = await myFunction(query);
 
 
@@ -1101,15 +1030,12 @@ let controller = {
                     }
 
                     if ((noEncontrados.length > 0) || (errors.length > 0)) {
-                        // console.log("Algún plato está mal");
-                        // console.log(util.inspect(noEncontrados));
-                        // console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(noEncontrados));
-                        // let errors = [];
+
                         for (let i = 0; i < noEncontrados.length; i++) {
                             errors.push({ msg: "El plato " + noEncontrados[i]._id + " no ha sido encontrado." });
                         }
 
-                        //    console.log("LLAMANDO A RENDER")
+
                         return res.render('menu/insertMenuJson', {
                             items: {
                                 req: req,
@@ -1130,29 +1056,21 @@ let controller = {
                                         console.log(err);
                                     } else {
                                         if ((j + 1) === valor.length) {
-                                            console.log("\n\n\n\n\n\n ENTRAMOS PORQUE ES EL ULTIMO " + valor.length + " " + j + "\n\n\n\n")
-                                            // console.log(docs)
+
                                             let valores = [];
                                             for (let i = 0; i < docs.length; i++) {
                                                 const value = await calculateNutrientsMenu(docs[i])
                                                 valores.push(value);
                                             }
-                                            console.log("USUARIO: " + req.user);
+
                                             res.redirect("/menu/view");
 
 
                                         } else {
-                                            console.log("\n\n\n\n\n\n NO ES EL ULTIMO MENÚ PARA INSERTAR " + valor.length + " " + j + "\n\n\n\n")
+
                                         }
 
-                                        // res.render('menu/getMenu', {
-                                        //     items: {
-                                        //         req: req,
-                                        //         myObject: espTemplate,
-                                        //         myDocs: docs,
-                                        //         myNutrientsMenu: valores,
-                                        //     }
-                                        // });
+
                                     }
                                 }).sort({ _id: 1 })
                             }
@@ -1167,7 +1085,7 @@ let controller = {
 
     updateMenu: function (req, res) {
         const query = { _id: req.params._id };
-        console.log(query);
+
 
         Menu.find(query, async function (err, docs) {
             if (err) {
@@ -1180,7 +1098,7 @@ let controller = {
                         console.log(err);
                     } else {
                         const suma = await calculateKcal(docs);
-                        console.log(menu)
+
 
                         res.render('menu/updateMenu', {
                             items: {
@@ -1200,8 +1118,7 @@ let controller = {
     },
     updateMenuPost: async function (req, res) {
         const query = { _id: req.params._id };
-        console.log(query);
-        console.log(req.body.title);
+
         const _id = req.body.title;
         const description = req.body.description;
         const dishes = req.body.platos;
@@ -1210,7 +1127,6 @@ let controller = {
 
         let resultados = [];
         let noEncontrados = [];
-        console.log("\n\n" + dishes);
 
         const menu = {
             _id: _id,
@@ -1220,28 +1136,26 @@ let controller = {
 
         for (let i = 0; i < dishes.length; i++) {
             const query = { _id: dishes[i] }
-            console.log(query)
+
             var data = await myFunction(query);
-            console.log("tam: " + data.length);
 
             if (data.length === 0) {
                 noEncontrados.push(dishes[i]);
             } else {
-                // console.log(menu);
+                ;
                 resultados.push(data[0])
-                // menu.dishes.push(data[0]);
+
             }
 
         }
         if (noEncontrados.length > 0) {
 
-            console.log("NO SE HA ENCONTRADO a estos alimentos : " + util.inspect(noEncontrados));
+
             for (let i = 0; i < noEncontrados.length; i++) {
                 errors.push({ msg: "El plato " + noEncontrados[i] + " no ha sido encontrado." });
             }
 
-            // const query = { _id: dishId }
-            console.log(query);
+
             Menu.find(query, async function (err, docs) {
                 if (err) {
                     console.log(err);
@@ -1253,7 +1167,7 @@ let controller = {
                             console.log(err);
                         } else {
                             const suma = await calculateKcal(docs);
-                            console.log(menu)
+
 
                             res.render('menu/updateMenu', {
                                 items: {
@@ -1272,12 +1186,11 @@ let controller = {
             }).sort({ _id: 1 })
         } else {
 
-            console.log("VECTORES: " + util.inspect(resultados));
+
 
             var newvalues = { description: description, dishes: resultados };
             Menu.findById(query).then(menuEncontrado => {
                 if (menuEncontrado) {
-                    console.log("Plato encontrado" + menuEncontrado);
                     const newMenu = {
                         description,
                         dishes
@@ -1288,7 +1201,7 @@ let controller = {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("\n\n\ Menu ACTUALIZADO: " + updatedMenu)
+
                             req.flash(
                                 'success_msg',
                                 'Menu has been updated'
@@ -1307,7 +1220,7 @@ let controller = {
     },
 
     downloadMenu: async function (req, res) {
-        console.log(req.params._id);
+
         const searchData = req.params._id;
 
         const query = { _id: searchData };
@@ -1342,7 +1255,6 @@ let controller = {
 
 
     insertPlanification: function (req, res) {
-        console.log("En planificación");
 
         Menu.find({}, async function (err, docs) {
             if (err) {
@@ -1368,38 +1280,30 @@ let controller = {
     },
 
     insertPlanificationPost: async function (req, res) {
-        console.log(req.body);
+
         const _id = req.body._id;
         const description = req.body.description;
         const dias = req.body.days;
-        // const menus = req.body.menus;
         let vectorObjMenu = [];
         for (let i = 0; i < req.body.NombreMenus.length; i++) {
             const query = { _id: req.body.NombreMenus[i] }
             const obj = await myFunctionMenu(query);
             vectorObjMenu.push(obj[0]);
         }
-        console.log(vectorObjMenu.length + "\n")
-        for (let i = 0; i < vectorObjMenu.length; i++) {
-            // console.log("________ MENU: " + i)
-            console.log(util.inspect(vectorObjMenu[i]._id))
-            // console.log("________\n\n")
-        }
+
+
 
         const menus = [];
         for (let i = 0; i < dias; i++) {
             let diasV = [];
             for (let j = 0; j < req.body.nMenus[i]; j++) {
-                console.log("\n\n------------------ j : " + j + " -------- i : " + i + "\n\n")
-                // console.log(req.body.NombreMenus[j]);
-                console.log("Metiendo el " + vectorObjMenu[0]._id + "\n")
+
                 diasV.push(vectorObjMenu[0]);
                 vectorObjMenu.shift();
-                console.log("\n\nActualizo el vector" + util.inspect(vectorObjMenu) + "\n")
             }
             menus.push(diasV);
         }
-        console.log("\n\n\n\nAQUI SE VIENE LO BUENO" + util.inspect(menus))
+
         const plan = new Planification({
             _id: _id,
             description: description,
@@ -1410,7 +1314,6 @@ let controller = {
         plan.save()
             .then(data => {
                 res.send(data);
-                // res.redirect("/");
             }).catch(err => {
                 res.status(500).send({
                     message: err.message
@@ -1429,7 +1332,6 @@ let controller = {
                 console.log(err);
             } else {
                 const plan = docs[0];
-                console.log(plan)
                 Menu.find({}, async function (err, docs) {
                     if (err) {
                         console.log(err);
@@ -1459,44 +1361,36 @@ let controller = {
 
     updatePlanificationPost: async function (req, res) {
 
-        console.log(req.body);
+
         const _id = req.body._id;
         const description = req.body.description;
         const dias = req.body.days;
-        // const menus = req.body.menus;
         let vectorObjMenu = [];
         for (let i = 0; i < req.body.NombreMenus.length; i++) {
             const query = { _id: req.body.NombreMenus[i] }
             const obj = await myFunctionMenu(query);
             vectorObjMenu.push(obj[0]);
         }
-        console.log(vectorObjMenu.length + "\n")
-        for (let i = 0; i < vectorObjMenu.length; i++) {
-            // console.log("________ MENU: " + i)
-            console.log(util.inspect(vectorObjMenu[i]._id))
-            // console.log("________\n\n")
-        }
+
 
         const menus = [];
         for (let i = 0; i < dias; i++) {
             let diasV = [];
             for (let j = 0; j < req.body.nMenus[i]; j++) {
-                console.log("\n\n------------------ j : " + j + " -------- i : " + i + "\n\n")
-                // console.log(req.body.NombreMenus[j]);
-                console.log("Metiendo el " + vectorObjMenu[0]._id + "\n")
+
                 diasV.push(vectorObjMenu[0]);
                 vectorObjMenu.shift();
-                console.log("\n\nActualizo el vector" + util.inspect(vectorObjMenu) + "\n")
+
             }
             menus.push(diasV);
         }
-        console.log("\n\n\n\nAQUI SE VIENE LO BUENO" + util.inspect(menus))
+
 
 
         const query = { _id: req.body._id };
         Planification.findById(query).then(planFound => {
             if (planFound) {
-                console.log("Plan encontrado" + planFound);
+
                 const plan = new Planification({
                     _id: _id,
                     description: description,
@@ -1507,7 +1401,6 @@ let controller = {
                 Planification.updateOne(query, set)
                     .then(data => {
                         res.send(data);
-                        // res.redirect("/");
                     }).catch(err => {
                         res.status(500).send({
                             message: err.message
@@ -1557,7 +1450,7 @@ let controller = {
 
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "Objeto no existente");
-            console.log(searchData);
+
         }
 
         const query = { _id: { $regex: `${searchData}` } };
@@ -1567,7 +1460,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(docs);
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -1583,20 +1475,16 @@ let controller = {
     planificationDetails: async function (req, res) {
         let planificationId = req.params._id;
         const query = { _id: planificationId };
-        console.log("ENTRA")
+
 
         Planification.find(query, async function (err, doc) {
             if (err) {
                 console.log(err);
             } else {
                 let valores = [];
-                console.log("\n\nDETAILS:\n ");
-                // console.log(util.inspect(doc[0].menus[0]));
                 for (let i = 0; i < doc[0].menus.length; i++) {
                     for (let j = 0; j < doc[0].menus[i].length; j++) {
-                        console.log(util.inspect(doc[0]._id));
-                        console.log(util.inspect(doc[0].menus[i][j]));
-                        //     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
+
                         const value = await calculateNutrientsMenu(doc[0].menus[i][j])
                         valores.push(value);
                     }
@@ -1612,10 +1500,6 @@ let controller = {
                 let sodium = 0;
                 let cholestrl = 0;
                 let sugar = 0;
-
-
-                // valores[0][0] + valores[1][0] + valores[2][0]
-                // valores[0][1] + valores[1][1] + valores[2][1]
 
                 for (let i = 0; i < valores.length; i++) {
 
@@ -1644,9 +1528,7 @@ let controller = {
                 newVector.push(cholestrl.toFixed(2));
                 newVector.push(sugar.toFixed(2));
 
-                console.log("\n----------------------------------------------------------------\n")
 
-                console.log(util.inspect(doc[0].menus[0]));
 
 
                 res.render('planification/planificationDetails', {
@@ -1686,34 +1568,33 @@ let controller = {
         } else {
 
             let file = req.files.filename;  // here is the field name of the form
-            // console.log(file);
             const valor = JSON.parse(file.data)
-            // console.log("\n\nVALOR: " + valor);
+
 
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
                 errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
-                console.log(errors);
+
                 return showErrorsPlanificationJson(errors, req, res);
 
             } else {
 
                 if (typeof valor.length === "undefined") {
                     errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
-                    console.log(errors);
+
                     showErrorsPlanificationJsoN(errors, req, res);
                 }
 
                 for (let j = 0; j < valor.length; j++) {
                     const title = valor[j]._id;
-                    // console.log("title: " + title);
+
                     const description = valor[j].description;
-                    // console.log("description: " + description);
+
                     const dias = valor[j].dias;
-                    // console.log("dias: " + dias);
+
                     const menus = valor[j].menus;
-                    // console.log("menus: " + menus);
+
 
                     if (!title) {
                         errors.push({ msg: "No se ha encontrado un nombre para la planificación." });
@@ -1745,7 +1626,7 @@ let controller = {
                     }
 
                     if (errors.length > 0) {
-                        console.log(errors)
+
                         showErrorsPlanificationJson(errors, req, res);
                     } else {
                         const plan = new Planification({
@@ -1755,19 +1636,15 @@ let controller = {
 
                         });
 
-                        // console.log("\n\n\n\nLOS MENUS SON: " + util.inspect(menus))
-                        // console.log("LOS MENUS SON: " + util.inspect(menus[1]))
+
                         for (let i = 0; i < menus.length; i++) {
-                            console.log("\n")
+
                             let menusk = [];
-                            // console.log("LOS MENUS SON: " + util.inspect(menus[i]))
-                            // console.log("\n\n\n")
+
                             for (let k = 0; k < menus[i].length; k++) {
 
                                 const query = { _id: menus[i][k]._id };
-                                // console.log("----> query: " + util.inspect(query))
                                 const data = await myFunctionMenu(query);
-                                // console.log("data es_____: " + util.inspect(data))
                                 if (data.length === 0) {
                                     noEncontrados.push(menus[i][k]);
                                 } else {
@@ -1781,18 +1658,14 @@ let controller = {
                             plan.menus.push(menusk);
                         }
 
-                        console.log("plan.menus: " + beautify(JSON.stringify(plan.menus), { indent_size: 8, space_in_empty_paren: true }))
+
 
                         if ((noEncontrados.length > 0) || (errors.length > 0)) {
-                            // console.log("Algún plato está mal");
-                            // console.log(util.inspect(noEncontrados));
-                            // console.log("NO SE HA ENCONTRADO a estos platos : " + util.inspect(noEncontrados));
-                            // let errors = [];
+
                             for (let i = 0; i < noEncontrados.length; i++) {
                                 errors.push({ msg: "El menú " + noEncontrados[i]._id + " no ha sido encontrado." });
                             }
 
-                            //    console.log("LLAMANDO A RENDER")
                             return res.render('planification/insertPlanificationJson', {
                                 items: {
                                     req: req,
@@ -1803,9 +1676,7 @@ let controller = {
 
                         }
 
-                        console.log("\n\n\n\n ENTRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                        console.log(util.inspect(plan.menus));
-                        console.log("\n\n\n")
+
                         plan.save(async function (err) {
                             if (err) {
                                 errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica a la planificación no haya sido utilizado antes. No puede existir menús con nombres iguales." });
@@ -1813,16 +1684,13 @@ let controller = {
                                 showErrorsPlanificationJson(errors, req, res);
                             } else {
                                 if ((j + 1) === valor.length) {
-                                    console.log("ultimoo ooooooooooooooooooooooooooooooooooooooooo")
+
                                     Planification.find({}, async function (err, docs) {
                                         if (err) {
                                             console.log(err);
                                         } else {
 
-                                            // console.log("\n\n\n\n\n\n ENTRAMOS PORQUE ES EL ULTIMO " + valor.length + " " + j + "\n\n\n\n")
-                                            // console.log(docs)
 
-                                            // console.log("USUARIO: " + req.user);
                                             return res.redirect("/planification/view");
 
 
@@ -1857,27 +1725,15 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
 
-            // Planification.find({}, async function (err, docs) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
+
             res.redirect("/planification/view")
-            // // console.log(docs);
-            // res.render('planification/getPlanification', {
-            //     items: {
-            //         req: req,
-            //         myObject: espTemplate,
-            //         myDocs: docs
-            //     }
-            // });
-            //     }
-            // }).sort({ _id: 1 })
+
 
         })
     },
 
     downloadPlanification: async function (req, res) {
-        console.log(req.params._id);
+
         const searchData = req.params._id;
 
         const query = { _id: searchData };
@@ -1924,7 +1780,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
                 res.render('recomendation/recomendationView.ejs', {
                     items: {
                         req: req,
@@ -1944,7 +1799,7 @@ let controller = {
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "No existente");
         }
-        console.log(req.body);
+
         const query = { _id: { $regex: `${searchData}` } };
 
         Recomendation.find(query, async function (err, docs) {
@@ -1966,7 +1821,7 @@ let controller = {
 
     recomendationDetails: function (req, res) {
         let dishId = req.params._id;
-        // console.log(dishId);
+
         const query = { _id: dishId };
 
 
@@ -1974,7 +1829,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
                 res.render('recomendation/recomendationDetails.ejs', {
                     items: {
                         req: req,
@@ -1999,22 +1853,10 @@ let controller = {
                 return req.flash('danger', "No se puede eliminar la recomendación.");
             }
 
-            // Recomendation.find({}, async function (err, docs) {
-            //     if (err) {
-            //         console.log(err);
-            //     } else {
+
             res.redirect("/recomendation/view")
 
-            // res.render('recomendation/recomendationView', {
-            //     items: {
-            //         req: req,
-            //         myObject: espTemplate,
-            //         myDocs: docs,
 
-            //     }
-            // });
-            //     }
-            // }).sort({ _id: 1 })
 
         })
     },
@@ -2032,12 +1874,12 @@ let controller = {
     },
 
     insertRecomendationPost: function (req, res) {
-        console.log(req.body);
+
         const _id = req.body._id;
         const description = req.body.description;
         const edad = req.body.edad;
 
-        console.log("EN INSERTAR")
+
 
 
         let errors = [];
@@ -2115,7 +1957,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
+
                 res.render('recomendation/updateRecomendation.ejs', {
                     items: {
                         req: req,
@@ -2132,7 +1974,7 @@ let controller = {
 
 
     updateRecomendationPost: function (req, res) {
-        console.log(req.body);
+
         const query = { _id: req.params._id };
         let errors = [];
 
@@ -2157,7 +1999,6 @@ let controller = {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(docs);
                     res.render('recomendation/updateRecomendation.ejs', {
                         items: {
                             req: req,
@@ -2197,15 +2038,15 @@ let controller = {
             };
             Recomendation.findById(query).then(recEncontrado => {
                 if (recEncontrado) {
-                    console.log("Recomendación encontrada" + recEncontrado);
+
 
                     const set = { $set: recomendacion };
-                    console.log(set)
+
                     Recomendation.updateOne(query, set, (err, updatedRec) => {
                         if (err) {
                             console.log(err);
                         } else {
-                            console.log("\n\n\ Recomendación ACTUALIZADa: " + updatedRec)
+
                             req.flash(
                                 'success_msg',
                                 'Recomendación has been updated'
@@ -2245,11 +2086,9 @@ let controller = {
 
 
             let file = req.files.filename;  // here is the field name of the form
-            console.log(file);
+
             const valor = JSON.parse(file.data)
-            console.log(typeof valor);
-            console.log(valor);
-            console.log(typeof valor.length);
+
 
             if (valor.length === 0) {
                 errors.push({ msg: "No ha introducido ninguna recomendación." });
@@ -2257,7 +2096,7 @@ let controller = {
             } else {
 
                 for (let i = 0; i < valor.length; i++) {
-                    console.log(valor[i]._id)
+
                     const title = valor[i]._id;
                     const description = valor[i].description;
                     const edad = valor[i].edad;
@@ -2377,7 +2216,6 @@ let controller = {
                     }
 
                     if (errors.length > 0) {
-                        console.log(errors)
                         return showErrorsRecJson(errors, req, res);
                     } else {
                         const recomendation = new Recomendation({
@@ -2400,7 +2238,7 @@ let controller = {
                                 if ((i + 1) === valor.length) {
                                     return res.redirect("/recomendation/view");
                                 }
-                                // res.send(data);
+
 
                             }).catch(err => {
                                 res.status(500).send({
@@ -2415,7 +2253,7 @@ let controller = {
     },
 
     downloadRecomendation: async function (req, res) {
-        console.log(req.params._id);
+
         const searchData = req.params._id;
 
         const query = { _id: searchData };
@@ -2459,13 +2297,11 @@ let controller = {
 
 
     evaluationView: function (req, res) {
-        console.log("LLEGAAAAAAAAAA")
         Valuation.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs)
-                console.log(query)
+
                 res.render('evaluation/getEvaluation.ejs', {
                     items: {
                         req: req,
@@ -2484,16 +2320,15 @@ let controller = {
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "Objeto no existente");
         }
-        console.log(searchData);
+
         let query = { candidato: { $regex: `${searchData}` } };
-        console.log(query)
+
 
         Valuation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs)
-                console.log(query)
+
                 res.render('evaluation/getEvaluation.ejs', {
                     items: {
                         req: req,
@@ -2553,8 +2388,7 @@ let controller = {
     },
 
     createEvaluationPost: async function (req, res) {
-        console.log("\n\n\n")
-        console.log(req.body)
+
         const recomendacion = req.body.recomendacion;
         const tipo = req.body.tipos;
         const candidato = req.body.select;
@@ -2562,7 +2396,7 @@ let controller = {
 
 
         const resultado = await evaluador(recomendacion, tipo, candidato);
-        console.log(resultado);
+
 
 
         const valuation = new Valuation({
@@ -2577,7 +2411,6 @@ let controller = {
         valuation.save()
             .then(data => {
                 res.send(data);
-                // res.redirect("/");
             }).catch(err => {
                 res.status(500).send({
                     message: err.message
@@ -2587,7 +2420,7 @@ let controller = {
     },
 
     removeEvaluation: function (req, res) {
-        console.log(req.params)
+
         let evalId = req.params.id;
 
         Valuation.findByIdAndRemove(evalId, (err, evalIdRemoved) => {
@@ -2626,14 +2459,14 @@ let controller = {
         if (!name || !email || !username || !password || !password2) {
             errors.push({ msg: 'Please enter all fields' });
         }
-        console.log(email)
+
         const regex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
         if (!email.match(regex)) {
             errors.push({ msg: "La dirección de email es incorrecta." });
         }
 
-        // req.checkBody('req.body.email', 'Email is invalid').notEmpty();
+
 
         if (password != password2) {
             errors.push({ msg: 'Passwords do not match' });
@@ -2658,7 +2491,7 @@ let controller = {
             });
         } else {
             User.findOne({ email: email }).then(user => {
-                console.log(user);
+
                 if (user) {
                     errors.push({ msg: 'Email already exists' });
                     res.render('user/register', {
@@ -2714,12 +2547,12 @@ let controller = {
     },
 
     viewUsers: function (req, res) {
-        console.log("\n\n MUESTRA USUARIOS")
+
         Users.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
+
                 res.render('user/users', {
                     items: {
                         req: req,
@@ -2734,18 +2567,18 @@ let controller = {
 
 
     viewUsersPost: function (req, res) {
-        console.log(req.body)
+
         const searchData = req.body._id;
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', "No existente");
         }
-        console.log(req.body);
+
         const query = { name: { $regex: `${searchData}` } };
         Users.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
+
                 res.render('user/users', {
                     items: {
                         req: req,
@@ -2768,12 +2601,12 @@ let controller = {
             if (!userId) {
                 return req.flash('danger', "No se puede eliminar el proyecto.");
             }
-            console.log(userId);
+
             Users.find({}, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(docs);
+
                     res.render('user/users', {
                         items: {
                             req: req,
@@ -2796,7 +2629,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs);
+
                 res.render('user/updateUser', {
                     items: {
                         id: userId,
@@ -2811,10 +2644,7 @@ let controller = {
     },
 
     updateUserPost: function (req, res) {
-        console.log("\n\nPOST BODY: ");
-        console.log(util.inspect(req.body));
-        console.log("\n\nPOST PARAMS: ");
-        console.log(util.inspect(req.params._id));
+
 
 
         const { name, email, username, password, password2, rol } = req.body;
@@ -2842,7 +2672,7 @@ let controller = {
                     console.log(err);
                 } else {
 
-                    console.log(docs);
+
                     res.render('user/updateUser', {
                         items: {
                             id: req.params._id,
@@ -2863,12 +2693,12 @@ let controller = {
         } else {
             const query = { _id: req.params._id };
             const id = req.params._id;
-            console.log(id);
+
 
             var newvalues = { name: name, username: username, rol: rol, email: email, password: password };
             User.findById(query).then(user => {
                 if (user) {
-                    console.log("Usuario encontrado" + user);
+
                     const newUser = {
                         name,
                         email,
@@ -2882,7 +2712,7 @@ let controller = {
 
                             newUser.password = hash;
                             const set = { $set: newUser };
-                            console.log(set);
+
                             Users.updateOne(query, set, (err, updateUser) => {
                                 if (err) {
                                     console.log(err);
@@ -2946,7 +2776,7 @@ let controller = {
             const db = client.db(name);
             const collection = db.collection("food");
             findLimit(db, query, collection, function (data) {
-                console.log(data)
+
                 let vector = [];
                 data.forEach(element => {
                     let obj = {
@@ -3044,7 +2874,7 @@ let controller = {
     },
     autocompletePlanificacion: function (req, res) {
         const query = { _id: { $regex: req.query["term"] } };
-        console.log(query)
+
         Menu.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
@@ -3067,7 +2897,7 @@ let controller = {
     },
 
     loadDataDishes: function (req, res) {
-        console.log("Fetch all Users");
+
 
         Dish.find()
             .then(dishes => {
@@ -3080,7 +2910,7 @@ let controller = {
 
     },
     loadDataMenus: function (req, res) {
-        console.log("Fetch all Users");
+
 
         Menu.find()
             .then(menus => {
@@ -3093,7 +2923,7 @@ let controller = {
 
     },
     loadDataPlanifications: function (req, res) {
-        console.log("Fetch all Users");
+
 
         Planification.find()
             .then(plans => {
@@ -3110,14 +2940,13 @@ let controller = {
 
 
 async function findAllDocuments(db, query, collection, callback) {
-    // console.log(query)
+
     collection
         .find(query)
         .limit(200)
         .sort({ ndb_no: 1 })
         .toArray(function (err, docs) {
             assert.equal(err, null);
-            // console.log("\nFound the following records");
             callback(docs);
         });
 }
@@ -3161,7 +2990,7 @@ async function calculateKcal(docs) {
 }
 
 async function calculateNutrients(doc) {
-    console.log("calculateNutrients")
+
     let nut_vector = [];
     for (let i = 0; i < doc[0].ingredients.length; i++) {
         const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);
@@ -3174,7 +3003,7 @@ async function calculateNutrients(doc) {
 }
 
 async function calculateNutrientsDish(doc) {
-    console.log("calculateNutrients")
+
     let nut_vector = [];
     for (let i = 0; i < doc[0].ingredients.length; i++) {
         const nutrients = await dish.storeNutrients(doc[0].ingredients[i]);
@@ -3193,15 +3022,13 @@ async function calculateNutrientsDish(doc) {
     vector.push(valores["cholestrl"]);
     vector.push(valores["sugar"]);
 
-    // console.log("DEVUEVE ESTO:::::::::" + util.inspect(vector))
     return vector;
 }
 
 
 async function calculateNutrientsMenu(doc) {
-    // console.log("\n\nLo que le paso a nutrients menu es: " + util.inspect(doc));
     let vector = [];
-    // let nut_vector = [];
+
     for (let i = 0; i < doc.dishes.length; i++) {
         let nut_vector = []
         for (let j = 0; j < doc.dishes[i].ingredients.length; j++) {
@@ -3261,9 +3088,8 @@ async function calculateNutrientsPlanificacion(doc) {
     let valores = [];
     for (let i = 0; i < doc[0].menus.length; i++) {
         for (let j = 0; j < doc[0].menus[i].length; j++) {
-            console.log(util.inspect(doc[0]._id));
-            console.log(util.inspect(doc[0].menus[i][j]));
-            //     for (var k = 0; k < doc[0].menus[i][i + 1].length; k++) {
+
+
             const value = await calculateNutrientsMenu(doc[0].menus[i][j])
             valores.push(value);
         }
@@ -3281,8 +3107,6 @@ async function calculateNutrientsPlanificacion(doc) {
     let sugar = 0;
 
 
-    // valores[0][0] + valores[1][0] + valores[2][0]
-    // valores[0][1] + valores[1][1] + valores[2][1]
 
     for (let i = 0; i < valores.length; i++) {
 
@@ -3338,40 +3162,39 @@ async function evaluador(recomendacion, tipo, candidato) {
     let resultados = [];
     const queryR = { _id: recomendacion };
     const recData = await myFunctionRecomendacion(queryR);
-    console.log("Se ha seleccionado la recomendación: " + recData);
-    console.log(tipo);
+
 
     if (tipo === "0") {
-        console.log("Se ha seleccionado platos: ");
+
         const queryC = { _id: candidato };
-        console.log(queryC);
+
         const CanData = await myFunction(queryC);
-        console.log("Se ha seleccionado la planificacion: " + CanData._id);
+
         const nutrientes = await calculateNutrientsDish(CanData);
-        console.log(util.inspect(nutrientes[0]));
+
         const datos = await calculadora(recData, nutrientes);
-        console.log(datos);
+
         return datos;
 
     } else if (tipo === "1") {
-        console.log("Se ha seleccionado menus: ");
+
         const queryC = { _id: candidato };
         const CanData = await myFunctionMenu(queryC);
-        console.log("Se ha seleccionado la planificacion: " + CanData._id);
+
         const nutrientes = await calculateNutrientsMenu(CanData[0]);
-        console.log(nutrientes);
+
         const datos = await calculadora(recData, nutrientes);
-        console.log(datos);
+
         return datos;
     } else if (tipo === "2") {
-        console.log("Se ha seleccionado planificacion: ");
+
         const queryC = { _id: candidato };
         const CanData = await myFunctionPlanification(queryC);
-        console.log("Se ha seleccionado la planificacion: " + CanData[0]._id);
+
         const nutrientes = await calculateNutrientsPlanificacion(CanData);
-        console.log(nutrientes);
+
         const datos = await calculadora(recData, nutrientes);
-        console.log(datos);
+
         return datos;
     }
 
@@ -3382,7 +3205,7 @@ async function evaluador(recomendacion, tipo, candidato) {
 
 async function calculadora(recData, nutrientes) {
 
-    console.log("-------- CALCULADORA --------");
+
     const obj = {
         energia: [nutrientes[1], await energy(recData[0], nutrientes)],
         proteinas: [((nutrientes[2] * 4).toFixed(2)), await proteinas(recData[0], nutrientes)],
@@ -3397,15 +3220,15 @@ async function calculadora(recData, nutrientes) {
 async function energy(recData, nutrientes) {
     if ((parseInt(nutrientes[1]) > recData.energyMin) && (parseInt(nutrientes[1]) < recData.energyMax)) {
         const resultEnergia = "Muy recomendable"
-        console.log(resultEnergia);
+
         return resultEnergia;
     } else if ((parseInt(nutrientes[1]) > recData.energyMin - 200) && (parseInt(nutrientes[1]) < recData.energyMax + 200)) {
         const resultEnergia = "Recomendable"
-        console.log(resultEnergia);
+
         return resultEnergia;
     } else {
         const resultEnergia = "No recomendable"
-        console.log(resultEnergia);
+
         return resultEnergia;
     }
 
@@ -3414,14 +3237,14 @@ async function energy(recData, nutrientes) {
 async function proteinas(recData, nutrientes) {
     if (((parseInt(nutrientes[2]) * 4) > recData.proteinMin) && ((parseInt(nutrientes[2]) * 4) < recData.proteinMax)) {
         const resultproteins = "Muy recomendable"
-        console.log(resultproteins);
+
         return resultproteins;
     } else if (((parseInt(nutrientes[2]) * 4) > recData.proteinMin - 50) && ((parseInt(nutrientes[2]) * 4) < recData.proteinMax + 50)) {
         const resultproteins = "Recomendable"
         return resultproteins;
     } else {
         const resultproteins = "No recomendable"
-        console.log(resultproteins);
+
         return resultproteins;
     }
 
@@ -3430,15 +3253,15 @@ async function proteinas(recData, nutrientes) {
 async function lipidos(recData, nutrientes) {
     if (((parseInt(nutrientes[3]) * 9) > recData.lipidsMin) && ((parseInt(nutrientes[3]) * 9) < recData.lipidsMax)) {
         const resultlipidos = "Muy recomendable"
-        console.log(resultlipidos);
+
         return resultlipidos;
     } else if (((parseInt(nutrientes[3]) * 9) > recData.lipidsMin - 100) && ((parseInt(nutrientes[3]) * 9) < recData.lipidsMax + 100)) {
         const resultlipidos = "Recomendable"
-        console.log(resultlipidos);
+
         return resultlipidos;
     } else {
         const resultlipidos = "No recomendable"
-        console.log(resultlipidos);
+
         return resultlipidos;
     }
 };
@@ -3446,15 +3269,15 @@ async function lipidos(recData, nutrientes) {
 async function carbohidratos(recData, nutrientes) {
     if (((parseInt(nutrientes[4]) * 4) > recData.carbohydrtMin) && ((parseInt(nutrientes[4]) * 4) < recData.carbohydrtMax)) {
         const resultcarbohidratos = "Muy recomendable"
-        console.log(resultcarbohidratos);
+
         return resultcarbohidratos;
     } else if (((parseInt(nutrientes[4]) * 4) > recData.carbohydrtMin - 300) && ((parseInt(nutrientes[4]) * 4) < recData.carbohydrtMax + 300)) {
         const resultcarbohidratos = "Recomendable"
-        console.log(resultcarbohidratos);
+
         return resultcarbohidratos;
     } else {
         const resultcarbohidratos = "No recomendable"
-        console.log(resultcarbohidratos);
+
         return resultcarbohidratos;
     }
 
@@ -3471,7 +3294,7 @@ async function createPlato(valor) {
             imageURL: valor.imageURL
         });
 
-        console.log(plato._id)
+
         return plato
     }
 
@@ -3483,7 +3306,7 @@ async function createPlato(valor) {
             ingredients: valor.ingredients,
             recipe: valor.recipe
         });
-        console.log(plato._id)
+
         return plato
     }
 
@@ -3494,7 +3317,7 @@ async function createPlato(valor) {
             ingredients: valor.ingredients,
             imageURL: valor.imageURL
         });
-        console.log(plato._id)
+
         return plato
     }
 
@@ -3504,7 +3327,7 @@ async function createPlato(valor) {
             description: valor.description,
             ingredients: valor.ingredients,
         });
-        console.log(plato._id)
+
         return plato
     }
 
@@ -3523,7 +3346,7 @@ function showErrorsDishJsoN(errors, req, res) {
 
 function showErrorsMenuJson(errors, req, res) {
 
-    console.log("\n\nLLAMA A ERRORES DE MENU\n\n");
+
 
     return res.render('menu/insertMenuJson', {
         items: {
@@ -3536,7 +3359,7 @@ function showErrorsMenuJson(errors, req, res) {
 
 function showErrorsPlanificationJson(errors, req, res) {
 
-    console.log("\n\nLLAMA A ERRORES DE PLAN\n\n");
+
 
     return res.render('planification/insertPlanificationJson', {
         items: {
@@ -3549,8 +3372,6 @@ function showErrorsPlanificationJson(errors, req, res) {
 
 
 function showErrorsRecJson(errors, req, res) {
-
-    console.log("\n\nLLAMA A ERRORES DE REC\n\n");
 
     return res.render('recomendation/insertRecomendationJson', {
         items: {
