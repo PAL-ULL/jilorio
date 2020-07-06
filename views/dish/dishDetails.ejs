@@ -49,8 +49,15 @@
             
             <div class="col-8" style="margin-top: 35px;">
                 <p class="descriptionDish"> <%= items.myDocs.description %> </p>
-                <button type="button" class="btn btn-info"><a title="Ver receta"
-                        href="<%= items.myDocs.recipe %>"><%= items.myObject.recipeDish %></a></button>
+                <% if (items.myDocs.recipe === "") { %>
+                    <button type="button" class="btn btn-info"><a title="Ver receta"
+                        href="https://www.cocinacaserayfacil.net/recetas-sanas-faciles/"><%= items.myObject.recipeDish%></a></button>
+                    <% } else{ %>
+                        <button type="button" class="btn btn-info"><a title="Ver receta"
+                            href="<%= items.myDocs.recipe %>"><%= items.myObject.recipeDish%></a></button>
+                        <% } %>
+             
+
             </div>
             <div class="col-3.5 divImg">
                 <img class="imageDish" src="<%= items.myDocs.imageURL %>" alt="<%= items.myObject.title %> ">
