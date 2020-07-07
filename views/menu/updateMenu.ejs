@@ -38,8 +38,8 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 </head>
@@ -351,16 +351,37 @@
 </body>
 
 <script>
+    var ejsVal = "<%= items.myObject.idioma %>"
+
     $(document).ready(function () {
-        console.log("hello")
-        $('#menus').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                "emptyTable": " "
-            },
-            "pagingType": "simple",
-        });
+
+        if (ejsVal === "esp") {
+            $('#menus').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                    "emptyTable": " "
+                },
+                "pagingType": "simple",
+            });
+        } else {
+            $('#menus').DataTable({
+                "language": {
+                    "emptyTable": " "
+                },
+                "pagingType": "simple",
+            });
+        }
     });
+    // $(document).ready(function () {
+    //     console.log("hello")
+    //     $('#menus').DataTable({
+    //         "language": {
+    //             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+    //             "emptyTable": " "
+    //         },
+    //         "pagingType": "simple",
+    //     });
+    // });
 </script>
 
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>

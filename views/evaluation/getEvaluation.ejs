@@ -39,8 +39,8 @@
         crossorigin="anonymous"></script>
 
 
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
@@ -166,15 +166,36 @@
     <%- include ("../partials/footer.ejs"); %>
 
     <script>
+        var ejsVal = "<%= items.myObject.idioma %>"
+
         $(document).ready(function () {
-            $('#evaluations').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                    "emptyTable": " "
-                },
-                "pagingType": "simple"
-            });
+
+            if (ejsVal === "esp") {
+                $('#evaluations').DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                        "emptyTable": " "
+                    },
+                    "pagingType": "simple",
+                });
+            } else {
+                $('#evaluations').DataTable({
+                    "language": {
+                        "emptyTable": " "
+                    },
+                    "pagingType": "simple",
+                });
+            }
         });
+        // $(document).ready(function () {
+        //     $('#evaluations').DataTable({
+        //         "language": {
+        //             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+        //             "emptyTable": " "
+        //         },
+        //         "pagingType": "simple"
+        //     });
+        // });
     </script>
 
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>

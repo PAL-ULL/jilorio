@@ -110,15 +110,27 @@
     <%- include ("../partials/footer.ejs"); %>
 
     <script>
+        var ejsVal ="<%= items.myObject.idioma %>"
+        
         $(document).ready(function () {
 
-            $('#alimentos').DataTable({
+            if (ejsVal === "esp"){
+                $('#alimentos').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
                     "emptyTable": " "
                 },
                 "pagingType": "simple",
             });
+            }else{
+                $('#alimentos').DataTable({
+                "language": {
+                    "emptyTable": " "
+                },
+                "pagingType": "simple",
+            });
+            }
+          
 
         });
     </script>

@@ -17,7 +17,7 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
 // Lang template
-const espTemplate = require("../templates/eng.json");
+const espTemplate = require("../templates/esp.json");
 const dish = require("../public/javascripts/dish.js");
 const usdaJson = require("../public/food.json");
 var util = require('util');
@@ -1884,16 +1884,16 @@ let controller = {
 
 
         let errors = [];
-        if (req.body.energyMin > req.body.energyMax) {
+        if (parseInt(req.body.energyMin) > parseInt(req.body.energyMax)) {
             errors.push({ msg: "La cantidad mínima de energía no puede ser mayor que la máxima de energía." });
         }
-        if (req.body.lipidsMin > req.body.lipidsMax) {
+        if (parseInt(req.body.lipidsMin) > parseInt(req.body.lipidsMax)) {
             errors.push({ msg: "La cantidad mínima de lípidos no puede ser mayor que la máxima de lípidos." });
         }
-        if (req.body.proteinMin > req.body.proteinMax) {
+        if (parseInt(req.body.proteinMin) > parseInt(req.body.proteinMax)) {
             errors.push({ msg: "La cantidad mínima de proteínas no puede ser mayor que la máxima de proteínas." });
         }
-        if (req.body.carbohydrtMin > req.body.carbohydrtMax) {
+        if (parseInt(req.body.carbohydrtMin) > parseInt(req.body.carbohydrtMax)) {
             errors.push({ msg: "La cantidad mínima de carbohidratos no puede ser mayor que la máxima de carbohidratos." });
         }
 
@@ -1978,17 +1978,19 @@ let controller = {
 
         const query = { _id: req.params._id };
         let errors = [];
+        console.log(req.body);
 
-        if (req.body.energyMin > req.body.energyMax) {
+        if (parseInt(req.body.energyMin) > parseInt(req.body.energyMax)) {
             errors.push({ msg: "La cantidad mínima de energía no puede ser mayor que la máxima de energía." });
         }
-        if (req.body.lipidsMin > req.body.lipidsMax) {
+        if (parseInt(req.body.lipidsMin) > parseInt(req.body.lipidsMax)) {
+            console.log("entra")
             errors.push({ msg: "La cantidad mínima de lípidos no puede ser mayor que la máxima de lípidos." });
         }
-        if (req.body.proteinMin > req.body.proteinMax) {
+        if (parseInt(req.body.proteinMin) > parseInt(req.body.proteinMax)) {
             errors.push({ msg: "La cantidad mínima de proteínas no puede ser mayor que la máxima de proteínas." });
         }
-        if (req.body.carbohydrtMin > req.body.carbohydrtMax) {
+        if (parseInt(req.body.carbohydrtMin) > parseInt(req.body.carbohydrtMax)) {
             errors.push({ msg: "La cantidad mínima de carbohidratos no puede ser mayor que la máxima de carbohidratos." });
         }
 
@@ -2134,7 +2136,7 @@ let controller = {
                     if ((typeof energyMax != "number")) {
                         errors.push({ msg: "El número de energyMax debe ser introducido con un caracter numérico." });
                     }
-                    if ((energyMax < 1)) {
+                    if (parseInt(energyMax) < 1) {
                         errors.push({ msg: "El mínimo de energyMax debe ser 1." });
                     }
                     if (!energyMin) {
@@ -2143,10 +2145,10 @@ let controller = {
                     if ((typeof energyMin != "number")) {
                         errors.push({ msg: "El número de energyMin debe ser introducido con un caracter numérico." });
                     }
-                    if ((energyMin < 1)) {
+                    if (parseInt(energyMin) < 1) {
                         errors.push({ msg: "El mínimo de energyMin debe ser 1." });
                     }
-                    if (energyMin > energyMax) {
+                    if (parseInt(energyMin) > parseInt(energyMax)) {
                         errors.push({ msg: "El energyMin no puede ser menor que el energyMax." });
                     }
                     //////////////////////////////
@@ -2156,19 +2158,19 @@ let controller = {
                     if ((typeof lipidsMax != "number")) {
                         errors.push({ msg: "El número de lipidsMax debe ser introducido con un caracter numérico." });
                     }
-                    if ((lipidsMax < 1)) {
+                    if (parseInt(lipidsMax) < 1) {
                         errors.push({ msg: "El mínimo de lipidsMax debe ser 1." });
                     }
                     if (!lipidsMin) {
                         errors.push({ msg: "No se ha encontrado el número de lipidsMin para la planificación." });
                     }
-                    if ((typeof lipidsMin != "number")) {
+                    if (typeof lipidsMin != "number") {
                         errors.push({ msg: "El número de lipidsMin debe ser introducido con un caracter numérico." });
                     }
-                    if ((lipidsMin < 1)) {
+                    if (parseInt(lipidsMin) < 1) {
                         errors.push({ msg: "El mínimo de lipidsMin debe ser 1." });
                     }
-                    if (lipidsMin > lipidsMax) {
+                    if (parseInt(lipidsMin) > parseInt(lipidsMax)) {
                         errors.push({ msg: "El lipidsMin no puede ser menor que el lipidsMax." });
                     }
                     //////////////////////////////
@@ -2178,7 +2180,7 @@ let controller = {
                     if ((typeof proteinMax != "number")) {
                         errors.push({ msg: "El número de proteinMax debe ser introducido con un caracter numérico." });
                     }
-                    if ((proteinMax < 1)) {
+                    if (parseInt(proteinMax) < 1) {
                         errors.push({ msg: "El mínimo de proteinMax debe ser 1." });
                     }
                     if (!proteinMin) {
@@ -2187,20 +2189,20 @@ let controller = {
                     if ((typeof proteinMin != "number")) {
                         errors.push({ msg: "El número de proteinMin debe ser introducido con un caracter numérico." });
                     }
-                    if ((proteinMin < 1)) {
+                    if (parseInt(proteinMin) < 1) {
                         errors.push({ msg: "El mínimo de proteinMin debe ser 1." });
                     }
-                    if (proteinMin > proteinMax) {
+                    if (parseInt(proteinMin) > parseInt(proteinMax)) {
                         errors.push({ msg: "El proteinMin no puede ser menor que el proteinMax." });
                     }
                     //////////////////////////////
                     if (!carbohydrtMax) {
                         errors.push({ msg: "No se ha encontrado el número de carbohydrtMax para la planificación." });
                     }
-                    if ((typeof carbohydrtMax != "number")) {
+                    if (typeof carbohydrtMax != "number") {
                         errors.push({ msg: "El número de carbohydrtMax debe ser introducido con un caracter numérico." });
                     }
-                    if ((carbohydrtMax < 1)) {
+                    if (parseInt(carbohydrtMax) < 1) {
                         errors.push({ msg: "El mínimo de carbohydrtMax debe ser 1." });
                     }
                     if (!carbohydrtMin) {
@@ -2209,10 +2211,10 @@ let controller = {
                     if ((typeof carbohydrtMin != "number")) {
                         errors.push({ msg: "El número de carbohydrtMin debe ser introducido con un caracter numérico." });
                     }
-                    if ((carbohydrtMin < 1)) {
+                    if (parseInt(carbohydrtMin) < 1) {
                         errors.push({ msg: "El mínimo de carbohydrtMin debe ser 1." });
                     }
-                    if (carbohydrtMin > carbohydrtMax) {
+                    if (parseInt(carbohydrtMin) > parseInt(carbohydrtMax)) {
                         errors.push({ msg: "El carbohydrtMin no puede ser menor que el carbohydrtMax." });
                     }
 

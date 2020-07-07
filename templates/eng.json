@@ -1,4 +1,5 @@
 {
+    "idioma": "eng",
     "navegacion": {
         "menu": [
             {
@@ -112,14 +113,14 @@
             "ID",
             "Name",
             "Energy (Kcal)",
-            "Water",
-            "Proteins",
-            "Lipids",
-            "carbohydrt",
-            "Fiber",
-            "Sugar",
-            "Salt",
-            "Cholesterol"
+            "Water (g)",
+            "Proteins (g)",
+            "Lipids (g)",
+            "carbohydrt (g)",
+            "Fiber (g)",
+            "Sugar (g)",
+            "Salt (g)",
+            "Cholesterol (g)"
         ],
         "valores": [
             "ndb_no",
@@ -160,15 +161,15 @@
             "Update"
         ],
         "nutrientes": [
-            "Water",
+            "Water (g)",
             "Energy (Kcal)",
-            "Proteins",
-            "Lipids",
-            "Carbohydrates",
-            "Fiber",
-            "Sugar",
-            "Salt",
-            "Cholesterol"
+            "Proteins (g)",
+            "Lipids (g)",
+            "Carbohydrates (g)",
+            "Fiber (g)",
+            "Sugar (g)",
+            "Salt (g)",
+            "Cholesterol (g)"
         ],
         "nutrientesValue": [
             "water",
@@ -277,10 +278,10 @@
             "Evaluated",
             "Recommendation",
             "Date",
-            "Energy",
-            "Lipids",
-            "Proteins",
-            "Carbohydrates",
+            "Energy (kcal)",
+            "Lipids (kcal)",
+            "Proteins (kcal)",
+            "Carbohydrates (kcal)",
             "Actions"
         ],
         "valores": [
@@ -363,7 +364,7 @@
         "label": "JSON File"
     },
     "dish": {
-        "title": "Insert dishes",
+        "title": "Insert a dish",
         "form": [
             {
                 "label": "Enter the name of the dish",
@@ -535,8 +536,9 @@
         ],
         "update": "Update a planning",
         "updateFormFirst": ["_id", "description" ],
-        
-        "button": "Confirm"
+        "button": "Confirm",
+        "dinLabel": "Enter the number of menus:",
+        "numberMenu": "Number of menus"
     },
     "jsonPlanification": {
         "ejemplo": "This is an example to insert planning:",

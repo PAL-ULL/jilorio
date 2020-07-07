@@ -1,4 +1,5 @@
 {
+    "idioma": "esp",
     "navegacion": {
         "menu": [
             {
@@ -276,10 +277,10 @@
             "Evaluado",
             "Recomendación",
             "Fecha",
-            "Energía",
-            "Lípidos",
-            "Proteínas",
-            "Carbohidratos",
+            "Energía (kcal)",
+            "Lípidos (kcal)",
+            "Proteínas (kcal)",
+            "Carbohidratos (kcal)",
             "Acciones"
         ],
         "valores": [
@@ -534,8 +535,11 @@
         ],
         "update": "Actualización de una planificación",
         "updateFormFirst": ["_id", "description" ],
-        
-        "button": "Confirmar"
+        "button": "Confirmar",
+        "dinLabel": "Introduce el número de menús:",
+        "numberMenu": "Número de menús"
+
+
     },
     "jsonPlanification": {
         "ejemplo": "Este es un ejemplo para insertar planificaciones:",
@@ -950,7 +954,7 @@
         }
     ],
     "required": "Campo requerido",
-    "añadirIngred": "Añadir ingredient",
+    "añadirIngred": "Añadir ingrediente",
     "añadirDish": "Añadir plato",
     "añadirMenu": "Añadir menú",
     "submitButtom": "Enviar",
