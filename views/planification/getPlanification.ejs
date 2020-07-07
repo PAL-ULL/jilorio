@@ -88,7 +88,7 @@
                         <td> <%= items.myDocs[i].dias  %> </td>
                         <td>
                             <% for (var j=0; j < items.myDocs[i].menus.length; j++) { %>
-                            <b> Día <%= j+1 %>: </b>
+                            <b> <%=items.myObject.tablaPlanificacion.tablaDetalles[0] %> <%= j+1 %>: </b>
                             <% for (var k=0; k < items.myDocs[i].menus[j].length; k++) { %>
 
                             <% if ((k+1) < items.myDocs[i].menus[j].length) { %>

@@ -119,7 +119,7 @@
             "Fiber",
             "Sugar",
             "Salt",
-            "Colesterol"
+            "Cholesterol"
         ],
         "valores": [
             "ndb_no",
@@ -135,12 +135,12 @@
             "cholestrl_(mg)"
         ]
     },
-    "busqueda": "¿Qué estás buscando?",
+    "busqueda": "What are you looking for?",
     "tablaPlatos": {
         "nombres": [
             "Name",
-            "Calorías",
-            "Acciones"
+            "Calories",
+            "Actions"
         ],
         "valores": [
             "title",
@@ -156,36 +156,37 @@
         ],
         "opciones": [
             "Show details",
-            "Eliminar",
-            "Actualizar"
+            "Delete",
+            "Update"
         ],
         "nutrientes": [
-            "Agua",
-            "Energía (Kcal)",
-            "Proteínas",
-            "Lípidos",
-            "Carbohidratos",
-            "Fibra",
-            "Azúcar",
-            "Sal",
-            "Colesterol"
+            "Water",
+            "Energy (Kcal)",
+            "Proteins",
+            "Lipids",
+            "Carbohydrates",
+            "Fiber",
+            "Sugar",
+            "Salt",
+            "Cholesterol"
         ],
         "nutrientesValue": [
             "water",
             "energKcal",
-            "protein",
+            "proteins",
             "lipidTotal",
             "carbohydrt",
             "fiber",
+            "sugar",
             "sodium",
-            "cholestrl",
-            "sugar"
+            "cholestrl"
+           
         ]
     },
     "tablaPlatosReducida": {
         "nombres": [
             "Name",
-            "Calorías"
+            "Calories"
         ]
 
     },
@@ -193,22 +194,22 @@
         "nombres": [
             "Name",
             "Dishes",
-            "Calorías del menú",
-            "Acciones"
+            "Menu calories",
+            "Actions"
         ]
     },
     "tablaPlanificacion": {
         "nombres": [
             "Name",
-            "Días",
-            "Menús",
-            "Acciones"
+            "Days",
+            "Menus",
+            "Actions"
         ],
-        "titleTabla": "Menús de la planificación",
-        "titleTablaNut": "Datos nutricionales de la planificación",
+        "titleTabla": "Planning menus",
+        "titleTablaNut": "Nutritional planning data",
         "tablaDetalles": [
-            "Día",
-            "Menú",
+            "Day",
+            "Menu",
             "Dishes"
         ]
     },
@@ -216,22 +217,22 @@
         "nombres": [
             "Name",
             "Dishes",
-            "Calorías del menú"
+            "Menu calories"
         ]
 
     },
     "tablaRecomendacion": {
         "nombres": [
             "Name",
-            "Energía mín. (Kcal)",
-            "Energía máx. (Kcal)",
-            "Lípidos mín.",
-            "Lípidos máx.",
-            "Proteínas mín.",
-            "Proteínas máx.",
-            "Carbohidratos mín.",
-            "Carbohidratos máx.",
-            "Acciones"
+            "Min. Energy (Kcal)",
+            "Max. Energy (Kcal)",
+            "Min. lipids",
+            "Max. lipids",
+            "Min. proteins",
+            "Max. proteins",
+            "Min. carbohydrates",
+            "Max. carbohydrates",
+            "Actions"
         ],
         "valores": [
             "_id",
@@ -248,14 +249,14 @@
     "tablaRecomendacionDetails": {
         "nombres": [
             "Name",
-            "Energía mín. (Kcal)",
-            "Energía máx. (Kcal)",
-            "Lípidos mín.",
-            "Lípidos máx.",
-            "Proteínas mín.",
-            "Proteínas máx.",
-            "Carbohidratos mín.",
-            "Carbohidratos máx."
+            "Min. Energy (Kcal)",
+            "Max. Energy (Kcal)",
+            "Min. lipids",
+            "Max. lipids",
+            "Min. proteins",
+            "Max. proteins",
+            "Min. carbohydrates",
+            "Max. carbohydrates"
         ],
         "valores": [
             "_id",
@@ -268,35 +269,35 @@
             "carbohydrtMin",
             "carbohydrtMax"
         ],
-        "title": "Datos de la recomendación",
-        "edad": "Edad recomendada:"
+        "title": "Recommendation data",
+        "edad": "Recommended age:"
     },
     "tablaEvaluacion": {
         "nombres": [
-            "Evaluado",
-            "Recomendación",
-            "Fecha",
-            "Energía",
-            "Lípidos",
-            "Proteínas",
-            "Carbohidratos",
-            "Acciones"
+            "Evaluated",
+            "Recommendation",
+            "Date",
+            "Energy",
+            "Lipids",
+            "Proteins",
+            "Carbohydrates",
+            "Actions"
         ],
         "valores": [
             "_id",
-            "recomendacion",
-            "candidato",
-            "resultados"
+            "recommendation",
+            "candidate",
+            "results"
         ]
     },
     
     "tablaUsers": {
         "nombres": [
-            "Name",
-            "Username",
-            "Correo electrónico",
+            "name",
+            "username",
+            "Email",
             "Rol",
-            "Acciones"
+            "Actions"
         ],
         "valores": [
             "name",
@@ -305,12 +306,12 @@
             "rol"
         ]
     },
-    "usersUpdate": "Actualización de un usuario", 
+    "usersUpdate": "Update a user", 
     "register": {
-        "title": "Registro de usuarios",
+        "title": "User Registration",
         "form": [
             {
-                "label": "Introduzca su nombre",
+                "label": "Enter your name",
                 "icon": "fas fa-user",
                 "type": "text",
                 "placeholder": "Name",
@@ -318,7 +319,7 @@
                 "name": "name"
             },
             {
-                "label": "Introduzca su nombre de usuario",
+                "label": "Enter your username",
                 "icon": "@",
                 "type": "text",
                 "placeholder": "Username",
@@ -326,91 +327,91 @@
                 "name": "username"
             },
             {
-                "label": "Introduzca su correo electónico",
+                "label": "Enter your email",
                 "icon": "fas fa-envelope",
                 "type": "text",
-                "placeholder": "Correo electrónico",
+                "placeholder": "Email",
                 "ariaLabel": "email",
                 "name": "email"
             },
             {
-                "label": "Introduzca su password",
+                "label": "Enter your password",
                 "icon": "fas fa-lock",
                 "type": "password",
-                "placeholder": "Password",
+                "placeholder": "password",
                 "ariaLabel": "password",
                 "name": "password"
             },
             {
-                "label": "Confirme su password",
+                "label": "Confirm your password",
                 "icon": "fas fa-lock",
                 "type": "password",
-                "placeholder": "Password",
+                "placeholder": "password",
                 "ariaLabel": "password2",
                 "name": "password2"
             }
         ],
-        "button": "Regístrate",
-        "principal": "REGISTRO",
-        "texto": "Regístrate en la aplicación completando el formulario con tus datos personales.",
-        "pregunta": "¿Tienes cuenta?",
-        "click": "Inicia sesión",
+        "button": "Sign up",
+        "principal": "Sign up",
+        "texto": "Register in the application by completing the form with your personal data.",
+        "pregunta": "Do you have an account?",
+        "click": "Log in",
         "href": "/login" 
     },
     "jsonDish": {
-        "ejemplo": "Este es un ejemplo para insertar platos:",
-        "label": "Archivo .json"
+        "ejemplo": "This is an example to insert dishes:",
+        "label": "JSON File"
     },
     "dish": {
-        "title": "Inserción de Dishes",
+        "title": "Insert dishes",
         "form": [
             {
-                "label": "Introduzca el nombre del plato",
+                "label": "Enter the name of the dish",
                 "icon": "fas fa-utensils",
                 "type": "text",
-                "placeholder": "Nombre del plato",
+                "placeholder": "Dish name",
                 "ariaLabel": "title",
                 "name": "title"
             },
             {
-                "label": "Introduzca una descripción para el plato",
+                "label": "Enter a description for the dish",
                 "icon": "fas fa-edit",
                 "type": "text",
-                "placeholder": "Descripción del plato",
+                "placeholder": "Dish description",
                 "ariaLabel": "description",
                 "name": "description"
             },
             {
-                "label": "Introduzca un enlace a la receta",
+                "label": "Enter a link to the recipe",
                 "icon": "fas fa-utensil-spoon",
                 "type": "url",
-                "placeholder": "Receta del plato",
+                "placeholder": "Dish recipe",
                 "ariaLabel": "recipe",
                 "name": "recipe"
             },
             {
-                "label": "Introduzca una imagen al plato",
+                "label": "Enter an image to the plate",
                 "icon": "fas fa-image",
                 "type": "url",
-                "placeholder": "Imagen del plato",
+                "placeholder": "Image of the dish",
                 "ariaLabel": "imageURL",
                 "name": "imageURL"
             }
         ],
         "formIngredientes": [
             {
-                "label": "Ingrediente del plato",
+                "label": "Dish ingredient",
                 "icon": "fas fa-apple-alt",
                 "type": "text",
-                "placeholder": "Ingrediente del plato",
+                "placeholder": "Dish ingredient",
                 "ariaLabel": "ingredients",
                 "name": "ingredients[]"
             },
             {
-                "label": "Cantidad",
+                "label": "Quantity",
                 "icon": "fas fa-apple-alt",
                 "type": "number",
-                "placeholder": "Cantidad del ingrediente",
+                "placeholder": "Ingredient quantity",
                 "ariaLabel": "cantidad",
                 "name": "cantidades[]",
                 "min": "1"
@@ -418,7 +419,7 @@
         ],
         "formIngredientesSel": [
             {
-                "label": "Unidad de medida",
+                "label": "Unit of measurement",
                 "icon": "fas fa-apple-alt",
                 "options": [
                     "g",
@@ -439,64 +440,64 @@
         ],
         "updateFormFirst": ["_id", "description", "recipe", "imageURL" ],
         "updateFormSecond": ["name", "amount", "unitMeasure" ],
-        "button": "Confirmar",
-        "update": "Actualización de un plato"
+        "button": "Confirm",
+        "update": "Update a dish"
     },
     "menu": {
-        "title": "Inserción de menus",
+        "title": "Insert a menu",
         "form": [
             {
-                "label": "Introduzca el nombre del menú",
+                "label": "Enter the name of the menu",
                 "icon": "fas fa-utensils",
                 "type": "text",
-                "placeholder": "Nombre del menú",
+                "placeholder": "Menu name",
                 "ariaLabel": "title",
                 "name": "title"
             },
             {
-                "label": "Introduzca una descripción del menú",
+                "label": "Enter a menu description",
                 "icon": "fas fa-edit",
                 "type": "text",
-                "placeholder": "Descripción del menú",
+                "placeholder": "Menu description",
                 "ariaLabel": "description",
                 "name": "description"
             }
         ],
         "formPlatos": [
             {
-                "label": "Introduzca un plato",
+                "label": "Enter a dish",
                 "icon": "fas fa-apple-alt",
                 "type": "text",
-                "placeholder": "Platos del menú",
+                "placeholder": "Dish name",
                 "ariaLabel": "dishes",
                 "name": "platos[]"
             }
         ],
-        "update": "Actualización de un menú",
+        "update": "Update a menu",
         "updateFormFirst": ["_id", "description" ],
-        "button": "Confirmar"
+        "button": "Confirm"
     },
     "jsonMenu": {
-        "ejemplo": "Este es un ejemplo para insertar menús:",
-        "label": "Archivo .json"
+        "ejemplo": "This is an example to insert menus:",
+        "label": "JSON File"
     },
     "planificacion": {
-        "title": "Inserción de una planificación",
+        "title": "Insert a planification",
         "form": [
             {
-                "label": "Introduzca el nombre de la planificación",
+                "label": "Enter the name of the planning",
                 "icon": "fas fa-utensils",
                 "type": "text",
-                "placeholder": "Nombre de la planificación",
+                "placeholder": "Planning name",
                 "ariaLabel": "title",
                 "name": "title",
                 "id": "_id"
             },
             {
-                "label": "Introduzca una descripción para la planificación",
+                "label": "Enter a description for planning",
                 "icon": "fas fa-edit",
                 "type": "text",
-                "placeholder": "Descripción de la planificación",
+                "placeholder": "Planning description",
                 "ariaLabel": "description",
                 "name": "description",
                 "id": "description"
@@ -504,10 +505,10 @@
         ],
         "formNumber": [
             {
-                "label": "Días para la planificación",
+                "label": "Days for planning",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Días de la planificación",
+                "placeholder": "Days for planning",
                 "ariaLabel": "dias",
                 "name": "dias",
                 "min": 1
@@ -515,121 +516,121 @@
         ],
         "formMenuDays": [
             {
-                "label": "Número de menús",
+                "label": "Number of menus",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Número de menús",
+                "placeholder": "Number of menus",
                 "min": 1
             }
         ],
         "formMenu": [
             {
-                "label": "Introduzca un menu",
+                "label": "Enter a menu",
                 "icon": "fas fa-apple-alt",
                 "type": "text",
-                "placeholder": "Menú de la planificación",
+                "placeholder": "Planning menu",
                 "ariaLabel": "menus",
                 "name": "menus[]"
             }
         ],
-        "update": "Actualización de una planificación",
+        "update": "Update a planning",
         "updateFormFirst": ["_id", "description" ],
         
-        "button": "Confirmar"
+        "button": "Confirm"
     },
     "jsonPlanification": {
-        "ejemplo": "Este es un ejemplo para insertar planificaciones:",
-        "label": "Archivo .json"
+        "ejemplo": "This is an example to insert planning:",
+        "label": "JSON File"
     },
     "recomendacion": {
-        "title": "Inserción de una recomendación",
-        "update": "Actualización de una recomendación",
+        "title": "Insert a recommendation",
+        "update": "Update a recommendation",
         "form": [
             {
-                "label": "Introduzca el nombre de la recomendación",
+                "label": "Enter the name of the recommendation",
                 "icon": "fas fa-utensils",
                 "type": "text",
-                "placeholder": "Nombre de la recomendación",
+                "placeholder": "Name of the recommendation",
                 "ariaLabel": "_id",
                 "name": "_id"
             },
             {
-                "label": "Introduzca una descripción para la recomendación",
+                "label": "Enter a description for the recommendation",
                 "icon": "fas fa-edit",
                 "type": "text",
-                "placeholder": "Descripción de la recomendación",
+                "placeholder": "Description of the recommendation",
                 "ariaLabel": "description",
                 "name": "description"
             },
             {
-                "label": "Introduzca la edad destinada para la recomendación",
+                "label": "Enter the age for the recommendation",
                 "icon": "fas fa-edit",
                 "type": "text",
-                "placeholder": "Edad destinada para la recomendación",
+                "placeholder": "Age intended for recommendation",
                 "ariaLabel": "edad",
                 "name": "edad"
             }
         ],
         "formNumber": [
             {
-                "label": "Introduzca las kilocalorías mínimas",
+                "label": "Enter the minimum kilocalories",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Kilocalorías mínimas de la recomendación",
+                "placeholder": "Minimum recommendation kilocalories",
                 "ariaLabel": "energyMin",
                 "name": "energyMin",
                 "min": 1
             },
             {
-                "label": "Introduzca las kilocalorías máximas",
+                "label": "Enter the maximum kilocalories",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Kilocalorías máximas de la recomendación",
+                "placeholder": "Maximum recommendation kilocalories",
                 "ariaLabel": "energyMax",
                 "name": "energyMax",
                 "min": 1
             },
             {
-                "label": "Introduzca los lípidos mínimos",
+                "label": "Enter the minimum lipids",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Lípidos mínimos de la recomendación",
+                "placeholder": "Minimum lipids of the recommendation",
                 "ariaLabel": "lipidsMin",
                 "name": "lipidsMin",
                 "min": 1
             },
             {
-                "label": "Introduzca los lípidos máximos",
+                "label": "Enter the maximum lipids",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Lípidos máximos de la recomendación",
+                "placeholder": "Maximum lipids of the recommendation",
                 "ariaLabel": "lipidsMax",
                 "name": "lipidsMax",
                 "min": 1
             },
             {
-                "label": "Introduzca las proteínas mínimas",
+                "label": "Enter the minimum proteins",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Proteínas mínimas de la recomendación",
+                "placeholder": "Minimum recommendation proteins",
                 "ariaLabel": "proteinMin",
                 "name": "proteinMin",
                 "min": 1
             },
             {
-                "label": "Introduzca las proteínas máximas",
+                "label": "Enter maximum proteins",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Proteínas máximas de la recomendación",
+                "placeholder": "Maximum recommendation proteins",
                 "ariaLabel": "proteinMax",
                 "name": "proteinMax",
                 "min": 1
             },
             {
-                "label": "Introduzca los carbohidratos mínimos",
+                "label": "Enter the minimum carbohydrates",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Carbohidratos mínimos de la recomendación",
+                "placeholder": "Minimum recommendation carbohydrates",
                 "ariaLabel": "carbohydrtMin",
                 "name": "carbohydrtMin",
                 "min": 1
@@ -638,25 +639,25 @@
                 "label": "Introduzca los carbohidratos máximos",
                 "icon": "fas fa-edit",
                 "type": "number",
-                "placeholder": "Carbohidratos máximos de la recomendación",
+                "placeholder": "Enter the maximum carbohydrates",
                 "ariaLabel": "carbohydrtMax",
                 "name": "carbohydrtMax",
                 "min": 1
             }
                 ],
-        "button": "Guardar",
-        "nutrientes": "Nutrientes recomendados:",
-        "infor": "Información básica:"
+        "button": "Save",
+        "nutrientes": "Recommended nutrients:",
+        "infor": "Basic information:"
     },
     "jsonRecomendation": {
-        "ejemplo": "Este es un ejemplo para insertar recomendaciones:",
-        "label": "Archivo .json"
+        "ejemplo": "This is an example to insert recommendations:",
+        "label": "JSON File"
     },
     "evaluacion": {
-        "title": "Crear evaluación",
+        "title": "Create evaluation",
         "recomendacion":[
             {
-                "label": "Tipo de recomendación a usar",
+                "label": "Type of recommendation to use",
                 "icon": "fas fa-apple-alt",
                 "name": "recomendacion",
                 "id": "recomendacion"
@@ -664,12 +665,12 @@
         ],
         "form":[
             {
-                "label": "Tipo de candidato a evaluar",
+                "label": "Type of candidate to evaluate",
                 "icon": "fas fa-apple-alt",
                 "options": [
-                    "Plato",
-                    "Menú",
-                    "Planificación"
+                    "Dish",
+                    "Menu",
+                    "Planification"
                 ],
                 "name": "tipos",
                 "id": "tipos"
@@ -677,7 +678,7 @@
         ],
         "dynamic":[
             {
-                "label": "Candidato a evaluar",
+                "label": "Candidate to evaluate",
                 "icon": "fas fa-apple-alt",
                 "name": "candidato"
             }
@@ -686,7 +687,7 @@
     "userEdit":{
         "form": [
             {
-                "label": "Actualice el nombre",
+                "label": "Update name",
                 "icon": "fas fa-user",
                 "type": "text",
                 "placeholder": "Name",
@@ -694,7 +695,7 @@
                 "name": "name"
             },
             {
-                "label": "Actualice el nombre de usuario",
+                "label": "Update username",
                 "icon": "@",
                 "type": "text",
                 "placeholder": "Username",
@@ -702,15 +703,15 @@
                 "name": "username"
             },
             {
-                "label": "Actualice el correo electónico",
+                "label": "Update email",
                 "icon": "fas fa-envelope",
                 "type": "text",
-                "placeholder": "Correo electrónico",
+                "placeholder": "Email",
                 "ariaLabel": "email",
                 "name": "email"
             },
             {
-                "label": "Actualice la password",
+                "label": "Update password",
                 "icon": "fas fa-lock",
                 "type": "password",
                 "placeholder": "Password",
@@ -718,7 +719,7 @@
                 "name": "password"
             },
             {
-                "label": "Confirme la password",
+                "label": "Confirm password",
                 "icon": "fas fa-lock",
                 "type": "password",
                 "placeholder": "Password",
@@ -726,21 +727,21 @@
                 "name": "password2"
             },
             {
-                "label": "Actualice el rol",
+                "label": "Update role",
                 "icon": "fas fa-lock",
                 "type": "text",
-                "placeholder": "Rol de usuario",
+                "placeholder": "User role",
                 "ariaLabel": "rol",
                 "name": "rol"
             }
         ],
-        "button": "Guardar"
+        "button": "Save"
     },
     "login": {
         "title": "Log in",
         "form": [
             {
-                "label": "Introduzca su nombre de usuario",
+                "label": "Enter your username",
                 "icon": "@",
                 "type": "text",
                 "placeholder": "Username",
@@ -748,7 +749,7 @@
                 "name": "username"
             },
             {
-                "label": "Introduzca su password",
+                "label": "Enter your password",
                 "icon": "fas fa-lock",
                 "type": "password",
                 "placeholder": "Password",
@@ -756,69 +757,69 @@
                 "name": "password"
             }
         ],
-        "button": "Iniciar sesión",
+        "button": "Log in",
         "principal": "LOG IN",
-        "texto": "Inicia sesión utilizando tu nombre de usuario y contraseña asociados a esta aplicación.",
-        "pregunta": "¿No tienes cuenta?",
-        "click": "Regístrate",
+        "texto": "Log in using your username and password associated with this application.",
+        "pregunta": "Do not you have an account?",
+        "click": "Sign up",
         "href": "/register" 
     },
     "dishIndex": [
    
         {
             "name": "Show dishes",
-            "description": "Visualiza los platos, sus ingredientes y los datos nutricionales de cada uno de ellos.",
+            "description": "Look at the dishes, their ingredients and the nutritional data of each of them.",
             "icon": "fas fa-search",
             "href": "/dish/view",
             "button": "More info"
         },
         {
-            "name": "Añadir dishes",
-            "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un simple formulario.",
+            "name": "Add dishes",
+            "description": "Create your own dishes, using the available ingredients, through a simple form.",
             "icon": "fas fa-edit",
             "href": "/dish/insert",
             "button": "More info"
         },
         {
-            "name": "Añadir platos desde un archivo JSON",
-            "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un archivo JSON con los datos.",
+            "name": "Add dishes from a JSON file",
+            "description": "Create your own dishes, using the available ingredients, through a JSON file with the data.",
             "icon": "fas fa-file-alt",
             "href": "/dish/insert/json",
             "button": "More info"
         }
     ],
     "dishDetails": [
-        "Ingrediente",
-        "Cantidad",
-        "Calorias en 100 gr"
+        "Ingredient",
+        "Amount",
+        "Calories in 100 g"
     ],
     "menuDetails": [
-        "Plato",
-        "Calorias del plato"
+        "Dish",
+        "Dish Calories"
     ],
-    "platosMenu": "Platos del menú",
-    "nutrientsMenu": "Datos nutricionales del menú",
-    "nutrients": "Datos nutricionales del plato",
-    "ingredientesDish": "Ingredientes del plato",
-    "recipeDish": "Ir a la receta",
+    "platosMenu": "Menu dishes",
+    "nutrientsMenu": "Nutritional data menu",
+    "nutrients": "Nutritional data dish",
+    "ingredientesDish": "Dish ingredients",
+    "recipeDish": "Go to recipe",
     "menuIndex": [
         {
-            "name": "Show menús",
-            "description": "Visualiza los menús, los platos que lo forman y los datos nutricionales de cada uno de ellos.",
+            "name": "Show menus",
+            "description": "Look at the menus, the dishes that make it up and the nutritional data of each one of them.",
             "icon": "fas fa-search",
             "href": "/menu/view",
             "button": "More info"
         },
         {
-            "name": "Añadir menús",
-            "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un simple formulario.",
+            "name": "Add menus",
+            "description": "Create your own menus, using the available dishes, through a simple form.",
             "icon": "fas fa-edit",
             "href": "/menu/insert",
             "button": "More info"
         },
         {
-            "name": "Añadir menús desde un archivo JSON",
-            "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un archivo JSON con los datos.",
+            "name": "Add menus from a JSON file",
+            "description": "Create your own menus, using the available dishes, through a JSON file with the data.",
             "icon": "fas fa-file-alt",
             "href": "/menu/insert/json",
             "button": "More info"
@@ -827,22 +828,22 @@
     ],
     "planificationIndex": [
         {
-            "name": "Show planificaciones",
-            "description": "Visualiza las planificaciones, los menús de cada día y los datos nutricionales de cada planificación.",
+            "name": "Show planifications",
+            "description": "View the plans, the menus for each day and the nutritional data of each plan.",
             "icon": "fas fa-search",
             "href": "/planification/view",
             "button": "More info"
         },
         {
-            "name": "Añadir planificaciones",
-            "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un simple formulario.",
+            "name": "Add planifications",
+            "description": "Create your own plannings, using the available menus, through a simple form.",
             "icon": "fas fa-edit",
             "href": "/planification/insert",
             "button": "More info"
         },
         {
-            "name": "Añadir planificaciones desde un archivo JSON",
-            "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un archivo JSON con los datos.",
+            "name": "Add planifications from a JSON file",
+            "description": "Create your own plannings, using the available menus, through a JSON file with the data.",
             "icon": "fas fa-file-alt",
             "href": "/planification/insert/json",
             "button": "More info"
@@ -851,22 +852,22 @@
     ],
     "recomendationIndex": [
         {
-            "name": "Show recomendaciones",
-            "description": "Visualiza las recomendaciones nutricionales aportadas por nutricionistas.",
+            "name": "Show recommendations",
+            "description": "View the nutritional recommendations provided by nutritionists.",
             "icon": "fas fa-search",
             "href": "/recomendation/view",
             "button": "More info"
         },
         {
-            "name": "Añadir recomendaciones",
-            "description": "Siendo nutricionista, podrás crear tus propias recomendaciones a través de un simple formulario.",
+            "name": "Add recommendations",
+            "description": "Being a nutritionist, you can create your own recommendations through a simple form.",
             "icon": "fas fa-edit",
             "href": "/recomendation/insert",
             "button": "More info"
         },
         {
-            "name": "Añadir recomendaciones desde un archivo JSON",
-            "description": "Siendo nutricionista, crea tus propias recomendaciones a través de un archivo JSON con los datos.",
+            "name": "Add recommendations from a JSON file",
+            "description": "Being a nutritionist, create your own recommendations through a JSON file with the data.",
             "icon": "fas fa-file-alt",
             "href": "/recomendation/insert/json",
             "button": "More info"
@@ -875,15 +876,15 @@
     ],
     "evaluationIndex": [
         {
-            "name": "Show evaluaciones",
-            "description": "Visualiza los resultados de las evaluaciones de platos, menús y planificaciones.",
+            "name": "Show evaluations",
+            "description": "Displays the results of evaluations of dishes, menus and plans.",
             "icon": "fas fa-search",
             "href": "/evaluation/view",
             "button": "More info"
         },
         {
-            "name": "Realizar evaluaciones",
-            "description": "Crea tus propias planificaciones, utilizando los platos, menús y planificaciones disponibles, a través de un simple formulario.",
+            "name": "Make evaluations",
+            "description": "Create your own plans, using the dishes, menus and plans available, through a simple form.",
             "icon": "fas fa-edit",
             "href": "/evaluation/create",
             "button": "More info"
@@ -892,7 +893,7 @@
     "foodIndex": [
         {
             "name": "Show food",
-            "description": "Visualiza los datos nutricionales de más de 8700 alimentos.",
+            "description": "View the nutritional data of more than 8700 foods.",
             "icon": "fas fa-edit",
             "href": "/food/view",
             "button": "More info"
@@ -902,7 +903,7 @@
         {
             "home": {
                 "title": "Jilorio",
-                "description": "Jilorio es una aplicación web creada con el fin de evaluar la calidad de platos, menús y planificaciones a partir de recomendaciones dietéticas.",
+                "description": "Jilorio is a web application created in order to evaluate the quality of dishes, menus and planning based on dietary recommendations.",
                 "text": "Start now",
                 "href": "/register"
             }
@@ -910,7 +911,7 @@
         {
             "dish": {
                 "title": "Dishes",
-                "description": "Desde Platos, puedes acceder a cada uno de ellos y conocer sus ingredientes y valores nutricionales. Si te falta un plato, no dudes en incluirlos desde un formulario o a partir de la subida de un archivo JSON."
+                "description": "From Dishes, you can access each of them and know their ingredients and nutritional values. If you are missing a dish, do not hesitate to include them from a form or from the upload of a JSON file."
              
             
             }
@@ -918,36 +919,41 @@
         {
             "menu": {
                 "title": "Menus",
-                "description": "Desde Menús, puedes acceder a cada uno de ellos y conocer sus platos y valores nutricionales. Si te falta un menú, no dudes en incluirlos desde un formulario o a partir de la subida de un archivo JSON."
+                "description": "From Menus, you can access each of them and learn about their dishes and nutritional values. If you are missing a menu, don't hesitate to include them from a form or from the upload of a JSON file."
                
             }
         },
         {
             "planification": {
                 "title": "Planning",
-                "description": "Desde Planificaciones, puedes acceder a cada una de ellas para conocer los menús que lo forman y los valores nutricionales totales. Puedes crear tus propias planificaciones desde un formulario o a partir de la subida de un archivo JSON."
+                "description": "From Planning, you can access each of them to know the menus that make it up and the total nutritional values. You can create your own schedules from a form or from the upload of a JSON file."
             }
         },
         {
             "recomendation": {
-                "title": "Recomendations",
-                "description": "Desde Recomendaciones, puedes visualizar los estándares nutrcionales de cada una de ellas. Si eres un nutricionista, podrás añadir tus propias recomendaciones desde un formulario o con la subidad de un archivo JSON."
+                "title": "Recommendations",
+                "description": "From Recommendations, you can view the nutritional standards of each of them. If you are a nutritionist, you can add your own recommendations from a form or with the upload of a JSON file."
             }
         },
         {
             "evaluation": {
                 "title": "Evaluations",
-                "description": "Desde Evaluaciones, puedes comprobar si un plato, menú o planificación se ha ajustado a los valores mínimos y máximos de una recomendación. Para crear una evaluación, solo tienes que indicar el candidato a evaluar y la recomendación a emplear."
+                "description": "From Evaluations, you can check if a dish, menu or planning has been adjusted to the minimum and maximum values of a recommendation. To create an evaluation, you only have to indicate the candidate to evaluate and the recommendation to use."
             }
         },
         {
             "food": {
                 "title": "Food",
-                "description": "Desde Food, puedes tener acceso a los datos nutricionales de cada uno de los alimentos.",
+                "description": "From Food, you can access the nutritional data of each of the foods.",
                 "listadoHref": "/food/view",
                 "button": "More info"
             }
         }
     ],
-    "required": "Campo requerido"
+    "required": "Required field",
+    "añadirIngred": "Add ingredient",
+    "addDish": "Add dish",
+    "añadirMenu": "Add menu",
+    "submitButtom": "Submit",
+    "eliminar": "Delete"
 }

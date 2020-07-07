@@ -101,7 +101,7 @@
                                         <span class=" spanColor input-group-text"><i
                                                 class=" myIcons <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
                                     </div>
-                                    <% if (items.myObject.dish.formIngredientes[i].label === "Cantidad") { %>
+                                    <% if ((items.myObject.dish.formIngredientes[i].label === "Cantidad")  || (items.myObject.dish.formIngredientes[i].label === "Quantity")){ %>
                                     <input class="MyInputs form-control" type="<%= items.myObject.dish.formIngredientes[i].type %>"
                                         placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
                                         aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
@@ -148,7 +148,7 @@
                             class="required">*</span>
                     </div>
                     <br>
-                    <input type="button" class="btn btn-dark" value="Añadir ingrediente" id="bSubmit">
+                    <input type="button" class="btn btn-dark" value="<%= items.myObject.añadirIngred %>" id="bSubmit">
                 </div>
 
                 <script>
@@ -251,7 +251,7 @@
                         eliminar.classList.add("btn-danger");
                         eliminar.classList.add("eliminar");
                         eliminar.setAttribute("type", "button");
-                        eliminar.value = "Eliminar"
+                        eliminar.value = "<%= items.myObject.eliminar %>"
                         col.style.display = "flex";
                         col.style["align-items"] = "center";
                         col.style["padding-top"] = "12px";
@@ -277,7 +277,7 @@
 
 
                 <br><br>
-                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
+                <input type="submit" id="mySubmit" class="btn btn-info" value="<%= items.myObject.submitButtom %>" />
 
                 <script>
                     $(function () {

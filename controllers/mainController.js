@@ -17,7 +17,7 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 
 // Lang template
-const espTemplate = require("../templates/esp.json");
+const espTemplate = require("../templates/eng.json");
 const dish = require("../public/javascripts/dish.js");
 const usdaJson = require("../public/food.json");
 var util = require('util');

@@ -123,7 +123,7 @@
                             <% if ( k > 0) { %>
                             <div class="col-sm">
                                 <input style="margin-top: 30px" class="btn btn-danger eliminar2" type="button"
-                                    value="Eliminar">
+                                    value="<%= items.myObject.eliminar %>">
                             </div>
                             <% } else{%>
                             <div class="col-sm"> </div>
@@ -139,7 +139,7 @@
 
                 </div>
                 <br>
-                <input type="button" class="btn btn-dark" value="Añadir plato" id="bSubmit">
+                <input type="button" class="btn btn-dark" value="<%= items.myObject.addDish %>" id="bSubmit">
 
 
 
@@ -223,7 +223,7 @@
                         eliminar.classList.add("btn-danger");
                         eliminar.classList.add("eliminar");
                         eliminar.setAttribute("type", "button");
-                        eliminar.value = "Eliminar"
+                        eliminar.value = "<%= items.myObject.eliminar %>"
 
                         // col.style.display = "table";
                         eliminar.style.marginTop = "30px"

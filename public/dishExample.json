@@ -1,6 +1,6 @@
 [
     {
-        "_id": "Ejemplo de archivo json 111",
+        "_id": "Ejemplo de ar1",
         "description": "Este es un buen desayuno para comenzar el día.",
         "ingredients": [
             {
@@ -29,7 +29,7 @@
         "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
     },
     {
-        "_id": "Tomate con aceite y orégano ejemplo 100",
+        "_id": "Tomate con aplo 100",
         "description": "Este es un buen desayuno para comenzar el día.",
         "ingredients": [
             {

@@ -949,5 +949,10 @@
             }
         }
     ],
-    "required": "Campo requerido"
+    "required": "Campo requerido",
+    "añadirIngred": "Añadir ingredient",
+    "añadirDish": "Añadir plato",
+    "añadirMenu": "Añadir menú",
+    "submitButtom": "Enviar",
+    "eliminar": "Eliminar"
 }
