@@ -1,4 +1,4 @@
-const espTemplate = require("../templates/esp.json");
+const espTemplate = require("../templates/eng.json");
 
 module.exports = {
   ensureAuthenticated: function(req, res, next) {
