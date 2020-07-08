@@ -27,7 +27,7 @@ const Dish = require("../models/dish");
 const Users = require("../models/user");
 const Menu = require("../models/menu");
 const Planification = require("../models/planification");
-const Recomendation = require("../models/recomendation");
+const Recommendation = require("../models/recommendation");
 const Valuation = require("../models/valuation");
 const User = require("../models/user");
 const Food = require("../models/food");
@@ -86,7 +86,7 @@ let controller = {
         const searchData = req.body.shrt_desc;
 
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "Objeto no existente");
+            req.flash('success', espTemplate.errors.dishNotRemove);
         }
         const query = { shrt_desc: { $regex: searchData } };
 
@@ -218,7 +218,7 @@ let controller = {
         let errors = [];
 
         if (!req.files) {
-            errors.push({ msg: "El archivo está vacío." });
+            errors.push({ msg: espTemplate.errors.emptyJson });
             showErrorsDishJsoN(errors, req, res);
 
 
@@ -234,7 +234,7 @@ let controller = {
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
-                errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                errors.push({ msg: espTemplate.errors.formatInc });
 
                 showErrorsDishJsoN(errors, req, res);
 
@@ -255,70 +255,74 @@ let controller = {
 
 
                 if (!title) {
-                    errors.push({ msg: "No se ha encontrado un nombre para el plato." });
+                    errors.push({ msg: espTemplate.errors.dishName });
                 }
                 if (!description) {
-                    errors.push({ msg: "No se ha encontrado una descripción para el plato." });
+                    errors.push({ msg: espTemplate.errors.dishDescription });
                 }
 
                 const regex = new RegExp(/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/);
                 if (recipe) {
                     if (recipe != "") {
                         if (!recipe.match(regex)) {
-                            errors.push({ msg: "La URL de la receta no es correcta." });
+                            errors.push({ msg: espTemplate.errors.dishRecipe  });
                         }
                     }
                 }
                 if (imageURL) {
                     if (imageURL != "") {
                         if (!imageURL.match(regex)) {
-                            errors.push({ msg: "La URL de la receta no es correcta." });
+                            errors.push({ msg: espTemplate.errors.dishImage  });
                         }
                     }
                 }
 
                 if (ingredients.length === 0) {
-                    errors.push({ msg: "Debe introducir al menos un ingrediente." });
+                    errors.push({ msg: espTemplate.errors.dishIngredient });
                 } else {
 
                     for (let i = 0; i < ingredients.length; i++) {
-
-
-                        const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
-                        if (result.length === 0) {
-
-                            noEncontrados.push(ingredients[i].name);
+                        if (ingredients[i].name === ""){
+                            errors.push({ msg: espTemplate.errors.ingNotFound });
+                                
+                        }else{
+                            const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
+                            if (result.length === 0) {
+                            
+                                noEncontrados.push(ingredients[i].name);
+                            }
                         }
 
                         if (!(ingredients[i].amount)) {
-                            errors.push({ msg: "No se ha encontrado definida la cantidad para el alimento " + ingredients[i].name + "." });
+                            errors.push({ msg: espTemplate.errors.amountNotFound + ingredients[i].name + "." });
                         }
 
                         if ((ingredients[i].amount) && (typeof (ingredients[i].amount) != "number")) {
-                            errors.push({ msg: "La cantidad para el alimento " + ingredients[i].name + " debe ser expresada con un dato numérico." });
+                            errors.push({ msg: espTemplate.errors.dishAmount1 + ingredients[i].name +  espTemplate.errors.dishAmount2  });
                         }
 
                         if (!(ingredients[i].unitMeasure)) {
-                            errors.push({ msg: "No se ha encontrado definida la unidad de medida para la cantidad del alimento " + ingredients[i].name + "." });
+                            errors.push({ msg: espTemplate.errors.dishUnitMeasure  + ingredients[i].name + "." });
                         }
 
                         if ((ingredients[i].unitMeasure) && ((ingredients[i].unitMeasure != "g") && (ingredients[i].unitMeasure != "ml"))) {
-                            errors.push({ msg: "La unidad de medida para la cantidad del alimento " + ingredients[i].name + " debe ser expresada como un dato en 'g' para gramos o 'ml' para mililitros." });
+                            errors.push({ msg: espTemplate.errors.dishUnitMeasure1  + ingredients[i].name + espTemplate.errors.dishUnitMeasure2 });
                         }
 
-                        if (!(ingredients[i].ndbno)) {
-                            errors.push({ msg: "No se ha encontrado definido el identificador del alimento " + ingredients[i].name + "." });
+                        if (!(ingredients[i].ndbno) || (ingredients[i].ndbno === "")) {
+                            errors.push({ msg: espTemplate.errors.dishNdbno + ingredients[i].name + "." });
                         }
 
 
                         if ((ingredients[i].ndbno) && (typeof (ingredients[i].ndbno) != "string")) {
-                            errors.push({ msg: "La cantidad para el alimento " + ingredients[i].name + " debe ser expresada con una cadena de caracteres." });
+                            errors.push({ msg: espTemplate.errors.dishNdbno1  + ingredients[i].name + espTemplate.errors.dishNdbno2  });
                         }
 
                     }
 
                     for (let i = 0; i < noEncontrados.length; i++) {
-                        errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+                        console.log(util.inspect(noEncontrados));
+                        errors.push({ msg: espTemplate.errors.ingNotFound1 + noEncontrados[i] + espTemplate.errors.ingNotFound2 });
                     }
                 }
 
@@ -336,21 +340,21 @@ let controller = {
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
+                                errors.push({ msg: espTemplate.errors.difDishName1 + valor[j]._id +  espTemplate.errors.difDishName1 });
 
                                 showErrorsDishJsoN(errors, req, res);
 
                             } else {
                                 Dish.find({}, async function (err, docs) {
                                     if (err) {
-                                        errors.push({ msg: "Error al guardar el plato en la base de datos." });
+                                        errors.push({ msg: espTemplate.errors.saveError });
                                         console.log(err);
                                         showErrorsDishJsoN(errors, req, res);
 
 
                                     } else {
                                         const suma = await calculateKcal(docs);
-                                        req.flash('success', 'El contenido del archivo ha sido insertado con éxito.');
+                                        req.flash('success', espTemplate.success.insertDish);
                                         res.render('dish/getDish', {
                                             items: {
                                                 req: req,
@@ -369,7 +373,7 @@ let controller = {
                     } else {
                         objetoPlato.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales." });
+                                errors.push({ msg: espTemplate.errors.difDishName3 });
                                 console.log(err);
                                 showErrorsDishJsoN(errors, req, res);
                             }
@@ -391,7 +395,7 @@ let controller = {
 
         const searchData = req.body._id;
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "Objeto no existente");
+            req.flash('danger', espTemplate.errors.dishNotExist);
         }
 
         const query = { _id: { $regex: `${searchData}` } };
@@ -422,10 +426,10 @@ let controller = {
 
         Dish.findByIdAndRemove(dishId, (err, dishRemoved) => {
             if (err) {
-                return req.flash('danger', "Error, no se ha podido eliminar el plato");
+                return req.flash('danger', espTemplate.errors.dishNotRemove);
             }
             if (!dishRemoved) {
-                return req.flash('danger', "No se puede eliminar el proyecto.");
+                return req.flash('danger', espTemplate.errors.dishNotRemove);
             }
 
             res.redirect("/dish/view")
@@ -471,7 +475,7 @@ let controller = {
 
 
             for (let i = 0; i < noEncontrados.length; i++) {
-                errors.push({ msg: "El alimento " + noEncontrados[i] + " no ha sido encontrado." });
+                errors.push({ msg:  espTemplate.errors.ingNotFound1 + noEncontrados[i] +  espTemplate.errors.ingNotFound2 });
             }
 
 
@@ -515,7 +519,7 @@ let controller = {
                             console.log(err);
                         } else {
                             const suma = await calculateKcal(docs);
-                            req.flash('success', 'Dish was inserted');
+                            req.flash('success', espTemplate.success.insertDish);
                             res.render('dish/getDish', {
                                 items: {
                                     req: req,
@@ -612,7 +616,7 @@ let controller = {
         }
         if (noEncontrados.length > 0) {
             for (let i = 0; i < noEncontrados.length; i++) {
-                errors.push({ msg: "El alimento " + noEncontrados[i]._id + " no ha sido encontrado." });
+                errors.push({ msg: espTemplate.errors.ingNotFound1 + noEncontrados[i]._id + espTemplate.errors.ingNotFound2 });
             }
 
             const query = { _id: dishId }
@@ -670,7 +674,7 @@ let controller = {
 
                             req.flash(
                                 'success_msg',
-                                'Dish has been updated'
+                                espTemplate.success.updateDish
                             );
                             res.redirect('/dish/view');
                         }
@@ -757,7 +761,7 @@ let controller = {
         const searchData = req.body["_id"];
 
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "Objeto no existente");
+            req.flash('danger', espTemplate.errors.dishNotRemove);
 
         }
 
@@ -825,10 +829,10 @@ let controller = {
         Menu.findByIdAndRemove(menuId, (err, menuRemoved) => {
             if (err) {
                 console.log(err);
-                return req.flash('danger', "Error, no se ha podido eliminar el plato");
+                return req.flash('danger', espTemplate.errors.menuNotExist);
             }
             if (!menuRemoved) {
-                return req.flash('danger', "No se puede eliminar el proyecto.");
+                return req.flash('danger', espTemplate.errors.menuNotExist);
             }
 
 
@@ -888,7 +892,7 @@ let controller = {
 
             let errors = [];
             for (let i = 0; i < incorrecto.length; i++) {
-                errors.push({ msg: "El plato " + incorrecto[i]._id + " no ha sido encontrado." });
+                errors.push({ msg: espTemplate.errors.dishNotFound1 + incorrecto[i]._id + espTemplate.errors.dishNotFound2 });
             }
 
             Dish.find({}, async function (err, docs) {
@@ -962,7 +966,7 @@ let controller = {
 
         if (!req.files) {
 
-            errors.push({ msg: "El archivo está vacío." });
+            errors.push({ msg: espTemplate.errors.emptyJson });
             return showErrorsMenuJson(errors, req, res);
 
         } else {
@@ -977,7 +981,7 @@ let controller = {
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
-                errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                errors.push({ msg: espTemplate.errors.formatInc });
 
                 return showErrorsMenuJson(errors, req, res);
 
@@ -993,11 +997,11 @@ let controller = {
                     const dishes = valor[j].dishes;
 
                     if (!(_id)) {
-                        errors.push({ msg: "No se ha encontrado un nombre para el menú o menús." });
+                        errors.push({ msg: espTemplate.errors.menuName });
 
                     }
                     if (!description) {
-                        errors.push({ msg: "No se ha encontrado una descripción para el menú o menús." });
+                        errors.push({ msg: espTemplate.errors.menuDescription });
 
                     }
 
@@ -1009,7 +1013,7 @@ let controller = {
                     });
 
                     if (dishes.length === 0) {
-                        errors.push({ msg: "Debe introducir al menos un menú." });
+                        errors.push({ msg: espTemplate.errors.menuDishes });
 
                     }
 
@@ -1033,7 +1037,7 @@ let controller = {
                     if ((noEncontrados.length > 0) || (errors.length > 0)) {
 
                         for (let i = 0; i < noEncontrados.length; i++) {
-                            errors.push({ msg: "El plato " + noEncontrados[i]._id + " no ha sido encontrado." });
+                            errors.push({ msg: espTemplate.errors.dishNotFound1 + noEncontrados[i]._id + espTemplate.errors.dishNotFound2 });
                         }
 
 
@@ -1048,7 +1052,7 @@ let controller = {
                     } else {
                         menu.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica al menú no haya sido utilizado antes. No puede existir menús con nombres iguales." });
+                                errors.push({ msg: espTemplate.errors.difMenuName1 + valor[j]._id + espTemplate.errors.difMenuName2 });
                                 console.log(err);
                                 showErrorsMenuJson(errors, req, res);
                             } else {
@@ -1153,7 +1157,7 @@ let controller = {
 
 
             for (let i = 0; i < noEncontrados.length; i++) {
-                errors.push({ msg: "El plato " + noEncontrados[i] + " no ha sido encontrado." });
+                errors.push({ msg: espTemplate.errors.dishNotFound1 + noEncontrados[i] + espTemplate.errors.dishNotFound2 });
             }
 
 
@@ -1205,7 +1209,7 @@ let controller = {
 
                             req.flash(
                                 'success_msg',
-                                'Menu has been updated'
+                                espTemplate.success.updateMenu
                             );
                             res.redirect('/menu/view');
                         }
@@ -1450,7 +1454,7 @@ let controller = {
         const searchData = req.body["_id"];
 
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "Objeto no existente");
+            req.flash('danger', espTemplate.errors.dishNotRemove);
 
         }
 
@@ -1563,7 +1567,7 @@ let controller = {
     insertPlanificationJsonPost: async function (req, res) {
         let errors = [];
         if (!req.files) {
-            errors.push({ msg: "El archivo está vacío." });
+            errors.push({ msg: espTemplate.errors.emptyJson });
             return showErrorsPlanificationJson(errors, req, res);
 
         } else {
@@ -1575,14 +1579,14 @@ let controller = {
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
-                errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                errors.push({ msg: espTemplate.errors.formatInc });
 
                 return showErrorsPlanificationJson(errors, req, res);
 
             } else {
 
                 if (typeof valor.length === "undefined") {
-                    errors.push({ msg: "El archivo no respeta el ejemplo de uso." });
+                    errors.push({ msg: espTemplate.errors.formatInc });
 
                     showErrorsPlanificationJsoN(errors, req, res);
                 }
@@ -1598,32 +1602,32 @@ let controller = {
 
 
                     if (!title) {
-                        errors.push({ msg: "No se ha encontrado un nombre para la planificación." });
+                        errors.push({ msg: espTemplate.errors.planName });
                     }
 
                     if ((title === "") || (typeof title != "string")) {
-                        errors.push({ msg: "El nombre de la planificación no puede estar vacío y debe estar formado por una cadena de caracteres." });
+                        errors.push({ msg: espTemplate.errors.planTitle });
                     }
 
                     if ((description === "") || (typeof description != "string")) {
-                        errors.push({ msg: "La descripción no puede estar vacía y debe estar formada por una cadena de caracteres." });
+                        errors.push({ msg: espTemplate.errors.planDesc });
                     }
 
                     if (!dias) {
-                        errors.push({ msg: "No se ha encontrado el número de días para la planificación." });
+                        errors.push({ msg: espTemplate.errors.planDays});
                     }
 
                     if ((typeof dias != "number")) {
-                        errors.push({ msg: "El número de días debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.numberDays });
                     }
 
                     if ((dias < 1)) {
-                        errors.push({ msg: "El mínimo de días debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.minDays });
                     }
 
 
                     if (menus.length != dias) {
-                        errors.push({ msg: "El número de días no coincide con los días en los que se organiza los menús." });
+                        errors.push({ msg: espTemplate.errors.menuLength });
                     }
 
                     if (errors.length > 0) {
@@ -1664,7 +1668,7 @@ let controller = {
                         if ((noEncontrados.length > 0) || (errors.length > 0)) {
 
                             for (let i = 0; i < noEncontrados.length; i++) {
-                                errors.push({ msg: "El menú " + noEncontrados[i]._id + " no ha sido encontrado." });
+                                errors.push({ msg: espTemplate.errors.menuNotFound1 + noEncontrados[i]._id + espTemplate.errors.menuNotFound2 });
                             }
 
                             return res.render('planification/insertPlanificationJson', {
@@ -1680,7 +1684,7 @@ let controller = {
 
                         plan.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: "Comprueba si el nombre '" + valor[j]._id + "' que identifica a la planificación no haya sido utilizado antes. No puede existir menús con nombres iguales." });
+                                errors.push({ msg: espTemplate.errors.difPlanName1 + valor[j]._id + espTemplate.errors.difPlanName2 });
                                 console.log(err);
                                 showErrorsPlanificationJson(errors, req, res);
                             } else {
@@ -1720,10 +1724,10 @@ let controller = {
         Planification.findByIdAndRemove(menuId, (err, menuRemoved) => {
             if (err) {
                 console.log(err);
-                return req.flash('danger', "Error, no se ha podido eliminar la planificación");
+                return req.flash('danger', espTemplate.errors.planRemoveError);
             }
             if (!menuRemoved) {
-                return req.flash('danger', "No se puede eliminar el proyecto.");
+                return req.flash('danger', espTemplate.errors.planRemoveError);
             }
 
 
@@ -1767,8 +1771,8 @@ let controller = {
     },
 
 
-    recomendation: function (req, res) {
-        return res.status(200).render('recomendation/recomendation.ejs', {
+    recommendation: function (req, res) {
+        return res.status(200).render('recommendation/recommendation.ejs', {
             items: {
                 req: req,
                 myObject: espTemplate
@@ -1776,12 +1780,14 @@ let controller = {
         });
     },
 
-    recomendationView: function (req, res) {
-        Recomendation.find({}, async function (err, docs) {
+    recommendationView: function (req, res) {
+        console.log("\n\n\n ----------------------- Recomendación view")
+        Recommendation.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('recomendation/recomendationView.ejs', {
+                console.log(docs)
+                res.render('recommendation/recommendationView.ejs', {
                     items: {
                         req: req,
                         myObject: espTemplate,
@@ -1794,20 +1800,20 @@ let controller = {
     },
 
 
-    getRecomendation: async function (req, res) {
+    getRecommendation: async function (req, res) {
 
         const searchData = req.body._id;
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "No existente");
+            req.flash('danger', espTemplate.errors.dishNotRemove);
         }
 
         const query = { _id: { $regex: `${searchData}` } };
 
-        Recomendation.find(query, async function (err, docs) {
+        Recommendation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('recomendation/recomendationView.ejs', {
+                res.render('recommendation/recommendationView.ejs', {
                     items: {
                         req: req,
                         myObject: espTemplate,
@@ -1820,17 +1826,19 @@ let controller = {
 
 
 
-    recomendationDetails: function (req, res) {
+    recommendationDetails: function (req, res) {
         let dishId = req.params._id;
 
         const query = { _id: dishId };
 
 
-        Recomendation.find(query, async function (err, docs) {
+        Recommendation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('recomendation/recomendationDetails.ejs', {
+                console.log(docs)
+                console.log("VA A DETALLES------------------------->")
+                res.render('recommendation/recommendationDetails.ejs', {
                     items: {
                         req: req,
                         myObject: espTemplate,
@@ -1842,29 +1850,29 @@ let controller = {
 
     },
 
-    removeRecomendation: function (req, res) {
+    removeRecommendation: function (req, res) {
 
         let recId = req.params._id;
 
-        Recomendation.findByIdAndRemove(recId, (err, recRemoved) => {
+        Recommendation.findByIdAndRemove(recId, (err, recRemoved) => {
             if (err) {
-                return req.flash('danger', "Error, no se ha podido eliminar la recomendación.");
+                return req.flash('danger', espTemplate.errors.recRemoveError);
             }
             if (!recRemoved) {
-                return req.flash('danger', "No se puede eliminar la recomendación.");
+                return req.flash('danger', espTemplate.errors.recRemoveError);
             }
 
 
-            res.redirect("/recomendation/view")
+            res.redirect("/recommendation/view")
 
 
 
         })
     },
 
-    insertRecomendation: function (req, res) {
+    insertRecommendation: function (req, res) {
 
-        res.render('recomendation/recomendationInsert', {
+        res.render('recommendation/recommendationInsert', {
             items: {
                 req: req,
                 myObject: espTemplate
@@ -1874,7 +1882,7 @@ let controller = {
 
     },
 
-    insertRecomendationPost: function (req, res) {
+    insertRecommendationPost: function (req, res) {
 
         const _id = req.body._id;
         const description = req.body.description;
@@ -1885,20 +1893,20 @@ let controller = {
 
         let errors = [];
         if (parseInt(req.body.energyMin) > parseInt(req.body.energyMax)) {
-            errors.push({ msg: "La cantidad mínima de energía no puede ser mayor que la máxima de energía." });
+            errors.push({ msg: espTemplate.errors.enerComp });
         }
         if (parseInt(req.body.lipidsMin) > parseInt(req.body.lipidsMax)) {
-            errors.push({ msg: "La cantidad mínima de lípidos no puede ser mayor que la máxima de lípidos." });
+            errors.push({ msg: espTemplate.errors.lipidComp });
         }
         if (parseInt(req.body.proteinMin) > parseInt(req.body.proteinMax)) {
-            errors.push({ msg: "La cantidad mínima de proteínas no puede ser mayor que la máxima de proteínas." });
+            errors.push({ msg: espTemplate.errors.protComp  });
         }
         if (parseInt(req.body.carbohydrtMin) > parseInt(req.body.carbohydrtMax)) {
-            errors.push({ msg: "La cantidad mínima de carbohidratos no puede ser mayor que la máxima de carbohidratos." });
+            errors.push({ msg: espTemplate.errors.carbComp  });
         }
 
         if (errors.length > 0) {
-            return res.render("recomendation/recomendationInsert", {
+            return res.render("recommendation/recommendationInsert", {
                 items: {
                     errors,
                     req: req,
@@ -1917,7 +1925,7 @@ let controller = {
             const carbohydrtMin = req.body.carbohydrtMin;
             const carbohydrtMax = req.body.carbohydrtMax;
 
-            const recomendacion = new Recomendation({
+            const recomendacion = new Recommendation({
                 _id: _id,
                 description: description,
                 edad: edad,
@@ -1935,7 +1943,7 @@ let controller = {
                 if (err) {
                     console.log(err);
                 } else {
-                    Recomendation.find({}, async function (err, docs) {
+                    Recommendation.find({}, async function (err, docs) {
                         if (err) {
                             console.log(err);
                         } else {
@@ -1950,16 +1958,16 @@ let controller = {
         }
     },
 
-    updateRecomendation: function (req, res) {
+    updateRecommendation: function (req, res) {
         let recId = req.params._id;
         const query = { _id: recId };
 
-        Recomendation.find(query, async function (err, docs) {
+        Recommendation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
 
-                res.render('recomendation/updateRecomendation.ejs', {
+                res.render('recommendation/updateRecommendation.ejs', {
                     items: {
                         req: req,
                         myObject: espTemplate,
@@ -1974,35 +1982,34 @@ let controller = {
 
 
 
-    updateRecomendationPost: function (req, res) {
+    updateRecommendationPost: function (req, res) {
 
         const query = { _id: req.params._id };
         let errors = [];
         console.log(req.body);
 
         if (parseInt(req.body.energyMin) > parseInt(req.body.energyMax)) {
-            errors.push({ msg: "La cantidad mínima de energía no puede ser mayor que la máxima de energía." });
+            errors.push({ msg: espTemplate.errors.enerComp  });
         }
         if (parseInt(req.body.lipidsMin) > parseInt(req.body.lipidsMax)) {
-            console.log("entra")
-            errors.push({ msg: "La cantidad mínima de lípidos no puede ser mayor que la máxima de lípidos." });
+            errors.push({ msg: espTemplate.errors.lipidComp  });
         }
         if (parseInt(req.body.proteinMin) > parseInt(req.body.proteinMax)) {
-            errors.push({ msg: "La cantidad mínima de proteínas no puede ser mayor que la máxima de proteínas." });
+            errors.push({ msg: espTemplate.errors.protComp  });
         }
         if (parseInt(req.body.carbohydrtMin) > parseInt(req.body.carbohydrtMax)) {
-            errors.push({ msg: "La cantidad mínima de carbohidratos no puede ser mayor que la máxima de carbohidratos." });
+            errors.push({ msg: espTemplate.errors.carbComp  });
         }
 
         if (errors.length > 0) {
             let recId = req.params._id;
             const query = { _id: recId };
 
-            Recomendation.find(query, async function (err, docs) {
+            Recommendation.find(query, async function (err, docs) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.render('recomendation/updateRecomendation.ejs', {
+                    res.render('recommendation/updateRecommendation.ejs', {
                         items: {
                             req: req,
                             myObject: espTemplate,
@@ -2039,22 +2046,22 @@ let controller = {
                 carbohydrtMin: carbohydrtMin,
                 carbohydrtMax: carbohydrtMax
             };
-            Recomendation.findById(query).then(recEncontrado => {
+            Recommendation.findById(query).then(recEncontrado => {
                 if (recEncontrado) {
 
 
                     const set = { $set: recomendacion };
 
-                    Recomendation.updateOne(query, set, (err, updatedRec) => {
+                    Recommendation.updateOne(query, set, (err, updatedRec) => {
                         if (err) {
                             console.log(err);
                         } else {
 
                             req.flash(
                                 'success_msg',
-                                'Recomendación has been updated'
+                                espTemplate.success.updateRec
                             );
-                            res.redirect('/recomendation/view');
+                            res.redirect('/recommendation/view');
                         }
                     })
                 }
@@ -2063,12 +2070,12 @@ let controller = {
 
     },
 
-    insertRecomendationJson: async function (req, res, next) {
+    insertRecommendationJson: async function (req, res, next) {
         var beautify = require('js-beautify').js;
         let json = require("../public/recExample.json")
         json = beautify(JSON.stringify(json), { indent_size: 2, space_in_empty_paren: true })
 
-        res.render('recomendation/insertRecomendationJson', {
+        res.render('recommendation/insertRecommendationJson', {
             items: {
                 req: req,
                 myObject: espTemplate,
@@ -2077,11 +2084,11 @@ let controller = {
         });
     },
 
-    insertRecomendationJsonPost: async function (req, res, next) {
+    insertRecommendationJsonPost: async function (req, res, next) {
         let errors = [];
 
         if (!req.files) {
-            errors.push({ msg: "El archivo está vacío." });
+            errors.push({ msg:  espTemplate.errors.dishNotRemove });
             showErrorsRecJson(errors, req, res);
 
 
@@ -2094,7 +2101,7 @@ let controller = {
 
 
             if (valor.length === 0) {
-                errors.push({ msg: "No ha introducido ninguna recomendación." });
+                errors.push({ msg: espTemplate.errors.recNotFound });
                 return showErrorsRecJson(errors, req, res);
             } else {
 
@@ -2113,115 +2120,115 @@ let controller = {
                     const carbohydrtMin = valor[i].carbohydrtMin;
 
                     if (!title) {
-                        errors.push({ msg: "No se ha encontrado un nombre para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recTitle });
                     }
                     if ((title === "") || (typeof title != "string")) {
-                        errors.push({ msg: "El nombre de la planificación no puede estar vacío y debe estar formado por una cadena de caracteres." });
+                        errors.push({ msg: espTemplate.errors.recTitleString });
                     }
                     //////////////////////////////
                     if ((description === "") || (typeof description != "string")) {
-                        errors.push({ msg: "La descripción no puede estar vacía y debe estar formada por una cadena de caracteres." });
+                        errors.push({ msg: espTemplate.errors.recDescString  });
                     }
                     //////////////////////////////
                     if (!edad) {
-                        errors.push({ msg: "No se ha encontrado la edad para la recomendación." });
+                        errors.push({ msg: espTemplate.errors.recEdad });
                     }
                     if ((edad === "") || (typeof edad != "string")) {
-                        errors.push({ msg: "La edad no puede estar vacía y debe estar formada por una cadena de caracteres." });
+                        errors.push({ msg: espTemplate.errors.recEdadString });
                     }
                     //////////////////////////////
                     if (!energyMax) {
-                        errors.push({ msg: "No se ha encontrado el número de energyMax para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMax });
                     }
                     if ((typeof energyMax != "number")) {
-                        errors.push({ msg: "El número de energyMax debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMaxNumber });
                     }
                     if (parseInt(energyMax) < 1) {
-                        errors.push({ msg: "El mínimo de energyMax debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMaxMin });
                     }
                     if (!energyMin) {
-                        errors.push({ msg: "No se ha encontrado el número de energyMin para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMin });
                     }
                     if ((typeof energyMin != "number")) {
-                        errors.push({ msg: "El número de energyMin debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMinNumber });
                     }
                     if (parseInt(energyMin) < 1) {
-                        errors.push({ msg: "El mínimo de energyMin debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMinMin });
                     }
                     if (parseInt(energyMin) > parseInt(energyMax)) {
-                        errors.push({ msg: "El energyMin no puede ser menor que el energyMax." });
+                        errors.push({ msg: espTemplate.errors.recEnergyMax });
                     }
                     //////////////////////////////
                     if (!lipidsMax) {
-                        errors.push({ msg: "No se ha encontrado el número de lipidsMax para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recLipidMax });
                     }
                     if ((typeof lipidsMax != "number")) {
-                        errors.push({ msg: "El número de lipidsMax debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recLipidMaxNumber });
                     }
                     if (parseInt(lipidsMax) < 1) {
-                        errors.push({ msg: "El mínimo de lipidsMax debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recLipidMaxMin });
                     }
                     if (!lipidsMin) {
-                        errors.push({ msg: "No se ha encontrado el número de lipidsMin para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recLipidMin });
                     }
                     if (typeof lipidsMin != "number") {
-                        errors.push({ msg: "El número de lipidsMin debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recLipidMinNumber });
                     }
                     if (parseInt(lipidsMin) < 1) {
-                        errors.push({ msg: "El mínimo de lipidsMin debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recLipidMinMin });
                     }
                     if (parseInt(lipidsMin) > parseInt(lipidsMax)) {
-                        errors.push({ msg: "El lipidsMin no puede ser menor que el lipidsMax." });
+                        errors.push({ msg: espTemplate.errors.recCompLipidMinMax });
                     }
                     //////////////////////////////
                     if (!proteinMax) {
-                        errors.push({ msg: "No se ha encontrado el número de proteinMax para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recProtMax });
                     }
                     if ((typeof proteinMax != "number")) {
-                        errors.push({ msg: "El número de proteinMax debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recProtMaxNumber });
                     }
                     if (parseInt(proteinMax) < 1) {
-                        errors.push({ msg: "El mínimo de proteinMax debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recProtMaxMin });
                     }
                     if (!proteinMin) {
-                        errors.push({ msg: "No se ha encontrado el número de proteinMin para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recProtMin });
                     }
                     if ((typeof proteinMin != "number")) {
-                        errors.push({ msg: "El número de proteinMin debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recProtMinNumber});
                     }
                     if (parseInt(proteinMin) < 1) {
-                        errors.push({ msg: "El mínimo de proteinMin debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recProtMinMin });
                     }
                     if (parseInt(proteinMin) > parseInt(proteinMax)) {
-                        errors.push({ msg: "El proteinMin no puede ser menor que el proteinMax." });
+                        errors.push({ msg: espTemplate.errors.recCompProtMinMax });
                     }
                     //////////////////////////////
                     if (!carbohydrtMax) {
-                        errors.push({ msg: "No se ha encontrado el número de carbohydrtMax para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recCarboMax });
                     }
                     if (typeof carbohydrtMax != "number") {
-                        errors.push({ msg: "El número de carbohydrtMax debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recCarboMaxNumber });
                     }
                     if (parseInt(carbohydrtMax) < 1) {
-                        errors.push({ msg: "El mínimo de carbohydrtMax debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recCarboMaxMin });
                     }
                     if (!carbohydrtMin) {
-                        errors.push({ msg: "No se ha encontrado el número de carbohydrtMin para la planificación." });
+                        errors.push({ msg: espTemplate.errors.recCarboMin });
                     }
                     if ((typeof carbohydrtMin != "number")) {
-                        errors.push({ msg: "El número de carbohydrtMin debe ser introducido con un caracter numérico." });
+                        errors.push({ msg: espTemplate.errors.recCarboMinNumber });
                     }
                     if (parseInt(carbohydrtMin) < 1) {
-                        errors.push({ msg: "El mínimo de carbohydrtMin debe ser 1." });
+                        errors.push({ msg: espTemplate.errors.recCarboMinMin });
                     }
                     if (parseInt(carbohydrtMin) > parseInt(carbohydrtMax)) {
-                        errors.push({ msg: "El carbohydrtMin no puede ser menor que el carbohydrtMax." });
+                        errors.push({ msg: espTemplate.errors.recCompCarboMinMax });
                     }
 
                     if (errors.length > 0) {
                         return showErrorsRecJson(errors, req, res);
                     } else {
-                        const recomendation = new Recomendation({
+                        const recommendation = new Recommendation({
                             _id: title,
                             description: description,
                             edad: edad,
@@ -2236,10 +2243,10 @@ let controller = {
 
                         });
 
-                        recomendation.save()
+                        recommendation.save()
                             .then(data => {
                                 if ((i + 1) === valor.length) {
-                                    return res.redirect("/recomendation/view");
+                                    return res.redirect("/recommendation/view");
                                 }
 
 
@@ -2255,13 +2262,13 @@ let controller = {
         }
     },
 
-    downloadRecomendation: async function (req, res) {
+    downloadRecommendation: async function (req, res) {
 
         const searchData = req.params._id;
 
         const query = { _id: searchData };
 
-        Recomendation.find(query, async function (err, docs) {
+        Recommendation.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
@@ -2321,7 +2328,7 @@ let controller = {
 
         const searchData = req.body._id;
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "Objeto no existente");
+            req.flash('danger', espTemplate.errors.dishNotRemove);
         }
 
         let query = { candidato: { $regex: `${searchData}` } };
@@ -2348,7 +2355,7 @@ let controller = {
 
     createEvaluation: function (req, res) {
 
-        Recomendation.find({}, async function (err, docs) {
+        Recommendation.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
@@ -2372,7 +2379,7 @@ let controller = {
                                             items: {
                                                 req: req,
                                                 myObject: espTemplate,
-                                                myRecomendations: recomendaciones,
+                                                myRecommendations: recomendaciones,
                                                 myDishes: platos,
                                                 myMenus: menus,
                                                 myPlanifications: planificaciones
@@ -2428,10 +2435,10 @@ let controller = {
 
         Valuation.findByIdAndRemove(evalId, (err, evalIdRemoved) => {
             if (err) {
-                return req.flash('danger', "Error, no se ha podido eliminar la valoración.");
+                return req.flash('danger', espTemplate.errors.errSaveEvaluation);
             }
             if (!evalIdRemoved) {
-                return req.flash('danger', "No se puede eliminar la valoración.");
+                return req.flash('danger', espTemplate.errors.errSaveEvaluation);
             }
 
             Valuation.find({}, async function (err, docs) {
@@ -2460,23 +2467,23 @@ let controller = {
         let errors = [];
 
         if (!name || !email || !username || !password || !password2) {
-            errors.push({ msg: 'Please enter all fields' });
+            errors.push({ msg: espTemplate.errors.userRegFields});
         }
 
         const regex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
         if (!email.match(regex)) {
-            errors.push({ msg: "La dirección de email es incorrecta." });
+            errors.push({ msg: espTemplate.errors.userRegEmail });
         }
 
 
 
         if (password != password2) {
-            errors.push({ msg: 'Passwords do not match' });
+            errors.push({ msg: espTemplate.errors.userRegPasswordDif });
         }
 
         if (password.length < 6) {
-            errors.push({ msg: 'Password must be at least 6 characters' });
+            errors.push({ msg: espTemplate.errors.userRegPasswordTam });
         }
 
         if (errors.length > 0) {
@@ -2496,7 +2503,7 @@ let controller = {
             User.findOne({ email: email }).then(user => {
 
                 if (user) {
-                    errors.push({ msg: 'Email already exists' });
+                    errors.push({ msg: espTemplate.errors.userRegEmailExist });
                     res.render('user/register', {
                         items: {
                             req: req,
@@ -2526,7 +2533,7 @@ let controller = {
                                 .then(user => {
                                     req.flash(
                                         'success_msg',
-                                        'You are now registered and can log in'
+                                        espTemplate.success.userRegCorrect
                                     );
                                     res.redirect('/login');
                                 })
@@ -2573,7 +2580,7 @@ let controller = {
 
         const searchData = req.body._id;
         if ((searchData == null) || (searchData == "")) {
-            req.flash('success', "No existente");
+            req.flash('danger', espTemplate.errors.dishNotRemove);
         }
 
         const query = { name: { $regex: `${searchData}` } };
@@ -2599,10 +2606,10 @@ let controller = {
 
         Users.findByIdAndRemove(userId, (err, userId) => {
             if (err) {
-                return req.flash('danger', "Error, no se ha podido eliminar el plato");
+                return req.flash('danger', espTemplate.errors.errDeleteUser);
             }
             if (!userId) {
-                return req.flash('danger', "No se puede eliminar el proyecto.");
+                return req.flash('danger', espTemplate.errors.errDeleteUser);
             }
 
             Users.find({}, async function (err, docs) {
@@ -2652,25 +2659,25 @@ let controller = {
         let errors = [];
 
         if (!name || !email || !username  || !rol) {
-            errors.push({ msg: 'Please enter all required fields' });
+            errors.push({ msg: espTemplate.errors.userRegFields });
         }
 
         const regex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
         if (!email.match(regex)) {
-            errors.push({ msg: "La dirección de email es incorrecta." });
+            errors.push({ msg: espTemplate.errors.userRegEmail });
         }
 
 
-        req.checkBody('req.body.email', 'Email is invalid').notEmpty();
+        req.checkBody('req.body.email',  espTemplate.errors.userRegEmail ).notEmpty();
 
         if ((password.length > 0) || (password2.length > 0)) {
             if (password != password2) {
-                errors.push({ msg: 'Passwords do not match' });
+                errors.push({ msg:  espTemplate.errors.userRegPasswordDif });
             }
 
             if (password.length < 6) {
-                errors.push({ msg: 'Password must be at least 6 characters' });
+                errors.push({ msg: espTemplate.errors.userRegPasswordTam});
             }
         }
 
@@ -2735,7 +2742,7 @@ let controller = {
 
                                         req.flash(
                                             'success_msg',
-                                            'User has been updated'
+                                            espTemplate.errors.updateUser
                                         );
                                         res.redirect('/users');
                                     }
@@ -2753,7 +2760,7 @@ let controller = {
 
                                 req.flash(
                                     'success_msg',
-                                    'User has been updated'
+                                    espTemplate.errors.updateUser
                                 );
                                 res.redirect('/users');
                             }
@@ -2794,7 +2801,7 @@ let controller = {
 
     logout: function (req, res) {
         req.logout();
-        req.flash('success_msg', 'You are logged out');
+        req.flash('success_msg',  espTemplate.errors.logOut);
         res.redirect('/login');
 
     },
@@ -3187,7 +3194,7 @@ async function myFunctionPlanification(query) {
 }
 
 async function myFunctionRecomendacion(query) {
-    return Recomendation.find(query).exec()
+    return Recommendation.find(query).exec()
 }
 
 
@@ -3408,7 +3415,7 @@ function showErrorsPlanificationJson(errors, req, res) {
 
 function showErrorsRecJson(errors, req, res) {
 
-    return res.render('recomendation/insertRecomendationJson', {
+    return res.render('recommendation/insertRecommendationJson', {
         items: {
             req: req,
             myObject: espTemplate,

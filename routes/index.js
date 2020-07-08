@@ -69,18 +69,18 @@ router.post("/planification/create/load/post", isAuthenticated, authRoleMultiple
 router.post("/planification/update/create/load/post", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.updatePlanificationPost);
 router.get("/planification/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.downloadPlanification);
 
-router.get("/recomendation", controller.recomendation);
-router.get("/recomendation/view",  isAuthenticated,  authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.recomendationView);
-router.get("/recomendation/insert", isAuthenticated,  authRoleMultiple(["admin", "nutricionista"]), controller.insertRecomendation);
-router.post("/recomendation/insert", isAuthenticated,  authRoleMultiple(["admin", "nutricionista"]), controller.insertRecomendationPost);
-router.get("/recomendation/update/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista"]), controller.updateRecomendation);
-router.post("/recomendation/update/:_id", isAuthenticated,  authRoleMultiple(["admin", "nutricionista"]),  controller.updateRecomendationPost);
-router.get("/recomendation/:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.recomendationDetails);
-router.get("/recomendation/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.removeRecomendation);
-router.post("/recomendation/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.getRecomendation);
-router.get("/recomendation/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista"]),  controller.insertRecomendationJson);
-router.post("/recomendation/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista"]),  controller.insertRecomendationJsonPost);
-router.get("/recomendation/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.downloadRecomendation);
+router.get("/recommendation/", controller.recommendation);
+router.get("/recommendation/view",  isAuthenticated,  authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.recommendationView);
+router.get("/recommendation/insert", isAuthenticated,  authRoleMultiple(["admin", "nutricionista"]), controller.insertRecommendation);
+router.post("/recommendation/insert", isAuthenticated,  authRoleMultiple(["admin", "nutricionista"]), controller.insertRecommendationPost);
+router.get("/recommendation/update/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista"]), controller.updateRecommendation);
+router.post("/recommendation/update/:_id", isAuthenticated,  authRoleMultiple(["admin", "nutricionista"]),  controller.updateRecommendationPost);
+router.get("/recommendation/:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.recommendationDetails);
+router.get("/recommendation/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.removeRecommendation);
+router.post("/recommendation/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.getRecommendation);
+router.get("/recommendation/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista"]),  controller.insertRecommendationJson);
+router.post("/recommendation/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista"]),  controller.insertRecommendationJsonPost);
+router.get("/recommendation/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.downloadRecommendation);
 
 
 

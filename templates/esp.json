@@ -24,7 +24,7 @@
             },
             {
                 "name": "Recomendaciones",
-                "href": "/recomendation"
+                "href": "/recommendation"
             },
             {
                 "name": "Evaluaciones",
@@ -81,7 +81,7 @@
             "name": "Recomendaciones",
             "description": "Comprueba los estándares nutricionales que han incluido los nutricionistas en la aplicación y conoce cuáles son los límites saludables de la alimentación.",
             "icon": "fas fa-book",
-            "href": "/recomendation",
+            "href": "/recommendation",
             "text": "Ver más"
         },
         {
@@ -652,7 +652,7 @@
         "nutrientes": "Nutrientes recomendados:",
         "infor": "Información básica:"
     },
-    "jsonRecomendation": {
+    "jsonRecommendation": {
         "ejemplo": "Este es un ejemplo para insertar recomendaciones:",
         "label": "Archivo .json"
     },
@@ -853,26 +853,26 @@
         }
 
     ],
-    "recomendationIndex": [
+    "recommendationIndex": [
         {
             "name": "Ver recomendaciones",
             "description": "Visualiza las recomendaciones nutricionales aportadas por nutricionistas.",
             "icon": "fas fa-search",
-            "href": "/recomendation/view",
+            "href": "/recommendation/view",
             "button": "Ver más"
         },
         {
             "name": "Añadir recomendaciones",
             "description": "Siendo nutricionista, podrás crear tus propias recomendaciones a través de un simple formulario.",
             "icon": "fas fa-edit",
-            "href": "/recomendation/insert",
+            "href": "/recommendation/insert",
             "button": "Ver más"
         },
         {
             "name": "Añadir recomendaciones desde un archivo JSON",
             "description": "Siendo nutricionista, crea tus propias recomendaciones a través de un archivo JSON con los datos.",
             "icon": "fas fa-file-alt",
-            "href": "/recomendation/insert/json",
+            "href": "/recommendation/insert/json",
             "button": "Ver más"
         }
 
@@ -933,7 +933,7 @@
             }
         },
         {
-            "recomendation": {
+            "recommendation": {
                 "title": "Recomendaciones",
                 "description": "Desde Recomendaciones, puedes visualizar los estándares nutrcionales de cada una de ellas. Si eres un nutricionista, podrás añadir tus propias recomendaciones desde un formulario o con la subidad de un archivo JSON."
             }
@@ -958,5 +958,132 @@
     "añadirDish": "Añadir plato",
     "añadirMenu": "Añadir menú",
     "submitButtom": "Enviar",
-    "eliminar": "Eliminar"
+    "eliminar": "Eliminar",
+    "errors": {
+        "emptyJson": "El archivo está vacío.",
+        "formatInc": "El archivo no respeta el ejemplo de uso.",
+        "dishName": "No se ha encontrado un nombre para el plato.",
+        "dishDescription": "No se ha encontrado una descripción para el plato.",
+        "dishRecipe": "La URL de la receta no es correcta.",
+        "dishImage": "La URL de la imagen no es correcta.",
+        "dishIngredient": "Debe introducir al menos un ingrediente.",
+        "amountNotFound": "No se ha encontrado definida la cantidad para el alimento ",
+        "dishAmount1": "La cantidad para el alimento ",
+        "dishAmount2": " debe ser expresada con un dato numérico.",
+        "dishUnitMeasure": "No se ha encontrado definida la unidad de medida para la cantidad del alimento ",
+        "dishUnitMeasure1": "La unidad de medida para la cantidad del alimento ",
+        "dishUnitMeasure2": " debe ser expresada como un dato en 'g' para gramos o 'ml' para mililitros.",
+        "dishNdbno": "No se ha encontrado definido el identificador del alimento ",
+        "dishNdbno1": "La cantidad para el alimento ",
+        "dishNdbno2": " debe ser expresada con una cadena de caracteres.",
+        "ingNotFound1": "El alimento ",
+        "ingNotFound2": " no ha sido encontrado.",
+        "ingNotFound": "El campo del nombre del alimento debe tener al menos un caracter.",
+        "difDishName1": "Comprueba si el nombre '",
+        "difDishName2":  "' que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales.",
+        "difDishName3":  "Comprueba si el nombre que identifica al plato no haya sido utilizado antes. No puede existir platos con nombres iguales.",
+        "saveError": "Error al guardar el plato en la base de datos.",
+        "dishNotExist": "Error, no se ha podido eliminar el plato",
+        "dishNotRemove": "Objeto no existente",
+        "menuNotExist": "Error, no se ha podido eliminar el menu",
+        "dishNotFound1": "El plato ",
+        "dishNotFound2": " no ha sido encontrado.",
+        "menuName": "No se ha encontrado un nombre para el menú o menús.",
+        "menuDescription": "No se ha encontrado una descripción para el menú o menús.",
+        "menuDishes": "Debe introducir al menos un menú.",
+        "difMenuName1": "Comprueba si el nombre '",
+        "difMenuName2":  "' que identifica al menú no haya sido utilizado antes. No puede existir menús con nombres iguales.",
+        "planName": "No se ha encontrado un nombre para la planificación.",
+        "planTitle": "El nombre de la planificación no puede estar vacío y debe estar formado por una cadena de caracteres.",
+        "planDesc": "La descripción no puede estar vacía y debe estar formada por una cadena de caracteres.",
+        "planDays": "No se ha encontrado el número de días para la planificación.",
+        "numberDays": "El número de días debe ser introducido con un caracter numérico.",
+        "minDays": "El mínimo de días debe ser 1.",
+        "menuLength": "El número de días no coincide con los días en los que se organiza los menús.",
+        "menuNotFound1": "El menú ",
+        "menuNotFound2": " no ha sido encontrado.",
+        "difPlanName1": "Comprueba si el nombre '",
+        "difPlanName2":  "'  que identifica a la planificación no haya sido utilizado antes. No puede existir menús con nombres iguales.",
+        "planRemoveError": "Error, no se ha podido eliminar la planificación.",
+        "recRemoveError": "Error, no se ha podido eliminar la recomendación.",
+        "enerComp": "La cantidad mínima de energía no puede ser mayor que la máxima de energía.",
+        "lipidComp": "La cantidad mínima de lípidos no puede ser mayor que la máxima de lípidos.",
+        "protComp": "La cantidad mínima de proteínas no puede ser mayor que la máxima de proteínas.",
+        "carbComp": "La cantidad mínima de carbohidratos no puede ser mayor que la máxima de carbohidratos.",
+        "recNotFound": "No ha introducido ninguna recomendación.",
+        "recTitle": "No se ha encontrado un nombre para la recomendación.",
+        "recTitleString": "El nombre de la recomendación no puede estar vacío y debe estar formado por una cadena de caracteres.",
+        "recDescString": "La descripción no puede estar vacía y debe estar formada por una cadena de caracteres.",
+        "recEdad": "No se ha encontrado la edad para la recomendación.",
+        "recEdadString": "La edad no puede estar vacía y debe estar formada por una cadena de caracteres.",
+        
+        "recEnergyMax": "No se ha encontrado el número de energyMax para la recomendación.",
+        "recEnergyMaxNumber": "El número de energyMax debe ser introducido con un caracter numérico.",
+        "recEnergyMaxMin": "El mínimo de energyMax debe ser 1.",
+
+        "recEnergyMin": "No se ha encontrado el número de energyMin para la recomendación.",
+        "recEnergyMinNumber": "El número de energyMin debe ser introducido con un caracter numérico.",
+        "recEnergyMinMin": "El mínimo de energyMin debe ser 1.",
+    
+        "recCompEnergyMinMax": "El energyMin no puede ser menor que el energyMax.",
+
+
+        "recLipidMax": "No se ha encontrado el número de lipidsMax para la recomendación.",
+        "recLipidMaxNumber": "El número de lipidsMax debe ser introducido con un caracter numérico.",
+        "recLipidMaxMin": "El mínimo de lipidsMax debe ser 1.",
+
+        "recLipidMin": "No se ha encontrado el número de lipidsMin para la recomendación.",
+        "recLipidMinNumber": "El número de lipidsMin debe ser introducido con un caracter numérico.",
+        "recLipidMinMin": "El mínimo de lipidsMin debe ser 1.",
+    
+        "recCompLipidMinMax": "El lipidsMin no puede ser menor que el lipidsMax.",
+
+        "recProtMax": "No se ha encontrado el número de proteinMax para la recomendación.",
+        "recProtMaxNumber": "El número de proteinMax debe ser introducido con un caracter numérico.",
+        "recProtMaxMin": "El mínimo de proteinMax debe ser 1.",
+
+        "recProtMin": "No se ha encontrado el número de proteinMin para la recomendación.",
+        "recProtMinNumber": "El número de proteinMin debe ser introducido con un caracter numérico.",
+        "recProtMinMin": "El mínimo de proteinMin debe ser 1.",
+    
+        "recCompProtMinMax": "El proteinMin no puede ser menor que el proteinMax.",
+
+
+        "recCarboMax": "No se ha encontrado el número de carbohydrtMax para la recomendación.",
+        "recCarboMaxNumber": "El número de carbohydrtMax debe ser introducido con un caracter numérico.",
+        "recCarboMaxMin": "El mínimo de carbohydrtMax debe ser 1.",
+
+        "recCarboMin": "No se ha encontrado el número de carbohydrtMin para la recomendación.",
+        "recCarboMinNumber": "El número de carbohydrtMin debe ser introducido con un caracter numérico.",
+        "recCarboMinMin": "El mínimo de carbohydrtMin debe ser 1.",
+    
+        "recCompCarboMinMax": "El carbohydrtMin no puede ser menor que el carbohydrtMax.",
+
+
+        "errSaveEvaluation": "Error, no se ha podido eliminar la valoración.",
+
+        "userRegFields": "Por favor, complete todos los campos requeridos.",
+        "userRegEmail": "La dirección de email es incorrecta.",
+        "userRegPasswordDif": "Las contraseñas no coinciden.",
+        "userRegPasswordTam": "Las contraseñas deben usar al menos 6 caracteres.",
+        "userRegEmailExist": "El correo electrónico ya existe",
+
+        "errDeleteUser": "Error, no se ha podido eliminar el usuario.",
+        "userNotFound": "Usuario no encontrado",
+        "incorrectPassword": "Contraseña incorrecta",
+        "logIn": "Por favor, inicia sesión para acceder.",
+        "userNotAuth": "Usuario no autenticado"
+
+    },
+    "success":{
+        "insertDish": "El plato ha sido insertado con éxito.",
+        "updateDish": "El plato ha sido actualizado con éxito.",
+        "insertMenu": "El menú ha sido insertado con éxito.",
+        "updateMenu": "El menú ha sido actualizado con éxito.",
+        "updateRec": "La recomendación ha sido actualizada con éxito.",
+        "userRegCorrect": "Estás registrado, puedes iniciar sesión.",
+        "updateUser": "El usuario ha sido actualizado.",
+        "logOut": "Ha cerrado la sesión."
+        
+    }
 }

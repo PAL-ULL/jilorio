@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const espTemplate = require("../templates/esp.json");
 
 module.exports = function (passport) {
     // Local Strategy
@@ -10,7 +11,7 @@ module.exports = function (passport) {
         User.findOne(query, function (err, user) {
             if (err) { return done(err); }
             if (!user) {
-                return done(null, false, req.flash('error', 'User not found') );
+                return done(null, false, req.flash('error', espTemplate.errors.userNotFound) );
             }
 
             // Match Password
@@ -19,7 +20,7 @@ module.exports = function (passport) {
                 if (isMatch) {
                     return done(null, user);
                 } else {
-                    return done(null, false, req.flash('error', 'Password incorrect'));
+                    return done(null, false, req.flash('error', espTemplate.errors.incorrectPassword));
                 }
             });
         });

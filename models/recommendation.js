@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-let recomendationSchema = new Schema({
+let recommendationSchema = new Schema({
     _id: { type: String, required: true },
     description: { type: String, required: true },
     edad: { type: String, required: true },
@@ -20,4 +20,4 @@ let recomendationSchema = new Schema({
 });
 
 
-let Recomendation = module.exports = mongoose.model("recomendations", recomendationSchema);
+let Recommendation = module.exports = mongoose.model("recommendations", recommendationSchema);

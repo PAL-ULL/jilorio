@@ -1,6 +1,6 @@
 [
     {
-        "_id": "Tomate con aceite y orégano 54",
+        "_id": "Tomate con aceite yd54",
         "description": "Este es un buen desayuno para comenzar el día.",
         "ingredients": [
             {
@@ -19,7 +19,7 @@
                 "name": "OIL,OLIVE,SALAD OR COOKING",
                 "amount": 3,
                 "unitMeasure": "litros",
-                "ndbno": "04053"
+                "ndbno": ""
             }
         ],
         "relationatedDishes": [
