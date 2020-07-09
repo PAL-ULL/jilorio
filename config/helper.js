@@ -1,5 +1,5 @@
 const helpers = {};
-const espTemplate = require("../templates/eng.json");
+const espTemplate = require("../templates/esp.json");
 helpers.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()){
         return next();
