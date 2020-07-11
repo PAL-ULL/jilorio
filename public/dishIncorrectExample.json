@@ -1,10 +1,10 @@
 [
     {
-        "_id": "Tomate con aceite yd54",
+        "_id": "ff",
         "description": "Este es un buen desayuno para comenzar el día.",
         "ingredients": [
             {
-                "name": "",
+                "name": "SPICES,OREGANO,DRIED",
                 "amount": 100,
                 "unitMeasure": "g",
                 "ndbno": "11527"
@@ -18,13 +18,11 @@
             {
                 "name": "OIL,OLIVE,SALAD OR COOKING",
                 "amount": 3,
-                "unitMeasure": "litros",
-                "ndbno": ""
+                "unitMeasure": "ml",
+                "ndbno": "05253"
             }
         ],
-        "relationatedDishes": [
-            "Ensalada básica"
-        ],
+        "recipe": "",
         "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
     }
 ]

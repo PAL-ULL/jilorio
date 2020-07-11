@@ -340,7 +340,7 @@ let controller = {
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: espTemplate.errors.difDishName1 + valor[j]._id +  espTemplate.errors.difDishName1 });
+                                errors.push({ msg: espTemplate.errors.difDishName1 + valor[j]._id +  espTemplate.errors.difDishName2 });
 
                                 showErrorsDishJsoN(errors, req, res);
 
