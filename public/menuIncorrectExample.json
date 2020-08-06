@@ -1,15 +1,15 @@
-[{
-    "id": "Hola",
+{
+    "_id": "Hola",
     "description": "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
     "dishes": [
         {
-            "_id": "Ensaa básica",
+            "_id": "Ensalada básica",
             "description": "Este es un buen desayuno para comenzar el día.",
             "ingredients": [
                 {
                     "name": "TOMATOES,GREEN,RAW",
                     "amount": "100",
-                    "unitMeasure": "g",
+                    "unitMeasure": "gr",
                     "ndbno": "11527"
                 },
                 {
@@ -21,8 +21,8 @@
                 {
                     "name": "OIL,OLIVE,SALAD OR COOKING",
                     "amount": 5,
-                    "unitMeasure": "ml",
-                    "ndbno": "04053"
+                    "unitMeasure": "litros",
+                    "ndbno": ""
                 },
                 {
                     "name": "CUCUMBER,PEELED,RAW",
@@ -31,9 +31,7 @@
                     "ndbno": "11206"
                 }
             ],
-            "relationatedDishes": [
-                "Tomate con aceite y orégano"
-            ],
+
             "recipe": "",
             "imageURL": "https://t1.rg.ltmcdn.com/es/images/1/7/7/ensalada_de_apio_tomate_y_aguacate_60771_orig.jpg"
         },
@@ -60,11 +58,8 @@
                     "ndbno": "04053"
                 }
             ],
-            "relationatedDishes": [
-                "Ensalada básica"
-            ],
             "recipe": "",
             "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
         }
     ]
-}]
+}

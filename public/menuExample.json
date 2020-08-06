@@ -1,6 +1,6 @@
 [
     {
-        "_id": "Menú: Ensalada básica y tomate con aceite y orégano 3",
+        "_id": "Menú: Ensalada básica y tomate con aceite y orégano s3",
         "description": "Almuerzo. Un menú puede estar formado por uno o más platos. Este menú está formado por 1 plato.",
         "dishes": [
             {
@@ -71,9 +71,6 @@
                         "unitMeasure": "g",
                         "ndbno": "11206"
                     }
-                ],
-                "relationatedDishes": [
-                    "Tomate con aceite y orégano"
                 ],
                 "recipe": "",
                 "imageURL": "https://t1.rg.ltmcdn.com/es/images/1/7/7/ensalada_de_apio_tomate_y_aguacate_60771_orig.jpg"

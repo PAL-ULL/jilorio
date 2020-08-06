@@ -30,7 +30,6 @@ const Planification = require("../models/planification");
 const Recommendation = require("../models/recommendation");
 const Valuation = require("../models/valuation");
 const User = require("../models/user");
-const Food = require("../models/food");
 
 
 
@@ -63,6 +62,7 @@ let controller = {
 
     foodView: function (req, res) {
         const query = {};
+
         client.connect(function (err, client) {
             assert.equal(null, err);
             console.log("\nConnected successfully to server");
@@ -121,13 +121,10 @@ let controller = {
     },
 
     dishView: async function (req, res) {
-
         Dish.find({}, async function (err, docs) {
             if (err) {
-
                 console.log(err);
             } else {
-
                 const suma = await calculateKcal(docs);
 
                 res.render('dish/getDish', {
@@ -152,7 +149,7 @@ let controller = {
                 console.log(err);
             } else {
                 const nutrientes = await calculateNutrients(doc);
-                // console.log(nutrientes[0])
+           
                 res.render('dish/dishDetails', {
                     items: {
                         req: req,
@@ -168,9 +165,7 @@ let controller = {
 
     insertDish: function (req, res) {
 
-
         let query = {};
-
         const searchData = req.body.shrt_desc;
 
         if (typeof searchData !== "undefined") {
@@ -185,8 +180,6 @@ let controller = {
 
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-
-
                 res.render('dish/insertDish', {
                     items: {
                         req: req,
@@ -221,38 +214,24 @@ let controller = {
             errors.push({ msg: espTemplate.errors.emptyJson });
             showErrorsDishJsoN(errors, req, res);
 
-
         } else {
 
-
             let file = req.files.filename;  // here is the field name of the form
-
             const valor = JSON.parse(file.data)
-
-
 
             let noEncontrados = [];
 
             if (typeof valor.length === "undefined") {
                 errors.push({ msg: espTemplate.errors.formatInc });
-
                 showErrorsDishJsoN(errors, req, res);
-
             }
-
-
 
             for (let j = 0; j < valor.length; j++) {
                 const title = valor[j]._id;
-
                 const description = valor[j].description;
-
                 const recipe = valor[j].recipe;
-
                 const imageURL = valor[j].imageURL;
-
                 const ingredients = valor[j].ingredients;
-
 
                 if (!title) {
                     errors.push({ msg: espTemplate.errors.dishName });
@@ -336,7 +315,6 @@ let controller = {
 
                     const objetoPlato = await createPlato(valor[j]);
 
-
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
@@ -386,9 +364,6 @@ let controller = {
 
         }
     },
-
-
-
 
 
     getDish: async function (req, res) {
@@ -478,7 +453,6 @@ let controller = {
                 errors.push({ msg:  espTemplate.errors.ingNotFound1 + noEncontrados[i] +  espTemplate.errors.ingNotFound2 });
             }
 
-
             client.connect(function (err, client) {
                 assert.equal(null, err);
 
@@ -499,7 +473,6 @@ let controller = {
                 });
             });
         } else {
-
 
             const plato = new Dish({
                 _id: title,
@@ -578,7 +551,7 @@ let controller = {
     updateDishPost: function (req, res) {
         let dishId = req.params._id;
 
-        const title = req.body.title;
+        // const title = req.body.title;
 
         const description = req.body.description;
 
@@ -586,7 +559,7 @@ let controller = {
 
         const imageURL = req.body.imageURL;
 
-        const vectorIngredientes = [];
+        // const vectorIngredientes = [];
 
 
 
@@ -653,7 +626,7 @@ let controller = {
 
 
             const query = { _id: req.params._id };
-            const id = req.params._id;
+            // const id = req.params._id;
 
 
             var newvalues = { description: description, ingredients: resultados, recipe: recipe, imageURL: imageURL };
@@ -767,7 +740,6 @@ let controller = {
 
         const query = { _id: { $regex: `${searchData}` } };
 
-
         Menu.find(query, async function (err, docs) {
             if (err) {
                 console.log(err);
@@ -834,7 +806,6 @@ let controller = {
             if (!menuRemoved) {
                 return req.flash('danger', espTemplate.errors.menuNotExist);
             }
-
 
             res.redirect("/menu/view")
 
@@ -965,7 +936,6 @@ let controller = {
         let errors = [];
 
         if (!req.files) {
-
             errors.push({ msg: espTemplate.errors.emptyJson });
             return showErrorsMenuJson(errors, req, res);
 
@@ -1005,7 +975,6 @@ let controller = {
 
                     }
 
-
                     const menu = new Menu({
                         _id: _id,
                         description: description,
@@ -1020,12 +989,8 @@ let controller = {
 
 
                     for (let i = 0; i < dishes.length; i++) {
-
-
                         const query = { _id: dishes[i]._id }
-
                         var data = await myFunction(query);
-
 
                         if (data.length === 0) {
                             noEncontrados.push(dishes[i]);
@@ -1133,11 +1098,10 @@ let controller = {
         let resultados = [];
         let noEncontrados = [];
 
-        const menu = {
-            _id: _id,
-            description: description,
-
-        };
+        // const menu = {
+        //     _id: _id,
+        //     description: description,
+        // };
 
         for (let i = 0; i < dishes.length; i++) {
             const query = { _id: dishes[i] }
@@ -1218,7 +1182,6 @@ let controller = {
                 }
 
             });
-
 
         }
 
@@ -1521,8 +1484,6 @@ let controller = {
                 }
 
 
-
-
                 newVector.push(water.toFixed(2));
                 newVector.push(energKcal.toFixed(2));
                 newVector.push(protein.toFixed(2));
@@ -1532,8 +1493,6 @@ let controller = {
                 newVector.push(sodium.toFixed(2));
                 newVector.push(cholestrl.toFixed(2));
                 newVector.push(sugar.toFixed(2));
-
-
 
 
                 res.render('planification/planificationDetails', {
@@ -1593,11 +1552,8 @@ let controller = {
 
                 for (let j = 0; j < valor.length; j++) {
                     const title = valor[j]._id;
-
                     const description = valor[j].description;
-
                     const dias = valor[j].dias;
-
                     const menus = valor[j].menus;
 
 
@@ -3061,8 +3017,6 @@ async function calculateNutrientsDish(doc) {
     vector.push(valores["sugar"]);
     vector.push(valores["cholestrl"]);
 
-    //ojo
-
     return vector;
 }
 
@@ -3163,9 +3117,6 @@ async function calculateNutrientsPlanificacion(doc) {
         sugar += (parseFloat(valores[i][8]));
 
     }
-
-
-
 
     newVector.push(water.toFixed(2));
     newVector.push(energKcal.toFixed(2));

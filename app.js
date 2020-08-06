@@ -44,6 +44,7 @@ app.set("view engine", 'ejs');
 
 // cargar archivos de rutas
 const rutas = require("./routes/index");
+const rutasAPI = require("./routes/api");
 
 // middlewares
 
@@ -106,6 +107,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 // rutas
 app.use("/", rutas);
+app.use("/", rutasAPI);
 
 app.get('*', function(req, res, next){
     res.locals.user = req.user || null;

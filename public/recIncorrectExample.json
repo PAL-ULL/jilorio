@@ -1,11 +1,11 @@
-[
+
     {
-        "_id" : "REC1",
+        "_id" : "",
         "description" : "Recomendación dietética aconsejada para niños y niñas que tengan desde 4 a 8 años",
         "edad" : "4-8 años",
         "energyMin" : "d",
         "energyMax" : 1400,
-        "lipidsMin" : 300,
+        "lipidsMin" : 3000,
         "lipidsMax" : 490,
         "proteinMin" : 120,
         "proteinMax" : 210,
@@ -13,16 +13,16 @@
         "carbohydrtMax" : 470
     },
     {
-        "_id" : "",
+        "_id" : "g",
         "description" : "Recomendación dietética aconsejada para niños y niñas que tengan desde 9 a 13 años",
-        "edad" : "9-13 años",
-        "energyMin" : 1600,
+        "edad" : "",
+        "energyMin" : 1850,
         "energyMax" : 1800,
         "lipidsMin" : 400,
         "lipidsMax" : 630,
         "proteinMin" : 160,
         "proteinMax" : 270,
-        "carbohydrtMin" : 800,
+        "carbohydrtMin" : 1000,
         "carbohydrtMax" : 990
     }
-    ]
+    

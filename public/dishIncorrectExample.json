@@ -1,10 +1,10 @@
 [
     {
-        "_id": "ff",
+        "_id": "Ejemplo de j",
         "description": "Este es un buen desayuno para comenzar el día.",
         "ingredients": [
             {
-                "name": "SPICES,OREGANO,DRIED",
+                "name": "TOMATOES,GREEN,RAW",
                 "amount": 100,
                 "unitMeasure": "g",
                 "ndbno": "11527"
@@ -19,10 +19,10 @@
                 "name": "OIL,OLIVE,SALAD OR COOKING",
                 "amount": 3,
                 "unitMeasure": "ml",
-                "ndbno": "05253"
+                "ndbno": "04053"
             }
         ],
-        "recipe": "",
+        "recipe": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg",
         "imageURL": "https://media-cdn.tripadvisor.com/media/photo-s/11/70/c9/89/ensalada-de-tomates-del.jpg"
     }
 ]
