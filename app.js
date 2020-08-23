@@ -43,8 +43,9 @@ app.set("views", __dirname + '/views');
 app.set("view engine", 'ejs');
 
 // cargar archivos de rutas
-const rutas = require("./routes/index");
 const rutasAPI = require("./routes/api");
+const rutas = require("./routes/index");
+// const rutasAPI = require("./routes/api");
 
 // middlewares
 
@@ -118,7 +119,7 @@ app.get('*', function(req, res, next){
 
 // Start Server
 app.listen( process.env.PORT || 8085, () => {
-    console.log("Servidor corriendo correctamente en localhost:8080\n");
+    console.log("Servidor corriendo correctamente en localhost:8085\n");
 });
 
 module.exports = app;

@@ -7,7 +7,7 @@
     "dev": "nodemon app.js",
     "lint:ejs": "ejslint views/partials/message.ejs"
   },
-  "author": "Kathrina Arrocha",
+  "author": "Kathrina Arrocha Umpiérrez",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

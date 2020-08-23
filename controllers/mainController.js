@@ -51,6 +51,7 @@ let controller = {
     },
 
 
+
     food: function (req, res) {
         return res.status(200).render('food/food.ejs', {
             items: {
@@ -121,6 +122,7 @@ let controller = {
     },
 
     dishView: async function (req, res) {
+        
         Dish.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
@@ -143,6 +145,7 @@ let controller = {
     dishDetails: async function (req, res) {
         let dishId = req.params._id;
         const query = { _id: dishId };
+        console.log(dishId);
 
         Dish.find(query, async function (err, doc) {
             if (err) {

@@ -14,7 +14,6 @@ router.post("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricion
 router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getFood);
 
 
-
 router.get("/dish", controller.dish);
 router.get("/dish/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.dishView);
 router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
