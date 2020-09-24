@@ -66,7 +66,7 @@
                 <label><%= items.myObject.dish.form[i].label %><span class="required">*</span></label>
                 <% } %>
 
-                <div class="input-group mb-3">
+                <div class="input-group mb-4">
                     <div class="input-group-prepend">
 
                         <span class=" spanColor input-group-text"><i
@@ -96,7 +96,7 @@
                             <div class="col-sm">
                                 <label class="myLabels"><%= items.myObject.dish.formIngredientes[i].label %><span
                                         class="required">*</span></label>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class=" spanColor input-group-text"><i
                                                 class=" myIcons <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
@@ -124,10 +124,10 @@
                             <div class="col-sm">
                                 <label class="myLabels"><%= items.myObject.dish.formIngredientesSel[i].label %><span
                                         class="required">*</span></label>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-4">
                                     <div class="input-group-prepend">
                                         <span class=" spanColor input-group-text"><i
-                                                class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                                class="myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
                                     </div>
 
                                     <select class="mySelects form-control"
@@ -140,6 +140,34 @@
                                 </div>
                             </div>
                             <% } %>
+                            <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
+                                <div class="col-sm">
+                                    <label class="myLabels"> Categoría <span
+                                            class="required">*</span></label>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class=" spanColor input-group-text"><i
+                                                    class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                        </div>
+                                      <select class="mySelects form-control"name="categories">
+                                      <% for (var j=0; j<items.myCategories.length; j++) { %>
+                                          <% if ((items.myCategories[j].subcategories.length) !== 0) { %>
+                                            <% for (var k=0; k < items.myCategories[j].subcategories.length; k++) { %>
+                                                <option value="<%= items.myCategories[j].name %>"><%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %></option>
+                                               
+                                                <%} %>
+                                            <% }else { %>
+                                                <option value="<%= items.myCategories[j].name %>"><%= items.myCategories[j].name %>  </option>
+                                          
+                                            <%} %>                                   
+                                  
+                                          <% }%>
+                                     
+                                  </select>
+                                    
+                                    </div>
+                                </div>
+                                <% } %>
                         </div>
                     </div>
 

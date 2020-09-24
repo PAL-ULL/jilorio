@@ -180,17 +180,26 @@ let controller = {
             console.log("\nConnected successfully to server");
             const db = client.db(name);
             const collection = db.collection("food");
+            const collectionCategories = db.collection("categories");
 
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-                res.render('dish/insertDish', {
-                    items: {
-                        req: req,
-                        myObject: espTemplate,
-                        myDocs: resultArray
-
-                    }
-                });
+                if (resultArray){
+                    findAllDocuments(db, {}, collectionCategories, function (data) {
+                        let categories = data;
+                        console.log(util.inspect(categories))
+                        res.render('dish/insertDish', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: resultArray,
+                                myCategories: categories
+        
+                            }
+                        });
+                    })
+                }
+               
             });
         });
     },

@@ -19,11 +19,11 @@ router.get("/dish/view", isAuthenticated, authRoleMultiple(["admin", "nutricioni
 router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
 
 router.get("/dish/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.removeDish);
-router.get("/dish/insert", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDish);
+router.get("/dish/insert", controller.insertDish);
 router.get("/dish/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.autocomplete);
 router.get("/dish/update/:_id/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.autocomplete2);
 
-router.post("/dish/insert", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishPost);
+router.post("/dish/insert", controller.insertDishPost);
 
 
 router.get("/dish/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishJson);
