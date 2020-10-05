@@ -91,7 +91,7 @@
                         <% if (items.req.user.rol === "default"){ %>
                         <td>
                             <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                    href="/dish/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
+                                    href="/dish/details/?name=<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
                             <button type="button" class="btn btn-success"><a title="Descargar"
                                     href="/dish/download/<%=docs[i]['_id']%>"><i
                                         class="far fa-file-alt"></i></a></button>
@@ -102,7 +102,7 @@
                                     href="/dish/delete/<%=docs[i]['_id']%>"> <i
                                         class="fas fa-trash-alt"></i></a></button>
                             <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                    href="/dish/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
+                                    href="/dish/details/?name=<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
                             <button type="button" class="btn btn-warning"><a title="Editar"
                                     href="/dish/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button>
                             <button type="button" class="btn btn-success"><a title="Descargar"

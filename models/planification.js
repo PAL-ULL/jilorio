@@ -14,4 +14,4 @@ let planificationSchema = new Schema({
 
 
 
-let Planification = module.exports = mongoose.model("planifications", planificationSchema);
+let Planification = module.exports = mongoose.model("planning", planificationSchema);

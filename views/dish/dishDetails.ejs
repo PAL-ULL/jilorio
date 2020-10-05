@@ -31,38 +31,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-    
+
 </head>
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
- 
+
     <div class="container">
         <div class="infoPage">
             <i class="fas fa-list-alt fa-2x"></i>
-            
-            <span > <%= items.myDocs._id %> </span>
+
+            <span> <%= items.myDocs._id %> </span>
         </div>
         <hr style="border-color: rgb(46, 115, 124); border: 1.5px solid  rgb(46, 115, 124);">
-        
+
         <div class="row justify-content-between">
-            
+
             <div class="col-8" style="margin-top: 35px;">
                 <p class="descriptionDish"> <%= items.myDocs.description %> </p>
+                <p class="descriptionDish"> Categorías del plato: |
+                    <% for (let i = 0; i < items.myDocs.categories.length; i++) { %>
+                    <%= items.myDocs.categories[i] %> |
+                    <% } %>
+                </p>
+
                 <% if (items.myDocs.recipe === "") { %>
-                    <button type="button" class="btn btn-info"><a title="Ver receta"
+                <button type="button" class="btn btn-info"><a title="Ver receta"
                         href="https://www.cocinacaserayfacil.net/recetas-sanas-faciles/"><%= items.myObject.recipeDish%></a></button>
-                    <% } else{ %>
-                        <button type="button" class="btn btn-info"><a title="Ver receta"
-                            href="<%= items.myDocs.recipe %>"><%= items.myObject.recipeDish%></a></button>
-                        <% } %>
-             
+                <% } else{ %>
+                <button type="button" class="btn btn-info"><a title="Ver receta"
+                        href="<%= items.myDocs.recipe %>"><%= items.myObject.recipeDish%></a></button>
+                <% } %>
+
 
             </div>
             <div class="col-3.5 divImg">
                 <img class="imageDish" src="<%= items.myDocs.imageURL %>" alt="<%= items.myObject.title %> ">
             </div>
-        
+
         </div>
         <div class="cardInside3">
             <span class="detailsSpan"><%= items.myObject.ingredientesDish %></span>
@@ -78,7 +84,7 @@
             </thead>
             <tbody>
                 <tr>
-                
+
                     <% for (let i=0; i < items.myDocs.ingredients.length; i++) { %>
                 </tr>
 
@@ -92,8 +98,8 @@
         <div class="cardInside3">
             <span class="detailsSpan"><%= items.myObject.nutrients %></span>
         </div>
-        
-                   
+
+
         <table class="table table-striped table-bordered table-hover table-sm nutrientsTab">
 
             <thead class="thead-dark">

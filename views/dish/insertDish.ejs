@@ -149,11 +149,12 @@
                                             <span class=" spanColor input-group-text"><i
                                                     class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
                                         </div>
-                                      <select class="mySelects form-control"name="categories">
-                                      <% for (var j=0; j<items.myCategories.length; j++) { %>
+                                     
+                                      <select class="mySelects form-control"name="categories[]">
+                                      <% for (var j=0; j < items.myCategories.length; j++) { %>
                                           <% if ((items.myCategories[j].subcategories.length) !== 0) { %>
                                             <% for (var k=0; k < items.myCategories[j].subcategories.length; k++) { %>
-                                                <option value="<%= items.myCategories[j].name %>"><%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %></option>
+                                                <option value="<%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %>"><%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %></option>
                                                
                                                 <%} %>
                                             <% }else { %>
@@ -189,7 +190,7 @@
                         const myLabels = document.querySelectorAll(".myLabels");
                         const myIcons = document.querySelectorAll(".myIcons");
                         const selects = document.querySelectorAll(".mySelects")
-
+                     
                         createNewInputs(inputs, myLabels, myIcons, selects);
                     });
 
@@ -222,6 +223,7 @@
                             for (let j = 0; j < myIcons[i].classList.length; j++) {
                                 icon.classList.value += myIcons[i].classList[j] + " ";
                             }
+                   
 
                             spanIcon.appendChild(icon);
                             divInputGroupPrepend.appendChild(spanIcon);
@@ -248,22 +250,31 @@
                                 col.classList.add("col-sm");
                                 divRow.appendChild(col);
 
-
                             } else {
 
                                 const newS = document.createElement("SELECT");
                                 newS.setAttribute("name", selects[k].name);
                                 newS.required = true;
-                                console.log(selects[k].name)
-                                const optS = document.createElement("OPTION");
-                                optS.value = selects[k].options[0].value;
-                                optS.innerHTML = selects[k].options[0].value;
+                               
+                                console.log( selects[k].options.length)
+                                for (let l = 0; l < selects[k].options.length; l++){
+                                    console.log(selects[k].options[l].value)
+                                    const optS = document.createElement("OPTION");
+                                    optS.value = selects[k].options[l].value;
+                                    optS.innerHTML = selects[k].options[l].value;
+                                    newS.appendChild(optS);
+                                }
+                                // const optS = document.createElement("OPTION");
+                                // //Tengo que recorrer los options[0...] porque no lo hice de forma genérica
+                                // optS.value = selects[k].options[0].value;
+                                
+                                // optS.innerHTML = selects[k].options[0].value;
 
-                                newS.appendChild(optS);
-                                const optS2 = document.createElement("OPTION");
-                                optS2.value = selects[k].options[1].value;
-                                optS2.innerHTML = selects[k].options[1].value;
-                                newS.appendChild(optS2);
+                                // newS.appendChild(optS);
+                                // const optS2 = document.createElement("OPTION");
+                                // optS2.value = selects[k].options[1].value;
+                                // optS2.innerHTML = selects[k].options[1].value;
+                                // newS.appendChild(optS2);
                                 newS.classList.add("form-control");
                                 divInputGroup.appendChild(newS);
                                 col.appendChild(divInputGroup);

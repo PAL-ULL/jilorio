@@ -4,13 +4,20 @@
 let mongo = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
 let assert = require("assert");
-const user = "admin";
-const password = "password123";
-const host = "127.0.0.1";
-const port = "27017";
-const name = "heroku_zp6jl2nt";
-const url = "mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt";
+const user = "newAdmin";
+const password = "admin123";	
+const host = "193.145.96.29";	
+const port = "8081";	
+const name = "entullo";	
+const url = `mongodb://${user}:${password}@${host}:${port}`;	
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// const password = "password123";
+// const host = "127.0.0.1";
+// const port = "27017";
+// const name = "heroku_zp6jl2nt";
+// const url = "mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt";
+// const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const fs = require('fs')
 const path = require('path')
 const bcrypt = require('bcryptjs')
@@ -37,6 +44,8 @@ const { Console } = require("console");
 const { db } = require("../models/dish");
 const { query } = require("express");
 const { resolve } = require("path");
+
+const calculate = require('../build/Release/calculate')
 
 let ingredientes = [];
 // Routes
@@ -113,6 +122,8 @@ let controller = {
     },
 
     dish: function (req, res) {
+        let j = 5;
+        // console.log(calculate.hola(j));
         return res.status(200).render('dish/dish.ejs', {
             items: {
                 req: req,
@@ -122,11 +133,11 @@ let controller = {
     },
 
     dishView: async function (req, res) {
-        
         Dish.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
+                console.log(docs)
                 const suma = await calculateKcal(docs);
 
                 res.render('dish/getDish', {
@@ -143,16 +154,20 @@ let controller = {
     },
 
     dishDetails: async function (req, res) {
-        let dishId = req.params._id;
-        const query = { _id: dishId };
-        console.log(dishId);
+
+        console.log("ATENTAAAA:::::::::: " + req.query["name"]);
+        let query = {};
+        if (req.query.name != undefined)
+            query = { _id: { $regex: req.query["name"] } };
+        console.log(query);
 
         Dish.find(query, async function (err, doc) {
             if (err) {
                 console.log(err);
             } else {
+                console.log(doc)
                 const nutrientes = await calculateNutrients(doc);
-           
+
                 res.render('dish/dishDetails', {
                     items: {
                         req: req,
@@ -184,22 +199,22 @@ let controller = {
 
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-                if (resultArray){
+                if (resultArray) {
                     findAllDocuments(db, {}, collectionCategories, function (data) {
                         let categories = data;
-                        console.log(util.inspect(categories))
+                        // console.log(util.inspect(categories))
                         res.render('dish/insertDish', {
                             items: {
                                 req: req,
                                 myObject: espTemplate,
                                 myDocs: resultArray,
                                 myCategories: categories
-        
+
                             }
                         });
                     })
                 }
-               
+
             });
         });
     },
@@ -256,14 +271,14 @@ let controller = {
                 if (recipe) {
                     if (recipe != "") {
                         if (!recipe.match(regex)) {
-                            errors.push({ msg: espTemplate.errors.dishRecipe  });
+                            errors.push({ msg: espTemplate.errors.dishRecipe });
                         }
                     }
                 }
                 if (imageURL) {
                     if (imageURL != "") {
                         if (!imageURL.match(regex)) {
-                            errors.push({ msg: espTemplate.errors.dishImage  });
+                            errors.push({ msg: espTemplate.errors.dishImage });
                         }
                     }
                 }
@@ -273,13 +288,13 @@ let controller = {
                 } else {
 
                     for (let i = 0; i < ingredients.length; i++) {
-                        if (ingredients[i].name === ""){
+                        if (ingredients[i].name === "") {
                             errors.push({ msg: espTemplate.errors.ingNotFound });
-                                
-                        }else{
+
+                        } else {
                             const result = usdaJson.filter(word => word.shrt_desc === ingredients[i].name);
                             if (result.length === 0) {
-                            
+
                                 noEncontrados.push(ingredients[i].name);
                             }
                         }
@@ -289,15 +304,15 @@ let controller = {
                         }
 
                         if ((ingredients[i].amount) && (typeof (ingredients[i].amount) != "number")) {
-                            errors.push({ msg: espTemplate.errors.dishAmount1 + ingredients[i].name +  espTemplate.errors.dishAmount2  });
+                            errors.push({ msg: espTemplate.errors.dishAmount1 + ingredients[i].name + espTemplate.errors.dishAmount2 });
                         }
 
                         if (!(ingredients[i].unitMeasure)) {
-                            errors.push({ msg: espTemplate.errors.dishUnitMeasure  + ingredients[i].name + "." });
+                            errors.push({ msg: espTemplate.errors.dishUnitMeasure + ingredients[i].name + "." });
                         }
 
                         if ((ingredients[i].unitMeasure) && ((ingredients[i].unitMeasure != "g") && (ingredients[i].unitMeasure != "ml"))) {
-                            errors.push({ msg: espTemplate.errors.dishUnitMeasure1  + ingredients[i].name + espTemplate.errors.dishUnitMeasure2 });
+                            errors.push({ msg: espTemplate.errors.dishUnitMeasure1 + ingredients[i].name + espTemplate.errors.dishUnitMeasure2 });
                         }
 
                         if (!(ingredients[i].ndbno) || (ingredients[i].ndbno === "")) {
@@ -306,7 +321,7 @@ let controller = {
 
 
                         if ((ingredients[i].ndbno) && (typeof (ingredients[i].ndbno) != "string")) {
-                            errors.push({ msg: espTemplate.errors.dishNdbno1  + ingredients[i].name + espTemplate.errors.dishNdbno2  });
+                            errors.push({ msg: espTemplate.errors.dishNdbno1 + ingredients[i].name + espTemplate.errors.dishNdbno2 });
                         }
 
                     }
@@ -330,7 +345,7 @@ let controller = {
                     if ((j + 1) === valor.length) {
                         objetoPlato.save(async function (err) {
                             if (err) {
-                                errors.push({ msg: espTemplate.errors.difDishName1 + valor[j]._id +  espTemplate.errors.difDishName2 });
+                                errors.push({ msg: espTemplate.errors.difDishName1 + valor[j]._id + espTemplate.errors.difDishName2 });
 
                                 showErrorsDishJsoN(errors, req, res);
 
@@ -393,7 +408,6 @@ let controller = {
             } else {
 
                 const suma = await calculateKcal(docs);
-
                 res.render('dish/getDish', {
                     items: {
                         req: req,
@@ -427,6 +441,9 @@ let controller = {
 
     insertDishPost: async function (req, res) {
 
+        const categories = req.body.categories;
+        const uniqueCategories = Array.from(new Set(categories))
+
         const title = req.body.title;
         const description = req.body.description;
         const recipe = req.body.recipe;
@@ -453,7 +470,8 @@ let controller = {
                     name: result[0].shrt_desc,
                     amount: cantidades[i],
                     unitMeasure: Unidades[i],
-                    ndbno: result[0].ndb_no
+                    ndbno: result[0].ndb_no,
+                    categories: categories[i]
                 }
                 resultados.push(obj);
             }
@@ -462,7 +480,7 @@ let controller = {
 
 
             for (let i = 0; i < noEncontrados.length; i++) {
-                errors.push({ msg:  espTemplate.errors.ingNotFound1 + noEncontrados[i] +  espTemplate.errors.ingNotFound2 });
+                errors.push({ msg: espTemplate.errors.ingNotFound1 + noEncontrados[i] + espTemplate.errors.ingNotFound2 });
             }
 
             client.connect(function (err, client) {
@@ -471,16 +489,24 @@ let controller = {
                 const db = client.db(name);
                 const collection = db.collection("food");
                 const query = {};
+                const collectionCategories = db.collection("categories");
+
                 findAllDocuments(db, query, collection, function (data) {
                     let resultArray = data;
 
-                    res.render('dish/insertDish', {
-                        items: {
-                            req: req,
-                            myObject: espTemplate,
-                            myDocs: resultArray,
-                            errors
-                        }
+                    findAllDocuments(db, {}, collectionCategories, function (newdata) {
+
+                        let categories = newdata;
+
+                        res.render('dish/insertDish', {
+                            items: {
+                                req: req,
+                                myObject: espTemplate,
+                                myDocs: resultArray,
+                                myCategories: categories,
+                                errors
+                            }
+                        });
                     });
                 });
             });
@@ -491,7 +517,8 @@ let controller = {
                 description: description,
                 ingredients: resultados,
                 recipe: recipe,
-                imageURL: imageURL
+                imageURL: imageURL,
+                categories: uniqueCategories
             });
 
             plato.save(async function (err) {
@@ -761,7 +788,7 @@ let controller = {
                     const value = await calculateNutrientsMenu(docs[i])
                     valores.push(value);
                 }
-              
+
                 res.render('menu/getMenu', {
                     items: {
                         req: req,
@@ -1582,7 +1609,7 @@ let controller = {
                     }
 
                     if (!dias) {
-                        errors.push({ msg: espTemplate.errors.planDays});
+                        errors.push({ msg: espTemplate.errors.planDays });
                     }
 
                     if ((typeof dias != "number")) {
@@ -1867,10 +1894,10 @@ let controller = {
             errors.push({ msg: espTemplate.errors.lipidComp });
         }
         if (parseInt(req.body.proteinMin) > parseInt(req.body.proteinMax)) {
-            errors.push({ msg: espTemplate.errors.protComp  });
+            errors.push({ msg: espTemplate.errors.protComp });
         }
         if (parseInt(req.body.carbohydrtMin) > parseInt(req.body.carbohydrtMax)) {
-            errors.push({ msg: espTemplate.errors.carbComp  });
+            errors.push({ msg: espTemplate.errors.carbComp });
         }
 
         if (errors.length > 0) {
@@ -1957,16 +1984,16 @@ let controller = {
         console.log(req.body);
 
         if (parseInt(req.body.energyMin) > parseInt(req.body.energyMax)) {
-            errors.push({ msg: espTemplate.errors.enerComp  });
+            errors.push({ msg: espTemplate.errors.enerComp });
         }
         if (parseInt(req.body.lipidsMin) > parseInt(req.body.lipidsMax)) {
-            errors.push({ msg: espTemplate.errors.lipidComp  });
+            errors.push({ msg: espTemplate.errors.lipidComp });
         }
         if (parseInt(req.body.proteinMin) > parseInt(req.body.proteinMax)) {
-            errors.push({ msg: espTemplate.errors.protComp  });
+            errors.push({ msg: espTemplate.errors.protComp });
         }
         if (parseInt(req.body.carbohydrtMin) > parseInt(req.body.carbohydrtMax)) {
-            errors.push({ msg: espTemplate.errors.carbComp  });
+            errors.push({ msg: espTemplate.errors.carbComp });
         }
 
         if (errors.length > 0) {
@@ -2056,7 +2083,7 @@ let controller = {
         let errors = [];
 
         if (!req.files) {
-            errors.push({ msg:  espTemplate.errors.dishNotRemove });
+            errors.push({ msg: espTemplate.errors.dishNotRemove });
             showErrorsRecJson(errors, req, res);
 
 
@@ -2095,7 +2122,7 @@ let controller = {
                     }
                     //////////////////////////////
                     if ((description === "") || (typeof description != "string")) {
-                        errors.push({ msg: espTemplate.errors.recDescString  });
+                        errors.push({ msg: espTemplate.errors.recDescString });
                     }
                     //////////////////////////////
                     if (!edad) {
@@ -2162,7 +2189,7 @@ let controller = {
                         errors.push({ msg: espTemplate.errors.recProtMin });
                     }
                     if ((typeof proteinMin != "number")) {
-                        errors.push({ msg: espTemplate.errors.recProtMinNumber});
+                        errors.push({ msg: espTemplate.errors.recProtMinNumber });
                     }
                     if (parseInt(proteinMin) < 1) {
                         errors.push({ msg: espTemplate.errors.recProtMinMin });
@@ -2435,7 +2462,7 @@ let controller = {
         let errors = [];
 
         if (!name || !email || !username || !password || !password2) {
-            errors.push({ msg: espTemplate.errors.userRegFields});
+            errors.push({ msg: espTemplate.errors.userRegFields });
         }
 
         const regex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
@@ -2626,7 +2653,7 @@ let controller = {
         const { name, email, username, password, password2, rol } = req.body;
         let errors = [];
 
-        if (!name || !email || !username  || !rol) {
+        if (!name || !email || !username || !rol) {
             errors.push({ msg: espTemplate.errors.userRegFields });
         }
 
@@ -2637,15 +2664,15 @@ let controller = {
         }
 
 
-        req.checkBody('req.body.email',  espTemplate.errors.userRegEmail ).notEmpty();
+        req.checkBody('req.body.email', espTemplate.errors.userRegEmail).notEmpty();
 
         if ((password.length > 0) || (password2.length > 0)) {
             if (password != password2) {
-                errors.push({ msg:  espTemplate.errors.userRegPasswordDif });
+                errors.push({ msg: espTemplate.errors.userRegPasswordDif });
             }
 
             if (password.length < 6) {
-                errors.push({ msg: espTemplate.errors.userRegPasswordTam});
+                errors.push({ msg: espTemplate.errors.userRegPasswordTam });
             }
         }
 
@@ -2718,7 +2745,7 @@ let controller = {
 
                             });
                         });
-                    }else{
+                    } else {
                         const set = { $set: newUser };
 
                         Users.updateOne(query, set, (err, updateUser) => {
@@ -2769,7 +2796,7 @@ let controller = {
 
     logout: function (req, res) {
         req.logout();
-        req.flash('success_msg',  espTemplate.errors.logOut);
+        req.flash('success_msg', espTemplate.errors.logOut);
         res.redirect('/login');
 
     },
@@ -2983,10 +3010,12 @@ async function calculateKcal(docs) {
         let nut_vector = [];
         for (const ingrediente in docs[i].ingredients) {
             const nutrients = await dish.storeNutrients(docs[i].ingredients[ingrediente]);
+            console.log(nutrients);
             nut_vector.push(nutrients);
         }
         let suma = 0;
 
+     
         const valores = dish.computeNutrients(docs[i].ingredients, nut_vector);
 
         sumasKcal.push(valores.energKcal);
@@ -3084,7 +3113,7 @@ async function calculateNutrientsMenu(doc) {
         sugar.toFixed(2),
         sodium.toFixed(2),
         cholestrl.toFixed(2)
-      
+
     ]
 
     return total;
@@ -3387,7 +3416,27 @@ function showErrorsRecJson(errors, req, res) {
     });
 }
 
+// async function removeDuplicates(categories) {
+//     console.log("\n\n\n\n REMOVE DUPLICATES \n\n")
+//     console.log("\n" + categories.length + "\n")
+//     let newVector = Array.from(new Set(categories))
 
+
+//     // newVector.push(categories[0]);
+//     // for (let i = 0; i < categories.length; i++) {
+//     //     for (let j = 0; j < newVector.length; j++) {
+//     //         console.log("Comparando ----> " + newVector[j] + " y " + categories[i])
+//     //         if (newVector[j] != categories[i]) {
+//     //             newVector.push(categories[i]);
+
+//     //         }
+
+//     //     }
+
+//     // }
+//     return newVector;
+
+// }
 
 
 

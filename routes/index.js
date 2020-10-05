@@ -15,23 +15,19 @@ router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "nu
 
 
 router.get("/dish", controller.dish);
-router.get("/dish/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.dishView);
-router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
-
-router.get("/dish/delete/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.removeDish);
+router.get("/dish/view", controller.dishView);
+router.post("/dish/view:_id?", controller.getDish);
+router.get("/dish/delete/:_id", controller.removeDish);
 router.get("/dish/insert", controller.insertDish);
-router.get("/dish/insert/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.autocomplete);
-router.get("/dish/update/:_id/autocomplete/", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.autocomplete2);
-
+router.get("/dish/insert/autocomplete/", controller.autocomplete);
+router.get("/dish/update/:_id/autocomplete/", controller.autocomplete2);
 router.post("/dish/insert", controller.insertDishPost);
-
-
-router.get("/dish/insert/json", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishJson);
-router.post("/dish/insert/json",isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.insertDishJsonPost);
-router.get("/dish/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.dishDetails);
-router.get("/dish/update/:_id", isAuthenticated,  authRoleMultiple(["admin", "nutricionista", "cocinero"]),  controller.updateDish);
-router.post("/dish/update/:_id",  isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero"]), controller.updateDishPost);
-router.get("/dish/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.downloadDish);
+router.get("/dish/insert/json", controller.insertDishJson);
+router.post("/dish/insert/json",controller.insertDishJsonPost);
+router.get("/dish/details/:name?",  controller.dishDetails);
+router.get("/dish/update/:_id",   controller.updateDish);
+router.post("/dish/update/:_id",  controller.updateDishPost);
+router.get("/dish/download/:_id",   controller.downloadDish);
 
 
 

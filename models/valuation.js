@@ -13,4 +13,4 @@ let valuationSchema = new Schema({
 });
 
 
-let Valuation = module.exports = mongoose.model("valuations", valuationSchema);
+let Valuation = module.exports = mongoose.model("evaluations", valuationSchema);

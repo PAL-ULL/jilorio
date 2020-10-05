@@ -3,11 +3,18 @@ const assert = require("assert");
 
 var util = require('util');
 var mongoose = require("mongoose");
-const user = "admin";
-const password = "password123";
-const host = "127.0.0.1";
-const port = "27017";
-const name = "heroku_zp6jl2nt";
+// const user = "admin";
+// const password = "password123";
+// const host = "127.0.0.1";
+// const port = "27017";
+// const name = "heroku_zp6jl2nt";.
+
+const user = "newAdmin";
+const password = "admin123";
+const host = "193.145.96.29";
+const port = "8081";
+const name = "entullo";
+
 const fs = require("fs");
 const Dish = require('../../models/dish');
 
@@ -17,7 +24,8 @@ const dish = {};
 
 dish.storeDishes = async (query) => {
     return new Promise(function (resolve, reject) {
-        MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
+        // MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
+            MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}`, function (err, db) {
             if (err) throw err;
             var dbo = db.db("heroku_zp6jl2nt");
 
@@ -37,9 +45,10 @@ dish.storeNutrients = async (ingredients) => {
     return new Promise(function (resolve, reject) {
         const MongoClient = require("mongodb").MongoClient;
 
-        MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
+        //  MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
+            MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}`, function (err, db) {
             if (err) throw err;
-            var dbo = db.db("heroku_zp6jl2nt");
+            var dbo = db.db("entullo");
             const resultados = [];
 
             const query = { ndb_no: ingredients.ndbno };
@@ -79,6 +88,7 @@ async function findAllDocuments(db, query, collection, callback) {
 // // Función para calcular los nutrientes de un conjunto de ingredientes
 dish.computeNutrients = (ingredientes, nutrientes) => {
 
+    console.log(nutrientes);
     let water = 0;
     let energKcal = 0;
     let protein = 0;
@@ -94,7 +104,7 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
     let amount = 0;
     for (const ingrediente in ingredientes) {
         amount = ingredientes[ingrediente].amount;
-
+        console.log(util.inspect(nutrientes[ingrediente]));
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["water_(g)"]))) {
             water = water + 0;
         } else {

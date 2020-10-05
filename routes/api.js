@@ -6,8 +6,8 @@ const apiRouter = express.Router();
 
 
 apiRouter.get("/api/food/search", apiController.food);
-apiRouter.get("/api/food/:limit?/:name?", apiController.foodDocs);
-apiRouter.get("/api/dish/:limit?/:name?", apiController.dishDocs);
+apiRouter.get("/api/food/:name?", apiController.foodDocs);
+apiRouter.get("/api/dish/:name?", apiController.dishDocs);
 apiRouter.get("/api/menu/:limit?/:name?", apiController.menuDocs);
 apiRouter.get("/api/planning/:limit?/:name?", apiController.planDocs);
 apiRouter.get("/api/recommendation/:limit?/:name?", apiController.recDocs);

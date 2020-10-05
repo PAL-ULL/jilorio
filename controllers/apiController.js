@@ -48,7 +48,7 @@ let apiController = {
     },
 
     foodDocs: function (req, res) {
-        // console.log(req.params)
+        console.log(req.query)
         let query = {};
 
         if (req.query.name != undefined)
@@ -68,7 +68,7 @@ let apiController = {
 
     dishDocs: async function (req, res) {
         let query = {};
-
+        console.log(req.query.name)
         if (req.query.name != undefined)
             query = { _id: { $regex: req.query["name"] } };
         console.log(query);
