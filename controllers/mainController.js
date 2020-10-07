@@ -123,7 +123,7 @@ let controller = {
 
     dish: function (req, res) {
         let j = 5;
-        // console.log(calculate.hola(j));
+        console.log(calculate.hola(15));
         return res.status(200).render('dish/dish.ejs', {
             items: {
                 req: req,
@@ -137,7 +137,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs)
+                // console.log(docs)
                 const suma = await calculateKcal(docs);
 
                 res.render('dish/getDish', {
@@ -155,17 +155,16 @@ let controller = {
 
     dishDetails: async function (req, res) {
 
-        console.log("ATENTAAAA:::::::::: " + req.query["name"]);
         let query = {};
         if (req.query.name != undefined)
             query = { _id: { $regex: req.query["name"] } };
-        console.log(query);
+   
 
         Dish.find(query, async function (err, doc) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(doc)
+                // console.log(doc)
                 const nutrientes = await calculateNutrients(doc);
 
                 res.render('dish/dishDetails', {

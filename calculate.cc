@@ -15,8 +15,9 @@ namespace calculate
     void Method(const FunctionCallbackInfo<Value> &args)
     {
 
-        Isolate *isolate = args.GetIsolate();
 
+        Isolate *isolate = args.GetIsolate();
+       
         int i;
         
         double x = 100.32462344, y = 200.333456533452;
@@ -29,10 +30,15 @@ namespace calculate
         auto total = Number::New(isolate, x);
         args.GetReturnValue().Set(total);
     }
+
     void Hello(const FunctionCallbackInfo<Value> &args)
     {
         Isolate *isolate = args.GetIsolate();
-        cout << "HELLO WORLD" << endl;
+     
+     
+        // auto total = Number::New(isolate, x);
+        cout << args[0].As<Number>()->Value() <<endl;
+        // args.GetReturnValue().Set(total);
     }
 
     void Initialize(Local<Object> exports)

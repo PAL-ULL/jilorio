@@ -88,7 +88,7 @@ async function findAllDocuments(db, query, collection, callback) {
 // // Función para calcular los nutrientes de un conjunto de ingredientes
 dish.computeNutrients = (ingredientes, nutrientes) => {
 
-    console.log(nutrientes);
+    // console.log(nutrientes);
     let water = 0;
     let energKcal = 0;
     let protein = 0;
@@ -104,7 +104,7 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
     let amount = 0;
     for (const ingrediente in ingredientes) {
         amount = ingredientes[ingrediente].amount;
-        console.log(util.inspect(nutrientes[ingrediente]));
+        // console.log(util.inspect(nutrientes[ingrediente]));
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["water_(g)"]))) {
             water = water + 0;
         } else {
@@ -196,7 +196,7 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         cholestrl: Number(cholestrl.toFixed(2))
         
     };
-    console.log("total nutrients: " + util.inspect(totalNutrients))
+    // console.log("total nutrients: " + util.inspect(totalNutrients))
 
     return totalNutrients;
 };
