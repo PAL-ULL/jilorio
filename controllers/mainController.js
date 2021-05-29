@@ -43,23 +43,7 @@ const { query } = require("express");
 const { resolve } = require("path");
 
 
-let ingredientes = [];
 // Routes
-
-function lectura() {
-
-    fs.readFile('food.json', 'utf-8', (err, data) => {
-        if (err) {
-            console.log('error: ', err);
-        } else {
-            console.log("lectura")
-            console.log(data);
-        }
-    });
-
-}
-
-lectura();
 
 let controller = {
     home: function (req, res) {
@@ -139,7 +123,6 @@ let controller = {
 
     dish: function (req, res) {
         let j = 5;
-        console.log(calculate.hola(15));
         return res.status(200).render('dish/dish.ejs', {
             items: {
                 req: req,
@@ -153,7 +136,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(docs)
                 const suma = await calculateKcal(docs);
 
                 res.render('dish/getDish', {
@@ -180,7 +162,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                // console.log(doc)
                 const nutrientes = await calculateNutrients(doc);
 
                 res.render('dish/dishDetails', {
@@ -217,7 +198,6 @@ let controller = {
                 if (resultArray) {
                     findAllDocuments(db, {}, collectionCategories, function (data) {
                         let categories = data;
-                        // console.log(util.inspect(categories))
                         res.render('dish/insertDish', {
                             items: {
                                 req: req,
@@ -342,7 +322,6 @@ let controller = {
                     }
 
                     for (let i = 0; i < noEncontrados.length; i++) {
-                        console.log(util.inspect(noEncontrados));
                         errors.push({ msg: espTemplate.errors.ingNotFound1 + noEncontrados[i] + espTemplate.errors.ingNotFound2 });
                     }
                 }
@@ -832,7 +811,6 @@ let controller = {
                 const kcal = await calculateKcal(doc[0].dishes);
 
                 kcalPlatos.push(kcal);
-                console.log(valores)
 
                 res.render('menu/menuDetails', {
                     items: {
@@ -1219,7 +1197,7 @@ let controller = {
                         dishes
                     };
                     const set = { $set: newvalues };
-                    console.log(set)
+                  
                     Menu.updateOne(query, set, (err, updatedMenu) => {
                         if (err) {
                             console.log(err);
@@ -1452,7 +1430,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log("DOCUMENTOS " + util.inspect(docs));
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -1792,12 +1769,10 @@ let controller = {
     },
 
     recommendationView: function (req, res) {
-        console.log("\n\n\n ----------------------- Recomendación view")
         Recommendation.find({}, async function (err, docs) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs)
                 res.render('recommendation/recommendationView.ejs', {
                     items: {
                         req: req,
@@ -1847,8 +1822,6 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-                console.log(docs)
-                console.log("VA A DETALLES------------------------->")
                 res.render('recommendation/recommendationDetails.ejs', {
                     items: {
                         req: req,
@@ -1997,7 +1970,6 @@ let controller = {
 
         const query = { _id: req.params._id };
         let errors = [];
-        console.log(req.body);
 
         if (parseInt(req.body.energyMin) > parseInt(req.body.energyMax)) {
             errors.push({ msg: espTemplate.errors.enerComp });
@@ -3027,7 +2999,7 @@ async function calculateKcal(docs) {
         let nut_vector = [];
         for (const ingrediente in docs[i].ingredients) {
             const nutrients = await dish.storeNutrients(docs[i].ingredients[ingrediente]);
-            console.log(nutrients);
+    
             nut_vector.push(nutrients);
         }
         let suma = 0;
@@ -3090,7 +3062,6 @@ async function calculateNutrientsMenu(doc) {
             nut_vector.push(nutrients);
         }
 
-        console.log("nut_vector: " + util.inspect(nut_vector))
         const valores = dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
 
         vector.push(valores);
@@ -3433,27 +3404,6 @@ function showErrorsRecJson(errors, req, res) {
     });
 }
 
-// async function removeDuplicates(categories) {
-//     console.log("\n\n\n\n REMOVE DUPLICATES \n\n")
-//     console.log("\n" + categories.length + "\n")
-//     let newVector = Array.from(new Set(categories))
-
-
-//     // newVector.push(categories[0]);
-//     // for (let i = 0; i < categories.length; i++) {
-//     //     for (let j = 0; j < newVector.length; j++) {
-//     //         console.log("Comparando ----> " + newVector[j] + " y " + categories[i])
-//     //         if (newVector[j] != categories[i]) {
-//     //             newVector.push(categories[i]);
-
-//     //         }
-
-//     //     }
-
-//     // }
-//     return newVector;
-
-// }
 
 
 
