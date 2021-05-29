@@ -53,213 +53,154 @@
     <%- include ("../partials/navigation.ejs"); %>
 
 
-    <div class="container">
-        <div class="cardInside2">
-            <h1><%= items.myObject.planificacion.update %></h1>
-        </div>
-        <br>
-        <%- include ("../partials/message.ejs"); %>
-        <br>
-        <div class="cardInside3">
-            <h2><%= items.myDocs._id %></h2>
-        </div>
-
-        <div class="card">
-            <form method="POST" , id="aux" action='./insert'>
+        <div class="container">
+            <div class="cardInside2">
+                <h1>
+                    <%= items.myObject.planificacion.update %>
+                </h1>
+            </div>
+            <br>
+            <%- include ("../partials/message.ejs"); %>
                 <br>
-                <% for (var i=0; i< items.myObject.planificacion.form.length; i++) { %>
-                <label class="required2"><%= items.myObject.planificacion.form[i].label %></label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-
-                        <span class=" spanColor input-group-text"><i
-                                class=" <%= items.myObject.planificacion.form[i].icon %>"></i></span>
-
-                    </div>
-                    <% if (items.myObject.planificacion.form[i].name === "title"){ %>
-
-                    <input value="<%=  items.myDocs._id %>" id="<%= items.myObject.planificacion.form[i].id %>" disabled
-                        type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
-                        placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
-                        aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
-                        aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.form[i].name %>"
-                        #<%= items.myObject.planificacion.form[i].name %> required>
-                    <% } else if  (items.myObject.planificacion.form[i].name === "description"){%>
-                    <input value="<%=  items.myDocs.description %>" id="<%= items.myObject.planificacion.form[i].id %>"
-                        type="<%= items.myObject.planificacion.form[i].type %>" class=" myInputs form-control"
-                        placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
-                        aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
-                        aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.form[i].name %>"
-                        #<%= items.myObject.planificacion.form[i].name %> required>
-                    <% }  %>
+                <div class="cardInside3">
+                    <h2>
+                        <%= items.myDocs._id %>
+                    </h2>
                 </div>
-                <% } %>
-                <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
-                <label class="required2"><%= items.myObject.planificacion.formNumber[i].label %></label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
 
-                        <span class=" spanColor input-group-text"><i
-                                class=" <%= items.myObject.planificacion.formNumber[i].icon %>"></i></span>
+                <div class="card">
+                    <form method="POST" , id="aux" action='./insert'>
+                        <br>
+                        <% for (var i=0; i< items.myObject.planificacion.form.length; i++) { %>
+                            <label class="required2">
+                                <%= items.myObject.planificacion.form[i].label %>
+                            </label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
 
-                    </div>
-                    <input disabled value=<%= items.myDocs.dias %>
-                        type="<%= items.myObject.planificacion.formNumber[i].type %>"
-                        class=" myInputs days form-control" id="myNumberDays"
-                        placeholder="<%= items.myObject.planificacion.formNumber[i].placeholder %>"
-                        aria-label="<%= items.myObject.planificacion.formNumber[i].ariaLabel %>"
-                        aria-describedby="basic-addon1" name="<%= items.myObject.planificacion.formNumber[i].name %>"
-                        #<%= items.myObject.planificacion.formNumber[i].name %>
-                        min="<%= items.myObject.planificacion.formNumber[i].min %>" required>
-                </div>
-                <% } %>
+                                    <span class=" spanColor input-group-text"><i
+                                            class=" <%= items.myObject.planificacion.form[i].icon %>"></i></span>
 
-                <div class="cardInside" id="referencia">
-                    <div class="dinamico">
-                        <% for (var i=0; i< items.myDocs.menus.length; i++) { %>
-                        <div class="removingThen cardInside2">
-                            <span>Día: <%= i+1 %></span>
-                        </div>
-                        <div class="<%="global"+(i+1) %> removingThen">
-                            <div class="removingThen" style="margin-top: 5px; margin-bottom: 20px;">
-                                <label class="required2" style="display: block;">Introduce el número de menús:</label>
+                                </div>
+                                <% if (items.myObject.planificacion.form[i].name==="title" ){ %>
 
-                                <input disabled value=<%= items.myDocs.menus[i].length %> type=number
-                                    class="<%="menuDays"+(i+1) %> form-control removingThen comun"
-                                    placeholder="Número de menús" aria-label="menus" aria-describedby="basic-addon1"
-                                    name="menuDays[]" #menuDays min="1" required>
+                                    <input value="<%=  items.myDocs._id %>"
+                                        id="<%= items.myObject.planificacion.form[i].id %>" disabled
+                                        type="<%= items.myObject.planificacion.form[i].type %>"
+                                        class=" myInputs form-control"
+                                        placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
+                                        aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
+                                        aria-describedby="basic-addon1"
+                                        name="<%= items.myObject.planificacion.form[i].name %>"
+                                        #<%=items.myObject.planificacion.form[i].name %> required>
+                                    <% } else if (items.myObject.planificacion.form[i].name==="description" ){%>
+                                        <input value="<%=  items.myDocs.description %>"
+                                            id="<%= items.myObject.planificacion.form[i].id %>"
+                                            type="<%= items.myObject.planificacion.form[i].type %>"
+                                            class=" myInputs form-control"
+                                            placeholder="<%= items.myObject.planificacion.form[i].placeholder %>"
+                                            aria-label="<%= items.myObject.planificacion.form[i].ariaLabel %>"
+                                            aria-describedby="basic-addon1"
+                                            name="<%= items.myObject.planificacion.form[i].name %>"
+                                            #<%=items.myObject.planificacion.form[i].name %> required>
+                                        <% } %>
                             </div>
-                            <% for (var j=0; j< items.myDocs.menus[i].length; j++) { %>
-                            <select id="<%="selectMenu"+(j+1) %>" class="selectMenu mySelect form-control"
-                                style="margin-bottom: 15px;">
-                                <% for (var k=0; k< items.myMenus.length; k++) { %>
-                                <% if (  items.myMenus[k]._id === items.myDocs.menus[i][j]._id) { %>
-                                <option selected value="<%=items.myDocs.menus[i][j]._id%>">
-                                    <%=items.myDocs.menus[i][j]._id%> </option>
-
-
-                                <% } else { %>
-                                <option value="<%=items.myMenus[k]._id%>"><%=items.myMenus[k]._id%> </option>
-                                <% } %>
-                                <% } %>
-                            </select>
-
                             <% } %>
-                        </div>
-                        <% } %>
+                                <% for (var i=0; i< items.myObject.planificacion.formNumber.length; i++) { %>
+                                    <label class="required2">
+                                        <%= items.myObject.planificacion.formNumber[i].label %>
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+
+                                            <span class=" spanColor input-group-text"><i
+                                                    class=" <%= items.myObject.planificacion.formNumber[i].icon %>"></i></span>
+
+                                        </div>
+                                        <input disabled value=<%=items.myDocs.dias %>
+                                        type="<%= items.myObject.planificacion.formNumber[i].type %>"
+                                            class=" myInputs days form-control" id="myNumberDays"
+                                            placeholder="<%= items.myObject.planificacion.formNumber[i].placeholder %>"
+                                                aria-label="<%= items.myObject.planificacion.formNumber[i].ariaLabel %>"
+                                                    aria-describedby="basic-addon1" name="<%=
+                                                        items.myObject.planificacion.formNumber[i].name %>"
+                                                        #<%= items.myObject.planificacion.formNumber[i].name %>
+                                                            min="<%= items.myObject.planificacion.formNumber[i].min %>"
+                                                                required>
+                                    </div>
+                                    <% } %>
+
+                                        <div class="cardInside" id="referencia">
+                                            <div class="dinamico">
+                                                <% for (var i=0; i< items.myDocs.menus.length; i++) { %>
+                                                    <div class="removingThen cardInside2">
+                                                        <span>Día: <%= i+1 %></span>
+                                                    </div>
+                                                    <div class="<%=" global"+(i+1) %> removingThen">
+                                                        <div class="removingThen"
+                                                            style="margin-top: 5px; margin-bottom: 20px;">
+                                                            <label class="required2" style="display: block;">Introduce
+                                                                el número de menús:</label>
+
+                                                            <input disabled value=<%=items.myDocs.menus[i].length %>
+                                                            type=number
+                                                            class="<%="menuDays"+(i+1) %> form-control removingThen
+                                                                comun"
+                                                                placeholder="Número de menús" aria-label="menus"
+                                                                aria-describedby="basic-addon1"
+                                                                name="menuDays[]" #menuDays min="1" required>
+                                                        </div>
+                                                        <% for (var j=0; j< items.myDocs.menus[i].length; j++) { %>
+                                                            <select id="<%=" selectMenu"+(j+1) %>" class="selectMenu
+                                                                mySelect form-control"
+                                                                style="margin-bottom: 15px;">
+                                                                <% for (var k=0; k< items.myMenus.length; k++) { %>
+                                                                    <% if (
+                                                                        items.myMenus[k]._id===items.myDocs.menus[i][j]._id)
+                                                                        { %>
+                                                                        <option selected
+                                                                            value="<%=items.myDocs.menus[i][j]._id%>">
+                                                                            <%=items.myDocs.menus[i][j]._id%>
+                                                                        </option>
+
+
+                                                                        <% } else { %>
+                                                                            <option value="<%=items.myMenus[k]._id%>">
+                                                                                <%=items.myMenus[k]._id%>
+                                                                            </option>
+                                                                            <% } %>
+                                                                                <% } %>
+                                                            </select>
+
+                                                            <% } %>
+                                                    </div>
+                                                    <% } %>
 
 
 
 
-                    </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="requiredSpan">
+                                            <span class="text-muted requiredSpan">
+                                                <%= items.myObject.required %>
+                                            </span><span class="required">*</span>
+                                        </div>
+
+
+
+                                        <br><br>
+
+                                        <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
+
+
+
                 </div>
-                <br>
-                <div class="requiredSpan">
-                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
-                        class="required">*</span>
-                </div>
 
 
+                <script>
 
-                <br><br>
-
-                <input type="submit" id="mySubmit" class="btn btn-info" value="Submit" />
-
-
-
-        </div>
-
-
-        <script>
-
-            const loop = document.querySelectorAll(".comun");
-            let j = 0;
-            // let index = 0;
-            for (let item of loop) {
-                j++;
-                let variable = "global" + j;
-                let prueba = "prueba" + j;
-                item.addEventListener("change", () => {
-
-                    // console.log("prueba ES: " + prueba)
-                    const todos = document.querySelectorAll(".selectMenu");
-                    console.dir(todos);
-                    for (uno of todos) {
-                        uno.remove();
-                    }
-                    // item.style.background = "rgb(170, 221, 170)"
-                    createSelectForMenus(item.value, variable, prueba)
-                });
-            }
-
-            var valueDay = $("#myNumberDays").val();
-
-            const referencia = document.querySelector('#referencia');
-            const dinamico = document.querySelector('.dinamico');
-
-            $("#myNumberDays").on('change keyup', function () {
-
-                if ((this.valueDay !== "0")) {
-
-                    createDays(this.value);
-                }
-            });
-
-
-            function createDays(valueDay) {
-
-
-                var div = $(".dinamico");
-
-                if (div.length > 0) {
-                    div.find(".removingThen").remove();
-                    referencia.style.display = "none";
-                } else {
-                    // console.log("No existe la caja previamente creada.");
-                }
-
-                const value = parseInt(valueDay);
-
-                if (value !== 0) {
-                    for (let i = 1; i <= value; i++) {
-
-
-                        const myDiv = document.createElement("DIV");
-                        myDiv.classList.add("removingThen");
-
-                        myDiv.classList.add("cardInside2");
-                        const mySpan = document.createElement("SPAN");
-                        mySpan.innerHTML = "Día: " + (i);
-                        const myDivMenu = document.createElement("DIV");
-                        myDivMenu.style.marginTop = "5px";
-                        myDivMenu.style.marginBottom = "20px";
-                        myIMenus = document.createElement("INPUT")
-                        myIMenus.setAttribute("type", "number");
-                        myLabelMenus = document.createElement("LABEL")
-                        myLabelMenus.innerHTML = "Introduce el número de menús:";
-                        myIMenus.setAttribute("placeholder", "Número de menús ");
-                        myIMenus.setAttribute("name", "menuDays[]");
-                        myIMenus.setAttribute("min", 1);
-                        myIMenus.required = true;
-                        myIMenus.classList.add("menuDays" + i);
-                        myIMenus.classList.add("comun");
-                        myIMenus.classList.add("form-control");
-                        const otro = document.createElement("DIV");
-                        otro.classList.add("removingThen");
-                        otro.classList.add("global" + i);
-
-                        let variable = "menuDays" + i;
-
-                        myDivMenu.classList.add("removingThen")
-                        myLabelMenus.style.display = "block"
-                        myDivMenu.appendChild(myLabelMenus);
-                        myDivMenu.appendChild(myIMenus);
-                        otro.appendChild(myDivMenu)
-                        myDiv.appendChild(mySpan);
-                        dinamico.appendChild(myDiv);
-                        dinamico.appendChild(otro);
-                        referencia.style.display = "block";
-                    }
                     const loop = document.querySelectorAll(".comun");
                     let j = 0;
                     // let index = 0;
@@ -269,179 +210,274 @@
                         let prueba = "prueba" + j;
                         item.addEventListener("change", () => {
 
-                            console.log("prueba ES: " + prueba)
-                            const todos = document.querySelectorAll("." + prueba);
+                            // console.log("prueba ES: " + prueba)
+                            const todos = document.querySelectorAll(".selectMenu");
                             console.dir(todos);
                             for (uno of todos) {
                                 uno.remove();
                             }
-                            item.style.background = "rgb(170, 221, 170)"
+                            // item.style.background = "rgb(170, 221, 170)"
                             createSelectForMenus(item.value, variable, prueba)
                         });
                     }
-                }
-            }
 
-            function createSelectForMenus(value, variable, prueba) {
-                // console.log("EN CREATE MENUS CON " + j);
+                    var valueDay = $("#myNumberDays").val();
 
-                for (let i = 1; i <= value; i++) {
-                    let idMenus = "selectMenu" + i;
-                    const divSelect = document.createElement("DIV");
-                    divSelect.classList.add("lista2");
-                    const Select = document.createElement("SELECT");
-                    Select.setAttribute("id", idMenus);
-                    Select.classList.add("selectMenu");
-                    const padre = document.querySelector("." + variable);
+                    const referencia = document.querySelector('#referencia');
+                    const dinamico = document.querySelector('.dinamico');
 
-                    divSelect.appendChild(Select);
-                    divSelect.classList.add("removingThen");
-                    divSelect.classList.add(prueba);
-                    Select.classList.add("mySelect");
-                    Select.classList.add("form-control");
-                    Select.style.marginBottom = "15px";
-                    padre.appendChild(divSelect);
-                    // console.log(padre);
-                    ajaxGetMenus();
-                }
+                    $("#myNumberDays").on('change keyup', function () {
 
-            }
+                        if ((this.valueDay !== "0")) {
 
-            function ajaxGetMenus() {
+                            createDays(this.value);
+                        }
+                    });
 
-                $.ajax({
-                    type: "GET",
-                    url: "/planification/create/load/menus",
-                    success: function (result) {
 
-                        $('.lista2 select').empty();
-                        $.each(result, function (i, menu) {
-                            $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
+                    function createDays(valueDay) {
+
+
+                        var div = $(".dinamico");
+
+                        if (div.length > 0) {
+                            div.find(".removingThen").remove();
+                            referencia.style.display = "none";
+                        } else {
+                            // console.log("No existe la caja previamente creada.");
+                        }
+
+                        const value = parseInt(valueDay);
+
+                        if (value !== 0) {
+                            for (let i = 1; i <= value; i++) {
+
+
+                                const myDiv = document.createElement("DIV");
+                                myDiv.classList.add("removingThen");
+
+                                myDiv.classList.add("cardInside2");
+                                const mySpan = document.createElement("SPAN");
+                                mySpan.innerHTML = "Día: " + (i);
+                                const myDivMenu = document.createElement("DIV");
+                                myDivMenu.style.marginTop = "5px";
+                                myDivMenu.style.marginBottom = "20px";
+                                myIMenus = document.createElement("INPUT")
+                                myIMenus.setAttribute("type", "number");
+                                myLabelMenus = document.createElement("LABEL")
+                                myLabelMenus.innerHTML = "Introduce el número de menús:";
+                                myIMenus.setAttribute("placeholder", "Número de menús ");
+                                myIMenus.setAttribute("name", "menuDays[]");
+                                myIMenus.setAttribute("min", 1);
+                                myIMenus.required = true;
+                                myIMenus.classList.add("menuDays" + i);
+                                myIMenus.classList.add("comun");
+                                myIMenus.classList.add("form-control");
+                                const otro = document.createElement("DIV");
+                                otro.classList.add("removingThen");
+                                otro.classList.add("global" + i);
+
+                                let variable = "menuDays" + i;
+
+                                myDivMenu.classList.add("removingThen")
+                                myLabelMenus.style.display = "block"
+                                myDivMenu.appendChild(myLabelMenus);
+                                myDivMenu.appendChild(myIMenus);
+                                otro.appendChild(myDivMenu)
+                                myDiv.appendChild(mySpan);
+                                dinamico.appendChild(myDiv);
+                                dinamico.appendChild(otro);
+                                referencia.style.display = "block";
+                            }
+                            const loop = document.querySelectorAll(".comun");
+                            let j = 0;
+                            // let index = 0;
+                            for (let item of loop) {
+                                j++;
+                                let variable = "global" + j;
+                                let prueba = "prueba" + j;
+                                item.addEventListener("change", () => {
+
+                                    console.log("prueba ES: " + prueba)
+                                    const todos = document.querySelectorAll("." + prueba);
+                                    console.dir(todos);
+                                    for (uno of todos) {
+                                        uno.remove();
+                                    }
+                                    item.style.background = "rgb(170, 221, 170)"
+                                    createSelectForMenus(item.value, variable, prueba)
+                                });
+                            }
+                        }
+                    }
+
+                    function createSelectForMenus(value, variable, prueba) {
+                        // console.log("EN CREATE MENUS CON " + j);
+
+                        for (let i = 1; i <= value; i++) {
+                            let idMenus = "selectMenu" + i;
+                            const divSelect = document.createElement("DIV");
+                            divSelect.classList.add("lista2");
+                            const Select = document.createElement("SELECT");
+                            Select.setAttribute("id", idMenus);
+                            Select.classList.add("selectMenu");
+                            const padre = document.querySelector("." + variable);
+
+                            divSelect.appendChild(Select);
+                            divSelect.classList.add("removingThen");
+                            divSelect.classList.add(prueba);
+                            Select.classList.add("mySelect");
+                            Select.classList.add("form-control");
+                            Select.style.marginBottom = "15px";
+                            padre.appendChild(divSelect);
+                            // console.log(padre);
+                            ajaxGetMenus();
+                        }
+
+                    }
+
+                    function ajaxGetMenus() {
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/planification/create/load/menus",
+                            success: function (result) {
+
+                                $('.lista2 select').empty();
+                                $.each(result, function (i, menu) {
+                                    $('.lista2 select').append("<option value='" + menu._id + "'>" + menu._id)
+                                });
+                            },
+
                         });
-                    },
-
-                });
-            };
+                    };
 
 
-            $("#aux").submit(function (event) {
+                    $("#aux").submit(function (event) {
 
-                event.preventDefault();
-                ajaxPost();
-            });
+                        event.preventDefault();
+                        ajaxPost();
+                    });
 
 
-            function ajaxPost() {
-                const vectorMenus = [];
+                    function ajaxPost() {
+                        const vectorMenus = [];
 
-                const comun = document.querySelectorAll(".comun");
+                        const comun = document.querySelectorAll(".comun");
 
-                for (uno of comun) {
-                    console.dir("Valor de uno: " + uno.value);
-                    if (uno.value === "") {
-                        vectorMenus.push(0)
-                    } else {
-                        vectorMenus.push(parseInt(uno.value));
+                        for (uno of comun) {
+                            console.dir("Valor de uno: " + uno.value);
+                            if (uno.value === "") {
+                                vectorMenus.push(0)
+                            } else {
+                                vectorMenus.push(parseInt(uno.value));
+
+                            }
+                        }
+
+
+
+                        const vectorMenusCandidatos = [];
+                        const array = document.querySelectorAll(".selectMenu");
+                        console.dir(array)
+
+
+                        for (let item of array) {
+                            console.log("Actualizando ---------> ")
+                            console.log(item.value);
+                            vectorMenusCandidatos.push(item.value);
+                        }
+
+
+
+
+                        // PREPARE FORM DATA
+                        var formData = {
+                            _id: $("#_id").val(),
+                            description: $("#description").val(),
+                            days: $("#myNumberDays").val(),
+                            nMenus: vectorMenus,
+                            NombreMenus: vectorMenusCandidatos
+                        }
+                        console.log(formData)
+
+                        // DO POST
+                        $.ajax({
+                            type: "POST",
+                            contentType: "application/json",
+                            url: "create/load/post",
+                            data: JSON.stringify(formData),
+                            dataType: 'json',
+                            success: function (docs) {
+                                console.log("SUCCES: " + docs)
+                                window.location.href = "/planification/view";
+
+                            },
+                            error: function (e) {
+                                console.log("ERROR: ", e);
+                            }
+                        });
+
+
 
                     }
-                }
 
 
-
-                const vectorMenusCandidatos = [];
-                const array = document.querySelectorAll(".selectMenu");
-                console.dir(array)
+                </script>
 
 
-                for (let item of array) {
-                    console.log("Actualizando ---------> ")
-                    console.log(item.value);
-                    vectorMenusCandidatos.push(item.value);
-                }
+                </form>
 
+                <br>
 
+                <% const nombres_sz=items.myObject.tablaMenusReducida.nombres.length %>
+                    <% const nombres=items.myObject.tablaMenusReducida.nombres %>
+                        <% const docs_sz=items.myMenus.length %>
+                            <% const docs=items.myMenus %>
 
+                                <div class="cardInside3">
+                                    <table id="planification"
+                                        class="table table-bordered table-striped table-hover table-sm">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <% for (var i=0; i< nombres_sz; i++) { %>
+                                                    <th scope="col">
+                                                        <%= nombres[i] %>
+                                                    </th>
+                                                    <% } %>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <% for (var i=0; i < docs_sz; i++) { %>
+                                                    <td>
+                                                        <%= docs[i]._id %>
+                                                    </td>
+                                                    <td>
+                                                        <% for (var j=0; j < docs[i].dishes.length; j++) { %>
+                                                            <%=docs[i].dishes[j]._id%>
 
-                // PREPARE FORM DATA
-                var formData = {
-                    _id: $("#_id").val(),
-                    description: $("#description").val(),
-                    days: $("#myNumberDays").val(),
-                    nMenus: vectorMenus,
-                    NombreMenus: vectorMenusCandidatos
-                }
-                console.log(formData)
+                                                                <% if( (j+1) < docs[i].dishes.length) { %>
+                                                                    <%= "|   " %>
+                                                                        <% } %>
 
-                // DO POST
-                $.ajax({
-                    type: "POST",
-                    contentType: "application/json",
-                    url: "create/load/post",
-                    data: JSON.stringify(formData),
-                    dataType: 'json',
-                    success: function (docs) {
-                        console.log("SUCCES: " + docs)
-                        window.location.href = "/planification/view";
+                                                                            <% } %>
+                                                    <td>
+                                                        <%= items.myNutrientsMenu[i][1] %>
+                                                    </td>
 
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                    }
-                });
+                                            </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
 
-
-
-            }
-
-
-        </script>
-
-
-        </form>
-
-        <br>
-
-        <% const  nombres_sz=  items.myObject.tablaMenusReducida.nombres.length %>
-        <% const  nombres=  items.myObject.tablaMenusReducida.nombres %>
-        <% const  docs_sz =   items.myMenus.length %>
-        <% const  docs =   items.myMenus %>
-
-        <div class="cardInside3">
-            <table id="planification" class="table table-bordered table-striped table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <% for (var i=0; i< nombres_sz; i++) { %>
-                        <th scope="col"><%= nombres[i] %></th>
-                        <% } %>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <% for (var i=0; i < docs_sz; i++) { %>
-                        <td> <%= docs[i]._id %> </td>
-                        <td>
-                            <% for (var j=0; j < docs[i].dishes.length; j++) { %>
-                            <%=docs[i].dishes[j]._id%>
-
-                            <% if( (j+1) < docs[i].dishes.length) {  %>
-                            <%= "|   "  %>
-                            <% } %>
-
-                            <% } %>
-                        <td><%= items.myNutrientsMenu[i][1] %> </td>
-
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
         </div>
-        <br>
-
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 
 
-    </div>
+            </div>
 </body>
 
 <script>

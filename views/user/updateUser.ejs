@@ -26,79 +26,107 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">
-        <div class="cardInside2">
-            <h1> <%= items.myObject.usersUpdate %> </h1>
-        </div>
-
-        <br>
-        <%- include ("../partials/message.ejs"); %>
-
-        <div class="cardInside3">
-            <h2><%= items.myUsers[0].name %></h2>
-        </div>
-        <% const  nombres_sz=  items.myObject.tablaUsers.nombres.length %>
-        <% const  nombres=  items.myObject.tablaUsers.nombres %>
-        <% const  docs_sz =   items.myUsers.length %>
-        <% const  docs =   items.myUsers %>
-
-        <div class="cardInside3">
-            <div class="login_container d-flex flex-column">
-                <form method="POST" , action='/users/update/<%= items.id %>'>
-                    <br>
-                    <% for (var i=0; i< items.myObject.userEdit.form.length; i++) { %>
-                    <% if ((items.myObject.userEdit.form[i].name === "password") || (items.myObject.userEdit.form[i].name === "password2")) {%>
-                    <label><%= items.myObject.userEdit.form[i].label %></label>
-                    <% } else{ %>
-                    <label><%= items.myObject.userEdit.form[i].label %><span class="required">*</span></label>
-                    <% } %>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <% if (items.myObject.userEdit.form[i].name === "username")  {%>
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <% } else {%>
-                            <span class="input-group-text" id="basic-addon1"><i
-                                    class="<%= items.myObject.userEdit.form[i].icon %>"></i></span>
-                            <% } %>
-                        </div>
-                        <% if ((items.myObject.userEdit.form[i].name === "password")  || (items.myObject.userEdit.form[i].name === "password2")) {%>
-                        <input type="<%= items.myObject.userEdit.form[i].type %>" class="form-control"
-                            placeholder="<%= items.myObject.userEdit.form[i].placeholder %>"
-                            aria-label="<%= items.myObject.userEdit.form[i].ariaLabel %>"
-                            aria-describedby="basic-addon1" name="<%= items.myObject.userEdit.form[i].name %>"
-                            #<%= items.myObject.userEdit.form[i].name %>>
-                        <% } else {%>
-                        <input type="<%= items.myObject.userEdit.form[i].type %>" class="form-control"
-                            placeholder="<%= items.myObject.userEdit.form[i].placeholder %>"
-                            aria-label="<%= items.myObject.userEdit.form[i].ariaLabel %>"
-                            aria-describedby="basic-addon1"
-                            value="<%=items.myUsers[0][items.myObject.userEdit.form[i].name]%>"
-                            name="<%= items.myObject.userEdit.form[i].name %>"
-                            #<%= items.myObject.userEdit.form[i].name %> required>
-                        <% } %>
-
-
-                    </div>
-                    <% } %>
-                    <br>
-                    <div class="requiredSpan">
-                        <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
-                            class="required">*</span>
-                    </div>
-                    <br>
-                    <div class="d-flex justify-content-center align-items-center p-3 texto">
-                        <button class="btn btn-info" type="submit"
-                            href="/users/update/<%= items.id %>"><%= items.myObject.userEdit.button %></button>
-                    </div>
-
-                </form>
-
+        <div class="container">
+            <div class="cardInside2">
+                <h1>
+                    <%= items.myObject.usersUpdate %>
+                </h1>
             </div>
+
+            <br>
+            <%- include ("../partials/message.ejs"); %>
+
+                <div class="cardInside3">
+                    <h2>
+                        <%= items.myUsers[0].name %>
+                    </h2>
+                </div>
+                <% const nombres_sz=items.myObject.tablaUsers.nombres.length %>
+                    <% const nombres=items.myObject.tablaUsers.nombres %>
+                        <% const docs_sz=items.myUsers.length %>
+                            <% const docs=items.myUsers %>
+
+                                <div class="cardInside3">
+                                    <div class="login_container d-flex flex-column">
+                                        <form method="POST" , action='/users/update/<%= items.id %>'>
+                                            <br>
+                                            <% for (var i=0; i< items.myObject.userEdit.form.length; i++) { %>
+                                                <% if ((items.myObject.userEdit.form[i].name==="password" ) ||
+                                                    (items.myObject.userEdit.form[i].name==="password2" )) {%>
+                                                    <label>
+                                                        <%= items.myObject.userEdit.form[i].label %>
+                                                    </label>
+                                                    <% } else{ %>
+                                                        <label>
+                                                            <%= items.myObject.userEdit.form[i].label %><span
+                                                                    class="required">*</span>
+                                                        </label>
+                                                        <% } %>
+
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-prepend">
+                                                                    <% if
+                                                                        (items.myObject.userEdit.form[i].name==="username"
+                                                                        ) {%>
+                                                                        <span class="input-group-text"
+                                                                            id="basic-addon1">@</span>
+                                                                        <% } else {%>
+                                                                            <span class="input-group-text"
+                                                                                id="basic-addon1"><i
+                                                                                    class="<%= items.myObject.userEdit.form[i].icon %>"></i></span>
+                                                                            <% } %>
+                                                                </div>
+                                                                <% if
+                                                                    ((items.myObject.userEdit.form[i].name==="password"
+                                                                    ) ||
+                                                                    (items.myObject.userEdit.form[i].name==="password2"
+                                                                    )) {%>
+                                                                    <input
+                                                                        type="<%= items.myObject.userEdit.form[i].type %>"
+                                                                        class="form-control"
+                                                                        placeholder="<%= items.myObject.userEdit.form[i].placeholder %>"
+                                                                        aria-label="<%= items.myObject.userEdit.form[i].ariaLabel %>"
+                                                                        aria-describedby="basic-addon1"
+                                                                        name="<%= items.myObject.userEdit.form[i].name %>"
+                                                                        #<%=items.myObject.userEdit.form[i].name %>>
+                                                                    <% } else {%>
+                                                                        <input
+                                                                            type="<%= items.myObject.userEdit.form[i].type %>"
+                                                                            class="form-control"
+                                                                            placeholder="<%= items.myObject.userEdit.form[i].placeholder %>"
+                                                                            aria-label="<%= items.myObject.userEdit.form[i].ariaLabel %>"
+                                                                            aria-describedby="basic-addon1"
+                                                                            value="<%=items.myUsers[0][items.myObject.userEdit.form[i].name]%>"
+                                                                            name="<%= items.myObject.userEdit.form[i].name %>"
+                                                                            #<%=items.myObject.userEdit.form[i].name %>
+                                                                        required>
+                                                                        <% } %>
+
+
+                                                            </div>
+                                                            <% } %>
+                                                                <br>
+                                                                <div class="requiredSpan">
+                                                                    <span class="text-muted requiredSpan">
+                                                                        <%= items.myObject.required %>
+                                                                    </span><span class="required">*</span>
+                                                                </div>
+                                                                <br>
+                                                                <div
+                                                                    class="d-flex justify-content-center align-items-center p-3 texto">
+                                                                    <button class="btn btn-info" type="submit"
+                                                                        href="/users/update/<%= items.id %>">
+                                                                        <%= items.myObject.userEdit.button %>
+                                                                    </button>
+                                                                </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                                <br><br>
         </div>
-        <br><br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 </body>
 
 

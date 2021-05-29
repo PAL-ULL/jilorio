@@ -51,380 +51,448 @@
     <%- include ("../partials/navigation.ejs"); %>
 
 
-    <div class="container">
-        <div class="cardInside2">
-            <h1><%= items.myObject.dish.title %></h1>
-            <%- include ("../partials/message.ejs"); %>
-        </div>
-        <div class="card">
-            <form method="POST" , id="aux" action='./insert'>
-                <br>
-                <% for (var i=0; i< items.myObject.dish.form.length; i++) { %>
-                <% if((items.myObject.dish.updateFormFirst[i] === "recipe") || (items.myObject.dish.updateFormFirst[i] === "imageURL")){ %>
-                <label><%= items.myObject.dish.form[i].label %></label>
-                <% } else { %>
-                <label><%= items.myObject.dish.form[i].label %><span class="required">*</span></label>
-                <% } %>
+        <div class="container">
+            <div class="cardInside2">
+                <h1>
+                    <%= items.myObject.dish.title %>
+                </h1>
+                <%- include ("../partials/message.ejs"); %>
+            </div>
+            <div class="card">
+                <form method="POST" , id="aux" action='./insert'>
+                    <br>
+                    <% for (var i=0; i< items.myObject.dish.form.length; i++) { %>
+                        <% if((items.myObject.dish.updateFormFirst[i]==="recipe" ) ||
+                            (items.myObject.dish.updateFormFirst[i]==="imageURL" )){ %>
+                            <label>
+                                <%= items.myObject.dish.form[i].label %>
+                            </label>
+                            <% } else { %>
+                                <label>
+                                    <%= items.myObject.dish.form[i].label %><span class="required">*</span>
+                                </label>
+                                <% } %>
 
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-
-                        <span class=" spanColor input-group-text"><i
-                                class=" <%= items.myObject.dish.form[i].icon %>"></i></span>
-
-                    </div>
-                    <% if((items.myObject.dish.updateFormFirst[i] === "recipe") || (items.myObject.dish.updateFormFirst[i] === "imageURL")){ %>
-                    <input type="<%= items.myObject.dish.form[i].type %>" class="form-control"
-                        placeholder="<%= items.myObject.dish.form[i].placeholder %>"
-                        aria-label="<%= items.myObject.dish.form[i].ariaLabel %>" aria-describedby="basic-addon1"
-                        name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>>
-                    <% } else { %>
-                    <input type="<%= items.myObject.dish.form[i].type %>" class="form-control"
-                        placeholder="<%= items.myObject.dish.form[i].placeholder %>"
-                        aria-label="<%= items.myObject.dish.form[i].ariaLabel %>" aria-describedby="basic-addon1"
-                        name="<%= items.myObject.dish.form[i].name %>" #<%= items.myObject.dish.form[i].name %>
-                        required>
-                    <% } %>
-
-                </div>
-                <% } %>
-                <br>
-                <div class="cardInside">
-                    <div class="ref">
-                        <div class="row">
-                            <% for (var i=0; i< items.myObject.dish.formIngredientes.length; i++) { %>
-                            <div class="col-sm">
-                                <label class="myLabels"><%= items.myObject.dish.formIngredientes[i].label %><span
-                                        class="required">*</span></label>
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class=" spanColor input-group-text"><i
-                                                class=" myIcons <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
-                                    </div>
-                                    <% if ((items.myObject.dish.formIngredientes[i].label === "Cantidad")  || (items.myObject.dish.formIngredientes[i].label === "Quantity")){ %>
-                                    <input class="MyInputs form-control"
-                                        type="<%= items.myObject.dish.formIngredientes[i].type %>"
-                                        placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
-                                        aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
-                                        aria-describedby="basic-addon1"
-                                        name="<%= items.myObject.dish.formIngredientes[i].name %>"
-                                        min=<%= items.myObject.dish.formIngredientes[i].min %> required>
-                                    <%  } else { %>
-                                    <input class="MyInputs searchIngredient form-control"
-                                        type="<%= items.myObject.dish.formIngredientes[i].type %>"
-                                        placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
-                                        aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
-                                        aria-describedby="basic-addon1"
-                                        name="<%= items.myObject.dish.formIngredientes[i].name %>" required>
-                                    <% } %>
-                                </div>
-                            </div>
-                            <% } %>
-                            <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
-                            <div class="col-sm">
-                                <label class="myLabels"><%= items.myObject.dish.formIngredientesSel[i].label %><span
-                                        class="required">*</span></label>
-                                <div class="input-group mb-4">
-                                    <div class="input-group-prepend">
-                                        <span class=" spanColor input-group-text"><i
-                                                class="myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
-                                    </div>
-
-                                    <select class="mySelects form-control"
-                                        name="<%= items.myObject.dish.formIngredientesSel[i].name %>">
-                                        <% for (var j=0; j< items.myObject.dish.formIngredientesSel[i].options.length; j++) { %>
-                                        <option value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>">
-                                            <%= items.myObject.dish.formIngredientesSel[i].options[j] %> </option>
-                                        <% } %>
-                                    </select>
-                                </div>
-                            </div>
-                            <% } %>
-                            <% for (var i=0; i< items.myObject.dish.formIngredientesSel.length; i++) { %>
-                                <div class="col-sm">
-                                    <label class="myLabels"> Categoría <span
-                                            class="required">*</span></label>
                                     <div class="input-group mb-4">
                                         <div class="input-group-prepend">
+
                                             <span class=" spanColor input-group-text"><i
-                                                    class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                                    class=" <%= items.myObject.dish.form[i].icon %>"></i></span>
+
                                         </div>
-                                     
-                                      <select class="mySelects form-control"name="categories[]">
-                                      <% for (var j=0; j < items.myCategories.length; j++) { %>
-                                          <% if ((items.myCategories[j].subcategories.length) !== 0) { %>
-                                            <% for (var k=0; k < items.myCategories[j].subcategories.length; k++) { %>
-                                                <option value="<%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %>"><%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %></option>
-                                               
-                                                <%} %>
-                                            <% }else { %>
-                                                <option value="<%= items.myCategories[j].name %>"><%= items.myCategories[j].name %>  </option>
-                                          
-                                            <%} %>                                   
-                                  
-                                          <% }%>
-                                     
-                                  </select>
-                                    
+                                        <% if((items.myObject.dish.updateFormFirst[i]==="recipe" ) ||
+                                            (items.myObject.dish.updateFormFirst[i]==="imageURL" )){ %>
+                                            <input type="<%= items.myObject.dish.form[i].type %>" class="form-control"
+                                                placeholder="<%= items.myObject.dish.form[i].placeholder %>"
+                                                aria-label="<%= items.myObject.dish.form[i].ariaLabel %>"
+                                                aria-describedby="basic-addon1"
+                                                name="<%= items.myObject.dish.form[i].name %>"
+                                                #<%=items.myObject.dish.form[i].name %>>
+                                            <% } else { %>
+                                                <input type="<%= items.myObject.dish.form[i].type %>"
+                                                    class="form-control"
+                                                    placeholder="<%= items.myObject.dish.form[i].placeholder %>"
+                                                    aria-label="<%= items.myObject.dish.form[i].ariaLabel %>"
+                                                    aria-describedby="basic-addon1"
+                                                    name="<%= items.myObject.dish.form[i].name %>"
+                                                    #<%=items.myObject.dish.form[i].name %>
+                                                required>
+                                                <% } %>
+
                                     </div>
-                                </div>
-                                <% } %>
-                        </div>
-                    </div>
+                                    <% } %>
+                                        <br>
+                                        <div class="cardInside">
+                                            <div class="ref">
+                                                <div class="row">
+                                                    <% for (var i=0; i< items.myObject.dish.formIngredientes.length;
+                                                        i++) { %>
+                                                        <div class="col-sm">
+                                                            <label class="myLabels">
+                                                                <%= items.myObject.dish.formIngredientes[i].label %>
+                                                                    <span class="required">*</span>
+                                                            </label>
+                                                            <div class="input-group mb-4">
+                                                                <div class="input-group-prepend">
+                                                                    <span class=" spanColor input-group-text"><i
+                                                                            class=" myIcons <%= items.myObject.dish.formIngredientes[i].icon %>"></i></span>
+                                                                </div>
+                                                                <% if
+                                                                    ((items.myObject.dish.formIngredientes[i].label==="Cantidad"
+                                                                    ) ||
+                                                                    (items.myObject.dish.formIngredientes[i].label==="Quantity"
+                                                                    )){ %>
+                                                                    <input class="MyInputs form-control"
+                                                                        type="<%= items.myObject.dish.formIngredientes[i].type %>"
+                                                                        placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
+                                                                        aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
+                                                                        aria-describedby="basic-addon1"
+                                                                        name="<%= items.myObject.dish.formIngredientes[i].name %>"
+                                                                        min=<%=items.myObject.dish.formIngredientes[i].min
+                                                                        %> required>
+                                                                    <% } else { %>
+                                                                        <input
+                                                                            class="MyInputs searchIngredient form-control"
+                                                                            type="<%= items.myObject.dish.formIngredientes[i].type %>"
+                                                                            placeholder="<%= items.myObject.dish.formIngredientes[i].placeholder %>"
+                                                                            aria-label="<%= items.myObject.dish.formIngredientes[i].ariaLabel %>"
+                                                                            aria-describedby="basic-addon1"
+                                                                            name="<%= items.myObject.dish.formIngredientes[i].name %>"
+                                                                            required>
+                                                                        <% } %>
+                                                            </div>
+                                                        </div>
+                                                        <% } %>
+                                                            <% for (var i=0; i<
+                                                                items.myObject.dish.formIngredientesSel.length; i++) {
+                                                                %>
+                                                                <div class="col-sm">
+                                                                    <label class="myLabels">
+                                                                        <%= items.myObject.dish.formIngredientesSel[i].label
+                                                                            %><span class="required">*</span>
+                                                                    </label>
+                                                                    <div class="input-group mb-4">
+                                                                        <div class="input-group-prepend">
+                                                                            <span class=" spanColor input-group-text"><i
+                                                                                    class="myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                                                        </div>
 
-                    <br>
-                    <div class="requiredSpan">
-                        <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
-                            class="required">*</span>
-                    </div>
-                    <br>
-                    <input type="button" class="btn btn-dark" value="<%= items.myObject.añadirIngred %>" id="bSubmit">
-                </div>
+                                                                        <select class="mySelects form-control"
+                                                                            name="<%= items.myObject.dish.formIngredientesSel[i].name %>">
+                                                                            <% for (var j=0; j<
+                                                                                items.myObject.dish.formIngredientesSel[i].options.length;
+                                                                                j++) { %>
+                                                                                <option
+                                                                                    value="<%= items.myObject.dish.formIngredientesSel[i].options[j] %>">
+                                                                                    <%= items.myObject.dish.formIngredientesSel[i].options[j]
+                                                                                        %>
+                                                                                </option>
+                                                                                <% } %>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <% } %>
+                                                                    <% for (var i=0; i<
+                                                                        items.myObject.dish.formIngredientesSel.length;
+                                                                        i++) { %>
+                                                                        <div class="col-sm">
+                                                                            <label class="myLabels"> Categoría <span
+                                                                                    class="required">*</span></label>
+                                                                            <div class="input-group mb-4">
+                                                                                <div class="input-group-prepend">
+                                                                                    <span
+                                                                                        class=" spanColor input-group-text"><i
+                                                                                            class="  myIcons <%= items.myObject.dish.formIngredientesSel[i].icon %>"></i></span>
+                                                                                </div>
 
-                <script>
+                                                                                <select class="mySelects form-control"
+                                                                                    name="categories[]">
+                                                                                    <% for (var j=0; j <
+                                                                                        items.myCategories.length; j++)
+                                                                                        { %>
+                                                                                        <% if
+                                                                                            ((items.myCategories[j].subcategories.length)
+                                                                                            !==0) { %>
+                                                                                            <% for (var k=0; k <
+                                                                                                items.myCategories[j].subcategories.length;
+                                                                                                k++) { %>
+                                                                                                <option
+                                                                                                    value="<%= items.myCategories[j].name %>: <%= items.myCategories[j].subcategories[k].name %>">
+                                                                                                    <%= items.myCategories[j].name
+                                                                                                        %>: <%=
+                                                                                                            items.myCategories[j].subcategories[k].name
+                                                                                                            %>
+                                                                                                </option>
 
-                    const bSubmit = document.querySelector('#bSubmit');
-                    bSubmit.addEventListener('click', () => {
-                        const ing = document.querySelector('.searchIngredient');
-                        const inputs = document.querySelectorAll(".MyInputs");
-                        const myLabels = document.querySelectorAll(".myLabels");
-                        const myIcons = document.querySelectorAll(".myIcons");
-                        const selects = document.querySelectorAll(".mySelects")
-                     
-                        createNewInputs(inputs, myLabels, myIcons, selects);
-                    });
+                                                                                                <%} %>
+                                                                                                    <% }else { %>
+                                                                                                        <option
+                                                                                                            value="<%= items.myCategories[j].name %>">
+                                                                                                            <%= items.myCategories[j].name
+                                                                                                                %>
+                                                                                                        </option>
 
-                    function createNewInputs(inputs, myLabels, myIcons, selects) {
-                        const padre = document.querySelector(".ref");
-                        const divRow = document.createElement("DIV");
-                        let k = 0;
-                        for (let i = 0; i < myLabels.length; i++) {
-                            const col = document.createElement("DIV");
-                            const aLabel = document.createElement("LABEL");
-                            console.log(myLabels[i].innerHTML)
-                            aLabel.innerHTML = myLabels[i].innerHTML;
+                                                                                                        <%} %>
 
+                                                                                                            <% }%>
 
-                            col.appendChild(aLabel);
+                                                                                </select>
 
-                            const divInputGroup = document.createElement("DIV");
-                            divInputGroup.classList.add("input-group");
-                            divInputGroup.classList.add("mb-3")
-                            const divInputGroupPrepend = document.createElement("DIV");
-                            divInputGroupPrepend.classList.add("input-group-prepend");
+                                                                            </div>
+                                                                        </div>
+                                                                        <% } %>
+                                                </div>
+                                            </div>
 
-                            const spanIcon = document.createElement("SPAN");
-                            spanIcon.classList.add("spanColor");
-                            spanIcon.classList.add("input-group-text");
+                                            <br>
+                                            <div class="requiredSpan">
+                                                <span class="text-muted requiredSpan">
+                                                    <%= items.myObject.required %>
+                                                </span><span class="required">*</span>
+                                            </div>
+                                            <br>
+                                            <input type="button" class="btn btn-dark"
+                                                value="<%= items.myObject.añadirIngred %>" id="bSubmit">
+                                        </div>
 
-                            let icon = document.createElement("ICON");
+                                        <script>
 
+                                            const bSubmit = document.querySelector('#bSubmit');
+                                            bSubmit.addEventListener('click', () => {
+                                                const ing = document.querySelector('.searchIngredient');
+                                                const inputs = document.querySelectorAll(".MyInputs");
+                                                const myLabels = document.querySelectorAll(".myLabels");
+                                                const myIcons = document.querySelectorAll(".myIcons");
+                                                const selects = document.querySelectorAll(".mySelects")
 
-                            for (let j = 0; j < myIcons[i].classList.length; j++) {
-                                icon.classList.value += myIcons[i].classList[j] + " ";
-                            }
-                   
+                                                createNewInputs(inputs, myLabels, myIcons, selects);
+                                            });
 
-                            spanIcon.appendChild(icon);
-                            divInputGroupPrepend.appendChild(spanIcon);
-                            divInputGroup.appendChild(divInputGroupPrepend);
-
-                            if (i <= 1) {
-                                const newI = document.createElement("INPUT");
-
-                                newI.setAttribute("type", inputs[i].type);
-                                newI.setAttribute("placeholder", inputs[i].placeholder);
-                                newI.setAttribute("name", inputs[i].name);
-                                newI.required = true;
-                                if (inputs[i].name === "ingredients[]") {
-                                    newI.classList.add("searchIngredient");
-                                }
-                                if (inputs[i].name === "cantidades[]") {
-                                    newI.setAttribute("min", inputs[i].min);
-                                }
-
-                                newI.classList.add("form-control");
-                                newI.classList.add("ui-autocomplete-input");
-                                divInputGroup.appendChild(newI);
-                                col.appendChild(divInputGroup);
-                                col.classList.add("col-sm");
-                                divRow.appendChild(col);
-
-                            } else {
-
-                                const newS = document.createElement("SELECT");
-                                newS.setAttribute("name", selects[k].name);
-                                newS.required = true;
-                               
-                                console.log( selects[k].options.length)
-                                for (let l = 0; l < selects[k].options.length; l++){
-                                    console.log(selects[k].options[l].value)
-                                    const optS = document.createElement("OPTION");
-                                    optS.value = selects[k].options[l].value;
-                                    optS.innerHTML = selects[k].options[l].value;
-                                    newS.appendChild(optS);
-                                }
-                                // const optS = document.createElement("OPTION");
-                                // //Tengo que recorrer los options[0...] porque no lo hice de forma genérica
-                                // optS.value = selects[k].options[0].value;
-                                
-                                // optS.innerHTML = selects[k].options[0].value;
-
-                                // newS.appendChild(optS);
-                                // const optS2 = document.createElement("OPTION");
-                                // optS2.value = selects[k].options[1].value;
-                                // optS2.innerHTML = selects[k].options[1].value;
-                                // newS.appendChild(optS2);
-                                newS.classList.add("form-control");
-                                divInputGroup.appendChild(newS);
-                                col.appendChild(divInputGroup);
-                                col.classList.add("col-sm");
-                                divRow.appendChild(col);
-
-                                k++;
-                            }
-                        }
-                        const col = document.createElement("DIV");
-                        col.classList.add("col-sm");
-                        const eliminar = document.createElement("INPUT");
-                        eliminar.classList.add("btn");
-                        eliminar.classList.add("btn-danger");
-                        eliminar.classList.add("eliminar");
-                        eliminar.setAttribute("type", "button");
-                        eliminar.value = "<%= items.myObject.eliminar %>"
-                        col.style.display = "flex";
-                        col.style["align-items"] = "center";
-                        col.style["padding-top"] = "12px";
-                        col.appendChild(eliminar)
-                        divRow.appendChild(col);
-
-
-                        divRow.classList.add("row");
-                        padre.appendChild(divRow);
-
-                        $("form").on("click", ".eliminar", function (e) {
-                            var targets = $(this).closest(".row");
-                            $(targets).remove();
-                        });
-
-                    };
-
-
-
-
-                </script>
-
-
-
-                <br><br>
-                <input type="submit" id="mySubmit" class="btn btn-info" value="<%= items.myObject.submitButtom %>" />
-
-                <script>
-                    $(function () {
-                        $(".searchIngredient").autocomplete({
-                            source: function (req, res) {
-                                $.ajax({
-                                    url: "insert/autocomplete/",
-                                    dataType: "jsonp",
-                                    type: "GET",
-                                    data: req,
-                                    success: function (data) {
-                                        res(data);
-                                    },
-                                    error: function (err) {
-                                        console.log(err);
-                                    }
-                                });
-                            },
-                            minLength: 1,
-                            select: function (event, ui) {
-                                console.log(event);
-                                console.log(ui);
-                                if (ui.item) {
-                                    $('.searchIngredient').text(ui.item.label);
-
-                                }
-                            }
-                        })
-                    });
-                </script>
-                <script>
-                    $("#bSubmit").on("click", () => {
-                        $(".searchIngredient").autocomplete({
-                            source: function (req, res) {
-                                $.ajax({
-                                    url: "insert/autocomplete/",
-                                    dataType: "jsonp",
-                                    type: "GET",
-                                    data: req,
-                                    success: function (data) {
-                                        res(data);
-                                    },
-                                    error: function (err) {
-                                        console.log(err);
-                                    }
-                                });
-                            },
-                            minLength: 1,
-                            select: function (event, ui) {
-                                console.log(event);
-                                console.log(ui);
-                                if (ui.item) {
-                                    $('.searchIngredient').text(ui.item.label);
-
-                                }
-                            }
-                        })
-                    });
-                </script>
+                                            function createNewInputs(inputs, myLabels, myIcons, selects) {
+                                                const padre = document.querySelector(".ref");
+                                                const divRow = document.createElement("DIV");
+                                                let k = 0;
+                                                for (let i = 0; i < myLabels.length; i++) {
+                                                    const col = document.createElement("DIV");
+                                                    const aLabel = document.createElement("LABEL");
+                                                    console.log(myLabels[i].innerHTML)
+                                                    aLabel.innerHTML = myLabels[i].innerHTML;
 
 
-            </form>
-        </div>
+                                                    col.appendChild(aLabel);
 
-        <br>
+                                                    const divInputGroup = document.createElement("DIV");
+                                                    divInputGroup.classList.add("input-group");
+                                                    divInputGroup.classList.add("mb-3")
+                                                    const divInputGroupPrepend = document.createElement("DIV");
+                                                    divInputGroupPrepend.classList.add("input-group-prepend");
+
+                                                    const spanIcon = document.createElement("SPAN");
+                                                    spanIcon.classList.add("spanColor");
+                                                    spanIcon.classList.add("input-group-text");
+
+                                                    let icon = document.createElement("ICON");
 
 
-        <% if ((items.myObject.tablaAlimentos.valores.length) > 0) { %>
-        <div class="cardInside3">
-            <table id="alimentos" class="table table-bordered table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
+                                                    for (let j = 0; j < myIcons[i].classList.length; j++) {
+                                                        icon.classList.value += myIcons[i].classList[j] + " ";
+                                                    }
 
-                        <% for (var i=0; i< items.myObject.tablaAlimentos.nombres.length; i++) { %>
-                        <th> <%- items.myObject.tablaAlimentos.nombres[i] %> </th>
-                        <% } %>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (var i=0; i< items.myDocs.length; i++) { %>
-                    <tr>
-                        <% for (var j=0; j< items.myObject.tablaAlimentos.valores.length; j++) { %>
-                            <% if ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]]) === "") { %>
-                            <td> - </td>
-                            <% } else { %>
-                            <% if ((items.myObject.tablaAlimentos.nombres[j]) === "Sal (g)") { %>
-                            <td> <%= ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]])/1000) %> </td>
-                            <% } else if ((items.myObject.tablaAlimentos.nombres[j]) === "Colesterol (g)") { %>
-                                <td> <%= ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]])/1000) %> </td>
-                            <% } else{ %>
-                            <td> <%= items.myDocs[i][items.myObject.tablaAlimentos.valores[j]] %> </td>
-                            <% }  %>
-    
-                            <% } %>
-                            <% } %>
-                    </tr>
-                    <% } %>
-                </tbody>
+                                                    spanIcon.appendChild(icon);
+                                                    divInputGroupPrepend.appendChild(spanIcon);
+                                                    divInputGroup.appendChild(divInputGroupPrepend);
 
-            </table>
+                                                    if (i <= 1) {
+                                                        const newI = document.createElement("INPUT");
+
+                                                        newI.setAttribute("type", inputs[i].type);
+                                                        newI.setAttribute("placeholder", inputs[i].placeholder);
+                                                        newI.setAttribute("name", inputs[i].name);
+                                                        newI.required = true;
+                                                        if (inputs[i].name === "ingredients[]") {
+                                                            newI.classList.add("searchIngredient");
+                                                        }
+                                                        if (inputs[i].name === "cantidades[]") {
+                                                            newI.setAttribute("min", inputs[i].min);
+                                                        }
+
+                                                        newI.classList.add("form-control");
+                                                        newI.classList.add("ui-autocomplete-input");
+                                                        divInputGroup.appendChild(newI);
+                                                        col.appendChild(divInputGroup);
+                                                        col.classList.add("col-sm");
+                                                        divRow.appendChild(col);
+
+                                                    } else {
+
+                                                        const newS = document.createElement("SELECT");
+                                                        newS.setAttribute("name", selects[k].name);
+                                                        newS.required = true;
+
+                                                        console.log(selects[k].options.length)
+                                                        for (let l = 0; l < selects[k].options.length; l++) {
+                                                            console.log(selects[k].options[l].value)
+                                                            const optS = document.createElement("OPTION");
+                                                            optS.value = selects[k].options[l].value;
+                                                            optS.innerHTML = selects[k].options[l].value;
+                                                            newS.appendChild(optS);
+                                                        }
+                                                        // const optS = document.createElement("OPTION");
+                                                        // //Tengo que recorrer los options[0...] porque no lo hice de forma genérica
+                                                        // optS.value = selects[k].options[0].value;
+
+                                                        // optS.innerHTML = selects[k].options[0].value;
+
+                                                        // newS.appendChild(optS);
+                                                        // const optS2 = document.createElement("OPTION");
+                                                        // optS2.value = selects[k].options[1].value;
+                                                        // optS2.innerHTML = selects[k].options[1].value;
+                                                        // newS.appendChild(optS2);
+                                                        newS.classList.add("form-control");
+                                                        divInputGroup.appendChild(newS);
+                                                        col.appendChild(divInputGroup);
+                                                        col.classList.add("col-sm");
+                                                        divRow.appendChild(col);
+
+                                                        k++;
+                                                    }
+                                                }
+                                                const col = document.createElement("DIV");
+                                                col.classList.add("col-sm");
+                                                const eliminar = document.createElement("INPUT");
+                                                eliminar.classList.add("btn");
+                                                eliminar.classList.add("btn-danger");
+                                                eliminar.classList.add("eliminar");
+                                                eliminar.setAttribute("type", "button");
+                                                eliminar.value = "<%= items.myObject.eliminar %>"
+                                                col.style.display = "flex";
+                                                col.style["align-items"] = "center";
+                                                col.style["padding-top"] = "12px";
+                                                col.appendChild(eliminar)
+                                                divRow.appendChild(col);
+
+
+                                                divRow.classList.add("row");
+                                                padre.appendChild(divRow);
+
+                                                $("form").on("click", ".eliminar", function (e) {
+                                                    var targets = $(this).closest(".row");
+                                                    $(targets).remove();
+                                                });
+
+                                            };
+
+
+
+
+                                        </script>
+
+
+
+                                        <br><br>
+                                        <input type="submit" id="mySubmit" class="btn btn-info"
+                                            value="<%= items.myObject.submitButtom %>" />
+
+                                        <script>
+                                            $(function () {
+                                                $(".searchIngredient").autocomplete({
+                                                    source: function (req, res) {
+                                                        $.ajax({
+                                                            url: "insert/autocomplete/",
+                                                            dataType: "jsonp",
+                                                            type: "GET",
+                                                            data: req,
+                                                            success: function (data) {
+                                                                res(data);
+                                                            },
+                                                            error: function (err) {
+                                                                console.log(err);
+                                                            }
+                                                        });
+                                                    },
+                                                    minLength: 1,
+                                                    select: function (event, ui) {
+                                                        console.log(event);
+                                                        console.log(ui);
+                                                        if (ui.item) {
+                                                            $('.searchIngredient').text(ui.item.label);
+
+                                                        }
+                                                    }
+                                                })
+                                            });
+                                        </script>
+                                        <script>
+                                            $("#bSubmit").on("click", () => {
+                                                $(".searchIngredient").autocomplete({
+                                                    source: function (req, res) {
+                                                        $.ajax({
+                                                            url: "insert/autocomplete/",
+                                                            dataType: "jsonp",
+                                                            type: "GET",
+                                                            data: req,
+                                                            success: function (data) {
+                                                                res(data);
+                                                            },
+                                                            error: function (err) {
+                                                                console.log(err);
+                                                            }
+                                                        });
+                                                    },
+                                                    minLength: 1,
+                                                    select: function (event, ui) {
+                                                        console.log(event);
+                                                        console.log(ui);
+                                                        if (ui.item) {
+                                                            $('.searchIngredient').text(ui.item.label);
+
+                                                        }
+                                                    }
+                                                })
+                                            });
+                                        </script>
+
+
+                </form>
+            </div>
+
             <br>
+
+
+            <% if ((items.myObject.tablaAlimentos.valores.length)> 0) { %>
+                <div class="cardInside3">
+                    <table id="alimentos" class="table table-bordered table-hover table-sm">
+                        <thead class="thead-dark">
+                            <tr>
+
+                                <% for (var i=0; i< items.myObject.tablaAlimentos.nombres.length; i++) { %>
+                                    <th>
+                                        <%- items.myObject.tablaAlimentos.nombres[i] %>
+                                    </th>
+                                    <% } %>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (var i=0; i< items.myDocs.length; i++) { %>
+                                <tr>
+                                    <% for (var j=0; j< items.myObject.tablaAlimentos.valores.length; j++) { %>
+                                        <% if ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]])==="" ) { %>
+                                            <td> - </td>
+                                            <% } else { %>
+                                                <% if ((items.myObject.tablaAlimentos.nombres[j])==="Sal (g)" ) { %>
+                                                    <td>
+                                                        <%= ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]])/1000)
+                                                            %>
+                                                    </td>
+                                                    <% } else if
+                                                        ((items.myObject.tablaAlimentos.nombres[j])==="Colesterol (g)" )
+                                                        { %>
+                                                        <td>
+                                                            <%= ((items.myDocs[i][items.myObject.tablaAlimentos.valores[j]])/1000)
+                                                                %>
+                                                        </td>
+                                                        <% } else{ %>
+                                                            <td>
+                                                                <%= items.myDocs[i][items.myObject.tablaAlimentos.valores[j]]
+                                                                    %>
+                                                            </td>
+                                                            <% } %>
+
+                                                                <% } %>
+                                                                    <% } %>
+                                </tr>
+                                <% } %>
+                        </tbody>
+
+                    </table>
+                    <br>
+                </div>
+                <% } %>
+                    <br>
         </div>
-        <% } %>
-        <br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 
 
 

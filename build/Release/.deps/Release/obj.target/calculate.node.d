@@ -1,1 +1,0 @@
-cmd_Release/obj.target/calculate.node := g++ -o Release/obj.target/calculate.node -shared -pthread -rdynamic -m64  -Wl,-soname=calculate.node -Wl,--start-group Release/obj.target/calculate/calculate.o -Wl,--end-group 

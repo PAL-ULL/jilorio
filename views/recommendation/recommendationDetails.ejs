@@ -38,66 +38,78 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">
+        <div class="container">
 
-        <div class="infoPage">
-            <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myDocs._id %> </span>
-        </div>
-        <hr style="border-color: rgb(46, 115, 124); border: 1.5px solid  rgb(46, 115, 124);">
-
-        <div class="row cont justify-content-between">
-            <div class="col-sm " style="margin-right: 100px;">
-                <p class="descriptionRec"> <%= items.myDocs.description %> </p>
-
+            <div class="infoPage">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <span>
+                    <%= items.myDocs._id %>
+                </span>
             </div>
-            <div class="col-sm" style="margin-left: 100px; margin-right: 15px; ">
-                <p class="descriptionRec edad"> <%=items.myObject.tablaRecomendacionDetails.edad %>
-                    <%= items.myDocs.edad %> </p>
+            <hr style="border-color: rgb(46, 115, 124); border: 1.5px solid  rgb(46, 115, 124);">
+
+            <div class="row cont justify-content-between">
+                <div class="col-sm " style="margin-right: 100px;">
+                    <p class="descriptionRec">
+                        <%= items.myDocs.description %>
+                    </p>
+
+                </div>
+                <div class="col-sm" style="margin-left: 100px; margin-right: 15px; ">
+                    <p class="descriptionRec edad">
+                        <%=items.myObject.tablaRecomendacionDetails.edad %>
+                            <%= items.myDocs.edad %>
+                    </p>
+                </div>
             </div>
+
+            <br><br>
+
+            <div class="cardInside3">
+                <span class="detailsSpan">
+                    <%= items.myObject.tablaRecomendacionDetails.title %>
+                </span>
+            </div>
+            <% if ((items.myObject.tablaRecomendacionDetails.valores.length)> 0) { %>
+                <table id="alimentos" class="table table-bordered table-hover table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+
+                            <% for (var i=0; i< items.myObject.tablaRecomendacionDetails.nombres.length; i++) { %>
+                                <th>
+                                    <%- items.myObject.tablaRecomendacionDetails.nombres[i] %>
+                                </th>
+                                <% } %>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+
+                        <tr>
+                            <% for (var j=0; j< items.myObject.tablaRecomendacionDetails.valores.length; j++) { %>
+                                <% if ((items.myDocs[items.myObject.tablaRecomendacionDetails.valores[j]])==="" ) { %>
+                                    <td> - </td>
+                                    <% } else { %>
+                                        <td>
+                                            <%= items.myDocs[items.myObject.tablaRecomendacionDetails.valores[j]] %>
+                                        </td>
+
+                                        <% } %>
+
+                                            <% } %>
+
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+                <% } %>
+                    <br>
         </div>
-
-        <br><br>
-
-        <div class="cardInside3">
-            <span class="detailsSpan"><%= items.myObject.tablaRecomendacionDetails.title %></span>
-        </div>
-        <% if ((items.myObject.tablaRecomendacionDetails.valores.length) > 0) { %>
-        <table id="alimentos" class="table table-bordered table-hover table-sm">
-            <thead class="thead-dark">
-                <tr>
-
-                    <% for (var i=0; i< items.myObject.tablaRecomendacionDetails.nombres.length; i++) { %>
-                    <th> <%- items.myObject.tablaRecomendacionDetails.nombres[i] %> </th>
-                    <% } %>
-
-                </tr>
-            </thead>
-            <tbody>
-
-
-
-                <tr>
-                    <% for (var j=0; j< items.myObject.tablaRecomendacionDetails.valores.length; j++) { %>
-                    <% if ((items.myDocs[items.myObject.tablaRecomendacionDetails.valores[j]]) === "") { %>
-                    <td> - </td>
-                    <% } else { %>
-                    <td> <%= items.myDocs[items.myObject.tablaRecomendacionDetails.valores[j]] %> </td>
-
-                    <% } %>
-
-                    <% } %>
-
-                </tr>
-
-            </tbody>
-
-
-        </table>
-        <% } %>
-        <br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 
 
 </body>

@@ -39,73 +39,82 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">
-        <div class="infoPage">
-            <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myObject.infoPage.users %> </span>
-        </div>
-
-
-        <hr style="border-color: rgb(46, 115, 124);">
-        <div class="alerts">
-            <%- include ("../partials/message.ejs"); %>
-        </div>
-        <br>
-
-
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+        <div class="container">
+            <div class="infoPage">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <span>
+                    <%= items.myObject.infoPage.users %>
+                </span>
             </div>
-        </form>
-        <br><br>
 
-        <br><br>
 
-        <% const  nombres_sz=  items.myObject.tablaUsers.nombres.length %>
-        <% const  nombres=  items.myObject.tablaUsers.nombres %>
-        <% const  docs_sz =   items.myUsers.length %>
-        <% const  docs =   items.myUsers %>
+            <hr style="border-color: rgb(46, 115, 124);">
+            <div class="alerts">
+                <%- include ("../partials/message.ejs"); %>
+            </div>
+            <br>
 
-        <div class="cardInside3">
-            <table id="users" class="table table-bordered table-striped table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <% for (var i=0; i < nombres_sz; i++) { %>
-                        <th><%= nombres[i] %></th>
-                        <% } %>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (var i=0; i < docs_sz; i++) { %>
-                    <tr>
-                        <% for (var j=0; j< items.myObject.tablaUsers.valores.length; j++) { %>
-                        <td> <%= items.myUsers[i][items.myObject.tablaUsers.valores[j]] %> </td>
 
-                        <% } %>
+            <form method="POST">
+                <div class="wrap">
+                    <div class="search">
+                        <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
+                        <a id="submit-form-link" href="#"></a>
+                        <button type="submit" class="spanColor searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <br><br>
 
-                        <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                    href="/users/delete/<%=docs[i]['_id']%>"> <i
-                                        class="fas fa-trash-alt"></i></a></button>
-                            <input id="_id" name="_id" type="hidden" value="xm234jq">
+            <br><br>
 
-                            <button type="submit" class="btn btn-warning"><a title="Editar"
-                                    href="/users/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
+            <% const nombres_sz=items.myObject.tablaUsers.nombres.length %>
+                <% const nombres=items.myObject.tablaUsers.nombres %>
+                    <% const docs_sz=items.myUsers.length %>
+                        <% const docs=items.myUsers %>
+
+                            <div class="cardInside3">
+                                <table id="users" class="table table-bordered table-striped table-hover table-sm">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <% for (var i=0; i < nombres_sz; i++) { %>
+                                                <th>
+                                                    <%= nombres[i] %>
+                                                </th>
+                                                <% } %>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (var i=0; i < docs_sz; i++) { %>
+                                            <tr>
+                                                <% for (var j=0; j< items.myObject.tablaUsers.valores.length; j++) { %>
+                                                    <td>
+                                                        <%= items.myUsers[i][items.myObject.tablaUsers.valores[j]] %>
+                                                    </td>
+
+                                                    <% } %>
+
+                                                        <td> <button type="button" class="btn btn-danger"><a
+                                                                    title="Eliminar"
+                                                                    href="/users/delete/<%=docs[i]['_id']%>"> <i
+                                                                        class="fas fa-trash-alt"></i></a></button>
+                                                            <input id="_id" name="_id" type="hidden" value="xm234jq">
+
+                                                            <button type="submit" class="btn btn-warning"><a
+                                                                    title="Editar"
+                                                                    href="/users/update/<%=docs[i]['_id']%>"><i
+                                                                        class="fas fa-edit"></i></a></button>
+                                                        </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
         </div>
-        <br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 </body>
 <script>
     var ejsVal = "<%= items.myObject.idioma %>"

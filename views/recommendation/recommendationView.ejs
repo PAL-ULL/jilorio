@@ -45,118 +45,138 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">
+        <div class="container">
 
-        <div class="infoPage">
-            <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myObject.infoPage.recomendaciones %> </span>
-        </div>
-        <hr style="border-color: rgb(46, 115, 124);">
-        <%- messages('message', locals) %>
-        <br>
-
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+            <div class="infoPage">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <span>
+                    <%= items.myObject.infoPage.recomendaciones %>
+                </span>
             </div>
-        </form>
-        <br> <br>
+            <hr style="border-color: rgb(46, 115, 124);">
+            <%- messages('message', locals) %>
+                <br>
+
+                <form method="POST">
+                    <div class="wrap">
+                        <div class="search">
+                            <input type="text" name="_id" class="searchTerm"
+                                placeholder="<%= items.myObject.busqueda %>">
+                            <a id="submit-form-link" href="#"></a>
+                            <button type="submit" class="spanColor searchButton">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br> <br>
 
 
-        <div class="cardInside3">
-            <table id="recommendation" class="table table-bordered table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
+                <div class="cardInside3">
+                    <table id="recommendation" class="table table-bordered table-hover table-sm">
+                        <thead class="thead-dark">
+                            <tr>
 
-                        <% for (var i=0; i< items.myObject.tablaRecomendacion.nombres.length; i++) { %>
-                        <th> <%- items.myObject.tablaRecomendacion.nombres[i] %> </th>
-                        <% } %>
+                                <% for (var i=0; i< items.myObject.tablaRecomendacion.nombres.length; i++) { %>
+                                    <th>
+                                        <%- items.myObject.tablaRecomendacion.nombres[i] %>
+                                    </th>
+                                    <% } %>
 
-                    </tr>
-                </thead>
-                <tbody>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    <% for (var i=0; i< items.myDocs.length; i++) { %>
+                            <% for (var i=0; i< items.myDocs.length; i++) { %>
 
-                    <tr>
-                        <% for (var j=0; j< items.myObject.tablaRecomendacion.valores.length; j++) { %>
-                        <% if ((items.myDocs[i][items.myObject.tablaRecomendacion.valores[j]]) === "") { %>
-                        <td> - </td>
-                        <% } else { %>
-                        <td> <%= items.myDocs[i][items.myObject.tablaRecomendacion.valores[j]] %> </td>
+                                <tr>
+                                    <% for (var j=0; j< items.myObject.tablaRecomendacion.valores.length; j++) { %>
+                                        <% if ((items.myDocs[i][items.myObject.tablaRecomendacion.valores[j]])==="" ) {
+                                            %>
+                                            <td> - </td>
+                                            <% } else { %>
+                                                <td>
+                                                    <%= items.myDocs[i][items.myObject.tablaRecomendacion.valores[j]] %>
+                                                </td>
 
-                        <% } %>
+                                                <% } %>
 
-                        <% } %>
-                        <% if ((items.req.user.rol === "default") || (items.req.user.rol === "cocinero") ){ %>
-                        <td>
-                            <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                    href="/recommendation/<%=items.myDocs[i]['_id']%>"><i
-                                        class="fas fa-search-plus"></i></a></button>
-                            <button type="button" class="btn btn-success"><a title="Descargar"
-                                    href="/recommendation/download/<%=items.myDocs[i]['_id']%>"><i
-                                        class="far fa-file-alt"></i></a></button></td>
+                                                    <% } %>
+                                                        <% if ((items.req.user.rol==="default" ) ||
+                                                            (items.req.user.rol==="cocinero" ) ){ %>
+                                                            <td>
+                                                                <button type="button" class="btn btn-info"><a
+                                                                        title="Ver detalles"
+                                                                        href="/recommendation/<%=items.myDocs[i]['_id']%>"><i
+                                                                            class="fas fa-search-plus"></i></a></button>
+                                                                <button type="button" class="btn btn-success"><a
+                                                                        title="Descargar"
+                                                                        href="/recommendation/download/<%=items.myDocs[i]['_id']%>"><i
+                                                                            class="far fa-file-alt"></i></a></button>
+                                                            </td>
 
-                        <% } else{ %>
+                                                            <% } else{ %>
 
-                        <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                    href="/recommendation/delete/<%=items.myDocs[i]['_id']%>"> <i
-                                        class="fas fa-trash-alt"></i></a></button><br>
-                            <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                    href="/recommendation/<%=items.myDocs[i]['_id']%>"><i
-                                        class="fas fa-search-plus"></i></a></button> <br>
-                            <button type="button" class="btn btn-warning"><a title="Editar"
-                                    href="/recommendation/update/<%=items.myDocs[i]['_id']%>"><i
-                                        class="fas fa-edit"></i></a></button> <br>
-                            <button type="button" class="btn btn-success"><a title="Descargar"
-                                    href="/recommendation/download/<%=items.myDocs[i]['_id']%>"><i
-                                        class="far fa-file-alt"></i></a></button></td>
-                        </td>
-                        <% } %>
+                                                                <td> <button type="button" class="btn btn-danger"><a
+                                                                            title="Eliminar"
+                                                                            href="/recommendation/delete/<%=items.myDocs[i]['_id']%>">
+                                                                            <i
+                                                                                class="fas fa-trash-alt"></i></a></button><br>
+                                                                    <button type="button" class="btn btn-info"><a
+                                                                            title="Ver detalles"
+                                                                            href="/recommendation/<%=items.myDocs[i]['_id']%>"><i
+                                                                                class="fas fa-search-plus"></i></a></button>
+                                                                    <br>
+                                                                    <button type="button" class="btn btn-warning"><a
+                                                                            title="Editar"
+                                                                            href="/recommendation/update/<%=items.myDocs[i]['_id']%>"><i
+                                                                                class="fas fa-edit"></i></a></button>
+                                                                    <br>
+                                                                    <button type="button" class="btn btn-success"><a
+                                                                            title="Descargar"
+                                                                            href="/recommendation/download/<%=items.myDocs[i]['_id']%>"><i
+                                                                                class="far fa-file-alt"></i></a></button>
+                                                                </td>
+                                                                </td>
+                                                                <% } %>
 
 
-                    </tr>
-                    <% } %>
-                </tbody>
+                                </tr>
+                                <% } %>
+                        </tbody>
 
 
-            </table>
+                    </table>
+
+                </div>
+                <br>
 
         </div>
-        <br>
+        <%- include ("../partials/footer.ejs"); %>
 
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+            <script>
 
-    <script>
+                var ejsVal = "<%= items.myObject.idioma %>"
 
-        var ejsVal = "<%= items.myObject.idioma %>"
+                $(document).ready(function () {
 
-        $(document).ready(function () {
-
-            if (ejsVal === "esp") {
-                $('#recommendation').DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                        "emptyTable": " "
-                    },
-                    "pagingType": "simple",
+                    if (ejsVal === "esp") {
+                        $('#recommendation').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                                "emptyTable": " "
+                            },
+                            "pagingType": "simple",
+                        });
+                    } else {
+                        $('#recommendation').DataTable({
+                            "language": {
+                                "emptyTable": " "
+                            },
+                            "pagingType": "simple",
+                        });
+                    }
                 });
-            } else {
-                $('#recommendation').DataTable({
-                    "language": {
-                        "emptyTable": " "
-                    },
-                    "pagingType": "simple",
-                });
-            }
-        });
         // $(document).ready(function () {
         //     $('#recomendation').DataTable({
         //         "language": {
@@ -167,11 +187,11 @@
         //     });
 
         // });
-        
-    </script>
-    <!-- BOOTSTRAP TABLE -->
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+            </script>
+            <!-- BOOTSTRAP TABLE -->
+            <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 </body>
 
 

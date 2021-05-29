@@ -26,12 +26,12 @@ let db = mongoose.connection;
 
 // Check connection
 db.once('open', function () {
-    console.log('Connected to MongoDB');
+	console.log('Connected to MongoDB');
 });
 
 // Check for DB errors
 db.on('error', function (err) {
-    console.log(err);
+	console.log(err);
 });
 
 const app = express();
@@ -58,9 +58,9 @@ app.use(fileUpload());
 
 // Express session middleware
 app.use(session({
-    secret: 'test secret',
-    resave: true,
-    saveUninitialized: true
+	secret: 'test secret',
+	resave: true,
+	saveUninitialized: true
 }));
 
 // Express passport
@@ -72,33 +72,33 @@ app.use(passport.session());
 // Express Messages Middleware
 app.use(flash());
 app.use(function (req, res, next) {
-    res.locals.messages = require('express-messages')(req, res);
-    next();
+	res.locals.messages = require('express-messages')(req, res);
+	next();
 });
 
 app.use(function (req, res, next) {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
-    next();
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	res.locals.error = req.flash('error');
+	next();
 });
 
 // Express Validator Middleware
 app.use(expressValidator({
-    errorFormatter: function (param, msg, value) {
-        var namespace = param.split('.')
-            , root = namespace.shift()
-            , formParam = root;
+	errorFormatter: function (param, msg, value) {
+		var namespace = param.split('.')
+			, root = namespace.shift()
+			, formParam = root;
 
-        while (namespace.length) {
-            formParam += '[' + namespace.shift() + ']';
-        }
-        return {
-            param: formParam,
-            msg: msg,
-            value: value
-        };
-    }
+		while (namespace.length) {
+			formParam += '[' + namespace.shift() + ']';
+		}
+		return {
+			param: formParam,
+			msg: msg,
+			value: value
+		};
+	}
 }));
 
 var pdfMake = require('pdfmake/build/pdfmake.js');
@@ -110,16 +110,16 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 app.use("/", rutas);
 app.use("/", rutasAPI);
 
-app.get('*', function(req, res, next){
-    res.locals.user = req.user || null;
-    next();
+app.get('*', function (req, res, next) {
+	res.locals.user = req.user || null;
+	next();
 });
 
 
 
 // Start Server
-app.listen( process.env.PORT || 8085, () => {
-    console.log("Servidor corriendo correctamente en localhost:8085\n");
+app.listen(process.env.PORT || 8085, () => {
+	console.log("Servidor corriendo correctamente en localhost:8085\n");
 });
 
 module.exports = app;

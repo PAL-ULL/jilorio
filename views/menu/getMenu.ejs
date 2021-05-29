@@ -42,90 +42,108 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">
-        <div class="infoPage">
-            <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myObject.infoPage.menus %> </span>
-        </div>
-
-
-        <hr style="border-color: rgb(46, 115, 124);">
-        <br>
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-
-                </div>
+        <div class="container">
+            <div class="infoPage">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <span>
+                    <%= items.myObject.infoPage.menus %>
+                </span>
             </div>
-        </form>
-        <br> <br>
-
-        <% const  nombres_sz=  items.myObject.tablaMenu.nombres.length %>
-        <% const  nombres=  items.myObject.tablaMenu.nombres %>
-        <% const  docs_sz =   items.myDocs.length %>
-        <% const  docs =   items.myDocs %>
 
 
-        <div class="cardInside3">
-            <table id="menus" class="table table-bordered table-striped table-hover table-sm">
-                <thead class="thead-dark">
-                    <tr>
-                        <% for (var i=0; i< nombres_sz; i++) { %>
-                        <th scope="col"><%= nombres[i] %></th>
-                        <% } %>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <% for (var i=0; i < docs_sz; i++) { %>
-                        <td> <%= docs[i]._id %> </td>
-                        <td>
-                            <% for (var j=0; j < docs[i].dishes.length; j++) { %>
-                            <%=docs[i].dishes[j]._id%>
+            <hr style="border-color: rgb(46, 115, 124);">
+            <br>
+            <form method="POST">
+                <div class="wrap">
+                    <div class="search">
+                        <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
+                        <a id="submit-form-link" href="#"></a>
+                        <button type="submit" class="spanColor searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
 
-                            <% if( (j+1) < docs[i].dishes.length) {  %>
-                            <%= "|   "  %>
-                            <% } %>
+                    </div>
+                </div>
+            </form>
+            <br> <br>
 
-                            <% } %>
-                        <td><%= items.myNutrientsMenu[i][1] %> </td>
+            <% const nombres_sz=items.myObject.tablaMenu.nombres.length %>
+                <% const nombres=items.myObject.tablaMenu.nombres %>
+                    <% const docs_sz=items.myDocs.length %>
+                        <% const docs=items.myDocs %>
 
-                        <% if (items.req.user.rol === "default"){ %>
-                        <td>
-                            <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                    href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
-                            <button type="button" class="btn btn-success"><a title="Descargar"
-                                    href="/menu/download/<%=docs[i]['_id']%>"><i
-                                        class="far fa-file-alt"></i></a></button></td>
-                        <% } else{ %>
-                        <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                    href="/menu/delete/<%=docs[i]['_id']%>"> <i
-                                        class="fas fa-trash-alt"></i></a></button>
-                            <button type="button" class="btn btn-info"><a title="Ver detalles"
-                                    href="/menu/<%=docs[i]['_id']%>"><i class="fas fa-search-plus"></i></a></button>
-                            <button type="button" class="btn btn-warning"><a title="Editar"
-                                    href="/menu/update/<%=docs[i]['_id']%>"><i class="fas fa-edit"></i></a></button>
-                            <button type="button" class="btn btn-success"><a title="Descargar"
-                                    href="/menu/download/<%=docs[i]['_id']%>"><i
-                                        class="far fa-file-alt"></i></a></button></td>
 
-                        <% } %>
+                            <div class="cardInside3">
+                                <table id="menus" class="table table-bordered table-striped table-hover table-sm">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <% for (var i=0; i< nombres_sz; i++) { %>
+                                                <th scope="col">
+                                                    <%= nombres[i] %>
+                                                </th>
+                                                <% } %>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <% for (var i=0; i < docs_sz; i++) { %>
+                                                <td>
+                                                    <%= docs[i]._id %>
+                                                </td>
+                                                <td>
+                                                    <% for (var j=0; j < docs[i].dishes.length; j++) { %>
+                                                        <%=docs[i].dishes[j]._id%>
 
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
+                                                            <% if( (j+1) < docs[i].dishes.length) { %>
+                                                                <%= "|   " %>
+                                                                    <% } %>
+
+                                                                        <% } %>
+                                                <td>
+                                                    <%= items.myNutrientsMenu[i][1] %>
+                                                </td>
+
+                                                <% if (items.req.user.rol==="default" ){ %>
+                                                    <td>
+                                                        <button type="button" class="btn btn-info"><a
+                                                                title="Ver detalles" href="/menu/<%=docs[i]['_id']%>"><i
+                                                                    class="fas fa-search-plus"></i></a></button>
+                                                        <button type="button" class="btn btn-success"><a
+                                                                title="Descargar"
+                                                                href="/menu/download/<%=docs[i]['_id']%>"><i
+                                                                    class="far fa-file-alt"></i></a></button>
+                                                    </td>
+                                                    <% } else{ %>
+                                                        <td> <button type="button" class="btn btn-danger"><a
+                                                                    title="Eliminar"
+                                                                    href="/menu/delete/<%=docs[i]['_id']%>"> <i
+                                                                        class="fas fa-trash-alt"></i></a></button>
+                                                            <button type="button" class="btn btn-info"><a
+                                                                    title="Ver detalles"
+                                                                    href="/menu/<%=docs[i]['_id']%>"><i
+                                                                        class="fas fa-search-plus"></i></a></button>
+                                                            <button type="button" class="btn btn-warning"><a
+                                                                    title="Editar"
+                                                                    href="/menu/update/<%=docs[i]['_id']%>"><i
+                                                                        class="fas fa-edit"></i></a></button>
+                                                            <button type="button" class="btn btn-success"><a
+                                                                    title="Descargar"
+                                                                    href="/menu/download/<%=docs[i]['_id']%>"><i
+                                                                        class="far fa-file-alt"></i></a></button>
+                                                        </td>
+
+                                                        <% } %>
+
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+
+                            <br>
         </div>
-        <br>
-
-        <br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 </body>
 
 <script>

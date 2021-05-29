@@ -9,7 +9,7 @@ const password = "password123";
 const host = "127.0.0.1";
 const port = "27017";
 const name = "heroku_zp6jl2nt";
-const url = "mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt";
+const url = `mongodb+srv://${user}:${password}@entullo.q8g1t.mongodb.net/${name}?retryWrites=true&w=majority`;
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const fs = require('fs')
 const path = require('path')
@@ -19,7 +19,6 @@ const passport = require('passport')
 // Lang template
 const espTemplate = require("../templates/esp.json");
 const dish = require("../public/javascripts/dish.js");
-const usdaJson = require("../public/food.json");
 var util = require('util');
 
 // Bring mondels
@@ -219,7 +218,7 @@ let apiController = {
         const nutrientes = await calculateNutrientsDish(CanData);
         const datos = await calculadora(recData, nutrientes);
 
-        console.log("\n\n\n" +        util.inspect(datos));
+        console.log("\n\n\n" + util.inspect(datos));
         return res.status(200).json(datos)
 
 
@@ -243,7 +242,7 @@ let apiController = {
     },
 
     planEval: async function (req, res) {
-    
+
         console.log(req.body);
 
         const queryR = { _id: req.body.recommendation };
@@ -252,7 +251,7 @@ let apiController = {
 
         const recData = await myFunctionRecomendacion(queryR);
         const CanData = await myFunctionPlanification(queryC);
-  
+
         const nutrientes = await calculateNutrientsPlanificacion(CanData);
         const datos = await calculadora(recData, nutrientes);
 
@@ -510,7 +509,7 @@ async function calculateNutrientsMenu(doc) {
         sugar.toFixed(2),
         sodium.toFixed(2),
         cholestrl.toFixed(2)
-      
+
     ]
 
     return total;

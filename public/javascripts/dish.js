@@ -9,11 +9,18 @@ var mongoose = require("mongoose");
 // const port = "27017";
 // const name = "heroku_zp6jl2nt";.
 
-const user = "newAdmin";
-const password = "admin123";
-const host = "193.145.96.29";
-const port = "8081";
+// const user = "newAdmin";
+// const password = "admin123";
+// const host = "193.145.96.29";
+// const port = "8081";
+// const name = "entullo";
+
+const user = "jilorio";
+const password = "jilorio";
+const host = "127.0.0.0";
+const port = "27017";
 const name = "entullo";
+
 
 const fs = require("fs");
 const Dish = require('../../models/dish');
@@ -24,8 +31,7 @@ const dish = {};
 
 dish.storeDishes = async (query) => {
     return new Promise(function (resolve, reject) {
-        // MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
-            MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}`, function (err, db) {
+        MongoClient.connect(`mongodb+srv://${user}:${password}@entullo.q8g1t.mongodb.net/${name}?retryWrites=true&w=majority`, function (err, db) {
             if (err) throw err;
             var dbo = db.db("heroku_zp6jl2nt");
 
@@ -45,8 +51,7 @@ dish.storeNutrients = async (ingredients) => {
     return new Promise(function (resolve, reject) {
         const MongoClient = require("mongodb").MongoClient;
 
-        //  MongoClient.connect(`mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt`, function (err, db) {
-            MongoClient.connect(`mongodb://${user}:${password}@${host}:${port}`, function (err, db) {
+        MongoClient.connect(`mongodb+srv://${user}:${password}@entullo.q8g1t.mongodb.net/${name}?retryWrites=true&w=majority`, function (err, db) {
             if (err) throw err;
             var dbo = db.db("entullo");
             const resultados = [];
@@ -114,11 +119,11 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["energ_kcal"]))) {
             energKcal = energKcal + 0;
         } else {
-           
+
             energKcal = energKcal + ((parseFloat(nutrientes[ingrediente][0]["energ_kcal"]) * amount) / 100);
-             
+
         }
-       
+
 
 
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["protein_(g)"]))) {
@@ -132,14 +137,14 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         } else {
             lipidTotal = lipidTotal + ((parseFloat(nutrientes[ingrediente][0]["lipid_tot_(g)"]) * amount) / 100);
         }
-      
+
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["carbohydrt_(g)"]))) {
             carbohydrt = carbohydrt + 0;
         } else {
             carbohydrt = carbohydrt + ((parseFloat(nutrientes[ingrediente][0]["carbohydrt_(g)"]) * amount) / 100);
         }
-       
-        
+
+
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["fiber_td_(g)"]))) {
             fiber = fiber + 0;
         } else {
@@ -175,15 +180,15 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         } else {
             cholestrl = cholestrl + (((parseFloat(nutrientes[ingrediente][0]["cholestrl_(mg)"]) * amount) / 100) / 1000);
         }
-       
+
         if (isNaN(parseFloat(nutrientes[ingrediente][0]["sugar_tot_(g)"]))) {
             sugar = sugar + 0;
         } else {
             sugar = sugar + ((parseFloat(Number(nutrientes[ingrediente][0]["sugar_tot_(g)"]) * amount)) / 100);
-        }      
+        }
     }
 
-    
+
     const totalNutrients = {
         water: Number(water.toFixed(2)),
         energKcal: Number(energKcal.toFixed(2)),
@@ -194,7 +199,7 @@ dish.computeNutrients = (ingredientes, nutrientes) => {
         sugar: Number(sugar.toFixed(2)),
         sodium: Number(sodium.toFixed(2)),
         cholestrl: Number(cholestrl.toFixed(2))
-        
+
     };
     // console.log("total nutrients: " + util.inspect(totalNutrients))
 

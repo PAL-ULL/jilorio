@@ -4,20 +4,17 @@
 let mongo = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
 let assert = require("assert");
-const user = "newAdmin";
-const password = "admin123";	
-const host = "193.145.96.29";	
-const port = "8081";	
-const name = "entullo";	
-const url = `mongodb://${user}:${password}@${host}:${port}`;	
+
+const user = "jilorio";
+const password = "jilorio";
+const host = "127.0.0.0";
+const port = "27017";
+const name = "entullo";
+
+const url = `mongodb+srv://${user}:${password}@entullo.q8g1t.mongodb.net/${name}?retryWrites=true&w=majority`
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// const password = "password123";
-// const host = "127.0.0.1";
-// const port = "27017";
-// const name = "heroku_zp6jl2nt";
-// const url = "mongodb://jilorio:cl0udcanteen@ds123662.mlab.com:23662/heroku_zp6jl2nt";
-// const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const fs = require('fs')
 const path = require('path')
 const bcrypt = require('bcryptjs')
@@ -45,10 +42,25 @@ const { db } = require("../models/dish");
 const { query } = require("express");
 const { resolve } = require("path");
 
-const calculate = require('../build/Release/calculate')
 
 let ingredientes = [];
 // Routes
+
+function lectura() {
+
+    fs.readFile('food.json', 'utf-8', (err, data) => {
+        if (err) {
+            console.log('error: ', err);
+        } else {
+            console.log("lectura")
+            console.log(data);
+        }
+    });
+
+}
+
+lectura();
+
 let controller = {
     home: function (req, res) {
         return res.status(200).render('index.ejs', {
@@ -74,12 +86,15 @@ let controller = {
         const query = {};
 
         client.connect(function (err, client) {
+
             assert.equal(null, err);
             console.log("\nConnected successfully to server");
             const db = client.db(name);
             const collection = db.collection("food");
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
+
+
                 res.render('food/getFood', {
                     items: {
                         req: req,
@@ -107,6 +122,7 @@ let controller = {
             const collection = db.collection("food");
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
+
 
                 res.render('food/getFood', {
                     items: {
@@ -158,7 +174,7 @@ let controller = {
         let query = {};
         if (req.query.name != undefined)
             query = { _id: { $regex: req.query["name"] } };
-   
+
 
         Dish.find(query, async function (err, doc) {
             if (err) {
@@ -1436,7 +1452,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
-
+                console.log("DOCUMENTOS " + util.inspect(docs));
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -1466,6 +1482,7 @@ let controller = {
             if (err) {
                 console.log(err);
             } else {
+
                 res.render('planification/getPlanification', {
                     items: {
                         req: req,
@@ -2525,6 +2542,7 @@ let controller = {
                             newUser
                                 .save()
                                 .then(user => {
+
                                     req.flash(
                                         'success_msg',
                                         espTemplate.success.userRegCorrect
@@ -3014,7 +3032,7 @@ async function calculateKcal(docs) {
         }
         let suma = 0;
 
-     
+
         const valores = dish.computeNutrients(docs[i].ingredients, nut_vector);
 
         sumasKcal.push(valores.energKcal);

@@ -1,45 +1,44 @@
-
-
-
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <a class="navbar-brand" href="/">𝐉𝐈𝐋𝐎𝐑𝐈𝐎</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav mr-auto">
-      <% for (var i=0; i< items.myObject.navegacion.menu.length; i++) { %>
-      <li class="nav-item">
-        <a class="nav-link"
-          href="<%- items.myObject.navegacion.menu[i].href %>"><%- items.myObject.navegacion.menu[i].name %></a>
-      </li>
-      <% } %>
-    </ul>
-    <ul class="navbar-nav ml-auto">
+	<a class="navbar-brand" href="/">𝐉𝐈𝐋𝐎𝐑𝐈𝐎</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<ul class="navbar-nav mr-auto">
+			<% for (var i=0; i< items.myObject.navegacion.menu.length; i++) { %>
+				<li class="nav-item">
+					<a class="nav-link" href="<%- items.myObject.navegacion.menu[i].href %>">
+						<%- items.myObject.navegacion.menu[i].name %>
+					</a>
+				</li>
+				<% } %>
+		</ul>
+		<ul class="navbar-nav ml-auto">
 
-      <% if (!items.req.user) { %>
+			<% if (!items.req.user) { %>
 
-      <% for (let i=0; i< items.myObject.navegacion.usuarioNoLog.length; i++) { %>
-      <a class="nav-link"
-        href="<%- items.myObject.navegacion.usuarioNoLog[i].href %>"><%- items.myObject.navegacion.usuarioNoLog[i].name %></a>
-      </li>
-      <% } %>
-      <% }  else { %>
-        <% if (items.req.user.rol === "admin") { %>
-          <a class="nav-link"
-          href="/users">Users</a>
-        </li>
-          <% } %>
-      <% for (let i=0; i< items.myObject.navegacion.usuarioLog.length; i++) { %>
-      <li class="nav-item">
-        <a class="nav-link logout"
-          href="<%- items.myObject.navegacion.usuarioLog[i].href %>"><%- items.myObject.navegacion.usuarioLog[i].name %></a>
-      </li>
+				<% for (let i=0; i< items.myObject.navegacion.usuarioNoLog.length; i++) { %>
+					<a class="nav-link" href="<%- items.myObject.navegacion.usuarioNoLog[i].href %>">
+						<%- items.myObject.navegacion.usuarioNoLog[i].name %>
+					</a>
+					</li>
+					<% } %>
+						<% } else { %>
+							<% if (items.req.user.rol==="admin" ) { %>
+								<a class="nav-link" href="/users">Users</a>
+								</li>
+								<% } %>
+									<% for (let i=0; i< items.myObject.navegacion.usuarioLog.length; i++) { %>
+										<li class="nav-item">
+											<a class="nav-link logout"
+												href="<%- items.myObject.navegacion.usuarioLog[i].href %>">
+												<%- items.myObject.navegacion.usuarioLog[i].name %>
+											</a>
+										</li>
 
-      <% } %>
-      <% } %>
+										<% } %>
+											<% } %>
 
-    </ul>
-  </div>
+		</ul>
+	</div>
 </nav>
-

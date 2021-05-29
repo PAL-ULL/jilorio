@@ -8,7 +8,7 @@ let valuationSchema = new Schema({
     recomendacion: { type: String, required: true },
     tipo: { type: String, required: true },
     candidato: { type: String, required: true },
-    resultados: {type: Array, required: true },
+    resultados: { type: Array, required: true },
     date: { type: Date, default: Date.now },
 });
 

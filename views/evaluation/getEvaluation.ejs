@@ -50,143 +50,234 @@
 
 <body>
     <%- include ("../partials/navigation.ejs"); %>
-    <div class="container">
+        <div class="container">
 
-        <div class="infoPage">
-            <i class="fas fa-list-alt fa-2x"></i>
-            <span> <%= items.myObject.infoPage.evaluaciones %> </span>
-        </div>
-        <hr style="border-color: rgb(46, 115, 124);">
-        <%- messages('message', locals) %>
-        <br>
-
-
-        <form method="POST">
-            <div class="wrap">
-                <div class="search">
-                    <input type="text" name="_id" class="searchTerm" placeholder="<%= items.myObject.busqueda %>">
-                    <a id="submit-form-link" href="#"></a>
-                    <button type="submit" class="spanColor searchButton">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+            <div class="infoPage">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <span>
+                    <%= items.myObject.infoPage.evaluaciones %>
+                </span>
             </div>
-        </form>
-        <br><br>
+            <hr style="border-color: rgb(46, 115, 124);">
+            <%- messages('message', locals) %>
+                <br>
 
 
-        <% if ((items.myObject.tablaEvaluacion.valores.length) > 0) { %>
-        <div class="cardInside3">
-            <table id="evaluations" class="table table-bordered table-hover table-sm" style="font-size: 16px;">
-                <thead class="thead-dark">
-                    <tr>
+                <form method="POST">
+                    <div class="wrap">
+                        <div class="search">
+                            <input type="text" name="_id" class="searchTerm"
+                                placeholder="<%= items.myObject.busqueda %>">
+                            <a id="submit-form-link" href="#"></a>
+                            <button type="submit" class="spanColor searchButton">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br><br>
 
-                        <% for (var i=0; i< items.myObject.tablaEvaluacion.nombres.length; i++) { %>
 
-                        <% if ((items.req.user.rol === "nutricionista") || (items.req.user.rol === "admin")){ %>
-                        <th> <%- items.myObject.tablaEvaluacion.nombres[i] %> </th>
-                        <% } else if ((items.req.user.rol != "nutricionista") && (items.req.user.rol != "admin")){  %>
-                        <% if ((items.myObject.tablaEvaluacion.nombres[i] != "Acciones")){ %>
-                        <th> <%- items.myObject.tablaEvaluacion.nombres[i] %> </th>
+                <% if ((items.myObject.tablaEvaluacion.valores.length)> 0) { %>
+                    <div class="cardInside3">
+                        <table id="evaluations" class="table table-bordered table-hover table-sm"
+                            style="font-size: 16px;">
+                            <thead class="thead-dark">
+                                <tr>
+
+                                    <% for (var i=0; i< items.myObject.tablaEvaluacion.nombres.length; i++) { %>
+
+                                        <% if ((items.req.user.rol==="nutricionista" ) || (items.req.user.rol==="admin"
+                                            )){ %>
+                                            <th>
+                                                <%- items.myObject.tablaEvaluacion.nombres[i] %>
+                                            </th>
+                                            <% } else if ((items.req.user.rol !="nutricionista" ) && (items.req.user.rol
+                                                !="admin" )){ %>
+                                                <% if ((items.myObject.tablaEvaluacion.nombres[i] !="Acciones" )){ %>
+                                                    <th>
+                                                        <%- items.myObject.tablaEvaluacion.nombres[i] %>
+                                                    </th>
+                                                    <% } %>
+                                                        <% } %>
+                                                            <% } %>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (var i=0; i< items.myDocs.length; i++) { %>
+
+                                    <tr>
+                                        <td>
+                                            <%= items.myDocs[i].candidato %>
+                                        </td>
+                                        <td>
+                                            <%= items.myDocs[i].recomendacion %>
+                                        </td>
+                                        <td>
+                                            <%= items.myDocs[i].date %>
+                                        </td>
+
+                                        <% if (items.myDocs[i].resultados[0]["energia"][1]==="No recomendable" ) { %>
+                                            <td class="text-danger">
+                                                <%= items.myDocs[i].resultados[0]["energia"][0] %>
+                                                    <br>
+                                                    <%= items.myDocs[i].resultados[0]["energia"][1] %>
+                                            </td>
+                                            <% } else if (items.myDocs[i].resultados[0]["energia"][1]==="Recomendable" )
+                                                { %>
+                                                <td class="text-warning">
+                                                    <%= items.myDocs[i].resultados[0]["energia"][0] %>
+                                                        <br>
+                                                        <%= items.myDocs[i].resultados[0]["energia"][1] %>
+                                                </td>
+                                                <% } else{ %>
+                                                    <td class="text-success">
+                                                        <%= items.myDocs[i].resultados[0]["energia"][0] %>
+                                                            <br>
+                                                            <%= items.myDocs[i].resultados[0]["energia"][1] %>
+                                                    </td>
+                                                    <% } %>
+
+                                                        <% if
+                                                            (items.myDocs[i].resultados[0]["lipidos"][1]==="No recomendable"
+                                                            ) { %>
+                                                            <td class="text-danger">
+                                                                <%= items.myDocs[i].resultados[0]["lipidos"][0] %>
+                                                                    <br>
+                                                                    <%= items.myDocs[i].resultados[0]["lipidos"][1] %>
+                                                            </td>
+                                                            <% } else if
+                                                                (items.myDocs[i].resultados[0]["lipidos"][1]==="Recomendable"
+                                                                ) { %>
+                                                                <td class="text-warning">
+                                                                    <%= items.myDocs[i].resultados[0]["lipidos"][0] %>
+                                                                        <br>
+                                                                        <%= items.myDocs[i].resultados[0]["lipidos"][1]
+                                                                            %>
+                                                                </td>
+                                                                <% } else{ %>
+                                                                    <td class="text-success">
+                                                                        <%= items.myDocs[i].resultados[0]["lipidos"][0]
+                                                                            %>
+                                                                            <br>
+                                                                            <%= items.myDocs[i].resultados[0]["lipidos"][1]
+                                                                                %>
+                                                                    </td>
+                                                                    <% } %>
+
+                                                                        <% if
+                                                                            (items.myDocs[i].resultados[0]["proteinas"][1]==="No recomendable"
+                                                                            ) { %>
+                                                                            <td class="text-danger">
+                                                                                <%= items.myDocs[i].resultados[0]["proteinas"][0]
+                                                                                    %>
+                                                                                    <br>
+                                                                                    <%= items.myDocs[i].resultados[0]["proteinas"][1]
+                                                                                        %>
+                                                                            </td>
+                                                                            <% } else if
+                                                                                (items.myDocs[i].resultados[0]["proteinas"][1]==="Recomendable"
+                                                                                ) { %>
+                                                                                <td class="text-warning">
+                                                                                    <%= items.myDocs[i].resultados[0]["proteinas"][0]
+                                                                                        %>
+                                                                                        <br>
+                                                                                        <%= items.myDocs[i].resultados[0]["proteinas"][1]
+                                                                                            %>
+                                                                                </td>
+                                                                                <% } else{ %>
+                                                                                    <td class="text-success">
+                                                                                        <%= items.myDocs[i].resultados[0]["proteinas"][0]
+                                                                                            %>
+                                                                                            <br>
+                                                                                            <%= items.myDocs[i].resultados[0]["proteinas"][1]
+                                                                                                %>
+                                                                                    </td>
+                                                                                    <% } %>
+
+                                                                                        <% if
+                                                                                            (items.myDocs[i].resultados[0]["carbohidratos"][1]==="No recomendable"
+                                                                                            ) { %>
+                                                                                            <td class="text-danger">
+                                                                                                <%= items.myDocs[i].resultados[0]["carbohidratos"][0]
+                                                                                                    %>
+                                                                                                    <br>
+                                                                                                    <%= items.myDocs[i].resultados[0]["carbohidratos"][1]
+                                                                                                        %>
+                                                                                            </td>
+                                                                                            <% } else if
+                                                                                                (items.myDocs[i].resultados[0]["carbohidratos"][1]==="Recomendable"
+                                                                                                ) { %>
+                                                                                                <td
+                                                                                                    class="text-warning">
+                                                                                                    <%= items.myDocs[i].resultados[0]["carbohidratos"][0]
+                                                                                                        %>
+                                                                                                        <br>
+                                                                                                        <%= items.myDocs[i].resultados[0]["carbohidratos"][1]
+                                                                                                            %>
+                                                                                                </td>
+                                                                                                <% } else{ %>
+                                                                                                    <td
+                                                                                                        class="text-success">
+                                                                                                        <%= items.myDocs[i].resultados[0]["carbohidratos"][0]
+                                                                                                            %>
+                                                                                                            <br>
+                                                                                                            <%= items.myDocs[i].resultados[0]["carbohidratos"][1]
+                                                                                                                %>
+                                                                                                    </td>
+                                                                                                    <% } %>
+
+                                                                                                        <% if
+                                                                                                            ((items.req.user.rol==="nutricionista"
+                                                                                                            ) ||
+                                                                                                            (items.req.user.rol==="admin"
+                                                                                                            )){ %>
+                                                                                                            <td> <button
+                                                                                                                    type="button"
+                                                                                                                    class="btn btn-danger"><a
+                                                                                                                        title="Eliminar"
+                                                                                                                        href="/evaluation/delete/<%=items.myDocs[i]['_id']%>">
+                                                                                                                        <i
+                                                                                                                            class="fas fa-trash-alt"></i></a></button>
+                                                                                                            </td>
+
+                                                                                                            <% } %>
+                                    </tr>
+                                    <% } %>
+
+                            </tbody>
+
+
+                        </table>
                         <% } %>
-                        <% } %>
-                        <% } %>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for (var i=0; i< items.myDocs.length; i++) { %>
-
-                    <tr>
-                        <td> <%= items.myDocs[i].candidato %> </td>
-                        <td> <%= items.myDocs[i].recomendacion %> </td>
-                        <td> <%= items.myDocs[i].date %> </td>
-
-                        <% if (items.myDocs[i].resultados[0]["energia"][1] === "No recomendable") { %>
-                        <td class="text-danger"> <%= items.myDocs[i].resultados[0]["energia"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["energia"][1] %> </td>
-                        <% } else if (items.myDocs[i].resultados[0]["energia"][1] === "Recomendable") {   %>
-                        <td class="text-warning"> <%= items.myDocs[i].resultados[0]["energia"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["energia"][1] %> </td>
-                        <% } else{ %>
-                        <td class="text-success"> <%= items.myDocs[i].resultados[0]["energia"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["energia"][1] %> </td>
-                        <% } %>
-
-                        <% if (items.myDocs[i].resultados[0]["lipidos"][1] === "No recomendable") { %>
-                        <td class="text-danger"> <%= items.myDocs[i].resultados[0]["lipidos"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["lipidos"][1] %> </td>
-                        <% } else if (items.myDocs[i].resultados[0]["lipidos"][1] === "Recomendable") {   %>
-                        <td class="text-warning"> <%= items.myDocs[i].resultados[0]["lipidos"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["lipidos"][1] %> </td>
-                        <% } else{ %>
-                        <td class="text-success"> <%= items.myDocs[i].resultados[0]["lipidos"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["lipidos"][1] %> </td>
-                        <% } %>
-
-                        <% if (items.myDocs[i].resultados[0]["proteinas"][1] === "No recomendable") { %>
-                        <td class="text-danger"> <%= items.myDocs[i].resultados[0]["proteinas"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["proteinas"][1] %> </td>
-                        <% } else if (items.myDocs[i].resultados[0]["proteinas"][1] === "Recomendable") {   %>
-                        <td class="text-warning"> <%= items.myDocs[i].resultados[0]["proteinas"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["proteinas"][1] %> </td>
-                        <% } else{ %>
-                        <td class="text-success"> <%= items.myDocs[i].resultados[0]["proteinas"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["proteinas"][1] %> </td>
-                        <% } %>
-
-                        <% if (items.myDocs[i].resultados[0]["carbohidratos"][1] === "No recomendable") { %>
-                        <td class="text-danger"> <%= items.myDocs[i].resultados[0]["carbohidratos"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["carbohidratos"][1] %> </td>
-                        <% } else if (items.myDocs[i].resultados[0]["carbohidratos"][1] === "Recomendable") {   %>
-                        <td class="text-warning"> <%= items.myDocs[i].resultados[0]["carbohidratos"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["carbohidratos"][1] %> </td>
-                        <% } else{ %>
-                        <td class="text-success"> <%= items.myDocs[i].resultados[0]["carbohidratos"][0] %>
-                            <br><%= items.myDocs[i].resultados[0]["carbohidratos"][1] %> </td>
-                        <% } %>
-
-                        <% if ((items.req.user.rol === "nutricionista") || (items.req.user.rol === "admin")){ %>
-                        <td> <button type="button" class="btn btn-danger"><a title="Eliminar"
-                                    href="/evaluation/delete/<%=items.myDocs[i]['_id']%>"> <i
-                                        class="fas fa-trash-alt"></i></a></button> </td>
-
-                        <% } %>
-                    </tr>
-                    <% } %>
-
-                </tbody>
-
-
-            </table>
-            <% } %>
+                    </div>
+                    <br>
         </div>
-        <br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 
-    <script>
-        var ejsVal = "<%= items.myObject.idioma %>"
+            <script>
+                var ejsVal = "<%= items.myObject.idioma %>"
 
-        $(document).ready(function () {
+                $(document).ready(function () {
 
-            if (ejsVal === "esp") {
-                $('#evaluations').DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
-                        "emptyTable": " "
-                    },
-                    "pagingType": "simple",
+                    if (ejsVal === "esp") {
+                        $('#evaluations').DataTable({
+                            "language": {
+                                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                                "emptyTable": " "
+                            },
+                            "pagingType": "simple",
+                        });
+                    } else {
+                        $('#evaluations').DataTable({
+                            "language": {
+                                "emptyTable": " "
+                            },
+                            "pagingType": "simple",
+                        });
+                    }
                 });
-            } else {
-                $('#evaluations').DataTable({
-                    "language": {
-                        "emptyTable": " "
-                    },
-                    "pagingType": "simple",
-                });
-            }
-        });
         // $(document).ready(function () {
         //     $('#evaluations').DataTable({
         //         "language": {
@@ -196,10 +287,10 @@
         //         "pagingType": "simple"
         //     });
         // });
-    </script>
+            </script>
 
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 </body>
 
 

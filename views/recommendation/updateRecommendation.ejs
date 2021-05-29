@@ -46,103 +46,127 @@
     <%- include ("../partials/navigation.ejs"); %>
 
 
-    <div class="container">
-        <div class="cardInside2">
-            <h1><%= items.myObject.recomendacion.update %></h1>
-        </div>
-        <br>
-        <%- include ("../partials/message.ejs"); %>
-        <br>
-        <div class="cardInside3">
-            <h2><%= items.myDocs._id %></h2>
-        </div>
-
-        <div class="card">
-            <p class="nutrientesTitle"> <%= items.myObject.recomendacion.infor %> </p>
-            <form method="POST" , id="aux" action=''>
+        <div class="container">
+            <div class="cardInside2">
+                <h1>
+                    <%= items.myObject.recomendacion.update %>
+                </h1>
+            </div>
+            <br>
+            <%- include ("../partials/message.ejs"); %>
                 <br>
-                <% for (var i=0; i< items.myObject.recomendacion.form.length; i++) { %>
-                <label><%= items.myObject.recomendacion.form[i].label %><span class="required">*</span> </label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-
-                        <span class=" spanColor input-group-text"><i
-                                class=" <%= items.myObject.recomendacion.form[i].icon %>"></i></span>
-
-                    </div>
-                    <% if (items.myObject.recomendacion.form[i].name ==="_id") { %>
-                    <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
-                        placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
-                        aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
-                        aria-describedby="basic-addon1" name="<%= items.myObject.recomendacion.form[i].name %>"
-                        #<%= items.myObject.recomendacion.form[i].name %>
-                        min="<%= items.myObject.recomendacion.form[i].min %>"
-                        value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" disabled required>
-                    <% } else{%>
-                    <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
-                        placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
-                        aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
-                        aria-describedby="basic-addon1" name="<%= items.myObject.recomendacion.form[i].name %>"
-                        #<%= items.myObject.recomendacion.form[i].name %>
-                        min="<%= items.myObject.recomendacion.form[i].min %>"
-                        value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" required>
-                    <% } %>
-
+                <div class="cardInside3">
+                    <h2>
+                        <%= items.myDocs._id %>
+                    </h2>
                 </div>
-                <% } %>
-                <br>
-                <% let j=0; %>
-                <p class="nutrientesTitle"> <%= items.myObject.recomendacion.nutrientes %> </p>
-                <div class="cardInside">
-                    <% for (var i=0; i< items.myObject.recomendacion.formNumber.length; i++) { %>
-                    <% j++ %>
-                    <% if (((i)%2)===0){ %>
 
-                    <div class="row">
-                        <% } %>
-                        <div class="col">
-                            <label><%= items.myObject.recomendacion.formNumber[i].label %><span
-                                    class="required">*</span></label>
+                <div class="card">
+                    <p class="nutrientesTitle">
+                        <%= items.myObject.recomendacion.infor %>
+                    </p>
+                    <form method="POST" , id="aux" action=''>
+                        <br>
+                        <% for (var i=0; i< items.myObject.recomendacion.form.length; i++) { %>
+                            <label>
+                                <%= items.myObject.recomendacion.form[i].label %><span class="required">*</span>
+                            </label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
 
                                     <span class=" spanColor input-group-text"><i
-                                            class=" <%= items.myObject.recomendacion.formNumber[i].icon %>"></i></span>
+                                            class=" <%= items.myObject.recomendacion.form[i].icon %>"></i></span>
 
                                 </div>
-                                <input type="<%= items.myObject.recomendacion.formNumber[i].type %>"
-                                    class="form-control"
-                                    placeholder="<%= items.myObject.recomendacion.formNumber[i].placeholder %>"
-                                    aria-label="<%= items.myObject.recomendacion.formNumber[i].ariaLabel %>"
-                                    aria-describedby="basic-addon1"
-                                    name="<%= items.myObject.recomendacion.formNumber[i].name %>"
-                                    #<%= items.myObject.recomendacion.formNumber[i].name %>
-                                    min="<%= items.myObject.recomendacion.formNumber[i].min %>"
-                                    value="<%=items.myDocs[items.myObject.recomendacion.formNumber[i].name]%>" required>
+                                <% if (items.myObject.recomendacion.form[i].name==="_id" ) { %>
+                                    <input type="<%= items.myObject.recomendacion.form[i].type %>" class="form-control"
+                                        placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
+                                        aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
+                                        aria-describedby="basic-addon1"
+                                        name="<%= items.myObject.recomendacion.form[i].name %>"
+                                        #<%=items.myObject.recomendacion.form[i].name %>
+                                    min="<%= items.myObject.recomendacion.form[i].min %>"
+                                        value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>" disabled
+                                            required>
+                                            <% } else{%>
+                                                <input type="<%= items.myObject.recomendacion.form[i].type %>"
+                                                    class="form-control"
+                                                    placeholder="<%= items.myObject.recomendacion.form[i].placeholder %>"
+                                                    aria-label="<%= items.myObject.recomendacion.form[i].ariaLabel %>"
+                                                    aria-describedby="basic-addon1"
+                                                    name="<%= items.myObject.recomendacion.form[i].name %>"
+                                                    #<%=items.myObject.recomendacion.form[i].name %>
+                                                min="<%= items.myObject.recomendacion.form[i].min %>"
+                                                    value="<%=items.myDocs[items.myObject.recomendacion.form[i].name]%>"
+                                                        required>
+                                                        <% } %>
+
                             </div>
-                        </div>
-                        <% if (j === 2){ %>
-                    </div>
-                    <% j=0 %>
-                    <% } %>
+                            <% } %>
+                                <br>
+                                <% let j=0; %>
+                                    <p class="nutrientesTitle">
+                                        <%= items.myObject.recomendacion.nutrientes %>
+                                    </p>
+                                    <div class="cardInside">
+                                        <% for (var i=0; i< items.myObject.recomendacion.formNumber.length; i++) { %>
+                                            <% j++ %>
+                                                <% if (((i)%2)===0){ %>
 
-                    <% } %>
+                                                    <div class="row">
+                                                        <% } %>
+                                                            <div class="col">
+                                                                <label>
+                                                                    <%= items.myObject.recomendacion.formNumber[i].label
+                                                                        %><span class="required">*</span>
+                                                                </label>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-prepend">
+
+                                                                        <span class=" spanColor input-group-text"><i
+                                                                                class=" <%= items.myObject.recomendacion.formNumber[i].icon %>"></i></span>
+
+                                                                    </div>
+                                                                    <input
+                                                                        type="<%= items.myObject.recomendacion.formNumber[i].type %>"
+                                                                        class="form-control"
+                                                                        placeholder="<%= items.myObject.recomendacion.formNumber[i].placeholder %>"
+                                                                        aria-label="<%= items.myObject.recomendacion.formNumber[i].ariaLabel %>"
+                                                                        aria-describedby="basic-addon1"
+                                                                        name="<%= items.myObject.recomendacion.formNumber[i].name %>"
+                                                                        #<%=items.myObject.recomendacion.formNumber[i].name
+                                                                        %>
+                                                                    min="<%=
+                                                                        items.myObject.recomendacion.formNumber[i].min
+                                                                        %>"
+                                                                        value="
+                                                                        <%=items.myDocs[items.myObject.recomendacion.formNumber[i].name]%>
+                                                                            " required>
+                                                                </div>
+                                                            </div>
+                                                            <% if (j===2){ %>
+                                                    </div>
+                                                    <% j=0 %>
+                                                        <% } %>
+
+                                                            <% } %>
+                                    </div>
+                                    <br>
+                                    <div class="requiredSpan">
+                                        <span class="text-muted requiredSpan">
+                                            <%= items.myObject.required %>
+                                        </span><span class="required">*</span>
+                                    </div>
+
+
+                                    <br>
+                                    <input type="submit" id="mySubmit" class="btn btn-info"
+                                        value="<%= items.myObject.recomendacion.button %>" />
+                    </form>
                 </div>
                 <br>
-                <div class="requiredSpan">
-                    <span class="text-muted requiredSpan"><%= items.myObject.required %></span><span
-                        class="required">*</span>
-                </div>
-
-
-                <br>
-                <input type="submit" id="mySubmit" class="btn btn-info"
-                    value="<%= items.myObject.recomendacion.button %>" />
-            </form>
         </div>
-        <br>
-    </div>
-    <%- include ("../partials/footer.ejs"); %>
+        <%- include ("../partials/footer.ejs"); %>
 
 
 
