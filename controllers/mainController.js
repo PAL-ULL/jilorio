@@ -1,6 +1,8 @@
 'use strict'
 
 // MongoDB 
+
+
 let mongo = require("mongodb");
 const MongoClient = require("mongodb").MongoClient;
 let assert = require("assert");
@@ -42,6 +44,9 @@ const { db } = require("../models/dish");
 const { query } = require("express");
 const { resolve } = require("path");
 
+const CIMApiService = require('cim-api-service/src/CIMApiService').CIMApiService;
+
+
 // Routes
 
 let controller = {
@@ -64,6 +69,38 @@ let controller = {
             }
         });
     },
+    /**
+     * CIM INTEGRATION TESTING VIEW
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
+    cimTest: async function (req, res) {
+
+        const cimConfig = require('../config/cim.js').getConfig();
+
+        const ApiService = new CIMApiService(cimConfig);
+
+        const TESTING_URL = '/api/ingredients/transformed_list?context=ica';
+
+        ApiService.init().then((apiServiceInstance) => {
+
+            apiServiceInstance.getData(TESTING_URL).then(resultArray => {
+                CIMApiService.dump(resultArray);
+                res.render('cim/cim-test.ejs', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: resultArray
+                    }
+                });
+
+
+            })
+
+        });
+
+    },
 
     foodView: async function (req, res) {
         const query = {};
@@ -75,16 +112,16 @@ let controller = {
             const db = client.db(name);
             const collection = db.collection("food");
 
-            
+
             let Srv = require("../api/CIMExampleNode.js");
 
             var newInstance = new Srv();
             const login = newInstance.login();
             // console.log("aqui");
             login.then(() => {
-                
-               
-             })
+
+
+            })
             res.render('food/getFood', {
                 items: {
                     req: req,
@@ -1321,10 +1358,10 @@ let controller = {
             .then(data => {
                 res.send(data);
             }).catch(err => {
-                res.status(500).send({
-                    message: err.message
-                });
+            res.status(500).send({
+                message: err.message
             });
+        });
 
 
     },
@@ -1408,10 +1445,10 @@ let controller = {
                     .then(data => {
                         res.send(data);
                     }).catch(err => {
-                        res.status(500).send({
-                            message: err.message
-                        });
+                    res.status(500).send({
+                        message: err.message
                     });
+                });
 
             }
         })
@@ -2240,10 +2277,10 @@ let controller = {
 
 
                             }).catch(err => {
-                                res.status(500).send({
-                                    message: err.message
-                                });
+                            res.status(500).send({
+                                message: err.message
                             });
+                        });
                     }
                 }
             }
@@ -2411,10 +2448,10 @@ let controller = {
             .then(data => {
                 res.send(data);
             }).catch(err => {
-                res.status(500).send({
-                    message: err.message
-                });
+            res.status(500).send({
+                message: err.message
             });
+        });
 
     },
 
@@ -2932,10 +2969,10 @@ let controller = {
             .then(dishes => {
                 res.send(dishes);
             }).catch(err => {
-                res.status(500).send({
-                    message: err.message
-                });
+            res.status(500).send({
+                message: err.message
             });
+        });
 
     },
     loadDataMenus: function (req, res) {
@@ -2945,10 +2982,10 @@ let controller = {
             .then(menus => {
                 res.send(menus);
             }).catch(err => {
-                res.status(500).send({
-                    message: err.message
-                });
+            res.status(500).send({
+                message: err.message
             });
+        });
 
     },
     loadDataPlanifications: function (req, res) {
@@ -2958,10 +2995,10 @@ let controller = {
             .then(plans => {
                 res.send(plans);
             }).catch(err => {
-                res.status(500).send({
-                    message: err.message
-                });
+            res.status(500).send({
+                message: err.message
             });
+        });
 
     }
 

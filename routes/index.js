@@ -7,6 +7,7 @@ const { isAuthenticated, authRole, authRoleMultiple } = require("../config/helpe
 
 
 router.get("/", controller.home);
+router.get("/cim-test", controller.cimTest);
 
 router.get("/food", controller.food);
 router.get("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.foodView);
