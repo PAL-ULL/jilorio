@@ -42,7 +42,6 @@ const { db } = require("../models/dish");
 const { query } = require("express");
 const { resolve } = require("path");
 
-
 // Routes
 
 let controller = {
@@ -66,7 +65,7 @@ let controller = {
         });
     },
 
-    foodView: function (req, res) {
+    foodView: async function (req, res) {
         const query = {};
 
         client.connect(function (err, client) {
@@ -75,18 +74,25 @@ let controller = {
             console.log("\nConnected successfully to server");
             const db = client.db(name);
             const collection = db.collection("food");
-            findAllDocuments(db, query, collection, function (data) {
-                let resultArray = data;
 
+            
+            let Srv = require("../api/CIMExampleNode.js");
 
-                res.render('food/getFood', {
-                    items: {
-                        req: req,
-                        myObject: espTemplate,
-                        myDocs: resultArray
-                    }
-                });
+            var newInstance = new Srv();
+            const login = newInstance.login();
+            // console.log("aqui");
+            login.then(() => {
+                
+               
+             })
+            res.render('food/getFood', {
+                items: {
+                    req: req,
+                    myObject: espTemplate,
+                    myDocs: resultArray
+                }
             });
+
         });
 
     },
@@ -1197,7 +1203,7 @@ let controller = {
                         dishes
                     };
                     const set = { $set: newvalues };
-                  
+
                     Menu.updateOne(query, set, (err, updatedMenu) => {
                         if (err) {
                             console.log(err);
@@ -2999,7 +3005,7 @@ async function calculateKcal(docs) {
         let nut_vector = [];
         for (const ingrediente in docs[i].ingredients) {
             const nutrients = await dish.storeNutrients(docs[i].ingredients[ingrediente]);
-    
+
             nut_vector.push(nutrients);
         }
         let suma = 0;
