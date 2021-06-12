@@ -1,0 +1,14 @@
+{
+    "authConfig": {
+        "url_prefix": "https://ica.sanpanicim.com",
+        "auth_url": "/oauth/v2/token",
+        "client_id": "",
+        "client_secret": "",
+        "grant_type": "password"
+    },
+    "authData": {
+        "username": "",
+        "password": ""
+    },
+    "debug": true
+}

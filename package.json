@@ -12,7 +12,7 @@
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.19.0",
 		"bootstrap": "^4.5.0",
-		"cim-api-service": "0.0.4",
+		"cim-api-service": "0.0.5",
 		"connect-flash": "^0.1.1",
 		"connect-multiparty": "^2.2.0",
 		"cookie-parser": "^1.4.5",

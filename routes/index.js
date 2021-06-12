@@ -2,12 +2,13 @@
 
 const express = require('express');
 const controller = require("../controllers/mainController");
+const testingController = require("../controllers/testingController");
 const router = express.Router();
 const { isAuthenticated, authRole, authRoleMultiple } = require("../config/helper");
 
 
 router.get("/", controller.home);
-router.get("/cim-test", controller.cimTest);
+
 
 router.get("/food", controller.food);
 router.get("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.foodView);
@@ -30,6 +31,8 @@ router.get("/dish/update/:_id", controller.updateDish);
 router.post("/dish/update/:_id", controller.updateDishPost);
 router.get("/dish/download/:_id", controller.downloadDish);
 
+//TESTING ROUTES
+router.get("/cim-test", testingController.cimTest);
 
 
 // router.get("/menu", controller.menu);
