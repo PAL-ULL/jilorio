@@ -28,7 +28,7 @@ let controller = {
         const ROUTE_PREFIX = "/api/";
         const ROUTE_POSTFIX = "/transformed_list?context=ica";
         const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
-        
+
         ApiService.init().then((apiServiceInstance) => {
 
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
