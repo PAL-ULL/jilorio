@@ -63,9 +63,9 @@ let controller = {
         const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
 
         ApiService.init().then((apiServiceInstance) => {
-            console.log(".................... CIM")
+            console.log(".................... CIM");
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
-                //CIMApiService.dump(resultArray);
+                CIMApiService.dump(resultArray);
                 res.render('cim/cim-test.ejs', {
                     items: {
                         req: req,
