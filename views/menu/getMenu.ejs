@@ -114,18 +114,11 @@
                                                                     class="far fa-file-alt"></i></a></button>
                                                     </td>
                                                     <% } else{ %>
-                                                        <td> <button type="button" class="btn btn-danger"><a
-                                                                    title="Eliminar"
-                                                                    href="/menu/delete/<%=docs[i]['_id']%>"> <i
-                                                                        class="fas fa-trash-alt"></i></a></button>
+                                                        <td> 
                                                             <button type="button" class="btn btn-info"><a
                                                                     title="Ver detalles"
                                                                     href="/menu/<%=docs[i]['_id']%>"><i
                                                                         class="fas fa-search-plus"></i></a></button>
-                                                            <button type="button" class="btn btn-warning"><a
-                                                                    title="Editar"
-                                                                    href="/menu/update/<%=docs[i]['_id']%>"><i
-                                                                        class="fas fa-edit"></i></a></button>
                                                             <button type="button" class="btn btn-success"><a
                                                                     title="Descargar"
                                                                     href="/menu/download/<%=docs[i]['_id']%>"><i

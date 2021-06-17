@@ -775,21 +775,8 @@
             "icon": "fas fa-search",
             "href": "/dish/view",
             "button": "Ver más"
-        },
-        {
-            "name": "Añadir platos",
-            "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un simple formulario.",
-            "icon": "fas fa-edit",
-            "href": "/dish/insert",
-            "button": "Ver más"
-        },
-        {
-            "name": "Añadir platos desde un archivo JSON",
-            "description": "Crea tus propios platos, utilizando los ingredientes disponibles, a través de un archivo JSON con los datos.",
-            "icon": "fas fa-file-alt",
-            "href": "/dish/insert/json",
-            "button": "Ver más"
         }
+       
     ],
     "dishDetails": [
         "Ingrediente",
@@ -812,21 +799,7 @@
             "icon": "fas fa-search",
             "href": "/menu/view",
             "button": "Ver más"
-        },
-        {
-            "name": "Añadir menús",
-            "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un simple formulario.",
-            "icon": "fas fa-edit",
-            "href": "/menu/insert",
-            "button": "Ver más"
-        },
-        {
-            "name": "Añadir menús desde un archivo JSON",
-            "description": "Crea tus propios menús, utilizando los platos disponibles, a través de un archivo JSON con los datos.",
-            "icon": "fas fa-file-alt",
-            "href": "/menu/insert/json",
-            "button": "Ver más"
-        }
+        }        
         
     ],
     "planificationIndex": [
@@ -835,20 +808,6 @@
             "description": "Visualiza las planificaciones, los menús de cada día y los datos nutricionales de cada planificación.",
             "icon": "fas fa-search",
             "href": "/planification/view",
-            "button": "Ver más"
-        },
-        {
-            "name": "Añadir planificaciones",
-            "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un simple formulario.",
-            "icon": "fas fa-edit",
-            "href": "/planification/insert",
-            "button": "Ver más"
-        },
-        {
-            "name": "Añadir planificaciones desde un archivo JSON",
-            "description": "Crea tus propias planificaciones, utilizando los menús disponibles, a través de un archivo JSON con los datos.",
-            "icon": "fas fa-file-alt",
-            "href": "/planification/insert/json",
             "button": "Ver más"
         }
 
