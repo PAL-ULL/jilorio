@@ -63,9 +63,10 @@ let controller = {
         const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
 
         ApiService.init().then((apiServiceInstance) => {
-            console.log(".................... CIM");
+            console.log("............................. CIM -------------------> " + FETCH_URL);
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
                 CIMApiService.dump(resultArray);
+                console.log(resultArray);
                 res.render('cim/cim-test.ejs', {
                     items: {
                         req: req,
@@ -74,10 +75,7 @@ let controller = {
                         data: resultArray
                     }
                 });
-
-
             })
-
         });
     },
 
@@ -112,8 +110,6 @@ let controller = {
             const collection = db.collection("food");
             findAllDocuments(db, query, collection, function (data) {
                 let resultArray = data;
-
-
                 res.render('food/getFood', {
                     items: {
                         req: req,

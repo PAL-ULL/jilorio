@@ -6,7 +6,7 @@ const router = express.Router();
 const { isAuthenticated, authRole, authRoleMultiple } = require("../config/helper");
 
 
-router.get("/cim-test", controller.cimTest);
+router.get("/cim-test:resource?", controller.cimTest);
 
 router.get("/", controller.home);
 
