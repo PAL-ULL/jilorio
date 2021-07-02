@@ -114,11 +114,14 @@ app.get('*', function (req, res, next) {
 });
 
 
+app.use(express.static(__dirname+'/public'));
+
 
 // Start Server
 app.listen(process.env.PORT || 8085, () => {
 	console.log("Servidor corriendo correctamente en localhost:8085\n");
 });
+
 
 module.exports = app;
 

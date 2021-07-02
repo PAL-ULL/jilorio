@@ -11,16 +11,16 @@ router.get("/cim-test:resource?", controller.cimTest);
 router.get("/", controller.home);
 
 router.get("/food", controller.food);
-router.get("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.foodView);
+router.get("/food/view:resource?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.foodView);
 router.post("/food/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getFood);
- router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getFood);
+router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getFood);
 
 
 router.get("/dish", controller.dish);
-router.get("/dish/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.dishView);
-router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
-router.get("/dish/details/:name?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.dishDetails);
-router.get("/dish/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.downloadDish);
+router.get("/dish/view:resource?",  controller.dishView);
+// router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
+// router.get("/dish/details/:name?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.dishDetails);
+// router.get("/dish/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.downloadDish);
 
 
 

@@ -118,8 +118,7 @@
             "Carbohidratos (g)",
             "Fibra (g)",
             "Azúcar (g)",
-            "Sal (g)",
-            "Colesterol (g)"
+            "Sal (g)"
         ],
         "valores": [
             "ndb_no",
@@ -131,8 +130,7 @@
             "carbohydrt_(g)",
             "fiber_td_(g)",
             "sugar_tot_(g)",
-            "sodium_(mg)",
-            "cholestrl_(mg)"
+            "sodium_(mg)"
         ]
     },
     "busqueda": "¿Qué estás buscando?",
@@ -773,7 +771,7 @@
             "name": "Ver platos",
             "description": "Visualiza los platos, sus ingredientes y los datos nutricionales de cada uno de ellos.",
             "icon": "fas fa-search",
-            "href": "/dish/view",
+            "href": "/dish/view?resource=dishes",
             "button": "Ver más"
         }
        
@@ -797,7 +795,7 @@
             "name": "Ver menús",
             "description": "Visualiza los menús, los platos que lo forman y los datos nutricionales de cada uno de ellos.",
             "icon": "fas fa-search",
-            "href": "/menu/view",
+            "href": "/menu/view?resource=menus",
             "button": "Ver más"
         }        
         
@@ -807,7 +805,7 @@
             "name": "Ver planificaciones",
             "description": "Visualiza las planificaciones, los menús de cada día y los datos nutricionales de cada planificación.",
             "icon": "fas fa-search",
-            "href": "/planification/view",
+            "href": "/planification/view?resource=menu_wheels",
             "button": "Ver más"
         }
 
@@ -857,7 +855,7 @@
             "name": "Ver alimentos",
             "description": "Visualiza los datos nutricionales de más de 8700 alimentos.",
             "icon": "fas fa-edit",
-            "href": "/food/view",
+            "href": "/food/view?resource=ingredients",
             "button": "Ver más"
         }
     ],
