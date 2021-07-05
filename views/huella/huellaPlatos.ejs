@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Planificaciones registradas en la aplicación - Jilorio</title>
+    <link rel="shortcut icon" href="https://doorcountypulse.com/wp-content/uploads/2020/03/forkspoon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/food.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/dish.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/fondo.css" />
+
+   
+
+</head>
+
+<body>
+    <%- include ("../partials/navigation.ejs"); %>
+        <div class="container">
+            <div class="infoPage">
+                <i class="fas fa-list-alt fa-2x"></i>
+                <span>
+                    <%= items.myObject.infoPage.huellaPlatos %>
+                </span>
+            </div>
+
+            <hr style="border-color: rgb(46, 115, 124);">
+           
+            <br><br>
+
+            <% const rows = items.data %>
+                
+
+                    <div> <!--class="cardInside3"-->
+                        <table id="planification"
+                            class="table table-bordered table-striped table-hover table-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>
+                                        Plato
+                                    </th>     
+                                    <th>
+                                        Descripción
+                                    </th>
+                                    <th>
+                                        Calcular huella
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (var i=0; i < rows.length; i++) {
+                                    const row = rows[i];
+                                %>
+                                    <tr>
+                                        <td>
+                                            <%= row._id %>
+                                        </td>
+                                        <td >
+                                            <%- row.description %>
+                                            <!--%- JSON.stringify(row.categories) %-->
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success"><a
+                                                title="Calcular huella"
+                                                href="/huella/dishes/<%= row._id %>"><i>Calcular huella</i></a></button>
+                                        
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                
+            <br>
+
+        </div>
+        <%- include ("../partials/footer.ejs"); %>
+
+</body>
+
+</html>

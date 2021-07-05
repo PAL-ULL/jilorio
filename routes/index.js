@@ -79,6 +79,15 @@ router.get("/users/delete/:_id", isAuthenticated, authRoleMultiple(["admin"]), c
 router.get("/users/update/:_id", isAuthenticated, authRoleMultiple(["admin"]), controller.updateUser);
 router.post("/users/update/:_id", isAuthenticated, authRoleMultiple(["admin"]), controller.updateUserPost);
 
+//------------------------------ Oscar -----------------------------
+router.get("/huella", controller.huella);
+router.get("/huella/db", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.listHuella);
+router.get("/huella/dishes", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.huellaPlatos);
+router.get("/huella/dishes/:id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.calculoHuella);
+router.get("/huella/menus", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.huellaMenus);
+router.get("/huella/menus/:id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.calculoHuellaMenu);
+// ---------------------------- fin Oscar --------------------------
+
 
 router.get("*", controller.all);
 module.exports = router;

@@ -55,11 +55,11 @@ const myEmitter = new EventEmitter();
 
 
 
-async function myExample(resultArray){
-    
+async function myExample(resultArray) {
+
     try {
         CIMApiService.dump(resultArray);
-               
+
         const suma = await calculateKcal(resultArray);
         // console.log(suma);
         res.render('dish/getDish', {
@@ -70,11 +70,11 @@ async function myExample(resultArray){
                 myKcal: suma
             }
         });
-      }
-      catch (err) {
+    }
+    catch (err) {
         console.log('fetch failed', err);
-      }
-    
+    }
+
 }
 // Routes
 
@@ -82,7 +82,7 @@ let controller = {
 
 
     cimTest: async function (req, res) {
-        
+
         const RESOURCE = req.query.resource;
         const ROUTE_PREFIX = "/api/";
         const ROUTE_POSTFIX = "/transformed_list?context=ica";
@@ -92,7 +92,7 @@ let controller = {
             console.log("............................. CIM -------------------> " + FETCH_URL);
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
                 CIMApiService.dump(resultArray);
-           
+
                 res.render('cim/cim-test.ejs', {
                     items: {
                         req: req,
@@ -124,23 +124,23 @@ let controller = {
             }
         });
     },
-    
+
 
     foodView: async function (req, res) {
- 
+
         const RESOURCE = req.query.resource;
-        
+
         const ROUTE_PREFIX = "/api/";
         const ROUTE_POSTFIX = "/transformed_list.json?pagination=false";
         const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
-     
-        
+
+
         ApiService.init().then((apiServiceInstance) => {
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
                 CIMApiService.dump(resultArray);
-                
+
                 myEmitter.emit('event', "ya");
-                
+
                 res.render('food/getFood', {
                     items: {
                         req: req,
@@ -150,13 +150,13 @@ let controller = {
                 });
             })
         });
-       
+
 
     },
 
     getFood: function (req, res) {
         const searchData = req.body.shrt_desc;
-        
+
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', espTemplate.errors.dishNotRemove);
         }
@@ -167,9 +167,9 @@ let controller = {
         const ROUTE_POSTFIX = "/transformed_list.json?pagination=false";
         let fetch_url = "";
 
-        if (searchData !=''){
+        if (searchData != '') {
             fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}&name=${searchData}`;
-        }else{
+        } else {
             fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
         }
         console.log(fetch_url);
@@ -191,7 +191,7 @@ let controller = {
     },
 
     dish: function (req, res) {
-    
+
         return res.status(200).render('dish/dish.ejs', {
             items: {
                 req: req,
@@ -285,7 +285,7 @@ let controller = {
             }
         }).sort({ _id: 1 })
     },
- 
+
     downloadDish: async function (req, res) {
 
         const searchData = req.params._id;
@@ -1798,7 +1798,241 @@ let controller = {
                 });
             });
 
-    }
+    },
+
+    //------------------------------------ Oscar ----------------------------------------
+
+    huella: function (req, res) {
+        return res.status(200).render('huella/huella.ejs', {
+            items: {
+                req: req,
+                myObject: espTemplate
+            }
+        });
+    },
+
+    huellaPlatos: async function (req, res) {
+
+        const RESOURCE = "dishes";
+        const ROUTE_PREFIX = "/api/";
+        const ROUTE_POSTFIX = "/transformed_list?context=ica&pagination=false";
+        const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
+
+        ApiService.init().then((apiServiceInstance) => {
+            console.log("............................. CIM -------------------> " + FETCH_URL);
+            apiServiceInstance.getData(FETCH_URL).then(resultArray => {
+                CIMApiService.dump(resultArray);
+
+                res.render('huella/huellaPlatos.ejs', {
+                    items: {
+                        req: req,
+                        resource: RESOURCE,
+                        myObject: espTemplate,
+                        data: resultArray
+                    }
+                });
+            })
+        });
+    },
+    huellaMenus: async function (req, res) {
+
+        const RESOURCE = "menus";
+        const ROUTE_PREFIX = "/api/";
+        const ROUTE_POSTFIX = "/transformed_list?context=ica&pagination=false";
+        const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
+
+        ApiService.init().then((apiServiceInstance) => {
+            console.log("............................. CIM -------------------> " + FETCH_URL);
+            apiServiceInstance.getData(FETCH_URL).then(resultArray => {
+                CIMApiService.dump(resultArray);
+
+                res.render('huella/huellaMenu.ejs', {
+                    items: {
+                        req: req,
+                        resource: RESOURCE,
+                        myObject: espTemplate,
+                        data: resultArray
+                    }
+                });
+            })
+        });
+    },
+
+
+};
+
+controller.listHuella = (req, res) => {
+    req.getConnection((err, conn) => {
+        conn.query('SELECT * FROM huella', (err, huella) => {
+            if (err) {
+                res.json(err);
+            }
+            console.log(huella);
+            res.render('huella/getHuellaDB.ejs', {
+                items: {
+                    req: req,
+                    myObject: espTemplate,
+                    data: huella
+                }
+
+
+            });
+        });
+    });
+};
+
+controller.calculoHuella = (req, res) => {
+
+    const { id } = req.params;
+    const RESOURCE = "dishes";
+    const RESOURCE_ING = "ingredients";
+    const ROUTE_PREFIX = "/api/";
+    const ROUTE_POSTFIX = "/transformed_list?context=ica&name=";
+    const ROUTE_POSTFIX_ING = "/transformed_list.json?id=";
+    const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}${id}`;
+
+    let ingredientes = [];
+    let categoriasDB = [];
+    var ingredientesPla;
+
+    ApiService.init().then((apiServiceInstance) => {
+        const getIngred = () => {
+            return new Promise((resolve, rejects) => {
+                apiServiceInstance.getData(FETCH_URL).then(resultArray => {
+                    CIMApiService.dump(resultArray);
+
+                    ingredientesPla = resultArray[0].ingredients;
+
+                    for (let i = 0; i < ingredientesPla.length; i++) {
+
+                        const FETCH_URL_ING = `${ROUTE_PREFIX}${RESOURCE_ING}${ROUTE_POSTFIX_ING}${ingredientesPla[i].ndbno}`;
+
+                        apiServiceInstance.getData(FETCH_URL_ING).then(resultArray2 => {
+                            CIMApiService.dump(resultArray2);
+
+                            console.log(resultArray2[0].category);
+                            req.getConnection((err, conn) => {
+                                conn.query("SELECT * FROM huella WHERE id = ?", [resultArray2[0].category], (err, dataHuella) => {
+                                    categoriasDB.push(dataHuella[0]);
+
+                                    if (categoriasDB.length == ingredientesPla.length) {
+                                        resolve();
+                                    }
+                                });
+                            });
+                            ingredientes.push(resultArray2);
+
+
+                        });
+                    }
+
+
+                });
+
+
+            });
+        }
+        getIngred().then(() => {
+            res.render('huella/calculateHuella.ejs', {
+                items: {
+                    req: req,
+                    myObject: espTemplate,
+                    ingredientesPlato: JSON.stringify(ingredientesPla),
+                    ingredientes: JSON.stringify(ingredientes),
+                    categoriasDB: categoriasDB
+                }
+            });
+        });
+    });
+
+
+};
+
+
+controller.calculoHuellaMenu = (req, res) => {
+
+    const { id } = req.params;
+    const RESOURCE_MENU = "menus";
+    const RESOURCE = "dishes";
+    const RESOURCE_ING = "ingredients";
+    const ROUTE_PREFIX = "/api/";
+    const ROUTE_POSTFIX = "/transformed_list?context=ica&name=";
+    const ROUTE_POSTFIX_ING = "/transformed_list.json?id=";
+    //const ROUTE_POSTFIX_MENU = "/transformed_list.json?id=";
+    const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}${id}`;
+    const FETCH_URL_MENU = `${ROUTE_PREFIX}${RESOURCE_MENU}${ROUTE_POSTFIX}${id}`;
+
+    let ingredientes = [];
+    let categoriasDB = [];
+    var ingredientesPla = [];
+
+
+    ApiService.init().then((apiServiceInstance) => {
+        const getIngred = () => {
+            return new Promise((resolve, rejects) => {
+                apiServiceInstance.getData(FETCH_URL_MENU).then(resultArrayMenu => {
+                    CIMApiService.dump(resultArrayMenu);
+                    //console.log("------------------------------ CIM -------------------");
+                    //console.log(JSON.stringify(resultArrayMenu[0].dishes.length));
+                    resultArrayMenu[0].dishes.forEach(function (menu) {
+                        //console.log(menu._id);
+                        const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}${menu._id}`;
+                        apiServiceInstance.getData(FETCH_URL).then(resultArray => {
+                            CIMApiService.dump(resultArray);
+
+
+                            var aux = resultArray[0].ingredients
+
+                            for (let i = 0; i < aux.length; i++) {
+
+                                const FETCH_URL_ING = `${ROUTE_PREFIX}${RESOURCE_ING}${ROUTE_POSTFIX_ING}${aux[i].ndbno}`;
+
+                                apiServiceInstance.getData(FETCH_URL_ING).then(resultArray2 => {
+                                    CIMApiService.dump(resultArray2);
+
+                                    //console.log(resultArray2[0].category);
+                                    req.getConnection((err, conn) => {
+                                        conn.query("SELECT * FROM huella WHERE id = ?", [resultArray2[0].category], (err, dataHuella) => {
+                                            categoriasDB.push(dataHuella[0]);
+                                            ingredientes.push(resultArray2);
+                                            ingredientesPla.push(resultArray[0].ingredients);
+                                            if (resultArrayMenu[0].dishes.length == ingredientesPla.length) {
+                                                resolve();
+                                            }
+                                        });
+                                    });
+
+
+
+                                });
+                            }
+
+
+                        });
+
+
+
+                    });
+                });
+            });
+        }
+        getIngred().then(() => {
+            res.render('huella/calculateHuellaMenu.ejs', {
+                items: {
+                    req: req,
+                    myObject: espTemplate,
+                    ingredientesPlato: JSON.stringify(ingredientesPla),
+                    ingredientes: JSON.stringify(ingredientes),
+                    categoriasDB: categoriasDB
+                }
+            });
+        });
+    });
+
+
+
+    // -------------------------------------- fin Óscar ----------------------------------
+
 
 };
 

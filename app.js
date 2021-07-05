@@ -8,18 +8,16 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const { ensureAuthenticated } = require('./config/auth');
-
 const fs = require('fs');
 const Path = require("path");
-
 const fileUpload = require("express-fileupload");
+const config = require('./config/database');
 
-
+require('./config/passport')(passport);
 require('events').EventEmitter.defaultMaxListeners = 30;
 
 
-const config = require('./config/database');
-require('./config/passport')(passport);
+
 
 mongoose.connect(config.database);
 let db = mongoose.connection;
@@ -103,6 +101,20 @@ app.use(expressValidator({
 var pdfMake = require('pdfmake/build/pdfmake.js');
 var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+
+//------------------- Oscar ------------------
+const mysql = require('mysql');
+const myConnection = require('express-myconnection');
+
+app.use(myConnection(mysql, {
+    host: 'localhost',
+    user: 'root',
+    password: 'contraseña',
+    port: 3306,
+    database: 'huelladb'
+}, 'single'));
+// --------------- fin Oscar ------------------
 
 
 // rutas

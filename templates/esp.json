@@ -29,6 +29,10 @@
             {
                 "name": "Evaluaciones",
                 "href": "/evaluation"
+            },
+            {
+                "name": "Huella",
+                "href": "/huella"
             }
         ],
         "usuarioLog": [
@@ -105,7 +109,11 @@
         "planificacion": "Listado de planificaciones",
         "recomendaciones": "Listado de recomendaciones",
         "evaluaciones": "Listado de evaluaciones",
-        "users": "Listado de usuarios"
+        "users": "Listado de usuarios",
+        "huella": "Emisiones de CO2 por grupos de alimentos",
+        "calculateHuella": "Calculadora de huella de carbono",
+        "huellaPlatos": "Listado de platos",
+        "huellaMenus": "Listado de menús"
     },
     "tablaAlimentos": {
         "nombres": [
@@ -849,6 +857,28 @@
             "href": "/evaluation/create",
             "button": "Ver más"
         }
+    ], "huellaIndex": [
+        {
+            "name": "Ver base de datos",
+            "description": "Visualiza la base de datos con las emisiones de CO2 por grupos de alimentos.",
+            "icon": "fas fa-search",
+            "href": "/huella/db",
+            "button": "Ver más"
+        },
+        {
+            "name": "Calcular huella de un plato",
+            "description": "Realiza el cálculo de la huella de carbono de los platos disponibles, a través de un simple formulario.",
+            "icon": "fas fa-edit",
+            "href": "/huella/dishes",
+            "button": "Ver más"
+        },
+        {
+            "name": "Calcular huella de un menú",
+            "description": "Realiza el cálculo de la huella de carbono de los menús disponibles, a través de un simple formulario.",
+            "icon": "fas fa-edit",
+            "href": "/huella/menus",
+            "button": "Ver más"
+        }
     ],
     "foodIndex": [
         {
@@ -899,6 +929,12 @@
             "evaluation": {
                 "title": "Evaluaciones",
                 "description": "Desde Evaluaciones, puedes comprobar si un plato, menú o planificación se ha ajustado a los valores mínimos y máximos de una recomendación. Para crear una evaluación, solo tienes que indicar el candidato a evaluar y la recomendación a emplear."
+            }
+        },
+        {
+            "huella": {
+                "title": "Huella",
+                "description": "Desde Huella, puedes obtener las emisiones de CO2 de un plato, menú o planificación. Para obtener dichos datos, solo se tienes que indicar el candidato a evaluar."
             }
         },
         {
