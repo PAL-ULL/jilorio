@@ -18,9 +18,10 @@ router.post("/food/:shrt_desc?", isAuthenticated, authRoleMultiple(["admin", "nu
 
 router.get("/dish", controller.dish);
 router.get("/dish/view:resource?",  controller.dishView);
-// router.post("/dish/view:_id?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
-// router.get("/dish/details/:name?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.dishDetails);
-// router.get("/dish/download/:_id", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.downloadDish);
+router.post("/dish/view", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
+router.post("/dish/view/:name?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.getDish);
+router.get("/dish/details/:name?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]),  controller.dishDetails);
+router.get("/dish/download/:name?", isAuthenticated, authRoleMultiple(["admin", "nutricionista", "cocinero", "default"]), controller.downloadDish);
 
 
 

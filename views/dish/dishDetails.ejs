@@ -53,23 +53,13 @@
                     <p class="descriptionDish">
                         <%= items.myDocs.description %>
                     </p>
-                    <p class="descriptionDish"> Categorías del plato: |
+                    <p class="descriptionDish"> <b>Categorías del plato: |
                         <% for (let i=0; i < items.myDocs.categories.length; i++) { %>
-                            <%= items.myDocs.categories[i] %> |
+                            <%= items.myDocs.categories[i] %> |</b>
                                 <% } %>
                     </p>
 
-                    <% if (items.myDocs.recipe==="" ) { %>
-                        <button type="button" class="btn btn-info"><a title="Ver receta"
-                                href="https://www.cocinacaserayfacil.net/recetas-sanas-faciles/">
-                                <%= items.myObject.recipeDish%>
-                            </a></button>
-                        <% } else{ %>
-                            <button type="button" class="btn btn-info"><a title="Ver receta"
-                                    href="<%= items.myDocs.recipe %>">
-                                    <%= items.myObject.recipeDish%>
-                                </a></button>
-                            <% } %>
+                 
 
 
                 </div>

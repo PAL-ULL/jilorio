@@ -1,0 +1,39 @@
+[{
+    "_id": "PAELLA DE VERDURAS",
+    "description": null,
+    "ingredients": [{
+        "name": "ARROZ BOMBA",
+        "amount": 300,
+        "unitMeasure": "g",
+        "ndbno": 7884
+    }, {
+        "name": "CALDO DE VERDURA CASERO O AGUA",
+        "amount": 0.8,
+        "unitMeasure": null,
+        "ndbno": 7813
+    }, {
+        "name": "SETAS BOLETUS O CHAMPIÑONES ECO",
+        "amount": 200,
+        "unitMeasure": "g",
+        "ndbno": 7830
+    }, {
+        "name": "CORAZONES DE ALCAHOFA EN CONSERVA",
+        "amount": 6,
+        "unitMeasure": "ml",
+        "ndbno": 7885
+    }, {
+        "name": "JUDíAS VERDES FRESCAS",
+        "amount": 100,
+        "unitMeasure": "g",
+        "ndbno": 7549
+    }, {
+        "name": "TOMATE RALLADO O TRITURADO DE LATA",
+        "amount": 3,
+        "unitMeasure": "ml",
+        "ndbno": 7886
+    }],
+    "categories": [1, 2],
+    "recipe": "&bull; Ponemos a calentar el caldo en una olla. Es importante incoporar el caldo ya caliente para no cortar la cocci&oacute;n del arroz.\r\n\r\n&bull; Cortamos la cebolla y los pimientos en cuadraditos, picamos el ajo, limpiamos los champi&ntilde;ones y la judia verde. A la jud&iacute;a verde le cortamos las puntas y las cortamos en trozos de unos 2-3 cm. Los champi&ntilde;ones los dejaremos enteros. Dejamos a mano los corazones de alcahofa (escurridos si est&aacute;n en conserva).\r\n\r\n&bull; Ponemos a calentar la paella en el fuego m&aacute;s grande. Una vez caliente, a&ntilde;adimos un poco de aceite de oliva y sofre&iacute;mos la cebolla. Cuando coja color, a&ntilde;adimos el resto de las verduras (excepto los corazones de alcachofa) y el ajo picado. Dejamos sofre&iacute;r la verdura durante unos 5 minutos.\r\n\r\n&bull; A&ntilde;adimos el tomate y cuando haya perdido el agua, a&ntilde;adimos el arroz y rehogamos bien.\r\n\r\n&bull; A&ntilde;adimos ahora el caldo caliente, los corazones de alcachofa, el concentrado de tomate, el azafr&aacute;n y el piment&oacute;n dulce. Removemos un poco y dejamos cocer unos 20 minutos o hasta que ya no quede caldo.\r\n\r\n&bull; Durante la cocci&oacute;n no deber&iacute;amos remover el arroz. Para controlar el arroz &uacute;nicamente es necesario agitar la paella de vez en cuando. Si cocin&aacute;is la paella en los fogones de casa, es posible que el calor no llegue bien a los bordes de la paella (sobretodo si los fogones son peque&ntilde;os) y es posible que el arroz de los lados quede crudo. Si es el caso, tocar&aacute; saltarse las normas y, un par de veces durante la cocci&oacute;n, llevar el arroz de los lados hacia el centro.\r\n\r\n&bull; Cuando ya no quede caldo y el arroz est&eacute; en su punto, apagamos el fuego y servimos.",
+    "imageUrl": null,
+    "ndbno": 5321
+}]

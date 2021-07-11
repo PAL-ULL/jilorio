@@ -145,7 +145,6 @@
     "tablaPlatos": {
         "nombres": [
             "Nombre",
-            "Calorías",
             "Acciones"
         ],
         "valores": [

@@ -55,27 +55,57 @@ const myEmitter = new EventEmitter();
 
 
 
-async function myExample(resultArray) {
+async function myExample(resultArray, req, res) {
+    // console.log("----> NUMERO DE PLATOS : \n\n" + util.inspect(resultArray.length));
+
+    // console.log("----PLATO 140: \n\n" + util.inspect(resultArray[140]));
 
     try {
         CIMApiService.dump(resultArray);
 
-        const suma = await calculateKcal(resultArray);
-        // console.log(suma);
-        res.render('dish/getDish', {
+        // const suma = await calculateKcal(resultArray);
+        const nutrientes = await calculateNutrients(resultArray);
+        // console.log("\n\n\n\nSUMA:" + suma);
+
+        res.render('dish/dishDetails', {
             items: {
                 req: req,
                 myObject: espTemplate,
-                myDocs: resultArray,
-                myKcal: suma
+                myDocs: resultArray[0],
+                myNutrients: nutrientes[0],
+                myNutIngredients: nutrientes[1]
             }
         });
+
     }
     catch (err) {
         console.log('fetch failed', err);
     }
 
 }
+
+async function myExample2(resultArray, req, res) {
+
+    // const nutrientes = await calculateNutrients(resultArray);
+    let filename = resultArray[0]._id + '.json';
+    let absPath = path.join(__dirname, filename);
+    var beautify = require('js-beautify').js;
+    let json = beautify(JSON.stringify(resultArray), { indent_size: 4, space_in_empty_paren: true })
+    
+    fs.writeFile(absPath, json, (err) => {
+        if (err) {
+            console.log(err);
+        }
+        res.download(absPath, (err) => {
+            if (err) {
+                console.log(err);
+            }
+    
+        });
+    });
+
+}
+
 // Routes
 
 let controller = {
@@ -89,7 +119,7 @@ let controller = {
         const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
 
         ApiService.init().then((apiServiceInstance) => {
-            console.log("............................. CIM -------------------> " + FETCH_URL);
+            // console.log("............................. CIM -------------------> " + FETCH_URL);
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
                 CIMApiService.dump(resultArray);
 
@@ -156,11 +186,12 @@ let controller = {
 
     getFood: function (req, res) {
         const searchData = req.body.shrt_desc;
+        console.log(searchData);
 
         if ((searchData == null) || (searchData == "")) {
             req.flash('success', espTemplate.errors.dishNotRemove);
         }
-        const query = { shrt_desc: { $regex: searchData } };
+
 
         const RESOURCE = req.query.resource;
         const ROUTE_PREFIX = "/api/";
@@ -204,117 +235,143 @@ let controller = {
 
         const RESOURCE = req.query.resource;
         const ROUTE_PREFIX = "/api/";
-        const ROUTE_POSTFIX = "/transformed_list?context=ica";
+        const ROUTE_POSTFIX = "/transformed_list.json?pagination=false";
         const FETCH_URL = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
 
         ApiService.init().then((apiServiceInstance) => {
             apiServiceInstance.getData(FETCH_URL).then(resultArray => {
-                myExample(resultArray);
+                //console.log(resultArray);
+
+                res.render('dish/getDish', {
+                    items: {
+                        req: req,
+                        myObject: espTemplate,
+                        myDocs: resultArray,
+
+                    }
+                });
+
             })
         });
 
-        // Dish.find({}, async function (err, docs) {
+
+    },
+
+    dishDetails: async function (req, res) {
+        let query = {};
+        if (req.query.name != undefined)
+            query = req.query["name"];
+        console.log(req.query);
+
+        const RESOURCE = "dishes";
+        const ROUTE_PREFIX = "/api/";
+        const ROUTE_POSTFIX = "/transformed_list.json?pagination=false";
+
+
+        let fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}&name=${query}`;
+
+        console.log(fetch_url);
+        ApiService.init().then((apiServiceInstance) => {
+            apiServiceInstance.getData(fetch_url).then(resultArray => {
+                CIMApiService.dump(resultArray);
+                console.log(resultArray);
+                myExample(resultArray, req, res);
+
+
+
+
+            })
+        });
+        // let query = {};
+        // if (req.query.name != undefined)
+        //     query = { _id: { $regex: req.query["name"] } };
+
+
+        // Dish.find(query, async function (err, doc) {
         //     if (err) {
         //         console.log(err);
         //     } else {
-        //         console.log(docs[0]);
-        //         const suma = await calculateKcal(docs);
+        //         const nutrientes = await calculateNutrients(doc);
 
-        //         res.render('dish/getDish', {
+        //         res.render('dish/dishDetails', {
         //             items: {
         //                 req: req,
         //                 myObject: espTemplate,
-        //                 myDocs: docs,
-        //                 myKcal: suma
-
+        //                 myDocs: doc[0],
+        //                 myNutrients: nutrientes[0],
+        //                 myNutIngredients: nutrientes[1]
         //             }
         //         });
         //     }
         // }).sort({ _id: 1 })
     },
 
-    dishDetails: async function (req, res) {
-
-        let query = {};
-        if (req.query.name != undefined)
-            query = { _id: { $regex: req.query["name"] } };
-
-
-        Dish.find(query, async function (err, doc) {
-            if (err) {
-                console.log(err);
-            } else {
-                const nutrientes = await calculateNutrients(doc);
-
-                res.render('dish/dishDetails', {
-                    items: {
-                        req: req,
-                        myObject: espTemplate,
-                        myDocs: doc[0],
-                        myNutrients: nutrientes[0],
-                        myNutIngredients: nutrientes[1]
-                    }
-                });
-            }
-        }).sort({ _id: 1 })
-    },
-
     getDish: async function (req, res) {
-
+        console.log(req.body);
         const searchData = req.body._id;
+
         if ((searchData == null) || (searchData == "")) {
-            req.flash('danger', espTemplate.errors.dishNotExist);
+            req.flash('success', espTemplate.errors.dishNotRemove);
         }
 
-        const query = { _id: { $regex: `${searchData}` } };
 
-        Dish.find(query, async function (err, docs) {
-            if (err) {
-                console.log(err);
-            } else {
+        const RESOURCE = req.query.resource;
+        const ROUTE_PREFIX = "/api/";
+        const ROUTE_POSTFIX = "/transformed_list.json?pagination=false";
+        let fetch_url = "";
 
-                const suma = await calculateKcal(docs);
+        if (searchData != '') {
+            fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}&name=${searchData}`;
+        } else {
+            fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
+        }
+        console.log(fetch_url);
+        ApiService.init().then((apiServiceInstance) => {
+            apiServiceInstance.getData(fetch_url).then(resultArray => {
+                CIMApiService.dump(resultArray);
+                console.log(resultArray);
                 res.render('dish/getDish', {
                     items: {
                         req: req,
                         myObject: espTemplate,
-                        myDocs: docs,
-                        myKcal: suma
+                        myDocs: resultArray
                     }
                 });
-            }
-        }).sort({ _id: 1 })
+
+            })
+        });
+
+
     },
 
     downloadDish: async function (req, res) {
 
-        const searchData = req.params._id;
 
-        const query = { _id: searchData };
+        const searchData = req.params.name;
 
-        Dish.find(query, async function (err, docs) {
-            if (err) {
-                console.log(err);
-            } else {
-                const nutrientes = await calculateNutrients(docs);
-                let filename = docs[0]._id + '.json';
-                let absPath = path.join(__dirname, filename);
-                var beautify = require('js-beautify').js;
-                let json = beautify(JSON.stringify(docs), { indent_size: 4, space_in_empty_paren: true })
+        if ((searchData == null) || (searchData == "")) {
+            req.flash('success', espTemplate.errors.dishNotRemove);
+        }
 
-                fs.writeFile(absPath, json, (err) => {
-                    if (err) {
-                        console.log(err);
-                    }
-                    res.download(absPath, (err) => {
-                        if (err) {
-                            console.log(err);
-                        }
 
-                    });
-                });
-            }
-        });
+        const RESOURCE = "dishes";
+        const ROUTE_PREFIX = "/api/";
+        const ROUTE_POSTFIX = "/transformed_list.json?pagination=false";
+        let fetch_url = "";
+
+        if (searchData != '') {
+            fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}&name=${searchData}`;
+        } else {
+            fetch_url = `${ROUTE_PREFIX}${RESOURCE}${ROUTE_POSTFIX}`;
+        }
+        console.log(fetch_url);
+        ApiService.init().then((apiServiceInstance) => {
+            apiServiceInstance.getData(fetch_url).then(resultArray => {
+                CIMApiService.dump(resultArray);
+                myExample2(resultArray, req, res);
+            })
+
+        })
 
     },
 
@@ -2072,22 +2129,19 @@ async function calculateKcal(docs) {
     let sumasKcal = [];
     for (let i = 0; i < docs.length; i++) {
         let nut_vector = [];
-        for (const ingrediente in docs[i].ingredients) {
-            console.log("------ CALCULANDO KCALORIAS -----");
+        for (let ingrediente in docs[i].ingredients) {
+            console.log("\n------ CALCULANDO KCALORIAS ----- \n");
             const nutrients = await dish.storeNutrients(docs[i].ingredients[ingrediente]);
-            console.log("NUTRIENTS: " + util.inspect(nutrients));
+            console.log("NUTRIENTS: " + util.inspect(nutrients[i]));
             nut_vector.push(nutrients);
 
         }
-        let suma = 0;
 
-
-        // const valores = dish.computeNutrients(docs[i].ingredients, nut_vector);
-
-        // sumasKcal.push(valores.energKcal);
+        const valores = await dish.computeNutrients(docs[i].ingredients, nut_vector);
+        sumasKcal.push(valores.energKcal);
 
     }
-
+    console.log(sumasKcal);
     return sumasKcal;
 }
 
@@ -2099,7 +2153,7 @@ async function calculateNutrients(doc) {
         nut_vector.push(nutrients);
     }
 
-    const valores = dish.computeNutrients(doc[0].ingredients, nut_vector);
+    const valores = await dish.computeNutrients(doc[0].ingredients, nut_vector);
     let vector = [valores, nut_vector];
     return vector;
 }
@@ -2112,7 +2166,7 @@ async function calculateNutrientsDish(doc) {
         nut_vector.push(nutrients);
     }
 
-    const valores = dish.computeNutrients(doc[0].ingredients, nut_vector);
+    const valores = await dish.computeNutrients(doc[0].ingredients, nut_vector);
     const vector = [];
     vector.push(valores["water"]);
     vector.push(valores["energKcal"]);
@@ -2139,7 +2193,7 @@ async function calculateNutrientsMenu(doc) {
             nut_vector.push(nutrients);
         }
 
-        const valores = dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
+        const valores = await dish.computeNutrients(doc.dishes[i].ingredients, nut_vector);
 
         vector.push(valores);
     }
